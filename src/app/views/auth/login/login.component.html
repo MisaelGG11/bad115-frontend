@@ -1,0 +1,83 @@
+<main>
+    <section class="relative w-full h-full h-screen">
+      <div
+        class="absolute top-0 w-full h-full bg-slate-800 bg-no-repeat bg-cover"
+        style="background-image: url('https://source.unsplash.com/random?job'); filter: brightness(0.4); background-position: center center;"
+      ></div>
+      <div class="container mx-auto px-4 h-full shadow-lg">
+        <div class="flex content-center items-center justify-center h-full">
+          <div class="w-full lg:w-4/12 px-4">
+            <div
+              class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-slate-200 bg-opacity-90 border-0"
+            >
+              <div class="rounded-t mb-0 px-6 pt-6">
+                <div class="btn-wrapper text-center">
+                    <img
+                      alt="..."
+                      class="w-44 mb-0 mx-auto justify-self-center"
+                      src="assets/img/talenthub.png" />
+                  </div>
+                </div>
+                <div class="flex-auto px-4 lg:px-10 pb-6 pt-0">
+                    <div class="text-center">
+                        <h4 class="text-slate-500 text-xl font-bold">Inicia sesión</h4>
+                    </div>
+                    <hr class="mt-3 border-b-5 mb-7 border-slate-400" />
+                <form>
+                  <div class="relative w-full mb-3">
+                    <label
+                      class="block uppercase text-slate-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Correo electrónico
+                    </label>
+                    <input
+                      type="email"
+                      class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Email"
+                    />
+                  </div>
+      
+                  <div class="relative w-full mb-3">
+                    <label
+                      class="block uppercase text-slate-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Contraseña
+                    </label>
+                    <input
+                      type="password"
+                      class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="text-center mt-6">
+                    <button
+                      class="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      type="button"
+                      routerLink="/dashboard"
+                    >
+                      Acceder
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-6 relative">
+              <div class="w-1/2">
+                <a routerLink="/blank" class="text-slate-200">
+                  <small>¿Olvidó su contraseña?</small>
+                </a>
+              </div>
+              <div class="w-1/2 text-right">
+                <a [routerLink]="['/registro']" class="text-slate-200">
+                  <small>Crea una nueva cuenta</small>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
