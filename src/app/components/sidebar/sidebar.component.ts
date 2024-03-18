@@ -1,15 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
+import { RouterLink, RouterLinkActive } from "@angular/router";
+import { UserDropdownComponent } from "../dropdowns/user-dropdown/user-dropdown.component";
+import { NotificationDropdownComponent } from "../dropdowns/notification-dropdown/notification-dropdown.component";
 
 @Component({
   selector: "app-sidebar",
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, CommonModule, UserDropdownComponent, NotificationDropdownComponent],
   templateUrl: "./sidebar.component.html",
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   collapseShow = "hidden";
-  constructor() {}
 
-  ngOnInit() {}
-  toggleCollapseShow(classes) {
+  toggleCollapseShow(classes: string) {
     this.collapseShow = classes;
   }
 }
