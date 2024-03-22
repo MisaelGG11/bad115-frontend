@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { initFlowbite } from 'flowbite';
 import { NgxSonnerToaster } from 'ngx-sonner';
 
 
@@ -10,6 +11,10 @@ import { NgxSonnerToaster } from 'ngx-sonner';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'bolsa_trabajo_frontend';
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
 }
