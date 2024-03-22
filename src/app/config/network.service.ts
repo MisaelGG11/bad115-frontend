@@ -49,7 +49,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    if (response.status === 200 || response.status === 201) {
+    if (response.status === 200 || response.status === 201 && !response.data.accessToken) {
       setNotification({
         type: 'success',
         summary: 'Éxito',
@@ -73,10 +73,6 @@ instance.interceptors.response.use(
     } else if (error.response.status === 401 && !localStorage.getItem('refresh_token')){
       summary = 'Advertencia'
       message = error.response.data.message ?? 'Acceso no autorizado'
-
-      setTimeout(() =>{
-        window.location.href = '/login'
-      }, 2000);
     } else if (error.response.status === 401 && localStorage.getItem('refresh_token')){
       try {
         const response = await axios.post('/refresh-token', { refresh_token: localStorage.getItem('refresh_token') })
