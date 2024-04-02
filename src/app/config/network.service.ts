@@ -55,6 +55,9 @@ instance.interceptors.response.use(
         summary: 'Éxito',
         message: response.data.message,
       });
+    } else if (response.data.accessToken){
+      localStorage.setItem('access_token', response.data.accessToken)
+      if (response.data.refreshToken) localStorage.setItem('refresh_token', response.data.refreshToken)
     }
     return response
   },
