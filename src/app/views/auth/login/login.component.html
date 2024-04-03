@@ -24,39 +24,27 @@
                     </div>
                     <hr class="mt-3 border-b-5 mb-7 border-slate-400" />
                 <form [formGroup]="form" (submit)="submit()">
-                  <div class="relative w-full mb-3">
-                    <label
-                      class="block uppercase text-slate-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Correo electrónico
-                    </label>
-                    <input
-                      class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                    <app-custom-input
+                      [parentForm]="form"
+                      label="Correo electrónico"
+                      placeholder="john.doe@company.com"
+                      fieldName="email"
                       formControlName="email"
-                    />
-                  </div>
+                      [type]="'email'"
+                    ></app-custom-input>
 
-                  <div class="relative w-full mb-3">
-                    <label
-                      class="block uppercase text-slate-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Contraseña
-                    </label>
-                    <input
-                      type="password"
-                      class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"
+                    <app-custom-input
+                      [parentForm]="form"
+                      label="Contraseña"
+                      placeholder="•••••••••"
+                      fieldName="password"
                       formControlName="password"
-                    />
-                  </div>
+                      [type]="'password'"
+                    ></app-custom-input>
                   <div class="text-center mt-6">
                     <button
                       class="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="submit"
-
                     >
                       Acceder
                     </button>
