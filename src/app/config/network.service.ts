@@ -36,7 +36,7 @@ function setNotification(toastConfig: any) {
 
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("access_token")
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -49,7 +49,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    if (response.status === 200 || response.status === 201 && !response.data.accessToken) {
+    if (response.status === 200 || response.status === 201 && response.data.message) {
       setNotification({
         type: 'success',
         summary: 'Éxito',
@@ -78,16 +78,18 @@ instance.interceptors.response.use(
       message = error.response.data.message ?? 'Acceso no autorizado'
     } else if (error.response.status === 401 && localStorage.getItem('refresh_token')){
       try {
-        const response = await axios.post('/refresh-token', { refresh_token: localStorage.getItem('refresh_token') })
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('refresh_token', response.data.refresh_token);
+        console.log(localStorage.getItem('refresh_token'))
+        const response = await axios.post(`${environment.api}/auth/refresh-token`, { refresh_token: localStorage.getItem('refresh_token') })
+        localStorage.setItem('access_token', response.data.accesToken);
+        localStorage.setItem('refresh_token', response.data.refreshToken);
 
         const config = error.config;
-        config.headers.Authorization = `Bearer ${response.data.token}`;
+        config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         return axios.request(config);
       } catch (error) {
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        localStorage.removeItem('person');
         window.location.href = '/login'
         return Promise.reject(error);
 
