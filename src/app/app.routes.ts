@@ -5,6 +5,7 @@ import { SignupComponent } from './views/auth/signup/signup.component';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { HomeComponent } from './views/dashboard/home/home.component';
 import { NotFoundComponent } from './views/notfound/notfound.component';
+import { AccessForbiddenComponent } from './views/access-forbidden/access-forbidden.component';
 
 export const routes: Routes = [
   // no layout views
@@ -19,6 +20,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
+  { path: 'forbidden', component: AccessForbiddenComponent },
   //route notfound
   { path: '**', component: NotFoundComponent },
 ];
