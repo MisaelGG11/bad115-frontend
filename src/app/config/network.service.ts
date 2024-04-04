@@ -49,7 +49,8 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    if (response.status === 200 || response.status === 201 && response.data.message) {
+    if ((response.status === 200 || response.status === 201) && response.data.message) {
+      console.log(response.data.message)
       setNotification({
         type: 'success',
         summary: 'Éxito',
