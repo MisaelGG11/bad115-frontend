@@ -6,6 +6,7 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { HomeComponent } from './views/dashboard/home/home.component';
 import { NotFoundComponent } from './views/notfound/notfound.component';
 import { AccessForbiddenComponent } from './views/access-forbidden/access-forbidden.component';
+import { verifyRoleGuard } from './guards/verify-role.guard';
 
 export const routes: Routes = [
   // no layout views
@@ -15,6 +16,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    // canActivate: [verifyRoleGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'settings', component: AccessForbiddenComponent},

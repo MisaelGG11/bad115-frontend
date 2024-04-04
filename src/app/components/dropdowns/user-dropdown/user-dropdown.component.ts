@@ -4,6 +4,7 @@ import { Store } from "@ngrx/store";
 import { Session } from '../../../interfaces/user';
 import { createPopper } from "@popperjs/core";
 import { logout } from '../../../store/auth.actions';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-user-dropdown",
@@ -14,6 +15,7 @@ import { logout } from '../../../store/auth.actions';
 export class UserDropdownComponent implements AfterViewInit {
   dropdownPopoverShow = false;
   private store = inject(Store);
+  private router = inject(Router);
   sessionValue: Session | undefined;
 
   @ViewChild("btnDropdownRef", { static: false }) btnDropdownRef!: ElementRef | undefined;
@@ -45,5 +47,6 @@ export class UserDropdownComponent implements AfterViewInit {
 
   logout() {
     this.store.dispatch(logout())
+    this.router.navigate(['/'])
   }
 }
