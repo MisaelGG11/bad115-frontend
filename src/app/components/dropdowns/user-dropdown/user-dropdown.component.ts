@@ -1,6 +1,9 @@
 import { CommonModule } from "@angular/common";
-import { Component, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, AfterViewInit, ViewChild, ElementRef, inject } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Session } from '../../../interfaces/user';
 import { createPopper } from "@popperjs/core";
+import { logout } from '../../../store/auth.actions';
 
 @Component({
   selector: "app-user-dropdown",
@@ -10,11 +13,17 @@ import { createPopper } from "@popperjs/core";
 })
 export class UserDropdownComponent implements AfterViewInit {
   dropdownPopoverShow = false;
+  private store = inject(Store);
+  sessionValue: Session | undefined;
+
   @ViewChild("btnDropdownRef", { static: false }) btnDropdownRef!: ElementRef | undefined;
   @ViewChild("popoverDropdownRef", { static: false })
   popoverDropdownRef!: ElementRef;
   constructor() {
     this.btnDropdownRef = undefined;
+    this.store.select('session').subscribe((session) => {
+    this.sessionValue = session
+    })
   }
   ngAfterViewInit() {
     createPopper(
@@ -32,5 +41,9 @@ export class UserDropdownComponent implements AfterViewInit {
     } else {
       this.dropdownPopoverShow = true;
     }
+  }
+
+  logout() {
+    this.store.dispatch(logout())
   }
 }

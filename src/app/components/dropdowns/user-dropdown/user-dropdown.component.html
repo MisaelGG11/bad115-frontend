@@ -1,50 +1,34 @@
-<a
-  class="text-slate-500 block"
-  href="#pablo"
-  (click)="toggleDropdown($event)"
-  #btnDropdownRef
->
-  <div class="items-center flex">
-    <span
-      class="w-12 h-12 text-sm text-white bg-slate-200 inline-flex items-center justify-center rounded-full"
+<button (click)="toggleDropdown($event)" #btnDropdownRef id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm pe-1 font-medium text-primary md:text-white rounded-full hover:text-blue-300  focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
+  <span class="sr-only">Open user menu</span>
+  <img class="w-8 h-8 me-2 rounded-full" src="../../../../assets/img/team-1-800x800.jpg" alt="user photo">
+  {{ sessionValue?.person?.firstName + ' ' + sessionValue?.person?.lastName }}
+  <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+  </svg>
+  </button>
+
+  <div class="min-w-48 z-30" #popoverDropdownRef>
+    <div
+      class="bg-white text-base z-30 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48"
+      [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
     >
-      <img
-        alt="..."
-        class="w-full rounded-full align-middle border-none shadow-lg"
-        src="assets/img/team-1-800x800.jpg"
-      />
-    </span>
+        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+          <div class="font-medium ">{{ sessionValue?.person?.firstName + ' ' + sessionValue?.person?.lastName }}</div>
+          <div class="truncate">{{ sessionValue?.user?.email }}</div>
+        </div>
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+          </li>
+        </ul>
+        <div class="py-2">
+          <a (click)="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+        </div>
+    </div>
   </div>
-</a>
-<div class="min-w-48 z-30" #popoverDropdownRef>
-  <div
-    class="bg-white text-base z-30 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48"
-    [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
-  >
-    <a
-      href="#pablo"
-      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
-    >
-      Action
-    </a>
-    <a
-      href="#pablo"
-      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
-    >
-      Another action
-    </a>
-    <a
-      href="#pablo"
-      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
-    >
-      Something else here
-    </a>
-    <div class="h-0 my-2 border border-solid border-slate-100"></div>
-    <a
-      href="#pablo"
-      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
-    >
-      Seprated link
-    </a>
-  </div>
-</div>
