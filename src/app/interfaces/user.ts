@@ -1,3 +1,5 @@
+import { Person } from "./person";
+
 export interface UserData  {
   email: string;
   userId: string,
@@ -13,4 +15,5 @@ export interface UserData  {
 export interface Session {
   user: UserData | null,
   token: string | null
+  person: Person | null
 }

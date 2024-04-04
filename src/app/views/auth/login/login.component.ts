@@ -5,9 +5,10 @@ import { RouterLink, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
-import { login, logout } from '../../../store/auth.actions';
+import { login, logout, setPerson } from '../../../store/auth.actions';
 import { Session } from '../../../interfaces/user';
 import { CustomInputComponent } from '../../../components/inputs/custom-input/custom-input.component';
+import { PersonService } from '../../../services/person.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,10 @@ import { CustomInputComponent } from '../../../components/inputs/custom-input/cu
 export class LoginComponent {
   private router = inject(Router);
   private store = inject(Store);
+  private person = inject(PersonService);
   private authService = inject(AuthService);
   session$: Observable<Session>;
+  sessionValue: Session | undefined;
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -29,10 +32,16 @@ export class LoginComponent {
       password: new FormControl('', Validators.required)
     });
     this.session$ = this.store.select('session')
+    this.session$.subscribe((session) => {
+      this.sessionValue = session
+    })
   }
 
-  loginStore(){
+  async loginStore(){
     this.store.dispatch(login())
+    const { data } = await this.person.getPerson(this.sessionValue?.user?.personId ?? '');
+    this.store.dispatch(setPerson(data));
+    localStorage.setItem('person', JSON.stringify(data));
   }
 
   async submit() {
