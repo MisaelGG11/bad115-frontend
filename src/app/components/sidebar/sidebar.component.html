@@ -82,50 +82,22 @@
       </h6>
       <!-- Navigation -->
 
-      <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-        <li class="items-center">
-          <a
-            [routerLink]="['/dashboard']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #adminDashboard="routerLinkActive"
-            [ngClass]="
-              adminDashboard.isActive
-                ? 'text-primary hover:text-primary-light'
-                : 'text-slate-700 hover:text-slate-500'
-            "
-          >
-            <i
-              class="fas fa-tv mr-2 text-sm"
-              [ngClass]="
-                adminDashboard.isActive ? 'opacity-75' : 'text-slate-300'
-              "
-            ></i>
-            Dashboard
-          </a>
-        </li>
-
-        <li class="items-center">
-          <a
-            [routerLink]="['/admin/settings']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #adminSettings="routerLinkActive"
-            [ngClass]="
-              adminSettings.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-slate-700 hover:text-slate-500'
-            "
-          >
-            <i
-              class="fas fa-tools mr-2 text-sm"
-              [ngClass]="
-                adminSettings.isActive ? 'opacity-75' : 'text-slate-300'
-              "
-            ></i>
-            Settings
-          </a>
-        </li>
+      <ul class="md:flex-col md:min-w-full flex flex-col list-none text-slate-600">
+        @for (route of routes; track $index) {
+          <li class="items-center">
+            <a
+              [routerLink]="[route.path]"
+              class="text-xs uppercase py-3 font-bold block"
+              routerLinkActive="text-primary hover:text-primary-light"
+              [routerLinkActiveOptions]="{exact: true}"
+            >
+              <i
+                [class]="'mr-2 text-sm ' + route.icon"
+              ></i>
+              {{ route.name }}
+            </a>
+          </li>
+        }
       </ul>
     </div>
   </div>

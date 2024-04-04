@@ -17,6 +17,7 @@ export const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', component: HomeComponent },
+      { path: 'settings', component: AccessForbiddenComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
