@@ -1,12 +1,8 @@
 <nav
   class="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-primary-light shadow-lg"
 >
-  <div
-    class="container px-4 mx-auto flex flex-wrap items-center justify-between"
-  >
-    <div
-      class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
-    >
+  <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
+    <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
       <a
         [routerLink]="['/']"
         class="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
@@ -28,16 +24,13 @@
       id="example-navbar-warning"
     >
       <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-
         <li class="flex items-center">
           <a
             class="flex flex-row bg-primary-dark active:bg-primary-dark-active text-white text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
             [routerLink]="['/auth/login']"
           >
-          <span class="flex mt-1">Acceder</span>
-          <span class="material-symbols-outlined">
-            login
-            </span>
+            <span class="flex mt-1">Acceder</span>
+            <span class="material-symbols-outlined"> login </span>
           </a>
         </li>
       </ul>

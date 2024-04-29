@@ -6,7 +6,7 @@ import { toast } from 'ngx-sonner';
   standalone: true,
   imports: [],
   templateUrl: './home.component.html',
-  styles: ``
+  styles: ``,
 })
 export class HomeComponent {
   protected readonly toast = toast;

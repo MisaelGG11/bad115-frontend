@@ -1,5 +1,5 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
-import {provideRouter, withComponentInputBinding} from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
@@ -7,5 +7,9 @@ import { reducers } from './store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, withComponentInputBinding()), provideStore(reducers), provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })],
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideStore(reducers),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+  ],
 };

@@ -1,20 +1,20 @@
-import axios from "axios"
-import { toast } from "ngx-sonner"
-import { environment } from "../../environments/environment.development";
+import axios from 'axios';
+import { toast } from 'ngx-sonner';
+import { environment } from '../../environments/environment.development';
 
 let config = {
   baseURL: environment.api || 'http://127.0.0.1:5757/v1',
   headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
   },
-}
+};
 type ObjectArrayStrings = {
   [key: string]: string[];
 };
 
-const instance = axios.create(config)
+const instance = axios.create(config);
 
 type ToastType = 'success' | 'error' | 'warning' | 'info' | 'description';
 type ToastConfig = {
@@ -35,9 +35,9 @@ function setNotification(toastConfig: ToastConfig) {
     case 'info':
       return toast.info(toastConfig.message);
     case 'description':
-    return toast.message(toastConfig.message, {
-      description: toastConfig.description
-    });
+      return toast.message(toastConfig.message, {
+        description: toastConfig.description,
+      });
     default:
       return toast.message(toastConfig.message);
   }
@@ -45,36 +45,37 @@ function setNotification(toastConfig: ToastConfig) {
 
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("access_token")
+    const token = localStorage.getItem('access_token');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config
+    return config;
   },
   (error) => {
-    return Promise.reject(error)
-  }
-)
+    return Promise.reject(error);
+  },
+);
 
 instance.interceptors.response.use(
   (response) => {
     if ((response.status === 200 || response.status === 201) && response.data.message) {
-      console.log(response.data.message)
+      console.log(response.data.message);
       setNotification({
         type: 'success',
         summary: 'Éxito',
         message: response.data.message,
       });
-    } else if (response.data.accessToken){
-      localStorage.setItem('access_token', response.data.accessToken)
-      if (response.data.refreshToken) localStorage.setItem('refresh_token', response.data.refreshToken)
+    } else if (response.data.accessToken) {
+      localStorage.setItem('access_token', response.data.accessToken);
+      if (response.data.refreshToken)
+        localStorage.setItem('refresh_token', response.data.refreshToken);
     }
-    return response
+    return response;
   },
   async (error) => {
-    let message = '' as string | ObjectArrayStrings
-    let summary = ''
-    let type: ToastType = 'error'
+    let message = '' as string | ObjectArrayStrings;
+    let summary = '';
+    let type: ToastType = 'error';
 
     switch (error.response.status) {
       case 0:
@@ -94,7 +95,9 @@ instance.interceptors.response.use(
         } else {
           try {
             console.log(localStorage.getItem('refresh_token'));
-            const response = await axios.post(`${environment.api}/auth/refresh-token`, {refresh_token: localStorage.getItem('refresh_token')});
+            const response = await axios.post(`${environment.api}/auth/refresh-token`, {
+              refresh_token: localStorage.getItem('refresh_token'),
+            });
             localStorage.setItem('access_token', response.data.accesToken);
             localStorage.setItem('refresh_token', response.data.refreshToken);
 
@@ -125,8 +128,9 @@ instance.interceptors.response.use(
     }
 
     if (typeof message === 'object') {
-      for (const messageProper in message){
-        if (Array.isArray(message[messageProper])) { // Check if messageProper is an array
+      for (const messageProper in message) {
+        if (Array.isArray(message[messageProper])) {
+          // Check if messageProper is an array
           message[messageProper].forEach(function (msg) {
             setNotification({
               type: type,
@@ -143,8 +147,8 @@ instance.interceptors.response.use(
         message: message,
       });
     }
-    return Promise.resolve(message)
-    }
-  );
+    return Promise.resolve(message);
+  },
+);
 
-export default instance
+export default instance;

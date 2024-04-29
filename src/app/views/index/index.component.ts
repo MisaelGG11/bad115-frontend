@@ -8,8 +8,6 @@ import { FooterComponent } from '../../components/footers/footer/footer.componen
   standalone: true,
   imports: [RouterLink, IndexNavbarComponent, FooterComponent],
   templateUrl: './index.component.html',
-  styles: ``
+  styles: ``,
 })
-export class IndexComponent {
-
-}
+export class IndexComponent {}

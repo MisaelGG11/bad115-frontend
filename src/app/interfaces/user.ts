@@ -1,19 +1,19 @@
-import { Person } from "./person";
+import { Person } from './person';
 
-export interface UserData  {
+export interface UserData {
   email: string;
-  userId: string,
-  cadidateId: string,
-  recruiterId: string,
-  personId: string,
+  userId: string;
+  cadidateId: string;
+  recruiterId: string;
+  personId: string;
   permissions: string[];
   roles: string[];
   iat: number;
   exp: number;
-};
+}
 
 export interface Session {
-  user: UserData | null,
-  token: string | null
-  person: Person | null
+  user: UserData | null;
+  token: string | null;
+  person: Person | null;
 }
