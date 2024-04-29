@@ -46,7 +46,7 @@ export class LoginComponent {
 
   async submit() {
     if(this.form.valid){
-      const response = await this.authService.login(this.form.value.email, this.form.value.password);
+      const response = await this.authService.login(this.form.value);
       if(response.status === 201 || response.status === 200){
         this.loginStore()
         this.router.navigate(['/dashboard'])

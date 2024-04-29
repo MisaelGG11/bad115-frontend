@@ -54,13 +54,13 @@
             </div>
             <div class="flex flex-wrap mt-6 relative">
               <div class="w-1/2">
-                <a routerLink="/blank" class="text-slate-200">
-                  <small>¿Olvidó su contraseña?</small>
+                <a [routerLink]="['/unblock-user']" class="text-slate-200">
+                  <small class="underline">Desbloquear usuario</small>
                 </a>
               </div>
               <div class="w-1/2 text-right">
                 <a [routerLink]="['/registro']" class="text-slate-200">
-                  <small>Crea una nueva cuenta</small>
+                  <small class="underline">Crea una nueva cuenta</small>
                 </a>
               </div>
             </div>
