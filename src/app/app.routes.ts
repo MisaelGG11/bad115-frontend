@@ -8,10 +8,19 @@ import { NotFoundComponent } from './views/notfound/notfound.component';
 import { AccessForbiddenComponent } from './views/access-forbidden/access-forbidden.component';
 import { verifyRoleGuard } from './guards/verify-role.guard';
 import {UnblockUserComponent} from "./views/auth/unblock-user/unblock-user.component";
+import {AuthComponent} from "./layouts/auth/auth.component";
 
 export const routes: Routes = [
   // no layout views
   { path: '', component: IndexComponent },
+  {
+    path: 'auth', component: AuthComponent,
+    children: [
+      {path: 'login', component: LoginComponent},
+      {path: 'registro', component: SignupComponent},
+      {path: 'unblock-user', component: UnblockUserComponent},
+    ],
+  },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: SignupComponent },
   { path: 'unblock-user', component: UnblockUserComponent },
@@ -29,3 +38,4 @@ export const routes: Routes = [
   //route notfound
   { path: '**', component: NotFoundComponent },
 ];
+

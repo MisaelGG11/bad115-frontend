@@ -5,7 +5,7 @@ import { RouterLink, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
-import { login, logout, setPerson } from '../../../store/auth.actions';
+import {login, setPerson} from '../../../store/auth.actions';
 import { Session } from '../../../interfaces/user';
 import { CustomInputComponent } from '../../../components/inputs/custom-input/custom-input.component';
 import { PersonService } from '../../../services/person.service';
