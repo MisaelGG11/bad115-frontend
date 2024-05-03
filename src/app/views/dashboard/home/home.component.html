@@ -1,4 +1,4 @@
-<div class="flex flex-col h-screen p-3">
+<div class="flex flex-col h-screen p-3 w-full">
   <p>home works!</p>
   <button
     class="bg-emerald-700 text-white"
@@ -15,4 +15,18 @@
   <button class="bg-amber-600 text-white" (click)="toast.warning('Manuelin hara todo el proyecto')">
     Warning
   </button>
+
+  <div class="flex flex-col gap-0">
+    <label for="username">Username</label>
+    <input
+        pInputText
+        id="username"
+        aria-describedby="username-help"
+        [(ngModel)]="value" />
+    <small id="username-help" class="text-rose-400">
+        error de cors
+    </small>
+</div>
+<p-button label="hola"></p-button>
+<p-calendar [(ngModel)]="date2"/>
 </div>
