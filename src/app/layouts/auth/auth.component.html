@@ -1,0 +1,44 @@
+<main>
+  <section class="relative w-full h-screen">
+    <div
+      class="absolute top-0 w-full h-full bg-slate-800 bg-no-repeat bg-cover"
+      style="
+        background-image: url('https://source.unsplash.com/random?job');
+        filter: brightness(0.4);
+        background-position: center center;
+      "
+    ></div>
+    <div class="container mx-auto px-4 h-full shadow-lg">
+      <div class="flex content-center items-center justify-center h-full">
+        <div class="w-full lg:w-4/12 px-4">
+          <div
+            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-slate-200 bg-opacity-90 border-0"
+          >
+            <div class="rounded-t mb-0 px-6 pt-6">
+              <a [routerLink]="['/']">
+                <div class="btn-wrapper text-center">
+                  <img
+                    alt="..."
+                    class="w-44 mb-0 mx-auto justify-self-center"
+                    src="../../../assets/img/talenthub.png"
+                  />
+                </div>
+              </a>
+            </div>
+            <router-outlet />
+          </div>
+
+          <div class="flex flex-wrap relative">
+            @for (link of footerLinks; track link) {
+              <div class="w-1/2" [class.text-right]="$index === footerLinks.length - 1">
+                <a [routerLink]="link.link" class="text-slate-200">
+                  <small class="underline">{{ link.label }}</small>
+                </a>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './access-forbidden.component.html',
-  styles: ``
+  styles: ``,
 })
-export class AccessForbiddenComponent {
-
-}
+export class AccessForbiddenComponent {}

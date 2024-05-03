@@ -7,11 +7,11 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './input-errors.component.html',
-  styles: ``
+  styles: ``,
 })
 export class InputErrorsComponent {
   @Input()
-	public formField: FormControl = new FormControl();
+  public formField: FormControl = new FormControl();
 
   @Input()
   public fieldName: string = '';

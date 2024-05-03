@@ -8,10 +8,15 @@ import { HeaderStatsComponent } from '../../components/headers/header-stats/head
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, SidebarComponent, DashboardNavbarComponent, FooterDashboardComponent, HeaderStatsComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    SidebarComponent,
+    DashboardNavbarComponent,
+    FooterDashboardComponent,
+    HeaderStatsComponent,
+  ],
   templateUrl: './dashboard.component.html',
-  styles: ``
+  styles: ``,
 })
-export class DashboardComponent {
-
-}
+export class DashboardComponent {}

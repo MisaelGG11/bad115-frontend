@@ -1,5 +1,11 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { Form, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  Form,
+  FormControl,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputErrorsComponent } from '../input-errors/input-errors.component';
 
@@ -9,22 +15,23 @@ import { InputErrorsComponent } from '../input-errors/input-errors.component';
   imports: [CommonModule, ReactiveFormsModule, InputErrorsComponent],
   templateUrl: './custom-input.component.html',
   styles: ``,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => CustomInputComponent),
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true,
+    },
+  ],
 })
-export class CustomInputComponent  {
-
+export class CustomInputComponent {
   public value: string = '';
   public changed: (value: string) => void = () => {};
   public touched: () => void = () => {};
   public isDisabled: boolean = false;
 
   // Input properties
-  @Input() parentForm : FormGroup | null = null;
-  @Input() fieldName : string = '';
+  @Input() parentForm: FormGroup | null = null;
+  @Input() fieldName: string = '';
   @Input() placeholder: string = '';
   @Input() prependIcon: string | null = null;
   @Input() endIcon: string | null = null;
@@ -35,7 +42,7 @@ export class CustomInputComponent  {
   // Internal state variable
   showPassword = false;
 
-  constructor() { }
+  constructor() {}
 
   // Computed property for input class
   get inputClass() {
@@ -54,31 +61,29 @@ export class CustomInputComponent  {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-  public writeValue ( value: string ): void {
-		this.value = value;
-	}
+  public writeValue(value: string): void {
+    this.value = value;
+  }
 
-  get formField(): FormControl{
+  get formField(): FormControl {
     return this.parentForm?.get(this.fieldName) as FormControl;
   }
 
-  public onChange ( event: Event ): void {
-		const value: string =
-			( <HTMLInputElement>event.target ).value;
+  public onChange(event: Event): void {
+    const value: string = (<HTMLInputElement>event.target).value;
 
-		this.changed( value );
-	}
+    this.changed(value);
+  }
 
-	public registerOnChange ( fn: any ): void {
-		this.changed = fn;
-	}
+  public registerOnChange(fn: any): void {
+    this.changed = fn;
+  }
 
-	public registerOnTouched ( fn: any ): void {
-		this.touched = fn;
-	}
+  public registerOnTouched(fn: any): void {
+    this.touched = fn;
+  }
 
-	public setDisabledState ( isDisabled: boolean ): void {
-		this.isDisabled = isDisabled;
-	}
-
+  public setDisabledState(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
 }
