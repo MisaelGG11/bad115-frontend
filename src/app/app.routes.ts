@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    // canActivate: [verifyRoleGuard],
+    canActivate: [verifyRoleGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'settings', component: AccessForbiddenComponent},

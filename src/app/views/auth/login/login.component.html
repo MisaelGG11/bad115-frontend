@@ -19,37 +19,40 @@
                   </div>
                 </div>
                 <div class="flex-auto px-4 lg:px-10 pb-6 pt-0">
-                    <div class="text-center">
-                        <h4 class="text-slate-500 text-xl font-bold">Inicia sesión</h4>
-                    </div>
-                    <hr class="mt-3 border-b-5 mb-7 border-slate-400" />
-                <form [formGroup]="form" (submit)="submit()">
-                    <app-custom-input
-                      [parentForm]="form"
-                      label="Correo electrónico"
-                      placeholder="john.doe@company.com"
-                      fieldName="email"
-                      formControlName="email"
-                      [type]="'email'"
-                    ></app-custom-input>
-
-                    <app-custom-input
-                      [parentForm]="form"
-                      label="Contraseña"
-                      placeholder="•••••••••"
-                      fieldName="password"
-                      formControlName="password"
-                      [type]="'password'"
-                    ></app-custom-input>
-                  <div class="text-center mt-6">
-                    <button
-                      class="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="submit"
-                    >
-                      Acceder
-                    </button>
+                  <div class="text-center">
+                      <h4 class="text-slate-500 text-xl font-bold">Inicia sesión</h4>
                   </div>
-                </form>
+                  <hr class="mt-3 border-b-5 mb-7 border-slate-400" />
+
+                  <form [formGroup]="form" (submit)="submit()">
+                    <div class="grid grid-cols-1 gap-3">
+                      <app-custom-input
+                        [parentForm]="form"
+                        label="Correo electrónico"
+                        placeholder="john.doe@company.com"
+                        fieldName="email"
+                        formControlName="email"
+                        [type]="'email'"
+                      ></app-custom-input>
+
+                      <app-custom-input
+                        [parentForm]="form"
+                        label="Contraseña"
+                        placeholder="•••••••••"
+                        fieldName="password"
+                        formControlName="password"
+                        [type]="'password'"
+                      ></app-custom-input>
+                    </div>
+                    <div class="text-center mt-4">
+                      <button
+                        class="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                        type="submit"
+                      >
+                        Acceder
+                      </button>
+                    </div>
+                  </form>
               </div>
             </div>
             <div class="flex flex-wrap mt-6 relative">
