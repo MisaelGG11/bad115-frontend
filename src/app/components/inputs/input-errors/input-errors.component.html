@@ -1,21 +1,17 @@
-<ng-container class="absolute" *ngIf="formField.invalid && (formField?.dirty || formField.touched) ">
-	<span class="text-red-700 text-xs pl-1"
-		*ngIf="formField?.hasError( 'required' )">
+<ng-container *ngIf="formField.invalid && (formField?.dirty || formField.touched) ">
+	<span [class]="errorsStyles" *ngIf="formField?.hasError( 'required' )">
 		El campo {{ fieldName }} es requerido.
 	</span>
 
-	<span class="text-red-700 text-xs pl-1"
-		*ngIf="formField?.hasError( 'noEmptyString' )">
-		Ingresa un nobre válido
+  <span [class]="errorsStyles" *ngIf="formField?.hasError( 'noEmptyString' )">
+		Ingresa un valor válido
 	</span>
 
-	<span class="text-red-700 text-xs pl-1"
-		*ngIf="formField?.hasError( 'email' )">
+  <span [class]="errorsStyles" *ngIf="formField?.hasError( 'email' )">
 		Formato inválido del email
 	</span>
 
-	<span class="text-red-700 text-xs pl-1"
-		*ngIf="formField?.hasError( 'noWhitespaceRequired' )">
+  <span [class]="errorsStyles" *ngIf="formField?.hasError( 'noWhitespaceRequired' )">
 		No spaces allowed.
 	</span>
 </ng-container>

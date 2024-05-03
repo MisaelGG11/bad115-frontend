@@ -15,4 +15,6 @@ export class InputErrorsComponent {
 
   @Input()
   public fieldName: string = '';
+
+  errorsStyles: string = 'text-red-700 text-[0.7rem] pl-1 absolute -mt-0.5'
 }
