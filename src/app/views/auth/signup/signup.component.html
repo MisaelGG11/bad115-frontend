@@ -75,6 +75,45 @@
       [required]="true"
     />
 
+    <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
+      <div class="w-full lg:w-1/2">
+        <label
+          for="birthday"
+          class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+          >Fecha Nacimiento *</label
+        >
+        <p-calendar
+          id="birthday"
+          [formControlName]="'birthday'"
+          [inputStyleClass]="
+            'w-full block border-white text-gray-900 placeholder-slate-300 px-3 py-3 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+          "
+          [placeholder]="'Fecha de nacimiento'"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          inputId="icondisplay"
+          [required]="true"
+          dateFormat="dd/mm/yy"
+          [maxDate]="maxDate"
+          [style]="{ width: '100%' }"
+        />
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <label
+          for="birthDay"
+          class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+          >Sexo *</label
+        >
+        <p-dropdown
+          formControlName="gender"
+          [options]="genderOptions"
+          [style]="{ width: '100%' }"
+          [placeholder]="'Seleccione una opción'"
+        />
+      </div>
+    </div>
+
     <div class="text-center mt-6">
       <button
         class="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"

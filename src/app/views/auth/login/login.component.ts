@@ -54,7 +54,7 @@ export class LoginComponent {
     if (this.form.valid) {
       const response = await this.authService.login(this.form.value);
       if (response.status === 201 || response.status === 200) {
-        this.loginStore();
+        await this.loginStore();
         this.router.navigate(['/dashboard']);
       }
     }
