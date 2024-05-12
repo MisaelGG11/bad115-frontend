@@ -1,26 +1,26 @@
-<ng-container *ngIf="formField.invalid && (formField?.dirty || formField.touched) ">
-	<span [class]="errorsStyles" *ngIf="formField?.hasError( 'required' )">
-		El campo {{ fieldName }} es requerido.
-	</span>
+<ng-container class="absolute" *ngIf="formField.invalid && (formField?.dirty || formField.touched)">
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('required')">
+    El campo {{ fieldName }} es requerido.
+  </span>
 
-  <span [class]="errorsStyles" *ngIf="formField?.hasError( 'noEmptyString' )">
-		Ingresa un valor válido
-	</span>
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('noEmptyString')">
+    Ingresa un valor válido
+  </span>
 
-  <span [class]="errorsStyles" *ngIf="formField?.hasError( 'email' )">
-		Formato inválido del email
-	</span>
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('email')">
+    Formato inválido del email
+  </span>
 
-  <span class="errorsStyles" *ngIf="formField?.hasError('noWhitespaceRequired')">
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('noWhitespaceRequired')">
     No spaces allowed.
   </span>
 
-  <span class="errorsStyles" *ngIf="formField?.hasError('minlength')">
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('minlength')">
     Campo {{ fieldName }} debe tener al menos
     {{ formField.errors?.['minlength'].requiredLength }} caracteres.
   </span>
 
-  <span class="errorsStyles" *ngIf="formField?.hasError('maxlength')">
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('maxlength')">
     Campo {{ fieldName }} debe tener máximo
     {{ formField.errors?.['maxlength'].requiredLength }} caracteres.
   </span>
