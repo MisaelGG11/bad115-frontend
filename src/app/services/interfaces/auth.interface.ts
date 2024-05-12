@@ -15,3 +15,14 @@ export interface RefreshResponse {
 export interface UnlockedUserDto {
   email: string;
 }
+
+export interface SignupDto {
+  email: string;
+  password: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  secondLastName?: string;
+  birthDay: Date;
+  gender: string;
+}

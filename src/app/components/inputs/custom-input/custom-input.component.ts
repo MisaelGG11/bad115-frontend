@@ -38,6 +38,7 @@ export class CustomInputComponent {
   @Input() type: string = 'text';
   @Input() rounded: string = 'lg';
   @Input() label: string = '';
+  @Input() required: boolean = false;
 
   // Internal state variable
   showPassword = false;

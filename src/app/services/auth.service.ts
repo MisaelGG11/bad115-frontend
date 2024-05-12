@@ -4,6 +4,7 @@ import {
   LoginDto,
   LoginResponse,
   RefreshResponse,
+  SignupDto,
   UnlockedUserDto,
 } from './interfaces/auth.interface';
 
@@ -27,5 +28,9 @@ export class AuthService {
 
   async unblockUser(unlockUserDto: UnlockedUserDto) {
     return await network.post<void>('/auth/unlock-users', unlockUserDto);
+  }
+
+  async signup(signupDto: SignupDto) {
+    return await network.post<void>('/auth/signup', signupDto);
   }
 }

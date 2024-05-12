@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   styles: ``,
 })
 export class AuthComponent {
+  currentRoute?: string = '';
   footerLinks: Array<{ label: string; link: string }> = [];
 
   constructor(
@@ -18,8 +19,10 @@ export class AuthComponent {
     private activatedRoute: ActivatedRoute,
   ) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      const route = this?.activatedRoute?.snapshot?.firstChild?.routeConfig?.path ?? undefined;
-      switch (route) {
+      this.currentRoute =
+        this?.activatedRoute?.snapshot?.firstChild?.routeConfig?.path ?? undefined;
+
+      switch (this.currentRoute) {
         case 'login':
           this.footerLinks = [
             { label: 'Desbloquear usuario', link: '/auth/unblock-user' },
