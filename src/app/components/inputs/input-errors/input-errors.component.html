@@ -11,7 +11,17 @@
 		Formato inválido del email
 	</span>
 
-  <span [class]="errorsStyles" *ngIf="formField?.hasError( 'noWhitespaceRequired' )">
-		No spaces allowed.
-	</span>
+  <span class="errorsStyles" *ngIf="formField?.hasError('noWhitespaceRequired')">
+    No spaces allowed.
+  </span>
+
+  <span class="errorsStyles" *ngIf="formField?.hasError('minlength')">
+    Campo {{ fieldName }} debe tener al menos
+    {{ formField.errors?.['minlength'].requiredLength }} caracteres.
+  </span>
+
+  <span class="errorsStyles" *ngIf="formField?.hasError('maxlength')">
+    Campo {{ fieldName }} debe tener máximo
+    {{ formField.errors?.['maxlength'].requiredLength }} caracteres.
+  </span>
 </ng-container>
