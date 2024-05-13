@@ -6,10 +6,15 @@
   class="flex items-center text-sm pe-1 font-medium text-primary md:text-white rounded-full hover:text-blue-300 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
   type="button"
 >
+  {{ time | async | date: 'hh:mm:ss a' }}&nbsp;
   <span class="sr-only">Open user menu</span>
   <img
     class="w-8 h-8 me-2 rounded-full"
-    src="../../../../assets/img/team-1-800x800.jpg"
+    [src]="
+      sessionValue?.person?.gender === 'F'
+        ? 'assets/img/avatars/avatar-women.jpeg'
+        : 'assets/img/avatars/avatar-men.jpeg'
+    "
     alt="user photo"
   />
   {{ sessionValue?.person?.firstName + ' ' + sessionValue?.person?.lastName }}
@@ -47,23 +52,9 @@
     >
       <li>
         <a
-          href="#"
+          href="/dashboard"
           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           >Dashboard</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-          >Settings</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-          >Earnings</a
         >
       </li>
     </ul>

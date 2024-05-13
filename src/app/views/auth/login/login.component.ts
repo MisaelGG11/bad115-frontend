@@ -41,6 +41,10 @@ export class LoginComponent {
     this.session$.subscribe((session) => {
       this.sessionValue = session;
     });
+
+    if (this.sessionValue?.token) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   async loginStore() {

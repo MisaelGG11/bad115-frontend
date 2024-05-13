@@ -8,7 +8,7 @@ export interface Person {
   candidateId: string;
   recruiterId: string;
   userId: string;
-  gender: GenderEnum;
+  gender: 'F' | 'M';
 }
 
 export enum GenderEnum {
