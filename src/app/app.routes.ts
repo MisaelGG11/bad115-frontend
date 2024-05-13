@@ -9,6 +9,7 @@ import { AccessForbiddenComponent } from './views/access-forbidden/access-forbid
 import { verifyRoleGuard } from './guards/verify-role.guard';
 import { UnblockUserComponent } from './views/auth/unblock-user/unblock-user.component';
 import { AuthComponent } from './layouts/auth/auth.component';
+import { ProfileComponent } from './views/dashboard/profile/profile.component';
 
 export const routes: Routes = [
   // no layout views
@@ -32,6 +33,11 @@ export const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'settings', component: AccessForbiddenComponent },
+      { path: 'perfil', component: ProfileComponent },
+      { path: 'experiencia-laboral', component: AccessForbiddenComponent },
+      { path: 'educacion', component: AccessForbiddenComponent },
+      { path: 'certificaciones-logros', component: AccessForbiddenComponent },
+      { path: 'habilidades', component: AccessForbiddenComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
