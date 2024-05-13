@@ -3,7 +3,7 @@ import { Person } from './person';
 export interface UserData {
   email: string;
   userId: string;
-  cadidateId: string;
+  candidateId: string;
   recruiterId: string;
   personId: string;
   permissions: string[];

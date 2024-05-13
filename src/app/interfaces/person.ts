@@ -8,4 +8,10 @@ export interface Person {
   candidateId: string;
   recruiterId: string;
   userId: string;
+  gender: GenderEnum;
+}
+
+export enum GenderEnum {
+  M = 'M',
+  F = 'F',
 }
