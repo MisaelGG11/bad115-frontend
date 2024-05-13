@@ -76,7 +76,13 @@
       <h6
         class="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
       >
-        Admin Layout Pages
+        @if (roles.includes('admin')) {
+          Admin Layout Pages
+        } @else if (roles.includes('recruiter')) {
+          Recruiter Layout Pages
+        } @else {
+          User Layout Pages
+        }
       </h6>
       <!-- Navigation -->
 
