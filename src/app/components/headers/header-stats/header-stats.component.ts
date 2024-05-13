@@ -5,5 +5,10 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './header-stats.component.html',
+  styles: `
+    .blackiconcolor {
+      color: white;
+    }
+  `,
 })
 export class HeaderStatsComponent {}
