@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { toast } from 'ngx-sonner';
 import { environment } from '../../environments/environment.development';
+import { LOCAL_STORAGE } from '../utils/constants.utils';
 
 let config = {
   baseURL: environment.api || 'http://127.0.0.1:5757/v1',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN)}`,
   },
 };
 type ObjectArrayStrings = {
@@ -45,7 +46,7 @@ function setNotification(toastConfig: ToastConfig) {
 
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -66,9 +67,9 @@ instance.interceptors.response.use(
         message: response.data.message,
       });
     } else if (response.data.accessToken) {
-      localStorage.setItem('access_token', response.data.accessToken);
+      localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, response.data.accessToken);
       if (response.data.refreshToken)
-        localStorage.setItem('refresh_token', response.data.refreshToken);
+        localStorage.setItem(LOCAL_STORAGE.REFRESH_TOKEN, response.data.refreshToken);
     }
     return response;
   },
@@ -89,25 +90,25 @@ instance.interceptors.response.use(
         message = 'Error';
         break;
       case 401:
-        if (!localStorage.getItem('refresh_token')) {
+        if (!localStorage.getItem(LOCAL_STORAGE.REFRESH_TOKEN)) {
           summary = 'Advertencia';
           message = error.response.data.message ?? 'Acceso no autorizado';
         } else {
           try {
-            console.log(localStorage.getItem('refresh_token'));
+            console.log(localStorage.getItem(LOCAL_STORAGE.REFRESH_TOKEN));
             const response = await axios.post(`${environment.api}/auth/refresh-token`, {
-              refresh_token: localStorage.getItem('refresh_token'),
+              refreshToken: localStorage.getItem(LOCAL_STORAGE.REFRESH_TOKEN),
             });
-            localStorage.setItem('access_token', response.data.accesToken);
-            localStorage.setItem('refresh_token', response.data.refreshToken);
+            localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, response.data.accesToken);
+            localStorage.setItem(LOCAL_STORAGE.REFRESH_TOKEN, response.data.refreshToken);
 
             const config = error.config;
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             return axios.request(config);
           } catch (error) {
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('refresh_token');
-            localStorage.removeItem('person');
+            localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
+            localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
+            localStorage.removeItem(LOCAL_STORAGE.PERSON);
             window.location.href = '/login';
             return Promise.reject(error);
           }
@@ -140,6 +141,14 @@ instance.interceptors.response.use(
           });
         }
       }
+    } else if (Array.isArray(message)) {
+      message.forEach(function (msg) {
+        setNotification({
+          type: 'error',
+          summary: summary,
+          message: msg,
+        });
+      });
     } else {
       setNotification({
         type: type,
@@ -147,6 +156,7 @@ instance.interceptors.response.use(
         message: message,
       });
     }
+
     return Promise.resolve(message);
   },
 );
