@@ -9,9 +9,31 @@ export interface Person {
   recruiterId: string;
   userId: string;
   gender: 'F' | 'M';
+  address: Address | null;
 }
 
-export enum GenderEnum {
-  M = 'M',
-  F = 'F',
+export interface Address {
+  id: string;
+  street: string;
+  numberHouse: string;
+  country: Country;
+  department: Department;
+  municipality: Municipality;
+}
+
+interface Country {
+  id: string;
+  name: string;
+  areaCode: string;
+}
+
+interface Department {
+  id: string;
+  name: string;
+}
+
+interface Municipality {
+  id: string;
+  name: string;
+  departmentId: string;
 }

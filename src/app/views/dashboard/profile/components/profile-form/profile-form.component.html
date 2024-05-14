@@ -1,0 +1,101 @@
+<div class="w-full gap-2">
+  @if (personRequest.isLoading()) {
+    <div class="flex items-center justify-center w-full h-96">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  } @else {
+    <form [formGroup]="form" (submit)="submit()" class="gap-4 p-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Primer nombre"
+            fieldName="firstName"
+            placeholder="Primer nombre"
+            formControlName="firstName"
+            [type]="'text'"
+          />
+        </div>
+
+        <div class="w-full lg:w-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Segundo nombre"
+            fieldName="middleName"
+            placeholder="Segundo nombre"
+            formControlName="middleName"
+            [type]="'text'"
+          />
+        </div>
+      </div>
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Primer apellido"
+            fieldName="lastName"
+            placeholder="Primer apellido"
+            formControlName="lastName"
+            [type]="'text'"
+          />
+        </div>
+
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Segundo apellido"
+            fieldName="secondLastName"
+            placeholder="Segundo apellido"
+            formControlName="secondLastName"
+            [type]="'text'"
+          />
+        </div>
+      </div>
+      <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
+        <div class="w-full lg:w-1/2">
+          <label
+            for="birthday"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+            >Fecha Nacimiento *</label
+          >
+          <p-calendar
+            id="birthday"
+            [formControlName]="'birthday'"
+            [inputStyleClass]="
+              'w-full block border-white text-gray-900 placeholder-slate-300 px-3 py-3 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            "
+            [placeholder]="'Fecha de nacimiento'"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            inputId="icondisplay"
+            [required]="true"
+            dateFormat="dd/mm/yy"
+            [maxDate]="maxDate"
+            [style]="{ width: '100%' }"
+          />
+        </div>
+
+        <div class="w-full lg:w-1/2">
+          <label
+            for="birthDay"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+            >Sexo *</label
+          >
+          <p-dropdown
+            formControlName="gender"
+            [options]="genderOptions"
+            [style]="{ width: '100%' }"
+            [placeholder]="'Seleccione una opción'"
+          />
+        </div>
+      </div>
+      <div class="flex justify-end w-full mt-3">
+        <p-button
+          type="submit"
+          label="Guardar cambios"
+          [loading]="updatePersonMutation.isPending()"
+        />
+      </div>
+    </form>
+  }
+</div>

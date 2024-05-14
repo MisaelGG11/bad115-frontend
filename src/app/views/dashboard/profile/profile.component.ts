@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { TabViewModule } from 'primeng/tabview';
+import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 
 @Component({
-  selector: 'app-perfil',
+  selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [TabViewModule, ProfileFormComponent],
   templateUrl: './profile.component.html',
   styles: [],
 })

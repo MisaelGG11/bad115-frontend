@@ -3,7 +3,7 @@ import { toast } from 'ngx-sonner';
 import { environment } from '../../environments/environment.development';
 import { LOCAL_STORAGE } from '../utils/constants.utils';
 
-let config = {
+export let axiosConfiguration = {
   baseURL: environment.api || 'http://127.0.0.1:5757/v1',
   headers: {
     'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ type ObjectArrayStrings = {
   [key: string]: string[];
 };
 
-const instance = axios.create(config);
+const instance = axios.create(axiosConfiguration);
 
 type ToastType = 'success' | 'error' | 'warning' | 'info' | 'description';
 type ToastConfig = {
@@ -157,7 +157,7 @@ instance.interceptors.response.use(
       });
     }
 
-    return Promise.resolve(message);
+    return Promise.resolve(error);
   },
 );
 

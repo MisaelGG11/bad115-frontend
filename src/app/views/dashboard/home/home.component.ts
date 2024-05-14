@@ -10,13 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    InputTextModule,
-    ButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CalendarModule,
-  ],
+  imports: [InputTextModule, ButtonModule, FormsModule, ReactiveFormsModule, CalendarModule],
   templateUrl: './home.component.html',
   styles: ``,
 })

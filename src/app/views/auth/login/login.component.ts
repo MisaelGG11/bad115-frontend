@@ -15,6 +15,7 @@ import { login, setPerson } from '../../../store/auth.actions';
 import { Session } from '../../../interfaces/user';
 import { CustomInputComponent } from '../../../components/inputs/custom-input/custom-input.component';
 import { PersonService } from '../../../services/person.service';
+import { LOCAL_STORAGE } from '../../../utils/constants.utils';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ import { PersonService } from '../../../services/person.service';
 export class LoginComponent {
   private router = inject(Router);
   private store = inject(Store);
-  private person = inject(PersonService);
+  private personService = inject(PersonService);
   private authService = inject(AuthService);
   session$: Observable<Session>;
   sessionValue: Session | undefined;
@@ -49,9 +50,9 @@ export class LoginComponent {
 
   async loginStore() {
     this.store.dispatch(login());
-    const { data } = await this.person.getPerson(this.sessionValue?.user?.personId ?? '');
+    const { data } = await this.personService.getPerson(this.sessionValue?.user?.personId ?? '');
     this.store.dispatch(setPerson(data));
-    localStorage.setItem('person', JSON.stringify(data));
+    localStorage.setItem(LOCAL_STORAGE.PERSON, JSON.stringify(data));
   }
 
   async submit() {

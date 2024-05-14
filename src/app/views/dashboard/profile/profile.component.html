@@ -1,1 +1,24 @@
-<p>perfil works!</p>
+<div class="w-full">
+  <p-tabView class="w-full p-2">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-user"></i>
+          <span class="font-bold whitespace-nowrap m-0">Información personal</span>
+        </div>
+      </ng-template>
+      <app-profile-form />
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <i class="fas fa-map-marker-alt"></i>
+          <span class="font-bold whitespace-nowrap m-0">Dirección</span>
+        </div>
+      </ng-template>
+      <!--          <app-profile-form [profile]="query.data.profile"></app-profile-form>-->
+      <p>Dirección</p>
+    </p-tabPanel>
+  </p-tabView>
+</div>
