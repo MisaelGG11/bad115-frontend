@@ -6,6 +6,7 @@ import { provideStore } from '@ngrx/store';
 import { reducers } from './store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAngularQuery, QueryClient } from '@tanstack/angular-query-experimental';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideAngularQuery(new QueryClient()),
   ],
 };
