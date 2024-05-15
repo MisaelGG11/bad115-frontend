@@ -21,18 +21,18 @@ export interface Address {
   municipality: Municipality;
 }
 
-interface Country {
+export interface Country {
   id: string;
   name: string;
   areaCode: string;
 }
 
-interface Department {
+export interface Department {
   id: string;
   name: string;
 }
 
-interface Municipality {
+export interface Municipality {
   id: string;
   name: string;
   departmentId: string;

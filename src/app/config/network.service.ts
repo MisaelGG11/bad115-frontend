@@ -115,6 +115,7 @@ instance.interceptors.response.use(
         }
         break;
       default:
+        console.log('entro al default state');
         if (error.response?.status >= 400 && error.response?.status < 500) {
           if (error.response?.data?.message) {
             message = error.response?.data?.message;
@@ -128,8 +129,9 @@ instance.interceptors.response.use(
         break;
     }
 
-    if (typeof message === 'object') {
+    if (typeof message === 'object' && !Array.isArray(message)) {
       for (const messageProper in message) {
+        console.log({ messageProper });
         if (Array.isArray(message[messageProper])) {
           // Check if messageProper is an array
           message[messageProper].forEach(function (msg) {

@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import network, { axiosConfiguration } from '../config/network.service';
+import network from '../config/network.service';
 import { Person } from '../interfaces/person';
 import { PaginatedResponse } from '../interfaces/pagination';
-import { UpdatePersonDto } from './interfaces/person.interface';
-import axios from 'axios';
+import { CreateAddressDto, UpdatePersonDto } from './interfaces/person.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonService {
-  private axiosInstance = axios.create(axiosConfiguration);
-
   constructor() {}
 
   async getPeople(): Promise<PaginatedResponse<Person>> {
@@ -20,10 +17,14 @@ export class PersonService {
   }
 
   async getPerson(personId: string) {
-    return this.axiosInstance.get<Person>(`/persons/${personId}`);
+    return network.get<Person>(`/persons/${personId}`);
   }
 
-  async update(person: UpdatePersonDto) {
-    return this.axiosInstance.put<Person>(`/persons/${person.id}`, person);
+  async update(updatePersonDto: UpdatePersonDto) {
+    return network.put<Person>(`/persons/${updatePersonDto.id}`, updatePersonDto);
+  }
+
+  async addAddress(personId: string, createAddressDto: CreateAddressDto) {
+    return network.post(`/persons/${personId}/addresses`, createAddressDto);
   }
 }

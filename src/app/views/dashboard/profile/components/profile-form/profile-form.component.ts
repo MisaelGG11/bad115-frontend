@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -69,9 +69,6 @@ export class ProfileFormComponent {
 
   updatePersonMutation = injectMutation(() => ({
     mutationFn: async (input: UpdatePersonDto) => await this.personService.update(input),
-    onError: async (error) => {
-      toast.error('Error al actualizar el perfil');
-    },
     onSuccess: async () => {
       toast.success('Perfil actualizado', { duration: 3000 });
       await this.queryClient.invalidateQueries({ queryKey: ['person'] });

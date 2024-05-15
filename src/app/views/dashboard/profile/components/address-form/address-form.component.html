@@ -1,1 +1,100 @@
-<p>address-form works!</p>
+<div class="w-full gap-2">
+  @if (personRequest.isLoading()) {
+    <div class="flex items-center justify-center w-full h-96">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  }
+
+  <form [formGroup]="form" (submit)="submit()" class="gap-4 p-2">
+    <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+      <div class="w-full lg:basis-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Calle"
+          fieldName="street"
+          placeholder="Calle"
+          formControlName="street"
+          [type]="'text'"
+        />
+      </div>
+
+      <div class="w-full lg:basis-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Número de casa"
+          fieldName="numberHouse"
+          placeholder="Número de casa"
+          formControlName="numberHouse"
+          [type]="'text'"
+        />
+      </div>
+    </div>
+    <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-1">
+      <div class="w-full lg:basis-1/2">
+        <label
+          for="countryId"
+          class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+          >PAÍS *</label
+        >
+        <p-dropdown
+          id="countryId"
+          [options]="countriesOptions"
+          formControlName="countryId"
+          [filter]="true"
+          filterBy="label"
+          placeholder="País"
+          [style]="{ width: '100%' }"
+          [loading]="countriesRequest.isLoading()"
+          (onChange)="onCountryChange($event)"
+        />
+      </div>
+
+      @if (selectedNameCountry() === 'El Salvador') {
+        <div class="w-full lg:basis-1/2">
+          <label
+            for="departmentId"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+            >DEPARTAMENTO *</label
+          >
+          <p-dropdown
+            id="departmentId"
+            [options]="departmentsOptions"
+            formControlName="departmentId"
+            [filter]="true"
+            filterBy="label"
+            placeholder="Departamento"
+            [style]="{ width: '100%' }"
+            [loading]="departmentsRequest.isLoading()"
+            (onChange)="onDepartmentChange($event)"
+          />
+        </div>
+      }
+    </div>
+
+    @if (selectedDepartment() !== null) {
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:basis-1/2 mt-3">
+          <label
+            for="municipalityId"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+            >MUNICIPIO *</label
+          >
+          <p-dropdown
+            id="municipalityId"
+            [options]="municipalityOptions()"
+            formControlName="municipalityId"
+            [filter]="true"
+            filterBy="label"
+            placeholder="Municipio"
+            [style]="{ width: '100%' }"
+            [loading]="isLoadingMunicipalities()"
+          />
+        </div>
+      </div>
+    }
+
+    <div class="flex justify-end w-full mt-3">
+      <p-button type="submit" label="Guardar cambios" [loading]="addAddressMutation.isPending()" />
+    </div>
+  </form>
+</div>
