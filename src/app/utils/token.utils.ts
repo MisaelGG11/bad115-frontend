@@ -1,5 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
-import { UserData } from '../interfaces/user';
+import { UserData } from '../interfaces/user.interface';
 
 // Decodifica un token
 export function decoderToken(token: any): UserData {

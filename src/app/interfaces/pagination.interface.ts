@@ -1,4 +1,4 @@
-export interface Pagination {
+export interface PaginationInterface {
   totalPages: number;
   perPage: number;
   totalItems: number;
@@ -9,5 +9,10 @@ export interface Pagination {
 
 export interface PaginatedResponse<T> {
   data: T[];
-  pagination: Pagination;
+  pagination: PaginationInterface;
+}
+
+export interface PaginationParams {
+  page: number;
+  perPage: number;
 }

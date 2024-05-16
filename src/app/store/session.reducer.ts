@@ -1,18 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
-import { Session } from '../interfaces/user';
+import { Session } from '../interfaces/user.interface';
 import { decoderToken } from '../utils/token.utils';
 import { login, logout, setPerson } from './auth.actions';
-import network from '../config/network.service';
-import { Person } from '../interfaces/person';
-import { PersonService } from '../services/person.service';
+import { Person } from '../interfaces/person.interface';
+import { LOCAL_STORAGE } from '../utils/constants.utils';
 
 export const initialState: Session = initStore();
 
 function initStore() {
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
   if (token) {
     const userInfo = decoderToken(token);
-    const person: Person = JSON.parse(localStorage.getItem('person') as string);
+    const person: Person = JSON.parse(localStorage.getItem(LOCAL_STORAGE.PERSON) as string);
     return {
       token: token,
       user: userInfo,
@@ -29,7 +28,7 @@ function initStore() {
 export const sessionReducer = createReducer(
   initialState,
   on(login, (state) => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
     const userInfo = decoderToken(token);
     return {
       ...state,
@@ -38,9 +37,9 @@ export const sessionReducer = createReducer(
     };
   }),
   on(logout, (state) => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('person');
+    localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
+    localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
+    localStorage.removeItem(LOCAL_STORAGE.PERSON);
     return {
       ...state,
       token: '',

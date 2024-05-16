@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Session } from '../interfaces/user';
+import { Session } from '../interfaces/user.interface';
 import { LOCAL_STORAGE } from '../utils/constants.utils';
 
 export const verifyRoleGuard: CanActivateFn = (route, state) => {

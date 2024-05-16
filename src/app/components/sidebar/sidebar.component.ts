@@ -3,9 +3,9 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserDropdownComponent } from '../dropdowns/user-dropdown/user-dropdown.component';
 import { NotificationDropdownComponent } from '../dropdowns/notification-dropdown/notification-dropdown.component';
-import { Route } from '../../interfaces/route';
+import { Route } from '../../interfaces/route.interface';
 import { Store } from '@ngrx/store';
-import { Session } from '../../interfaces/user';
+import { Session } from '../../interfaces/user.interface';
 import { PERMISSIONS, ROLES } from '../../utils/constants.utils';
 
 @Component({

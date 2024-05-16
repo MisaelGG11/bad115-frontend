@@ -1,4 +1,4 @@
-import { Person } from '../../interfaces/person';
+import { Person } from '../../interfaces/person.interface';
 
 export interface UpdatePersonDto extends Partial<Person> {
   id: string;

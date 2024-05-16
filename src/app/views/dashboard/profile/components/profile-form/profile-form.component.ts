@@ -23,7 +23,7 @@ import { CalendarComponent } from '../../../../../components/inputs/calendar/cal
 import { CalendarModule } from 'primeng/calendar';
 import { toast } from 'ngx-sonner';
 import { LOCAL_STORAGE } from '../../../../../utils/constants.utils';
-import { Person } from '../../../../../interfaces/person';
+import { Person } from '../../../../../interfaces/person.interface';
 import { UpdatePersonDto } from '../../../../../services/interfaces/person.interface';
 import { setPerson } from '../../../../../store/auth.actions';
 import { Store } from '@ngrx/store';

@@ -1,4 +1,4 @@
-import { Person } from './person';
+import { Person } from './person.interface';
 
 export interface UserData {
   email: string;

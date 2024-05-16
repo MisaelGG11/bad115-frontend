@@ -1,7 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, AfterViewInit, ViewChild, ElementRef, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Session } from '../../../interfaces/user';
+import { Session } from '../../../interfaces/user.interface';
 import { createPopper } from '@popperjs/core';
 import { logout } from '../../../store/auth.actions';
 import { Router } from '@angular/router';

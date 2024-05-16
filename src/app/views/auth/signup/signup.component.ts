@@ -16,7 +16,7 @@ import { CustomInputComponent } from '../../../components/inputs/custom-input/cu
 import { AuthService } from '../../../services/auth.service';
 import { login, setPerson } from '../../../store/auth.actions';
 import { PersonService } from '../../../services/person.service';
-import { Session } from '../../../interfaces/user';
+import { Session } from '../../../interfaces/user.interface';
 import { Observable } from 'rxjs';
 
 @Component({

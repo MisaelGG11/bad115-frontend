@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import network from '../config/network.service';
-import { Person } from '../interfaces/person';
-import { PaginatedResponse } from '../interfaces/pagination';
+import { Person } from '../interfaces/person.interface';
+import { PaginatedResponse } from '../interfaces/pagination.interface';
 import { CreateAddressDto, UpdatePersonDto } from './interfaces/person.interface';
 
 @Injectable({

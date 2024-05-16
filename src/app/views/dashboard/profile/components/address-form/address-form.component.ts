@@ -4,7 +4,12 @@ import {
   injectQuery,
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
-import { Country, Department, Municipality, Person } from '../../../../../interfaces/person';
+import {
+  Country,
+  Department,
+  Municipality,
+  Person,
+} from '../../../../../interfaces/person.interface';
 import { LOCAL_STORAGE } from '../../../../../utils/constants.utils';
 import { PersonService } from '../../../../../services/person.service';
 import {
