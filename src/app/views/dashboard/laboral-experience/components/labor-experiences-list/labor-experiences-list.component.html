@@ -1,0 +1,76 @@
+<div class="flex flex-wrap gap-2 w-full mt-2">
+  @if (laborExperienceRequest.isPending()) {
+    <div class="flex w-full justify-center items-center">
+      <app-spinner />
+    </div>
+  } @else {
+    <div class="flex flex-wrap gap-2 w-full">
+      @for (page of laborExperienceRequest.data()?.pages; track $index) {
+        @for (laborExperience of page.data; track laborExperience.id) {
+          <div class="w-full">
+            <p-card>
+              <ng-template pTemplate="header">
+                <div class="flex w-full justify-between px-5">
+                  <div class="flex flex-col flex-wrap mt-5">
+                    <div>
+                      <h3 class="font-bold text-2xl">{{ laborExperience.name }}</h3>
+                    </div>
+                    <div>
+                      <h4 class="text-xl">{{ laborExperience.organizationName }}</h4>
+                    </div>
+                    <div class="mt-1">
+                      <p>
+                        {{ laborExperience.initDate | date: 'mediumDate' }} -
+                        {{
+                          laborExperience.currentJob
+                            ? 'actualidad'
+                            : (laborExperience.finishDate | date: 'mediumDate')
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex justify-between mt-5 gap-3">
+                    <div>
+                      <button
+                        (click)="showEditDialog(laborExperience.id)"
+                        class="p-button-rounded p-button-text"
+                        pTooltip="Editar experiencia laboral"
+                        tooltipPosition="bottom"
+                      >
+                        <i class="fas fa-edit fa-lg orange-icon"></i>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        (click)="showDeleteDialog(laborExperience.id)"
+                        class="p-button-rounded p-button-text"
+                        pTooltip="Eliminar experiencia laboral"
+                        tooltipPosition="bottom"
+                      >
+                        <i class="fas fa-trash fa-lg red-icon"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+
+              <p class="text-sm text-gray">Funciones desempeñadas:</p>
+              <p>{{ laborExperience.functionPerformed }}</p>
+            </p-card>
+          </div>
+        }
+      }
+    </div>
+    <div class="mt-2 w-44">
+      <p-button
+        icon="pi pi-angle-down"
+        (onClick)="laborExperienceRequest.fetchNextPage()"
+        [disabled]="nextButtonDisabled()"
+        [loading]="laborExperienceRequest.isFetchingNextPage()"
+        [text]="true"
+        [style]="{ width: '100%' }"
+        [label]="nextButtonText()"
+      />
+    </div>
+  }
+</div>

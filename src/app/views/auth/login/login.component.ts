@@ -12,7 +12,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { login, setPerson } from '../../../store/auth.actions';
-import { Session } from '../../../interfaces/user';
+import { Session } from '../../../interfaces/user.interface';
 import { CustomInputComponent } from '../../../components/inputs/custom-input/custom-input.component';
 import { PersonService } from '../../../services/person.service';
 import { LOCAL_STORAGE } from '../../../utils/constants.utils';

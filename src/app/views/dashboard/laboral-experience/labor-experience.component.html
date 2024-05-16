@@ -1,0 +1,16 @@
+<div class="w-full flex flex-col">
+  <div class="flex w-full justify-end">
+    <p-button
+      label="Agregar"
+      icon="pi pi-plus"
+      class="p-button-rounded"
+      (click)="showAddDialog()"
+    />
+  </div>
+  <div>
+    <app-labor-experiences-list
+      [showDeleteDialog]="showDeleteDialog"
+      [showEditDialog]="showEditDialog"
+    />
+  </div>
+</div>

@@ -12,9 +12,5 @@ export function hasExpiredToken(token: string) {
 
   const currentData = new Date().getTime();
 
-  if (exp <= currentData) {
-    return true;
-  }
-
-  return false;
+  return exp <= currentData;
 }

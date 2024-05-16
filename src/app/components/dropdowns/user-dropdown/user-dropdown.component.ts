@@ -20,7 +20,7 @@ export class UserDropdownComponent implements AfterViewInit {
   sessionValue: Session | undefined;
 
   private _time$: Observable<Date> = timer(0, 1000).pipe(
-    map((tick) => new Date()),
+    map(() => new Date()),
     shareReplay(1),
   );
 
@@ -40,11 +40,7 @@ export class UserDropdownComponent implements AfterViewInit {
   }
   toggleDropdown(event: any) {
     event.preventDefault();
-    if (this.dropdownPopoverShow) {
-      this.dropdownPopoverShow = false;
-    } else {
-      this.dropdownPopoverShow = true;
-    }
+    this.dropdownPopoverShow = !this.dropdownPopoverShow;
   }
 
   logout() {
