@@ -18,6 +18,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { CustomInputComponent } from '../../../../../components/inputs/custom-input/custom-input.component';
+import { SelectComponent } from '../../../../../components/inputs/select/select.component';
 import { CalendarModule } from 'primeng/calendar';
 import { toast } from 'ngx-sonner';
 import { LOCAL_STORAGE } from '../../../../../utils/constants.utils';
@@ -36,6 +37,7 @@ import { Store } from '@ngrx/store';
     ReactiveFormsModule,
     DropdownModule,
     CustomInputComponent,
+    SelectComponent,
     CalendarModule,
     ButtonModule,
   ],

@@ -27,10 +27,10 @@ export class CustomInputComponent {
   public value: string = '';
   public changed: (value: string) => void = () => {};
   public touched: () => void = () => {};
-  public isDisabled: boolean = false;
 
   // Input properties
   @Input() parentForm: FormGroup | null = null;
+  @Input() isDisabled: boolean = false;
   @Input() fieldName: string = '';
   @Input() placeholder: string = '';
   @Input() prependIcon: string | null = null;
@@ -82,9 +82,5 @@ export class CustomInputComponent {
 
   public registerOnTouched(fn: any): void {
     this.touched = fn;
-  }
-
-  public setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
   }
 }
