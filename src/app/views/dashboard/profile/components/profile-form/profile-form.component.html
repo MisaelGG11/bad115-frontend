@@ -5,8 +5,8 @@
     </div>
   } @else {
     <form [formGroup]="form" (submit)="submit()" class="gap-4 p-2">
-      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
-        <div class="w-full lg:basis-1/2">
+      <div class="grid grid-cols-1 lg:grid-cols-2 w-full gap-4 mb-4">
+        <div class="w-full">
           <app-custom-input
             [parentForm]="form"
             label="Primer nombre"
@@ -17,7 +17,7 @@
           />
         </div>
 
-        <div class="w-full lg:w-1/2">
+        <div class="w-full">
           <app-custom-input
             [parentForm]="form"
             label="Segundo nombre"
@@ -27,8 +27,7 @@
             [type]="'text'"
           />
         </div>
-      </div>
-      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+
         <div class="w-full lg:basis-1/2">
           <app-custom-input
             [parentForm]="form"
@@ -50,9 +49,8 @@
             [type]="'text'"
           />
         </div>
-      </div>
-      <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
-        <div class="w-full lg:w-1/2">
+
+        <div class="w-full">
           <app-calendar
             fieldName="birthday"
             [required]="true"
@@ -63,7 +61,7 @@
           ></app-calendar>
         </div>
 
-        <div class="w-full lg:w-1/2">
+        <div class="w-full">
           <app-select
             label="Sexo"
             [selectOptions]="genderOptions"
@@ -75,6 +73,7 @@
           ></app-select>
         </div>
       </div>
+
       <div class="flex justify-end w-full mt-3">
         <p-button
           type="submit"
