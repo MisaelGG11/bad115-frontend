@@ -13,15 +13,20 @@
   </div>
   <div>
     <app-labor-experiences-list
-      [showDeleteDialog]="showDeleteDialog"
-      [showEditDialog]="showEditDialog"
+      (showDeleteDialog)="showDeleteDialog($event)"
+      (showEditDialog)="showEditDialog($event)"
     />
   </div>
 
-  <app-create-labor-experience-modal [visible]="visibleAddModal" />
+  <app-create-labor-experience-modal [visible]="showAddModal" />
 
   <app-delete-labor-experience-modal
-    [visible]="visibleDeleteModal"
-    [laborExperienceId]="laborExperienceId"
+    [visible]="showDeleteModal"
+    [laborExperienceId]="selectedLaborExperience"
+  />
+
+  <app-edit-labor-experience-modal
+    [visible]="showEditModal"
+    [laborExperienceId]="selectedLaborExperience()"
   />
 </div>

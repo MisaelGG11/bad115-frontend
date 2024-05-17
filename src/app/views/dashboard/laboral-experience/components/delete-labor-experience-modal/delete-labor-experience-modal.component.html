@@ -1,13 +1,29 @@
 <p-dialog
-  header="Añadir experiencia laboral"
+  header="Eliminar experiencia laboral"
   [(visible)]="visible"
   [modal]="true"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-  [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
 >
-  <div class="flex w-full">
-    <p>{{ laborExperienceId() }}</p>
+  <div class="flex flex-col w-full">
+    <div class="flex items-center">
+      ¿Estas seguro que quieres eliminar la experiencia laboral {{ positionQuery.data()?.name }}?
+    </div>
+    <div class="flex justify-end gap-4 mt-5">
+      <p-button
+        label="No, gracias"
+        severity="secondary"
+        [text]="true"
+        [raised]="true"
+        (click)="closeModal()"
+      />
+      <p-button
+        label="Eliminar"
+        icon="pi pi-trash"
+        [raised]="true"
+        [loading]="deleteLaborExperienceMutation.isPending()"
+        (click)="delete()"
+      />
+    </div>
   </div>
 </p-dialog>

@@ -10,6 +10,13 @@ export interface Person {
   userId: string;
   gender: 'F' | 'M';
   address: Address | null;
+  user: User;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  avatar: string;
 }
 
 export interface Address {

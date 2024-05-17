@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Output } from '@angular/core';
 import { Person } from '../../../../../interfaces/person.interface';
 import { LOCAL_STORAGE } from '../../../../../utils/constants.utils';
 import { injectInfiniteQuery } from '@tanstack/angular-query-experimental';
@@ -35,6 +35,8 @@ import { InputErrorsComponent } from '../../../../../components/inputs/input-err
 export class LaborExperiencesListComponent {
   private candidateService = inject(CandidateService);
   private person: Person = JSON.parse(localStorage.getItem(LOCAL_STORAGE.PERSON) ?? '');
+  @Output() showDeleteDialog = new EventEmitter<string>();
+  @Output() showEditDialog = new EventEmitter<string>();
 
   constructor() {}
 
@@ -63,6 +65,11 @@ export class LaborExperiencesListComponent {
         : 'No hay más registros',
   );
 
-  @Input() showEditDialog!: (laborExperienceId: string) => void;
-  @Input() showDeleteDialog!: (laborExperienceId: string) => void;
+  onClickShowEditDialog(laborExperienceId: string) {
+    this.showEditDialog.emit(laborExperienceId);
+  }
+
+  onClickShowDeleteDialog(laborExperienceId: string) {
+    this.showDeleteDialog.emit(laborExperienceId);
+  }
 }

@@ -3,6 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { LaborExperiencesListComponent } from './components/labor-experiences-list/labor-experiences-list.component';
 import { CreateLaborExperienceModalComponent } from './components/create-labor-experience-modal/create-labor-experience-modal.component';
 import { DeleteLaborExperienceModalComponent } from './components/delete-labor-experience-modal/delete-labor-experience-modal.component';
+import { EditLaborExperienceModalComponent } from './components/edit-labor-experience-modal/edit-labor-experience-modal.component';
 
 @Component({
   selector: 'app-laboral-experience',
@@ -12,29 +13,30 @@ import { DeleteLaborExperienceModalComponent } from './components/delete-labor-e
     LaborExperiencesListComponent,
     CreateLaborExperienceModalComponent,
     DeleteLaborExperienceModalComponent,
+    EditLaborExperienceModalComponent,
   ],
   templateUrl: './labor-experience.component.html',
   styles: [],
 })
 export class LaborExperienceComponent {
-  visibleAddModal = signal(false);
-  visibleDeleteModal = signal(false);
-  laborExperienceId = signal('');
+  showAddModal = signal(false);
+  showDeleteModal = signal(false);
+  showEditModal = signal(false);
+  selectedLaborExperience = signal('');
 
   constructor() {}
 
   showAddDialog() {
-    this.visibleAddModal.set(true);
+    this.showAddModal.set(true);
   }
 
   showEditDialog(laborExperienceId: string) {
-    console.log('showEditDialog', laborExperienceId);
+    this.selectedLaborExperience.set(laborExperienceId);
+    this.showEditModal.set(true);
   }
 
   showDeleteDialog(laborExperienceId: string) {
-    console.log('showDeleteDialog', laborExperienceId);
-
-    this.laborExperienceId.set(laborExperienceId);
-    this.visibleDeleteModal.set(true);
+    this.selectedLaborExperience.set(laborExperienceId);
+    this.showDeleteModal.set(true);
   }
 }

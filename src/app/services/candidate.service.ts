@@ -21,6 +21,17 @@ export class CandidateService {
     return response.data;
   }
 
+  async getLaborExperience(
+    candidateId: string,
+    laborExperienceId: string,
+  ): Promise<LaboralExperience> {
+    const response = await network.get<LaboralExperience>(
+      `/candidates/${candidateId}/laboral-experiences/${laborExperienceId}`,
+    );
+
+    return response.data;
+  }
+
   async createLaborExperience(
     candidateId: string,
     laborExperience: CreateLaborExperience,
@@ -33,7 +44,7 @@ export class CandidateService {
     return response.data;
   }
 
-  async deleteLaborExperience(laborExperienceId: string): Promise<void> {
-    await network.delete(`/candidates/laboral-experiences/${laborExperienceId}`);
+  async deleteLaborExperience(candidateId: string, laborExperienceId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/laboral-experiences/${laborExperienceId}`);
   }
 }
