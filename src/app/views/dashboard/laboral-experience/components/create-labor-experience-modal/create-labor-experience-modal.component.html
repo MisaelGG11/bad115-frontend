@@ -72,8 +72,6 @@
             [formField]="getFormControl('initDate')"
             propertyName="initDate"
           />
-
-          <div class="mt-3"></div>
         </div>
 
         <div class="w-full lg:basis-1/2 mt-2">
@@ -114,6 +112,7 @@
         <textarea
           pInputTextarea
           formControlName="functionPerformed"
+          rows="3"
           [autoResize]="true"
           [style]="{ width: '100%' }"
           [ngClass]="
@@ -129,7 +128,7 @@
         />
       </div>
 
-      <div class="w-full mt-4">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-1">
         <div class="w-full lg:basis-1/2">
           <app-custom-input
             [parentForm]="form"

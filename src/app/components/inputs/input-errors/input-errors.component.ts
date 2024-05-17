@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, Input } from '@angular/core';
-import { ReactiveFormsModule, FormControl, ValidationErrors, FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-errors',
@@ -12,7 +12,7 @@ import { ReactiveFormsModule, FormControl, ValidationErrors, FormGroup } from '@
 export class InputErrorsComponent {
   @Input()
   public formField: FormControl = new FormControl();
-  @Input() propertyName: string = '';
+  @Input() propertyName!: string;
 
   @Input()
   public fieldName: string = '';

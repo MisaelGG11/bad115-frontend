@@ -1,6 +1,12 @@
 import { Component, inject, Input, signal } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { CustomInputComponent } from '../../../../../components/inputs/custom-input/custom-input.component';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -14,6 +20,7 @@ import { createValidatorFromSchema } from '../../../../../utils/validator.utils'
 import { InputErrorsComponent } from '../../../../../components/inputs/input-errors/input-errors.component';
 import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
+import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
 
 @Component({
   selector: 'app-create-labor-experience-modal',
@@ -29,19 +36,11 @@ import { StyleClassModule } from 'primeng/styleclass';
     NgIf,
     InputErrorsComponent,
     StyleClassModule,
+    CalendarComponent,
+    CalendarComponent,
   ],
   templateUrl: './create-labor-experience-modal.component.html',
-  styles: `
-    input.ng-dirty.ng-invalid {
-      outline: red auto 1px;
-    }
-
-    .errorText {
-      color: maroon;
-      font-size: 0.75rem;
-      margin-top: -0.5rem;
-    }
-  `,
+  styles: [],
 })
 export class CreateLaborExperienceModalComponent {
   private candidateService = inject(CandidateService);
@@ -55,19 +54,25 @@ export class CreateLaborExperienceModalComponent {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group(
       {
-        name: [''],
-        organizationName: [''],
-        initDate: [new Date()],
+        name: ['', [Validators.required]],
+        organizationName: ['', [Validators.required]],
+        initDate: [new Date(), [Validators.required]],
         finishDate: [new Date()],
-        functionPerformed: [''],
+        functionPerformed: ['', [Validators.required]],
         currentJob: [false],
-        organizationContactEmail: [''],
-        organizationContactPhone: [''],
+        organizationContactEmail: ['', [Validators.email]],
+        organizationContactPhone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       },
       {
         validators: createValidatorFromSchema(createLaborExperienceSchema),
       },
     );
+
+    this.form.valueChanges.subscribe((values) => {
+      console.log({ values });
+      const errors = createLaborExperienceSchema.validate(values, { abortEarly: false });
+      console.log(errors.error?.details);
+    });
   }
 
   createLaborExperienceMutation = injectMutation(() => ({
@@ -82,6 +87,10 @@ export class CreateLaborExperienceModalComponent {
   }));
 
   async submit() {
+    console.log(this.form.value);
+    console.log(this.getFormControl('finishDate'));
+    console.log(this.form.errors);
+
     if (this.form.invalid) {
       return;
     }

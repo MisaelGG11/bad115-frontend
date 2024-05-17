@@ -1,6 +1,7 @@
 <div class="w-full">
   <label
     [for]="fieldName"
+    [ngClass]="isDisabled ? '!text-gray-light' : 'block'"
     class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
     >{{ label }}{{ required ? ' *' : '' }}</label
   >
@@ -26,5 +27,6 @@
   <app-input-errors
     [formField]="formField"
     [fieldName]="label.toLocaleLowerCase()"
+    [propertyName]="fieldName"
   ></app-input-errors>
 </div>
