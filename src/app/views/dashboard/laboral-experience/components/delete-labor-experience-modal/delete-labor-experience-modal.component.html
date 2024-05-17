@@ -1,0 +1,13 @@
+<p-dialog
+  header="Añadir experiencia laboral"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <p>{{ laborExperienceId() }}</p>
+  </div>
+</p-dialog>

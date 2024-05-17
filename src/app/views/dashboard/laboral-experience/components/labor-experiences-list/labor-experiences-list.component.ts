@@ -8,11 +8,19 @@ import { DatePipe } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { SpinnerComponent } from '../../../../../components/spinner/spinner.component';
+import { InputErrorsComponent } from '../../../../../components/inputs/input-errors/input-errors.component';
 
 @Component({
   selector: 'app-labor-experiences-list',
   standalone: true,
-  imports: [CardModule, DatePipe, TooltipModule, ButtonModule, SpinnerComponent],
+  imports: [
+    CardModule,
+    DatePipe,
+    TooltipModule,
+    ButtonModule,
+    SpinnerComponent,
+    InputErrorsComponent,
+  ],
   templateUrl: './labor-experiences-list.component.html',
   styles: `
     .red-icon {
@@ -35,7 +43,7 @@ export class LaborExperiencesListComponent {
     queryFn: ({ pageParam }) =>
       this.candidateService.getLaborExperiences(this.person.candidateId, {
         page: pageParam,
-        perPage: 1,
+        perPage: 3,
       }),
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => firstPage.pagination.previousPage ?? undefined,

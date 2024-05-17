@@ -1,5 +1,9 @@
 <div class="w-full flex flex-col">
-  <div class="flex w-full justify-end">
+  <div class="flex w-full justify-between gap-2">
+    <div class="mt-1 font-bold text-2xl">
+      <h1>Experiencia laboral</h1>
+    </div>
+
     <p-button
       label="Agregar"
       icon="pi pi-plus"
@@ -13,4 +17,11 @@
       [showEditDialog]="showEditDialog"
     />
   </div>
+
+  <app-create-labor-experience-modal [visible]="visibleAddModal" />
+
+  <app-delete-labor-experience-modal
+    [visible]="visibleDeleteModal"
+    [laborExperienceId]="laborExperienceId"
+  />
 </div>

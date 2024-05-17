@@ -1,11 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import {
-  Form,
-  FormControl,
-  FormGroup,
-  NG_VALUE_ACCESSOR,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputErrorsComponent } from '../input-errors/input-errors.component';
 
