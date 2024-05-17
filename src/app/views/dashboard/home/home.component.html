@@ -1,4 +1,4 @@
-<div class="flex flex-col h-screen p-3 w-full">
+<div class="flex flex-col p-3 w-full">
   <p>home works!</p>
   <button
     class="bg-emerald-700 text-white"
@@ -23,4 +23,38 @@
   </div>
   <p-button label="hola"></p-button>
   <p-calendar [(ngModel)]="date2" />
+  <div>
+    <h1 class="font-bold my-4">Lista de Empleados</h1>
+    <app-data-table
+      [columns]="columnas"
+      [rows]="rows"
+      [haveActions]="true"
+      [headerAlign]="'left'"
+      [showPagination]="true"
+      [pagination]="{ total: empleados.length, perPage: 10, page: 1 }"
+      (setPagination)="paginatePage($event)"
+    >
+      <ng-template #actions let-rowData>
+        <div class="flex justify-center items-center">
+          @for (accion of acciones; track accion.label) {
+            @if (accion.permiso) {
+              <button
+                type="button"
+                class="bg-transparent rounded-full py-1 px-2"
+                [pTooltip]="accion.label"
+                tooltipPosition="top"
+                showDelay="300"
+                hideDelay="300"
+                (click)="accion.onClick(rowData)"
+              >
+                <span class="material-symbols-outlined">
+                  {{ accion.icon }}
+                </span>
+              </button>
+            }
+          }
+        </div>
+      </ng-template>
+    </app-data-table>
+  </div>
 </div>

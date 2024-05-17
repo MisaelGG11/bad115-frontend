@@ -1,0 +1,121 @@
+<div
+  class="card w-full rounded"
+  [ngStyle]="{ 'box-shadow': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }"
+>
+  <p-table
+    [columns]="columns"
+    [value]="rows"
+    [rows]="rows.length"
+    [tableStyle]="{ tableStyle }"
+    styleClass=""
+    [(selection)]="item"
+    (onSelectionChange)="emitSelection()"
+  >
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="columns.length + 1">
+          <div class="w-full flex justify-center flex-col gap-2 py-5 text-yellow-300">
+            <span class="material-symbols-outlined text-center" style="font-size: 40px">
+              error
+            </span>
+            <h1 class="font-bold text-primary-dark text-center">Sin datos para mostrar</h1>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        @for (col of columns; track col.field) {
+          <th [id]="col.field">
+            <div
+              class="w-full text-center font-black text-[14px]"
+              [ngClass]="[col.column_align, invertedColors ? 'text-[#737c8e]' : 'text-slate-800']"
+            >
+              {{ col.header }}
+            </div>
+          </th>
+        }
+        @if (haveActions) {
+          <th id="actions" ngClass="w-[12%]">
+            <div class="w-full text-center font-black text-[14px]">Acciones</div>
+          </th>
+        }
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        @for (col of columns; track col.field) {
+          <td>
+            @if (col.field === 'estado') {
+              <div [ngClass]="'text-' + col.row_align">
+                @if (rowData[col.field].nombre) {
+                  <p-tag
+                    [value]="rowData[col.field].nombre"
+                    [severity]="colorTag(rowData[col.field].nombre)"
+                  />
+                } @else {
+                  <p-tag [value]="rowData[col.field]" [severity]="colorTag(rowData[col.field])" />
+                }
+              </div>
+            } @else {
+              @if (rowData[col.field]) {
+                <p class="text-center text-sm">{{ rowData[col.field] }}</p>
+              } @else {
+                <div [innerHTML]="rowData[col.field]"></div>
+              }
+            }
+          </td>
+        }
+        @if (haveActions) {
+          <td>
+            <ng-container
+              *ngTemplateOutlet="actionsTemplate; context: { $implicit: rowData }"
+            ></ng-container>
+          </td>
+        }
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="0"
+    [rows]="rows.length"
+    [totalRecords]="120"
+    [showCurrentPageReport]="true"
+    [showPageLinks]="false"
+    [showJumpToPageDropdown]="false"
+    currentPageReportTemplate="Mostrando {first} de {last} ode un total de {totalRecords}" /> -->
+  <div class="h-auto" *ngIf="showPagination && rows.length > 0">
+    <div class="flex flex-row items-center justify-center py-5">
+      <button
+        type="button"
+        class="text-sm font-extrabold leading-none text-slate-700 shadow-none cursor-pointer"
+        [disabled]="currentPage === 1"
+        (click)="prevPage()"
+      >
+        Anterior
+      </button>
+      <div class="flex flex-wrap justify-center items-center gap-x-1 md:gap-x-5 gap-y-1 w-[350px]">
+        <button
+          *ngFor="let page of pageRange"
+          type="button"
+          class="leading-none py-2 px-3 cursor-pointer text-sm font-bold rounded-xl"
+          [ngClass]="currentPage === page ? '!bg-slate-700 text-white' : 'bg-white text-slate-700'"
+          style="box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15)"
+          [disabled]="currentPage === page"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      </div>
+      <button
+        type="button"
+        class="text-sm font-extrabold leading-none text-slate-700 shadow-none cursor-pointer"
+        [disabled]="!(currentPage * pagination.perPage < pagination.total)"
+        (click)="nextPage()"
+      >
+        Siguiente
+      </button>
+    </div>
+  </div>
+</div>
