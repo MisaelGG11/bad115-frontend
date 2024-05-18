@@ -52,7 +52,7 @@ export class AddressFormComponent implements OnInit {
   countriesOptions: Array<{ label: string; value: string }> = [];
   departmentsOptions: Array<{ label: string; value: string }> = [];
   municipalityOptions = signal<Array<{ label: string; value: string }>>([]);
-  selectedNameCountry = signal('El Salvador');
+  selectedNameCountry = signal('');
   selectedDepartment = signal<string | null>(null);
   isLoadingMunicipalities = signal(false);
 
@@ -61,11 +61,8 @@ export class AddressFormComponent implements OnInit {
       {
         street: new FormControl<string>('', [Validators.required, Validators.maxLength(150)]),
         numberHouse: new FormControl<string>('', Validators.required),
-        countryId: new FormControl<string>(
-          '7b35283e-df44-4f97-93fd-34b76b20d674',
-          Validators.required,
-        ),
-        countryName: new FormControl<string>('El Salvador'),
+        countryId: new FormControl<string>('', Validators.required),
+        countryName: new FormControl<string>(''),
         departmentId: new FormControl<string>(''),
         municipalityId: new FormControl<string>(''),
       },
@@ -75,10 +72,8 @@ export class AddressFormComponent implements OnInit {
 
   async ngOnInit() {
     const { data: personInfo } = await this.personService.getPerson(this.person.id);
-    this.selectedDepartment.set(
-      personInfo?.address?.department.id ?? '7b35283e-df44-4f97-93fd-34b76b20d674',
-    );
-    this.selectedNameCountry = signal('El Salvador');
+    this.selectedDepartment.set(personInfo?.address?.department.id ?? '');
+    this.selectedNameCountry = signal('');
 
     if (personInfo?.address?.department.id) {
       const { data: municipalities } = await this.addressService.getMunicipalitiesByDepartment(

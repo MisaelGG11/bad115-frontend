@@ -109,7 +109,7 @@ instance.interceptors.response.use(
             localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
             localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
             localStorage.removeItem(LOCAL_STORAGE.PERSON);
-            window.location.href = '/login';
+            window.location.href = '/auth/login';
             return Promise.reject(error);
           }
         }
