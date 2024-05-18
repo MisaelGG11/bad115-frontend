@@ -10,3 +10,5 @@ export interface CreateLaborExperience {
     email: string;
   };
 }
+
+export interface UpdateLaborExperience extends Partial<CreateLaborExperience> {}

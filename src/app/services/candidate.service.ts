@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
 import { LaboralExperience } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
-import { CreateLaborExperience } from './interfaces/candidate.interface';
+import { CreateLaborExperience, UpdateLaborExperience } from './interfaces/candidate.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +38,19 @@ export class CandidateService {
   ): Promise<LaboralExperience> {
     const response = await network.post<LaboralExperience>(
       `/candidates/${candidateId}/laboral-experiences`,
+      laborExperience,
+    );
+
+    return response.data;
+  }
+
+  async updateLaborExperience(
+    candidateId: string,
+    laborExperienceId: string,
+    laborExperience: UpdateLaborExperience,
+  ): Promise<LaboralExperience> {
+    const response = await network.put<LaboralExperience>(
+      `/candidates/${candidateId}/laboral-experiences/${laborExperienceId}`,
       laborExperience,
     );
 
