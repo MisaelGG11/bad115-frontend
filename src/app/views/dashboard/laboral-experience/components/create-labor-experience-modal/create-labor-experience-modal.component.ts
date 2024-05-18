@@ -56,8 +56,8 @@ export class CreateLaborExperienceModalComponent {
       {
         name: ['', [Validators.required]],
         organizationName: ['', [Validators.required]],
-        initDate: [new Date(), [Validators.required]],
-        finishDate: [new Date()],
+        initDate: [null, [Validators.required]],
+        finishDate: [null],
         functionPerformed: ['', [Validators.required]],
         currentJob: [false],
         organizationContactEmail: ['', [Validators.email]],
@@ -87,10 +87,10 @@ export class CreateLaborExperienceModalComponent {
   }));
 
   async submit() {
-    console.log(this.form.value);
+    console.log(this.form);
     console.log(this.getFormControl('finishDate'));
     console.log(this.form.errors);
-
+    this.form.markAllAsTouched()
     if (this.form.invalid) {
       return;
     }

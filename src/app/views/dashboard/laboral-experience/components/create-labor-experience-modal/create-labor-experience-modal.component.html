@@ -48,58 +48,26 @@
 
       <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-1">
         <div class="w-full lg:basis-1/2 mt-2">
-          <label
-            for="initDate"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
-            >Fecha de inicio *</label
-          >
-          <p-calendar
-            id="initDate"
-            formControlName="initDate"
-            [inputStyleClass]="
-              'w-full block border-white text-gray-900 placeholder-slate-300 px-3 py-3 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            "
-            [placeholder]="'Fecha de inicio'"
-            [iconDisplay]="'input'"
-            inputId="icondisplay"
+          <app-calendar
+            fieldName="initDate"
             [required]="true"
-            dateFormat="dd/mm/yy"
-            [style]="{ width: '100%' }"
+            [parentForm]="form"
+            formControlName="initDate"
+            label="Fecha de inicio"
             [maxDate]="today"
-          />
-          <app-input-errors
-            [fieldName]="'fecha de inicio'"
-            [formField]="getFormControl('initDate')"
-            propertyName="initDate"
-          />
+          ></app-calendar>
         </div>
 
         <div class="w-full lg:basis-1/2 mt-2">
-          <label
-            for="initDate"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
-            [ngClass]="checked() ? 'text-gray-light' : 'block'"
-            >Fecha de finalizacion</label
-          >
-          <p-calendar
-            id="finishDate"
+          <app-calendar
+            fieldName="finishDate"
+            [required]="checked()"
+            [parentForm]="form"
             formControlName="finishDate"
-            [inputStyleClass]="
-              'w-full block border-white text-gray-900 placeholder-slate-300 px-3 py-3 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            "
-            [placeholder]="'Fecha de inicio'"
-            [iconDisplay]="'input'"
-            inputId="icondisplay"
-            [required]="true"
-            dateFormat="dd/mm/yy"
-            [style]="{ width: '100%' }"
+            label="Fecha de finalizacion"
             [maxDate]="today"
-          />
-          <app-input-errors
-            [fieldName]="'fecha de inicio'"
-            [formField]="getFormControl('finishDate')"
-            propertyName="finishDate"
-          />
+          ></app-calendar>
+          
         </div>
       </div>
 
