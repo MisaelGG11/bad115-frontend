@@ -31,16 +31,16 @@
       [haveActions]="true"
       [headerAlign]="'left'"
       [showPagination]="true"
-      [pagination]="{ total: empleados.length, perPage: 10, page: 1 }"
+      [pagination]="pagination"
       (setPagination)="paginatePage($event)"
     >
       <ng-template #actions let-rowData>
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center gap-2.5">
           @for (accion of acciones; track accion.label) {
             @if (accion.permiso) {
               <button
                 type="button"
-                class="bg-transparent rounded-full py-1 px-2"
+                class="bg-transparent rounded-full"
                 [pTooltip]="accion.label"
                 tooltipPosition="top"
                 showDelay="300"

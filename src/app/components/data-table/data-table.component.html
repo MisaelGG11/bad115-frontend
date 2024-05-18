@@ -8,8 +8,6 @@
     [rows]="rows.length"
     [tableStyle]="{ tableStyle }"
     styleClass=""
-    [(selection)]="item"
-    (onSelectionChange)="emitSelection()"
   >
     <ng-template pTemplate="emptymessage">
       <tr>
@@ -67,7 +65,7 @@
           </td>
         }
         @if (haveActions) {
-          <td>
+          <td class="w-[15%]">
             <ng-container
               *ngTemplateOutlet="actionsTemplate; context: { $implicit: rowData }"
             ></ng-container>
@@ -86,7 +84,7 @@
     [showJumpToPageDropdown]="false"
     currentPageReportTemplate="Mostrando {first} de {last} ode un total de {totalRecords}" /> -->
   <div class="h-auto" *ngIf="showPagination && rows.length > 0">
-    <div class="flex flex-row items-center justify-center py-5">
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-4 py-5">
       <button
         type="button"
         class="text-sm font-extrabold leading-none text-slate-700 shadow-none cursor-pointer"
@@ -95,7 +93,7 @@
       >
         Anterior
       </button>
-      <div class="flex flex-wrap justify-center items-center gap-x-1 md:gap-x-5 gap-y-1 w-[350px]">
+      <div class="flex flex-wrap justify-center items-center gap-x-3 lg:gap-x-5 gap-y-1">
         <button
           *ngFor="let page of pageRange"
           type="button"
@@ -116,6 +114,17 @@
       >
         Siguiente
       </button>
+    </div>
+    <div class="flex flex-col md:flex-row justify-center items-center pb-4 gap-4">
+      <p class="text-sm font-semibold text-slate-700">
+        Mostrando {{ pagination.perPage * (pagination.page - 1) + 1 }} - 
+        {{ pagination.perPage * pagination.page > pagination.total ? pagination.total : pagination.perPage * pagination.page }} 
+        de {{ pagination.total }} registros</p>
+      <p-dropdown 
+      [options]="[3, 5, 10, 15]" 
+      [(ngModel)]="selectedOption"
+      (onChange)="selectPerPage($event)"
+      styleClass="border-primery text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
     </div>
   </div>
 </div>

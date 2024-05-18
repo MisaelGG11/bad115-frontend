@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
     { id: 5, nombre: 'Luis', apellido: 'Hernández', estado: { id: 1, nombre: 'Activo' } },
     { id: 6, nombre: 'Sara', apellido: 'García', estado: { id: 2, nombre: 'Inactivo' } },
     { id: 7, nombre: 'Carlos', apellido: 'Ruiz', estado: { id: 1, nombre: 'Activo' } },
+    { id: 8, nombre: 'María', apellido: 'Gómez', estado: { id: 2, nombre: 'Inactivo' } },
     { id: 9, nombre: 'Laura', apellido: 'Fernández', estado: { id: 3, nombre: 'Inhabilitado' } },
     { id: 10, nombre: 'Juan', apellido: 'Pérez', estado: { id: 1, nombre: 'Activo' } },
     { id: 11, nombre: 'Juan', apellido: 'Pérez', estado: { id: 1, nombre: 'Activo' } },
@@ -65,7 +66,7 @@ export class HomeComponent implements OnInit {
     { id: 26, nombre: 'Laura', apellido: 'Fernández', estado: { id: 3, nombre: 'Inhabilitado' } },
   ];
   pagination = {
-    total: this.rows.length,
+    total: this.empleados.length,
     perPage: 10,
     page: 1,
   };
@@ -96,16 +97,17 @@ export class HomeComponent implements OnInit {
     {
       label: 'Eliminar',
       icon: 'delete',
-      permiso: false,
+      permiso: true,
       onClick: (value: any) => {
         console.log('Eliminar:', value);
       },
     },
   ];
 
-  paginatePage(page: any) {
-    this.pagination.page = page;
-    console.log('Paginate page:', page);
+  paginatePage(pag: any) {
+    this.pagination.page = pag.page;
+    this.pagination.perPage = pag.perPage;
+    console.log('Paginate page:', pag);
     this.getData();
   }
 

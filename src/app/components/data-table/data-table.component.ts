@@ -9,7 +9,13 @@ import { PaginatorModule } from 'primeng/paginator';
   standalone: true,
   imports: [TableModule, TagModule, PaginatorModule, CommonModule],
   templateUrl: './data-table.component.html',
-  styles: ``,
+  styles: [`
+  :host ::ng-deep .p-inputtext {
+    padding: 0.3rem 0.75rem;
+    color: #5271ff;
+    font-weight: bold;
+  }
+  `],
 })
 export class DataTableComponent {
   @Input() columns: any[] = [];
@@ -20,18 +26,15 @@ export class DataTableComponent {
   @Input() tableStyle: string = 'min-width: 50rem';
   @Input() showPagination: boolean = false;
   @Input() pagination: any = { total: 0, perPage: 10, page: 1 };
-  @ContentChild('actions', { static: true })
-  @Output()
-  setPagination = new EventEmitter();
-  actionsTemplate!: TemplateRef<any>;
+  @ContentChild('actions', { static: true }) actionsTemplate!: TemplateRef<any>;
+  @Output() setPagination = new EventEmitter();
 
-  item: any;
+  selectedOption: any = 10;
   currentPage: number = 1;
   rowsToShow: any[] = [];
 
   ngOnInit() {
     this.paginate();
-    console.log('DataTableComponent initialized', this.rows);
   }
 
   colorTag(estado: any) {
@@ -47,11 +50,19 @@ export class DataTableComponent {
     return 'info';
   }
 
+  selectPerPage(event:any) {
+    this.selectedOption = event.value;
+    this.currentPage = 1;
+    this.setPagination.emit({ page: 1, perPage:this.selectedOption });
+    this.paginate();
+    window.scrollTo(0, 0);
+  }
+
   nextPage() {
     if (this.currentPage * this.pagination.perPage < this.pagination.total) {
       this.currentPage++;
     }
-    this.setPagination.emit(this.currentPage);
+    this.setPagination.emit({ page: this.currentPage, perPage:this.selectedOption });
     this.paginate();
     window.scrollTo(0, 0);
   }
@@ -60,14 +71,14 @@ export class DataTableComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
-    this.setPagination.emit(this.currentPage);
+    this.setPagination.emit({ page: this.currentPage, perPage:this.selectedOption });
     this.paginate();
     window.scrollTo(0, 0);
   }
 
   goToPage(page: any) {
     this.currentPage = page;
-    this.setPagination.emit(this.currentPage);
+    this.setPagination.emit({ page: this.currentPage, perPage:this.selectedOption });
     this.paginate();
     window.scrollTo(0, 0);
   }
