@@ -11,7 +11,7 @@ import { SpinnerComponent } from '../../../../../components/spinner/spinner.comp
 import { InputErrorsComponent } from '../../../../../components/inputs/input-errors/input-errors.component';
 
 @Component({
-  selector: 'app-labor-experiences-list',
+  selector: 'labor-experiences-list',
   standalone: true,
   imports: [
     CardModule,
@@ -25,10 +25,6 @@ import { InputErrorsComponent } from '../../../../../components/inputs/input-err
   styles: `
     .red-icon {
       color: red;
-    }
-
-    .orange-icon {
-      color: orange;
     }
   `,
 })

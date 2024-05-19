@@ -1,4 +1,4 @@
-export interface CreateLaborExperience {
+export interface CreateLaborExperienceDto {
   name: string;
   organizationName: string;
   initDate: Date;
@@ -11,4 +11,4 @@ export interface CreateLaborExperience {
   };
 }
 
-export interface UpdateLaborExperience extends Partial<CreateLaborExperience> {}
+export interface UpdateLaborExperienceDto extends Partial<CreateLaborExperienceDto> {}

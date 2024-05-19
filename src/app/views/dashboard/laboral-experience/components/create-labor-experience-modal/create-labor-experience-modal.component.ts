@@ -14,16 +14,15 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { NgClass, NgIf } from '@angular/common';
 import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { CandidateService } from '../../../../../services/candidate.service';
-import { CreateLaborExperience } from '../../../../../services/interfaces/candidate.interface';
-import { createLaborExperienceSchema } from './create-labor-experience.schema';
-import { createValidatorFromSchema } from '../../../../../utils/validator.utils';
+import { CreateLaborExperienceDto } from '../../../../../services/interfaces/candidate.interface';
+import { validateInitAndFinishDate } from '../../../../../validators/init-and-finish-date.validators';
 import { InputErrorsComponent } from '../../../../../components/inputs/input-errors/input-errors.component';
 import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
 
 @Component({
-  selector: 'app-create-labor-experience-modal',
+  selector: 'create-labor-experience-modal',
   standalone: true,
   imports: [
     DialogModule,
@@ -64,19 +63,13 @@ export class CreateLaborExperienceModalComponent {
         organizationContactPhone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       },
       {
-        validators: createValidatorFromSchema(createLaborExperienceSchema),
+        validators: [validateInitAndFinishDate],
       },
     );
-
-    this.form.valueChanges.subscribe((values) => {
-      console.log({ values });
-      const errors = createLaborExperienceSchema.validate(values, { abortEarly: false });
-      console.log(errors.error?.details);
-    });
   }
 
   createLaborExperienceMutation = injectMutation(() => ({
-    mutationFn: async (input: CreateLaborExperience) =>
+    mutationFn: async (input: CreateLaborExperienceDto) =>
       await this.candidateService.createLaborExperience(this.person.candidateId, input),
     onSuccess: async () => {
       toast.success('Experiencia laboral creada', { duration: 3000 });
@@ -87,10 +80,7 @@ export class CreateLaborExperienceModalComponent {
   }));
 
   async submit() {
-    console.log(this.form);
-    console.log(this.getFormControl('finishDate'));
-    console.log(this.form.errors);
-    this.form.markAllAsTouched()
+    this.form.markAllAsTouched();
     if (this.form.invalid) {
       return;
     }

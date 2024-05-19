@@ -7,5 +7,125 @@
   [draggable]="false"
   [resizable]="false"
 >
-  <div class="flex w-full"><>{{ laborExperienceId }}<></div>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre de la empresa"
+            fieldName="organizationName"
+            placeholder="Nombre de la empresa"
+            formControlName="organizationName"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre del puesto"
+            fieldName="name"
+            placeholder="Nombre del puesto"
+            formControlName="name"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+      </div>
+
+      <div class="flex gap-2 my-3">
+        <p-checkbox
+          id="currentJob"
+          formControlName="currentJob"
+          value="true"
+          (onChange)="onChangeCurrentJob($event)"
+          inputId="currentJob"
+        />
+        <label for="currentJob">Actualmente desempeño este trabajo</label>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-1">
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-calendar
+            fieldName="initDate"
+            [required]="true"
+            [parentForm]="form"
+            formControlName="initDate"
+            label="Fecha de inicio"
+            [maxDate]="today"
+          ></app-calendar>
+        </div>
+
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-calendar
+            fieldName="finishDate"
+            [required]="!checked()"
+            [isDisabled]="checked()"
+            [parentForm]="form"
+            formControlName="finishDate"
+            label="Fecha de finalizacion"
+            [maxDate]="today"
+          ></app-calendar>
+        </div>
+      </div>
+
+      <div class="w-full mt-4">
+        <label
+          for="functionPerformed"
+          class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+          >Funciones desempeñadas *</label
+        >
+        <textarea
+          id="functionPerformed"
+          pInputTextarea
+          formControlName="functionPerformed"
+          rows="3"
+          [autoResize]="true"
+          [style]="{ width: '100%' }"
+          [ngClass]="
+            getFormControl('functionPerformed').invalid && getFormControl('functionPerformed').dirty
+              ? 'border-red-500'
+              : ''
+          "
+        ></textarea>
+        <app-input-errors
+          [fieldName]="'funciones desempeñadas'"
+          [formField]="getFormControl('functionPerformed')"
+          propertyName="functionPerformed"
+        />
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-1">
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Correo contacto empresa"
+            formControlName="organizationContactEmail"
+            fieldName="organizationContactEmail"
+            placeholder="example@gmail.com"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Telefono contacto empresa"
+            formControlName="organizationContactPhone"
+            fieldName="organizationContactPhone"
+            placeholder="Nombre del puesto"
+            [type]="'tel'"
+            [required]="true"
+          />
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button type="submit" label="Guardar" [loading]="editLaborExperience.isPending()" />
+      </div>
+    </form>
+  </div>
 </p-dialog>
