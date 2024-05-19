@@ -6,7 +6,7 @@ import {
   RefreshResponse,
   SignupDto,
   UnlockedUserDto,
-} from './interfaces/auth.interface';
+} from './interfaces/auth.dto';
 
 @Injectable({
   providedIn: 'root',

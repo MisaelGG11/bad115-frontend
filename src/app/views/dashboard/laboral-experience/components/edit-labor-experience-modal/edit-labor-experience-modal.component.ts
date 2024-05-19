@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { validateInitAndFinishDate } from '../../../../../validators/init-and-finish-date.validators';
-import { UpdateLaborExperienceDto } from '../../../../../services/interfaces/candidate.interface';
+import { UpdateLaborExperienceDto } from '../../../../../services/interfaces/candidate.dto';
 import { CustomInputComponent } from '../../../../../components/inputs/custom-input/custom-input.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';

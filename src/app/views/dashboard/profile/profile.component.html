@@ -17,8 +17,17 @@
           <span class="font-bold whitespace-nowrap m-0">Dirección</span>
         </div>
       </ng-template>
-      <!--          <app-profile-form [profile]="query.data.profile"></app-profile-form>-->
       <app-address-form />
+    </p-tabPanel>
+
+    <p-tabPanel [selected]="true">
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> id_card </span>
+          <span class="font-bold whitespace-nowrap m-0">Documentos</span>
+        </div>
+      </ng-template>
+      <app-documents-form />
     </p-tabPanel>
   </p-tabView>
 </div>

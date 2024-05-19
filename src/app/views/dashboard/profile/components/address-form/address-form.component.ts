@@ -25,7 +25,7 @@ import { CustomInputComponent } from '../../../../../components/inputs/custom-in
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import { CreateAddressDto } from '../../../../../services/interfaces/person.interface';
+import { CreateAddressDto } from '../../../../../services/interfaces/person.dto';
 import { toast } from 'ngx-sonner';
 import { elSalvadorAddressValidator } from './el-savaldor-address.validator';
 
@@ -41,7 +41,6 @@ import { elSalvadorAddressValidator } from './el-savaldor-address.validator';
     ButtonModule,
   ],
   templateUrl: './address-form.component.html',
-  styles: [],
 })
 export class AddressFormComponent implements OnInit {
   private personService = inject(PersonService);
@@ -55,6 +54,8 @@ export class AddressFormComponent implements OnInit {
   selectedNameCountry = signal('');
   selectedDepartment = signal<string | null>(null);
   isLoadingMunicipalities = signal(false);
+  dropDownStyles =
+    'w-full border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
 
   constructor(private readonly fb: FormBuilder) {
     this.form = this.fb.group(
@@ -73,7 +74,7 @@ export class AddressFormComponent implements OnInit {
   async ngOnInit() {
     const { data: personInfo } = await this.personService.getPerson(this.person.id);
     this.selectedDepartment.set(personInfo?.address?.department.id ?? '');
-    this.selectedNameCountry = signal('');
+    this.selectedNameCountry = signal(personInfo?.address?.country.name ?? '');
 
     if (personInfo?.address?.department.id) {
       const { data: municipalities } = await this.addressService.getMunicipalitiesByDepartment(
@@ -84,8 +85,8 @@ export class AddressFormComponent implements OnInit {
 
     this.form.patchValue({
       ...personInfo?.address,
-      countryId: personInfo?.address?.country.id ?? '7b35283e-df44-4f97-93fd-34b76b20d674',
-      countryName: personInfo?.address?.country.name ?? 'El Salvador',
+      countryId: personInfo?.address?.country.id,
+      countryName: personInfo?.address?.country.name,
       departmentId: personInfo?.address?.department.id,
       municipalityId: personInfo?.address?.municipality.id,
     });
@@ -95,9 +96,6 @@ export class AddressFormComponent implements OnInit {
     queryKey: ['person', this.person?.id],
     queryFn: async (): Promise<Person> => {
       const { data } = await this.personService.getPerson(this.person.id);
-      const { address } = data;
-      console.log({ address });
-
       return data;
     },
   }));

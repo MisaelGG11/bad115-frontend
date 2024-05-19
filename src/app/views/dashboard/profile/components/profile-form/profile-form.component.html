@@ -28,7 +28,7 @@
           />
         </div>
 
-        <div class="w-full lg:basis-1/2">
+        <div class="w-full">
           <app-custom-input
             [parentForm]="form"
             label="Primer apellido"
@@ -39,7 +39,7 @@
           />
         </div>
 
-        <div class="w-full lg:basis-1/2">
+        <div class="w-full">
           <app-custom-input
             [parentForm]="form"
             label="Segundo apellido"
@@ -67,7 +67,6 @@
             [selectOptions]="genderOptions"
             [required]="true"
             [parentForm]="form"
-            label="Sexo"
             fieldName="gender"
             formControlName="gender"
           ></app-select>

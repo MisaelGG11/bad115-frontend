@@ -46,6 +46,7 @@
           [style]="{ width: '100%' }"
           [loading]="countriesRequest.isLoading()"
           (onChange)="onCountryChange($event)"
+          [styleClass]="dropDownStyles"
         />
       </div>
 
@@ -66,12 +67,13 @@
             [style]="{ width: '100%' }"
             [loading]="departmentsRequest.isLoading()"
             (onChange)="onDepartmentChange($event)"
+            [styleClass]="dropDownStyles"
           />
         </div>
       }
     </div>
 
-    @if (selectedDepartment() !== null) {
+    @if (selectedDepartment() !== null && selectedNameCountry() === 'El Salvador') {
       <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
         <div class="w-full lg:basis-1/2 mt-3">
           <label
@@ -88,6 +90,7 @@
             placeholder="Municipio"
             [style]="{ width: '100%' }"
             [loading]="isLoadingMunicipalities()"
+            [styleClass]="dropDownStyles"
           />
         </div>
       </div>

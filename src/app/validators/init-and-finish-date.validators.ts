@@ -1,5 +1,11 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
+/**
+ *
+ * @description This function is used to validate that the finish date is greater than the initial date
+ * @param form Form group
+ *
+ */
 export const validateInitAndFinishDate: ValidatorFn = (
   form: AbstractControl,
 ): ValidationErrors | null => {

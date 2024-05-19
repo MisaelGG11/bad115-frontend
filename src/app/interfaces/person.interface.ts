@@ -11,6 +11,7 @@ export interface Person {
   gender: 'F' | 'M';
   address: Address | null;
   user: User;
+  documents: Document[] | null;
 }
 
 export interface User {
@@ -43,4 +44,10 @@ export interface Municipality {
   id: string;
   name: string;
   departmentId: string;
+}
+
+export interface Document {
+  id: string;
+  type: string;
+  number: string;
 }

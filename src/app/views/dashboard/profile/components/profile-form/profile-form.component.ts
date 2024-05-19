@@ -24,9 +24,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { toast } from 'ngx-sonner';
 import { LOCAL_STORAGE } from '../../../../../utils/constants.utils';
 import { Person } from '../../../../../interfaces/person.interface';
-import { UpdatePersonDto } from '../../../../../services/interfaces/person.interface';
+import { UpdatePersonDto } from '../../../../../services/interfaces/person.dto';
 import { setPerson } from '../../../../../store/auth.actions';
 import { Store } from '@ngrx/store';
+import { getPersonLocalStorage } from '../../../../../utils/person-local-storage.utils';
 
 @Component({
   selector: 'app-profile-form',
@@ -50,7 +51,7 @@ export class ProfileFormComponent {
   private personService = inject(PersonService);
   private store = inject(Store);
   queryClient = injectQueryClient();
-  person = JSON.parse(localStorage.getItem(LOCAL_STORAGE.PERSON) ?? '');
+  person = getPersonLocalStorage();
   form: FormGroup;
   maxDate: Date = new Date();
   genderOptions: Array<{ label: string; value: string }> = [];
@@ -81,7 +82,7 @@ export class ProfileFormComponent {
   }));
 
   personRequest = injectQuery(() => ({
-    queryKey: ['person', this.person?.id],
+    queryKey: ['person', { personId: this.person?.id }],
     queryFn: async (): Promise<Person> => {
       const { data } = await this.personService.getPerson(this.person.id);
       this.form.patchValue({ ...data, birthday: new Date(data.birthday) });
