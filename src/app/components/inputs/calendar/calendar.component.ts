@@ -54,7 +54,7 @@ export class CalendarComponent {
     const value: Date | string | null = event;
     this.value = value;
     this.changed(value);
-    this.touched()
+    this.touched();
   }
 
   public registerOnChange(fn: any): void {
