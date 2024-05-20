@@ -21,3 +21,11 @@ export interface CreateCertificationDto {
   initDate: Date;
   finishDate: Date;
 }
+
+export interface CreateRecognitionDto {
+  name: string;
+  finishDate: Date;
+  recognitionType: {
+    name: string;
+  };
+}

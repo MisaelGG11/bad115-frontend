@@ -11,12 +11,13 @@
     [filter]="filter"
     [filterBy]="filterBy"
     [loading]="loading"
+    optionLabel="label"
     [disabled]="isDisabled"
     [options]="selectOptions"
     [styleClass]="
-      formField.invalid && formField.dirty
-        ? 'border-red-500 bg-red-100 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block'
-        : '!w-full border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+      formField.errors !== null && formField.touched
+        ? 'w-full !border-red-500  placeholder-slate-300 text-sm rounded shadow focus:ring-red-500 dark:bg-gray-700 focus:border-red-500'
+        : '!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
     "
     [placeholder]="'Seleccione una opción'"
     (onChange)="onChange($event)"

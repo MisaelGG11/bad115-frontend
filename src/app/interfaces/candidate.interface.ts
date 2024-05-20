@@ -25,3 +25,19 @@ export interface Certification {
   initDate: Date;
   finishDate: Date;
 }
+
+export interface Recognition {
+  id: string;
+  name: string;
+  finishDate: Date;
+  candidateId: string;
+  recognitionType: RecognitionType;
+}
+
+export interface RecognitionType {
+  name: string;
+}
+
+export interface RecognitionTypeCatalog extends RecognitionType {
+  id: string;
+}

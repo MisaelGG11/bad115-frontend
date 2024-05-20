@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
-import { LaboralExperience, Certification } from '../interfaces/candidate.interface';
+import {
+  LaboralExperience,
+  Certification,
+  Recognition,
+  RecognitionTypeCatalog,
+} from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
   CreateLaborExperienceDto,
   UpdateLaborExperienceDto,
   CreateCertificationDto,
+  CreateRecognitionDto,
 } from './interfaces/candidate.interface';
 
 @Injectable({
@@ -74,6 +80,7 @@ export class CandidateService {
     const response = await network.get<PaginatedResponse<Certification>>(
       `/candidates/${candidateId}/certifications?page=${page}&perPage=${perPage}`,
     );
+
     return response.data;
   }
 
@@ -84,6 +91,38 @@ export class CandidateService {
     const response = await network.post<Certification>(
       `/candidates/${candidateId}/certifications`,
       certification,
+    );
+
+    return response.data;
+  }
+
+  //Recognition
+  async getRecognitions(
+    candidateId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<Recognition>> {
+    const response = await network.get<PaginatedResponse<Recognition>>(
+      `/candidates/${candidateId}/recognition?page=${page}&perPage=${perPage}`,
+    );
+
+    return response.data;
+  }
+
+  async getRecognitionTypes(): Promise<RecognitionTypeCatalog[]> {
+    const response = await network.get<RecognitionTypeCatalog[]>(
+      `/candidates/cadidateId/certifications`,
+    );
+
+    return response.data;
+  }
+
+  async createRecognition(
+    candidateId: string,
+    recognition: CreateRecognitionDto,
+  ): Promise<Recognition> {
+    const response = await network.post<Recognition>(
+      `/candidates/${candidateId}/recognition`,
+      recognition,
     );
 
     return response.data;
