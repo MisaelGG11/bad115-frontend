@@ -1,0 +1,53 @@
+<div class="w-full">
+    <p-tabView class="w-full p-2">
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined">
+              workspace_premium
+            </span>
+            <span class="font-bold whitespace-nowrap m-0">Certificaciones</span>
+          </div>
+        </ng-template>
+        <app-certifications></app-certifications>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div class="flex items-center gap-2 h-fit">
+            <span class="material-symbols-outlined">
+              rewarded_ads
+            </span>
+            <span class="font-bold whitespace-nowrap m-0">Reconocimientos</span>
+          </div>
+        </ng-template>
+        <app-achievements></app-achievements>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div class="flex items-center gap-2 h-fit">
+            <span class="material-symbols-outlined">
+              bookmarks
+            </span>
+            <span class="font-bold whitespace-nowrap m-0">Publicaciones</span>
+          </div>
+        </ng-template>
+        <!--          <app-profile-form [profile]="query.data.profile"></app-profile-form>-->
+        <app-publications></app-publications>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div class="flex items-center gap-2 h-fit">
+            <span class="material-symbols-outlined">
+              event_note
+            </span>
+            <span class="font-bold whitespace-nowrap m-0">Participaciones</span>
+          </div>
+        </ng-template>
+        <!--          <app-profile-form [profile]="query.data.profile"></app-profile-form>-->
+        <app-participations></app-participations>
+      </p-tabPanel>
+    </p-tabView>
+  </div>

@@ -11,6 +11,7 @@ import { UnblockUserComponent } from './views/auth/unblock-user/unblock-user.com
 import { AuthComponent } from './layouts/auth/auth.component';
 import { ProfileComponent } from './views/dashboard/profile/profile.component';
 import { LaborExperienceComponent } from './views/dashboard/laboral-experience/labor-experience.component';
+import { CertificationsAchievementsComponent } from './views/dashboard/certifications-achievements/certifications-achievements.component';
 
 export const routes: Routes = [
   // no layout views
@@ -37,7 +38,7 @@ export const routes: Routes = [
       { path: 'perfil', component: ProfileComponent },
       { path: 'experiencia-laboral', component: LaborExperienceComponent },
       { path: 'educacion', component: AccessForbiddenComponent },
-      { path: 'certificaciones-logros', component: AccessForbiddenComponent },
+      { path: 'certificaciones-logros', component: CertificationsAchievementsComponent },
       { path: 'habilidades', component: AccessForbiddenComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

@@ -15,3 +15,13 @@ export interface OrganizationContact {
   phone: string;
   email: string;
 }
+
+export interface Certification {
+  id: string;
+  name: string;
+  organizationName: string;
+  type: string;
+  code: string;
+  initDate: Date;
+  finishDate: Date;
+}

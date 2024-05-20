@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
-import { LaboralExperience } from '../interfaces/candidate.interface';
+import { LaboralExperience, Certification } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
   CreateLaborExperienceDto,
@@ -13,6 +13,7 @@ import {
 export class CandidateService {
   constructor() {}
 
+  // Labor Experience
   async getLaborExperiences(
     candidateId: string,
     { perPage = 10, page = 1 }: PaginationParams,
@@ -62,5 +63,16 @@ export class CandidateService {
 
   async deleteLaborExperience(candidateId: string, laborExperienceId: string): Promise<void> {
     await network.delete(`/candidates/${candidateId}/laboral-experiences/${laborExperienceId}`);
+  }
+
+  //Certifications
+  async getCertifications(
+    candidateId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<Certification>> {
+    const response = await network.get<PaginatedResponse<Certification>>(
+      `/certifications/${candidateId}/certifications?page=${page}&perPage=${perPage}`,
+    );
+    return response.data;
   }
 }
