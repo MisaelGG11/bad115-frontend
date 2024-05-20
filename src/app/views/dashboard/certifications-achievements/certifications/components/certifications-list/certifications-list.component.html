@@ -10,24 +10,38 @@
           <div class="w-full">
             <p-card>
               <ng-template pTemplate="header">
-                <div class="flex w-full justify-between items-center px-10 pt-5">
+                <div class="flex w-full md:justify-between items-center px-7 lg:px-10 pt-5">
                   <div class="flex flex-col flex-wrap mt-5">
-                    <div>
+                    <div class="flex items-center">
+                      <span class="material-symbols-outlined"> military_tech </span>
                       <h3 class="font-bold text-2xl">{{ certification.name }}</h3>
                     </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="body">
+                <div
+                  class="flex flex-col md:flex-row w-full justify-between px-4 lg:px-7 -mt-14 -mb-4 md:mb-0"
+                >
+                  <div class="flex flex-col flex-wrap mt-5">
                     <div>
-                      <h4 class="text-xl">{{ certification.organizationName }}</h4>
+                      <h4 class="text-normal lg:text-lg">
+                        <b>Organización:</b> {{ certification.organizationName }}
+                      </h4>
                     </div>
                     <div>
-                      <h5 class="text-lg">{{ certification.code }}</h5>
+                      <h5 class="text-normal lg:text-lg">
+                        <b>Código:</b> {{ certification.code }}
+                      </h5>
                     </div>
                     <div class="mt-1">
-                      <p>
-                        {{ certification.initDate | date: 'mediumDate' }} -{{ certification.finishDate }}
+                      <p class="text-sm lg:text-normal">
+                        {{ formatDate(certification.initDate) }} -
+                        {{ formatDate(certification.finishDate) }}
                       </p>
                     </div>
                   </div>
-                  <div class="flex justify-between mt-5 gap-3">
+                  <div class="flex justify-center items-center mt-5 gap-3">
                     <div>
                       <button
                         (click)="onClickShowEditDialog(certification.id)"
@@ -56,7 +70,7 @@
         }
       }
     </div>
-    <div class="mt-2 w-44">
+    <div class="mt-2 w-full md:w-44">
       <p-button
         icon="pi pi-angle-down"
         (onClick)="certificationsRequest.fetchNextPage()"
@@ -69,4 +83,3 @@
     </div>
   }
 </div>
-

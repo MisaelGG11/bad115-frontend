@@ -14,7 +14,6 @@ export interface CreateLaborExperienceDto {
 export interface UpdateLaborExperienceDto extends Partial<CreateLaborExperienceDto> {}
 
 export interface CreateCertificationDto {
-  id: string;
   name: string;
   organizationName: string;
   type: string;

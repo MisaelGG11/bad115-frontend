@@ -1,19 +1,18 @@
 <div class="w-full flex flex-col">
-  <div class="flex w-full justify-between gap-2">
+  <div class="flex flex-col md:flex-row w-full justify-between gap-2">
     <div class="mt-1 font-bold text-2xl">
       <h1>Certificaciones</h1>
     </div>
-
     <p-button
       label="Agregar"
       icon="pi pi-plus"
-      class="p-button-rounded"
+      class="p-button-rounded mx-auto mz- md:mx-0 my-1"
+      (onClick)="showAddDialog()"
     />
   </div>
   <div>
-    <app-certifications-list/>
+    <app-certifications-list />
   </div>
 
-  <!-- <app-create-labor-experience-modal [visible]="showAddModal" /> -->
-
+  <app-create-certification-modal [visible]="showAddModal" />
 </div>

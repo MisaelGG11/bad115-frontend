@@ -1,4 +1,5 @@
 import { Component, computed, EventEmitter, inject, Output } from '@angular/core';
+import { format } from 'date-fns';
 import { Person } from '../../../../../../interfaces/person.interface';
 import { LOCAL_STORAGE } from '../../../../../../utils/constants.utils';
 import { injectInfiniteQuery } from '@tanstack/angular-query-experimental';
@@ -12,15 +13,9 @@ import { SpinnerComponent } from '../../../../../../components/spinner/spinner.c
 @Component({
   selector: 'app-certifications-list',
   standalone: true,
-  imports: [
-    CardModule,
-    DatePipe,
-    TooltipModule,
-    ButtonModule,
-    SpinnerComponent
-  ],
+  imports: [CardModule, DatePipe, TooltipModule, ButtonModule, SpinnerComponent],
   templateUrl: './certifications-list.component.html',
-  styles: ``
+  styles: ``,
 })
 export class CertificationsListComponent {
   private candidateService = inject(CandidateService);
@@ -61,5 +56,9 @@ export class CertificationsListComponent {
 
   onClickShowDeleteDialog(laborExperienceId: string) {
     this.showDeleteDialog.emit(laborExperienceId);
+  }
+
+  formatDate(date: Date) {
+    return format(date, 'dd/MM/yyyy');
   }
 }

@@ -5,6 +5,7 @@ import network from '../config/network.service';
 import {
   CreateLaborExperienceDto,
   UpdateLaborExperienceDto,
+  CreateCertificationDto,
 } from './interfaces/candidate.interface';
 
 @Injectable({
@@ -71,8 +72,20 @@ export class CandidateService {
     { perPage = 10, page = 1 }: PaginationParams,
   ): Promise<PaginatedResponse<Certification>> {
     const response = await network.get<PaginatedResponse<Certification>>(
-      `/certifications/${candidateId}/certifications?page=${page}&perPage=${perPage}`,
+      `/candidates/${candidateId}/certifications?page=${page}&perPage=${perPage}`,
     );
+    return response.data;
+  }
+
+  async createCertification(
+    candidateId: string,
+    certification: CreateCertificationDto,
+  ): Promise<Certification> {
+    const response = await network.post<Certification>(
+      `/candidates/${candidateId}/certifications`,
+      certification,
+    );
+
     return response.data;
   }
 }

@@ -1,1 +1,97 @@
-<p>create-certification-modal works!</p>
+<p-dialog
+  header="Añadir certificación"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre de la empresa"
+            fieldName="organizationName"
+            placeholder="Nombre de la empresa"
+            formControlName="organizationName"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre de certificación"
+            fieldName="name"
+            placeholder="Nombre de certificación"
+            formControlName="name"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Tipo de certificación"
+            fieldName="type"
+            placeholder="Tipo de certificación"
+            formControlName="type"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Código de certificación"
+            fieldName="code"
+            placeholder="Código de certificación"
+            formControlName="code"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-calendar
+            fieldName="initDate"
+            [required]="true"
+            [parentForm]="form"
+            formControlName="initDate"
+            label="Fecha de inicio"
+            [maxDate]="today"
+          ></app-calendar>
+        </div>
+
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-calendar
+            fieldName="finishDate"
+            [required]="true"
+            [parentForm]="form"
+            formControlName="finishDate"
+            label="Fecha de finalizacion"
+            [maxDate]="today"
+          ></app-calendar>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="createCertificationMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>

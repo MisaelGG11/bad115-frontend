@@ -30,6 +30,7 @@
     "@tanstack/angular-query-experimental": "5.36.0",
     "axios": "1.6.8",
     "chart.js": "4.4.2",
+    "date-fns": "^3.6.0",
     "flowbite": "2.3.0",
     "jwt-decode": "4.0.0",
     "ngx-sonner": "0.3.4",
