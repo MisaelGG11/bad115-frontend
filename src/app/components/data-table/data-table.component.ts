@@ -9,13 +9,15 @@ import { PaginatorModule } from 'primeng/paginator';
   standalone: true,
   imports: [TableModule, TagModule, PaginatorModule, CommonModule],
   templateUrl: './data-table.component.html',
-  styles: [`
-  :host ::ng-deep .p-inputtext {
-    padding: 0.3rem 0.75rem;
-    color: #5271ff;
-    font-weight: bold;
-  }
-  `],
+  styles: [
+    `
+      :host ::ng-deep .p-inputtext {
+        padding: 0.3rem 0.75rem;
+        color: #5271ff;
+        font-weight: bold;
+      }
+    `,
+  ],
 })
 export class DataTableComponent {
   @Input() columns: any[] = [];
@@ -50,10 +52,10 @@ export class DataTableComponent {
     return 'info';
   }
 
-  selectPerPage(event:any) {
+  selectPerPage(event: any) {
     this.selectedOption = event.value;
     this.currentPage = 1;
-    this.setPagination.emit({ page: 1, perPage:this.selectedOption });
+    this.setPagination.emit({ page: 1, perPage: this.selectedOption });
     this.paginate();
     window.scrollTo(0, 0);
   }
@@ -62,7 +64,7 @@ export class DataTableComponent {
     if (this.currentPage * this.pagination.perPage < this.pagination.total) {
       this.currentPage++;
     }
-    this.setPagination.emit({ page: this.currentPage, perPage:this.selectedOption });
+    this.setPagination.emit({ page: this.currentPage, perPage: this.selectedOption });
     this.paginate();
     window.scrollTo(0, 0);
   }
@@ -71,14 +73,14 @@ export class DataTableComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
-    this.setPagination.emit({ page: this.currentPage, perPage:this.selectedOption });
+    this.setPagination.emit({ page: this.currentPage, perPage: this.selectedOption });
     this.paginate();
     window.scrollTo(0, 0);
   }
 
   goToPage(page: any) {
     this.currentPage = page;
-    this.setPagination.emit({ page: this.currentPage, perPage:this.selectedOption });
+    this.setPagination.emit({ page: this.currentPage, perPage: this.selectedOption });
     this.paginate();
     window.scrollTo(0, 0);
   }

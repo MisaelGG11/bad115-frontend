@@ -117,14 +117,20 @@
     </div>
     <div class="flex flex-col md:flex-row justify-center items-center pb-4 gap-4">
       <p class="text-sm font-semibold text-slate-700">
-        Mostrando {{ pagination.perPage * (pagination.page - 1) + 1 }} - 
-        {{ pagination.perPage * pagination.page > pagination.total ? pagination.total : pagination.perPage * pagination.page }} 
-        de {{ pagination.total }} registros</p>
-      <p-dropdown 
-      [options]="[3, 5, 10, 15]" 
-      [(ngModel)]="selectedOption"
-      (onChange)="selectPerPage($event)"
-      styleClass="border-primery text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+        Mostrando {{ pagination.perPage * (pagination.page - 1) + 1 }} -
+        {{
+          pagination.perPage * pagination.page > pagination.total
+            ? pagination.total
+            : pagination.perPage * pagination.page
+        }}
+        de {{ pagination.total }} registros
+      </p>
+      <p-dropdown
+        [options]="[3, 5, 10, 15]"
+        [(ngModel)]="selectedOption"
+        (onChange)="selectPerPage($event)"
+        styleClass="border-primery text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      />
     </div>
   </div>
 </div>
