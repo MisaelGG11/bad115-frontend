@@ -12,7 +12,7 @@ import {
   UpdateLaborExperienceDto,
   CreateCertificationDto,
   CreateRecognitionDto,
-} from './interfaces/candidate.interface';
+} from './interfaces/candidate.dto';
 
 @Injectable({
   providedIn: 'root',

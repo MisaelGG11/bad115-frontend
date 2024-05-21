@@ -15,7 +15,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CommonModule } from '@angular/common';
 import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { CandidateService } from '../../../../../../services/candidate.service';
-import { CreateCertificationDto } from '../../../../../../services/interfaces/candidate.interface';
+import { CreateCertificationDto } from '../../../../../../services/interfaces/candidate.dto';
 import { validateInitAndFinishDate } from '../../../../../../validators/init-and-finish-date.validators';
 import { InputErrorsComponent } from '../../../../../../components/inputs/input-errors/input-errors.component';
 import { toast } from 'ngx-sonner';

@@ -18,7 +18,7 @@ import {
   injectQuery,
 } from '@tanstack/angular-query-experimental';
 import { CandidateService } from '../../../../../../services/candidate.service';
-import { CreateRecognitionDto } from '../../../../../../services/interfaces/candidate.interface';
+import { CreateRecognitionDto } from '../../../../../../services/interfaces/candidate.dto';
 import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../../components/inputs/calendar/calendar.component';
