@@ -29,3 +29,12 @@ export interface CreateRecognitionDto {
     name: string;
   };
 }
+
+export interface CreatePublicationDto {
+  name: string;
+  place: string;
+  type: string;
+  candidateId: string;
+  edition: string;
+  isbn: string;
+}

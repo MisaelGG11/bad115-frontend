@@ -5,6 +5,7 @@ import {
   Certification,
   Recognition,
   RecognitionTypeCatalog,
+  Publication,
 } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
@@ -12,6 +13,7 @@ import {
   UpdateLaborExperienceDto,
   CreateCertificationDto,
   CreateRecognitionDto,
+  CreatePublicationDto,
 } from './interfaces/candidate.dto';
 
 @Injectable({
@@ -72,7 +74,7 @@ export class CandidateService {
     await network.delete(`/candidates/${candidateId}/laboral-experiences/${laborExperienceId}`);
   }
 
-  //Certifications
+  // Certifications
   async getCertifications(
     candidateId: string,
     { perPage = 10, page = 1 }: PaginationParams,
@@ -96,7 +98,7 @@ export class CandidateService {
     return response.data;
   }
 
-  //Recognition
+  // Recognitions
   async getRecognitions(
     candidateId: string,
     { perPage = 10, page = 1 }: PaginationParams,
@@ -109,9 +111,7 @@ export class CandidateService {
   }
 
   async getRecognitionTypes(): Promise<RecognitionTypeCatalog[]> {
-    const response = await network.get<RecognitionTypeCatalog[]>(
-      `/candidates/cadidateId/certifications`,
-    );
+    const response = await network.get<RecognitionTypeCatalog[]>(`/catalogs/recognition-types`);
 
     return response.data;
   }
@@ -123,6 +123,30 @@ export class CandidateService {
     const response = await network.post<Recognition>(
       `/candidates/${candidateId}/recognition`,
       recognition,
+    );
+
+    return response.data;
+  }
+
+  // Publications
+  async getPublications(
+    candidateId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<Publication>> {
+    const response = await network.get<PaginatedResponse<Publication>>(
+      `/candidates/${candidateId}/publication?page=${page}&perPage=${perPage}`,
+    );
+
+    return response.data;
+  }
+
+  async createPublication(
+    candidateId: string,
+    publications: CreatePublicationDto,
+  ): Promise<Publication> {
+    const response = await network.post<Publication>(
+      `/candidates/${candidateId}/publication`,
+      publications,
     );
 
     return response.data;

@@ -41,3 +41,13 @@ export interface RecognitionType {
 export interface RecognitionTypeCatalog extends RecognitionType {
   id: string;
 }
+
+export interface Publication {
+  id: string;
+  name: string;
+  place: string;
+  type: string;
+  candidateId: string;
+  edition: string;
+  isbn: string;
+}

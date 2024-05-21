@@ -72,7 +72,7 @@ export class CreateCertificationModalComponent {
     onSuccess: async () => {
       toast.success('Certificación creada', { duration: 3000 });
       this.visible.set(false);
-      await this.queryClient.invalidateQueries({ queryKey: ['certification'] });
+      await this.queryClient.invalidateQueries({ queryKey: ['certifications'] });
       this.form.reset();
     },
   }));

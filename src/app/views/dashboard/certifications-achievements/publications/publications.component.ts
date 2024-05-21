@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
-
+import { Component, signal } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { PublicationsListComponent } from './components/publications-list/publications-list.component';
+import { CreatePublicationModalComponent } from './components/create-publication-modal/create-publication-modal.component';
 @Component({
   selector: 'app-publications',
   standalone: true,
-  imports: [],
+  imports: [ButtonModule, PublicationsListComponent, CreatePublicationModalComponent],
   templateUrl: './publications.component.html',
-  styles: ``
+  styles: ``,
 })
 export class PublicationsComponent {
+  showAddModal = signal(false);
+  showDeleteModal = signal(false);
+  showEditModal = signal(false);
+  selectedLaborExperience = signal('');
 
+  showAddDialog() {
+    this.showAddModal.set(true);
+  }
 }
