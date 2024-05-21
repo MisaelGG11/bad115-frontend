@@ -41,7 +41,7 @@ export class LaborExperiencesListComponent {
     queryFn: ({ pageParam }) =>
       this.candidateService.getLaborExperiences(this.person.candidateId, {
         page: pageParam,
-        perPage: 3,
+        perPage: 5,
       }),
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => firstPage.pagination.previousPage ?? undefined,

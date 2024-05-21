@@ -1,8 +1,18 @@
-import { Component, Input, Output, EventEmitter, TemplateRef, ContentChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  TemplateRef,
+  ContentChild,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
+import { PaginationTableInput } from '../../interfaces/pagination.interface';
 
 @Component({
   selector: 'app-data-table',
@@ -27,7 +37,11 @@ export class DataTableComponent {
   @Input() headerAlign: string = 'left';
   @Input() tableStyle: string = 'min-width: 50rem';
   @Input() showPagination: boolean = false;
-  @Input() pagination: any = { total: 0, perPage: 10, page: 1 };
+  @Input() pagination: PaginationTableInput = {
+    total: 0,
+    perPage: signal(10),
+    page: signal(1),
+  };
   @ContentChild('actions', { static: true }) actionsTemplate!: TemplateRef<any>;
   @Output() setPagination = new EventEmitter();
 
@@ -61,7 +75,7 @@ export class DataTableComponent {
   }
 
   nextPage() {
-    if (this.currentPage * this.pagination.perPage < this.pagination.total) {
+    if (this.currentPage * this.pagination.perPage() < this.pagination.total) {
       this.currentPage++;
     }
     this.setPagination.emit({ page: this.currentPage, perPage: this.selectedOption });
@@ -86,7 +100,7 @@ export class DataTableComponent {
   }
 
   get pageRange() {
-    const total_pages = Math.ceil(this.pagination.total / this.pagination.perPage);
+    const total_pages = Math.ceil(this.pagination.total / this.pagination.perPage());
     const range = 5;
     let start = this.currentPage - Math.floor(range / 2);
     start = Math.max(start, 1);

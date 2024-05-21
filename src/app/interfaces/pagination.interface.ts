@@ -1,3 +1,5 @@
+import { WritableSignal } from '@angular/core';
+
 export interface PaginationInterface {
   totalPages: number;
   perPage: number;
@@ -15,4 +17,15 @@ export interface PaginatedResponse<T> {
 export interface PaginationParams {
   page: number;
   perPage: number;
+}
+
+export interface PaginationTableOutput {
+  page: number;
+  perPage: number;
+}
+
+export interface PaginationTableInput {
+  total: number;
+  perPage: WritableSignal<number>;
+  page: WritableSignal<number>;
 }

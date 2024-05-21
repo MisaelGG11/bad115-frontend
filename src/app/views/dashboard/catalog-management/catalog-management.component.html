@@ -1,0 +1,33 @@
+<div class="w-full">
+  <p-tabView class="w-full p-2">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined"> group </span>
+          <span class="font-bold whitespace-nowrap m-0">Tipo de participación</span>
+        </div>
+      </ng-template>
+      <app-recognition-type />
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> verified </span>
+          <span class="font-bold whitespace-nowrap m-0">Tipo de reconocimiento</span>
+        </div>
+      </ng-template>
+      <p>Tipo de reconocimiento</p>
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> app_registration </span>
+          <span class="font-bold whitespace-nowrap m-0">Habilidades</span>
+        </div>
+      </ng-template>
+      <p>Catalogo habilidades</p>
+    </p-tabPanel>
+  </p-tabView>
+</div>

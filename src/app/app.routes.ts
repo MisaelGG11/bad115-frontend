@@ -12,6 +12,7 @@ import { AuthComponent } from './layouts/auth/auth.component';
 import { ProfileComponent } from './views/dashboard/profile/profile.component';
 import { LaborExperienceComponent } from './views/dashboard/laboral-experience/labor-experience.component';
 import { CertificationsAchievementsComponent } from './views/dashboard/certifications-achievements/certifications-achievements.component';
+import { CatalogManagementComponent } from './views/dashboard/catalog-management/catalog-management.component';
 
 export const routes: Routes = [
   // no layout views
@@ -40,6 +41,7 @@ export const routes: Routes = [
       { path: 'educacion', component: AccessForbiddenComponent },
       { path: 'certificaciones-logros', component: CertificationsAchievementsComponent },
       { path: 'habilidades', component: AccessForbiddenComponent },
+      { path: 'catalogos', component: CatalogManagementComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

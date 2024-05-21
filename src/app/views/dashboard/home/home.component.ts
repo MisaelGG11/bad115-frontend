@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { toast } from 'ngx-sonner';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
+import { PaginationTableOutput } from '../../../interfaces/pagination.interface';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -67,13 +68,13 @@ export class HomeComponent implements OnInit {
   ];
   pagination = {
     total: this.empleados.length,
-    perPage: 10,
-    page: 1,
+    perPage: signal(10),
+    page: signal(1),
   };
 
   getData = (): void => {
-    const startIndex = (this.pagination.page - 1) * this.pagination.perPage;
-    const endIndex = startIndex + this.pagination.perPage;
+    const startIndex = (this.pagination.page() - 1) * this.pagination.perPage();
+    const endIndex = startIndex + this.pagination.perPage();
     this.rows = this.empleados.slice(startIndex, endIndex);
   };
 
@@ -104,9 +105,9 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  paginatePage(pag: any) {
-    this.pagination.page = pag.page;
-    this.pagination.perPage = pag.perPage;
+  paginatePage(pag: PaginationTableOutput) {
+    this.pagination.page.set(pag.page);
+    this.pagination.perPage.set(pag.perPage);
     console.log('Paginate page:', pag);
     this.getData();
   }
