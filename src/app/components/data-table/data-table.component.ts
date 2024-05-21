@@ -5,7 +5,6 @@ import {
   EventEmitter,
   TemplateRef,
   ContentChild,
-  WritableSignal,
   signal,
 } from '@angular/core';
 import { TableModule } from 'primeng/table';
