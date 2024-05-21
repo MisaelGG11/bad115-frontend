@@ -93,7 +93,7 @@ export class AddressFormComponent implements OnInit {
   }
 
   personRequest = injectQuery(() => ({
-    queryKey: ['person', this.person?.id],
+    queryKey: ['person', { personId: this.person?.id }],
     queryFn: async (): Promise<Person> => {
       const { data } = await this.personService.getPerson(this.person.id);
       return data;

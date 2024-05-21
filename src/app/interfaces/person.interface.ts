@@ -48,6 +48,15 @@ export interface Municipality {
 
 export interface Document {
   id: string;
-  type: string;
+  type: DocumentType;
   number: string;
 }
+
+export enum DocumentTypeEnum {
+  DUI = 'DUI',
+  NIT = 'NIT',
+  PASSPORT = 'PASSPORT',
+  NUP = 'NUP',
+}
+
+export type DocumentType = (typeof DocumentTypeEnum)[keyof typeof DocumentTypeEnum];

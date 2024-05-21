@@ -20,6 +20,7 @@ import { InputErrorsComponent } from '../../../../../components/inputs/input-err
 import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
+import { phoneRegex } from '../../../../../utils/regex.utils';
 
 @Component({
   selector: 'create-labor-experience-modal',
@@ -60,7 +61,7 @@ export class CreateLaborExperienceModalComponent {
         functionPerformed: ['', [Validators.required]],
         currentJob: [false],
         organizationContactEmail: ['', [Validators.email]],
-        organizationContactPhone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+        organizationContactPhone: ['', [Validators.required, Validators.pattern(phoneRegex)]],
       },
       {
         validators: [validateInitAndFinishDate],

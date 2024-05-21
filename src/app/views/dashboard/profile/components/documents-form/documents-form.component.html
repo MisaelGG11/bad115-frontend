@@ -1,0 +1,53 @@
+<div class="w-full">
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="grid grid-cols-1 lg:grid-cols-2 w-full gap-4 mb-4">
+      <app-custom-input-mask
+        [parentForm]="form"
+        label="DUI"
+        fieldName="duiNumber"
+        type="text"
+        mask="99999999-9"
+        placeholder="00000000-0"
+        class="border-0 p-0"
+      />
+
+      <app-custom-input-mask
+        [parentForm]="form"
+        label="NIT"
+        fieldName="nitNumber"
+        type="text"
+        mask="9999-99999999-999-9"
+        placeholder="0000-00000000-000-0"
+        class="border-0 p-0"
+      />
+
+      <app-custom-input-mask
+        [parentForm]="form"
+        label="NUP"
+        fieldName="nupNumber"
+        type="text"
+        mask="99999999999999"
+        placeholder="00000000000000"
+        class="border-0 p-0"
+      />
+
+      <app-custom-input
+        [parentForm]="form"
+        label="Pasaporte"
+        fieldName="passportNumber"
+        formControlName="passportNumber"
+        type="text"
+        placeholder="Número de pasaporte"
+        class="border-0 p-0"
+      />
+    </div>
+
+    <div class="flex justify-end w-full mt-3">
+      <p-button
+        type="submit"
+        label="Guardar cambios"
+        [loading]="upsertDocumentMutation.isPending()"
+      />
+    </div>
+  </form>
+</div>

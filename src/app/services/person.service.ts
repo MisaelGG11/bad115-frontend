@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import network from '../config/network.service';
 import { Person } from '../interfaces/person.interface';
 import { PaginatedResponse } from '../interfaces/pagination.interface';
-import { CreateAddressDto, UpdatePersonDto } from './interfaces/person.dto';
+import { CreateAddressDto, UpdatePersonDto, UpsertDocumentDto } from './interfaces/person.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +26,9 @@ export class PersonService {
 
   async addAddress(personId: string, createAddressDto: CreateAddressDto) {
     return network.post(`/persons/${personId}/addresses`, createAddressDto);
+  }
+
+  async upsertDocument(personId: string, upsertDocumentDto: UpsertDocumentDto) {
+    return network.put(`/persons/${personId}/documents`, upsertDocumentDto);
   }
 }

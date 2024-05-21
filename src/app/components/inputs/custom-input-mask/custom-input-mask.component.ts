@@ -17,7 +17,7 @@ export class CustomInputMaskComponent {
   public touched: () => void = () => {};
 
   // Input properties
-  @Input() parentForm: FormGroup | null = null;
+  @Input() parentForm!: FormGroup;
   @Input() isDisabled: boolean = false;
   @Input() fieldName: string = '';
   @Input() placeholder: string = '';
@@ -33,6 +33,8 @@ export class CustomInputMaskComponent {
 
   public onChange(event: Event): void {
     const value: string = (<HTMLInputElement>event.target).value;
+    console.log('value', value);
+    this.parentForm?.setValue({ [this.fieldName]: value });
 
     this.changed(value);
   }
