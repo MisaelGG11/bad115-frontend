@@ -25,7 +25,7 @@
     {{ formField.errors?.['maxlength'].requiredLength }} caracteres.
   </span>
 
-  <span [class]="errorsStyles" *ngIf="hasPhoneRegexError">
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('pattern')">
     Campo {{ fieldName }} debe ser un número telefono.
   </span>
 
