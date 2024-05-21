@@ -29,6 +29,14 @@
     Campo {{ fieldName }} debe ser un número telefono.
   </span>
 
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('min')">
+    Campo {{ fieldName }} debe disponer de un valor mínimo de {{ formField.errors?.['min'].min }}.
+  </span>
+
+  <span [class]="errorsStyles" *ngIf="formField?.hasError('max')">
+    Campo {{ fieldName }} debe disponer de un valor máximo de {{ formField.errors?.['max'].max }}.
+  </span>
+
   <span [class]="errorsStyles" *ngIf="formField?.hasError(propertyName)">
     {{ formField.getError(propertyName) }}
   </span>
