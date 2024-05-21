@@ -1,1 +1,18 @@
-<p>participations works!</p>
+<div class="w-full flex flex-col">
+  <div class="flex flex-col md:flex-row w-full justify-between gap-2">
+    <div class="mt-1 font-bold text-2xl">
+      <h1>Participaciones</h1>
+    </div>
+    <p-button
+      label="Agregar"
+      icon="pi pi-plus"
+      class="p-button-rounded mx-auto mz- md:mx-0 my-1"
+      (onClick)="showAddDialog()"
+    />
+  </div>
+  <div>
+    <app-participations-list />
+  </div>
+
+  <app-create-participation-modal [visible]="showAddModal" />
+</div>

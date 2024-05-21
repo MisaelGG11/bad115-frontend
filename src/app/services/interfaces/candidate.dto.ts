@@ -38,3 +38,13 @@ export interface CreatePublicationDto {
   edition: string;
   isbn: string;
 }
+
+export interface CreateParticipationDto {
+  date: Date;
+  place: string;
+  country: string;
+  eventHost: string;
+  participationType: {
+    name: string;
+  };
+}

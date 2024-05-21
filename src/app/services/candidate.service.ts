@@ -6,6 +6,8 @@ import {
   Recognition,
   RecognitionTypeCatalog,
   Publication,
+  Participation,
+  ParticipationType,
 } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
@@ -14,6 +16,7 @@ import {
   CreateCertificationDto,
   CreateRecognitionDto,
   CreatePublicationDto,
+  CreateParticipationDto,
 } from './interfaces/candidate.dto';
 
 @Injectable({
@@ -142,11 +145,41 @@ export class CandidateService {
 
   async createPublication(
     candidateId: string,
-    publications: CreatePublicationDto,
+    publication: CreatePublicationDto,
   ): Promise<Publication> {
     const response = await network.post<Publication>(
       `/candidates/${candidateId}/publication`,
-      publications,
+      publication,
+    );
+
+    return response.data;
+  }
+
+  //Participations
+  async getParticipations(
+    candidateId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<Participation>> {
+    const response = await network.get<PaginatedResponse<Participation>>(
+      `/candidates/${candidateId}/participation?page=${page}&perPage=${perPage}`,
+    );
+
+    return response.data;
+  }
+
+  async getParticipationTypes(): Promise<ParticipationType[]> {
+    const response = await network.get<ParticipationType[]>(`/catalogs/participation-types`);
+
+    return response.data;
+  }
+
+  async createParticipation(
+    candidateId: string,
+    participation: CreateParticipationDto,
+  ): Promise<Participation> {
+    const response = await network.post<Participation>(
+      `/candidates/${candidateId}/participation`,
+      participation,
     );
 
     return response.data;

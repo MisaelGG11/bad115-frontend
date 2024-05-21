@@ -51,3 +51,17 @@ export interface Publication {
   edition: string;
   isbn: string;
 }
+
+export interface Participation {
+  id: string;
+  date: Date;
+  place: string;
+  country: string;
+  eventHost: string;
+  candidateId: string;
+  participacionType: ParticipationType;
+}
+export interface ParticipationType {
+  id: string;
+  name: string;
+}
