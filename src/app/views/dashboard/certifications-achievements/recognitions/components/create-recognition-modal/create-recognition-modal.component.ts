@@ -1,5 +1,4 @@
 import { Component, inject, Input, signal } from '@angular/core';
-import { format } from 'date-fns';
 import { DialogModule } from 'primeng/dialog';
 import {
   FormBuilder,
@@ -48,13 +47,13 @@ export class CreateRecognitionModalComponent {
   private queryClient = injectQueryClient();
   @Input() visible = signal(false);
   form: FormGroup;
-  recognitionsTypesOptions: Array<{ label: string; value: string }> = [];
+  recognitionsTypesOptions: Array<{ label: string; value: string | { name: string } }> = [];
   today = new Date();
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      recognitionType: ['', [Validators.required]],
+      recognitionType: [null, [Validators.required]],
       finishDate: [null, [Validators.required]],
     });
   }
@@ -62,17 +61,7 @@ export class CreateRecognitionModalComponent {
   regonoctionsTypesRequest = injectQuery(() => ({
     queryKey: ['recognitionType'],
     queryFn: async () => {
-      //const data = await this.candidateService.getRecognitionTypes();
-      const data = [
-        {
-          id: '1',
-          name: 'Reconocimiento 1',
-        },
-        {
-          id: '2',
-          name: 'Reconocimiento 2',
-        },
-      ];
+      const data = await this.candidateService.getRecognitionTypes();
       this.addRecognitionsTypesOptions(data);
       return data;
     },
@@ -81,7 +70,7 @@ export class CreateRecognitionModalComponent {
   addRecognitionsTypesOptions(types: RecognitionTypeCatalog[]) {
     this.recognitionsTypesOptions = types.map((type) => ({
       label: type.name,
-      value: type.id,
+      value: { name: type.name },
     }));
   }
 
@@ -89,16 +78,15 @@ export class CreateRecognitionModalComponent {
     mutationFn: async (input: CreateRecognitionDto) =>
       await this.candidateService.createRecognition(this.person.candidateId, input),
     onSuccess: async () => {
-      toast.success('Certificación creada', { duration: 3000 });
+      toast.success('Reconicimiento creado', { duration: 3000 });
       this.visible.set(false);
-      await this.queryClient.invalidateQueries({ queryKey: ['recognition'] });
+      await this.queryClient.invalidateQueries({ queryKey: ['recognitions'] });
       this.form.reset();
     },
   }));
 
   async submit() {
     this.form.markAllAsTouched();
-    console.log(this.form.value);
     if (this.form.invalid) {
       return;
     }
