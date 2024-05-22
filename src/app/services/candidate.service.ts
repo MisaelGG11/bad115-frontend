@@ -14,9 +14,11 @@ import {
   CreateLaborExperienceDto,
   UpdateLaborExperienceDto,
   CreateCertificationDto,
+  UpdateCertificationDto,
   CreateRecognitionDto,
   CreatePublicationDto,
   CreateParticipationDto,
+  UpdateParticipationDto,
 } from './interfaces/candidate.dto';
 
 @Injectable({
@@ -89,6 +91,14 @@ export class CandidateService {
     return response.data;
   }
 
+  async getCertification(candidateId: string, certificationId: string): Promise<Certification> {
+    const response = await network.get<Certification>(
+      `/candidates/${candidateId}/certifications/${certificationId}`,
+    );
+
+    return response.data;
+  }
+
   async createCertification(
     candidateId: string,
     certification: CreateCertificationDto,
@@ -99,6 +109,23 @@ export class CandidateService {
     );
 
     return response.data;
+  }
+
+  async updateCertification(
+    candidateId: string,
+    certificationId: string,
+    certification: UpdateCertificationDto,
+  ): Promise<Certification> {
+    const response = await network.put<Certification>(
+      `/candidates/${candidateId}/certifications/${certificationId}`,
+      certification,
+    );
+
+    return response.data;
+  }
+
+  async deleteCertification(candidateId: string, certificationId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/certifications/${certificationId}`);
   }
 
   // Recognitions
@@ -138,6 +165,14 @@ export class CandidateService {
   ): Promise<PaginatedResponse<Publication>> {
     const response = await network.get<PaginatedResponse<Publication>>(
       `/candidates/${candidateId}/publication?page=${page}&perPage=${perPage}`,
+    );
+
+    return response.data;
+  }
+
+  async getParticipation(candidateId: string, participationId: string): Promise<Participation> {
+    const response = await network.get<Participation>(
+      `/candidates/${candidateId}/participation/${participationId}`,
     );
 
     return response.data;
@@ -183,5 +218,22 @@ export class CandidateService {
     );
 
     return response.data;
+  }
+
+  async updateParticipation(
+    candidateId: string,
+    participationId: string,
+    participation: UpdateParticipationDto,
+  ): Promise<Participation> {
+    const response = await network.put<Participation>(
+      `/candidates/${candidateId}/participation/${participationId}`,
+      participation,
+    );
+
+    return response.data;
+  }
+
+  async deleteParticipation(candidateId: string, participationId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/participation/${participationId}`);
   }
 }

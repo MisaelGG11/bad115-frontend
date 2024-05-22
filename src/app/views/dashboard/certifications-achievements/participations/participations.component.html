@@ -11,8 +11,16 @@
     />
   </div>
   <div>
-    <app-participations-list />
+    <app-participations-list
+      (showDeleteDialog)="showDeleteDialog($event)"
+      (showEditDialog)="showEditDialog($event)"
+    />
   </div>
 
   <app-create-participation-modal [visible]="showAddModal" />
+
+  <app-delete-participation-modal
+    [visible]="showDeleteModal"
+    [participationId]="selectedParticipation"
+  />
 </div>

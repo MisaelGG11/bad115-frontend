@@ -61,4 +61,19 @@ export class ParticipationsListComponent {
   formatDate(date: Date) {
     return format(date, 'dd/MM/yyyy');
   }
+
+  participationIcon(type: string) {
+    switch (type) {
+      case 'Congreso':
+        return 'meeting_room';
+      case 'Taller':
+        return 'groups';
+      case 'Foro':
+        return 'forum';
+      case 'Cumbre':
+        return 'diversity_3';
+      default:
+        return 'pi pi-question';
+    }
+  }
 }

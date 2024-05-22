@@ -22,6 +22,8 @@ export interface CreateCertificationDto {
   finishDate: Date;
 }
 
+export interface UpdateCertificationDto extends Partial<CreateCertificationDto> {}
+
 export interface CreateRecognitionDto {
   name: string;
   finishDate: Date;
@@ -48,3 +50,5 @@ export interface CreateParticipationDto {
     name: string;
   };
 }
+
+export interface UpdateParticipationDto extends Partial<CreateParticipationDto> {}

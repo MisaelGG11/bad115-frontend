@@ -11,8 +11,16 @@
     />
   </div>
   <div>
-    <app-certifications-list />
+    <app-certifications-list
+      (showDeleteDialog)="showDeleteDialog($event)"
+      (showEditDialog)="showEditDialog($event)"
+    />
   </div>
 
   <app-create-certification-modal [visible]="showAddModal" />
+
+  <app-delete-certification-modal
+    [visible]="showDeleteModal"
+    [certificationId]="selectedCertification"
+  />
 </div>
