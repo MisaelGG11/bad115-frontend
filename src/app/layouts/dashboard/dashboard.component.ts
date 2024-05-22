@@ -19,6 +19,14 @@ import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimen
     AngularQueryDevtools,
   ],
   templateUrl: './dashboard.component.html',
-  styles: ``,
+  styles: `
+    .scrollbar-hide::-webkit-scrollbar {
+      width: 0; /* Ancho 0 para ocultar la scrollbar */
+    }
+
+    .scrollbar-hide {
+      scrollbar-width: none; /* Firefox */
+    }
+  `,
 })
 export class DashboardComponent {}
