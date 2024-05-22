@@ -35,7 +35,7 @@ export class UserDropdownComponent implements AfterViewInit {
   }
   ngAfterViewInit() {
     createPopper(this.btnDropdownRef!.nativeElement, this.popoverDropdownRef.nativeElement, {
-      placement: 'bottom-start',
+      placement: 'bottom',
     });
   }
   toggleDropdown(event: any) {
