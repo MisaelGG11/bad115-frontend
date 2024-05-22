@@ -65,3 +65,13 @@ export interface ParticipationType {
   id: string;
   name: string;
 }
+
+export interface AcademicKnowledge {
+  id: string;
+  candidateId: string;
+  name: string;
+  type: string;
+  initDate: Date;
+  finishDate: Date;
+  organizationName: string;
+}

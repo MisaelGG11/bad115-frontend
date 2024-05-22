@@ -8,6 +8,7 @@ import {
   Publication,
   Participation,
   ParticipationType,
+  AcademicKnowledge,
 } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
@@ -19,6 +20,8 @@ import {
   CreatePublicationDto,
   CreateParticipationDto,
   UpdateParticipationDto,
+  CreateAcademicKnowledgeDto,
+  UpdateAcademicKnowledgeDto,
 } from './interfaces/candidate.dto';
 
 @Injectable({
@@ -235,5 +238,57 @@ export class CandidateService {
 
   async deleteParticipation(candidateId: string, participationId: string): Promise<void> {
     await network.delete(`/candidates/${candidateId}/participation/${participationId}`);
+  }
+
+  // AcademicKnowledge
+  async getAcademicKnowledges(
+    candidateId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<AcademicKnowledge>> {
+    const response = await network.get<PaginatedResponse<AcademicKnowledge>>(
+      `/candidates/${candidateId}/academic-knowledge?page=${page}&perPage=${perPage}`,
+    );
+
+    return response.data;
+  }
+
+  async getAcademicKnowledge(
+    candidateId: string,
+    AcademicKnowledgeId: string,
+  ): Promise<AcademicKnowledge> {
+    const response = await network.get<AcademicKnowledge>(
+      `/candidates/${candidateId}/academic-knowledge/${AcademicKnowledgeId}`,
+    );
+
+    return response.data;
+  }
+
+  async createAcademicKnowledgeDto(
+    candidateId: string,
+    AcademicKnowledge: CreateAcademicKnowledgeDto,
+  ): Promise<AcademicKnowledge> {
+    const response = await network.post<AcademicKnowledge>(
+      `/candidates/${candidateId}/academic-knowledge`,
+      AcademicKnowledge,
+    );
+
+    return response.data;
+  }
+
+  async updateAcademicKnowledgeDto(
+    candidateId: string,
+    AcademicKnowledgeId: string,
+    AcademicKnowledge: UpdateAcademicKnowledgeDto,
+  ): Promise<AcademicKnowledge> {
+    const response = await network.put<AcademicKnowledge>(
+      `/candidates/${candidateId}/academic-knowledge/${AcademicKnowledgeId}`,
+      AcademicKnowledge,
+    );
+
+    return response.data;
+  }
+
+  async deleteAcademicKnowledge(candidateId: string, AcademicKnowledgeId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/academic-knowledge/${AcademicKnowledgeId}`);
   }
 }

@@ -13,6 +13,7 @@ import { ProfileComponent } from './views/dashboard/profile/profile.component';
 import { LaborExperienceComponent } from './views/dashboard/laboral-experience/labor-experience.component';
 import { CertificationsAchievementsComponent } from './views/dashboard/certifications-achievements/certifications-achievements.component';
 import { CatalogManagementComponent } from './views/dashboard/catalog-management/catalog-management.component';
+import { AcademicKnowledgeComponent } from './views/dashboard/academic-knowledge/academic-knowledge.component';
 
 export const routes: Routes = [
   // no layout views
@@ -38,7 +39,7 @@ export const routes: Routes = [
       { path: 'settings', component: AccessForbiddenComponent },
       { path: 'perfil', component: ProfileComponent },
       { path: 'experiencia-laboral', component: LaborExperienceComponent },
-      { path: 'educacion', component: AccessForbiddenComponent },
+      { path: 'educacion', component: AcademicKnowledgeComponent },
       { path: 'certificaciones-logros', component: CertificationsAchievementsComponent },
       { path: 'habilidades', component: AccessForbiddenComponent },
       { path: 'catalogos', component: CatalogManagementComponent },

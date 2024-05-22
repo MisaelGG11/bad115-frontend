@@ -52,3 +52,13 @@ export interface CreateParticipationDto {
 }
 
 export interface UpdateParticipationDto extends Partial<CreateParticipationDto> {}
+
+export interface CreateAcademicKnowledgeDto {
+  name: string;
+  type: string;
+  initDate: Date;
+  finishDate: Date;
+  organizationName: string;
+}
+
+export interface UpdateAcademicKnowledgeDto extends Partial<CreateAcademicKnowledgeDto> {}

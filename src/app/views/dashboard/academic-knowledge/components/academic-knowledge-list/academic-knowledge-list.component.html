@@ -1,0 +1,71 @@
+<div class="flex flex-wrap gap-2 w-full mt-2">
+    @if (academicKnowledgeRequest.isPending()) {
+      <div class="flex w-full justify-center items-center">
+        <app-spinner />
+      </div>
+    } @else {
+      <div class="flex flex-wrap gap-2 w-full">
+        @for (page of academicKnowledgeRequest.data()?.pages; track $index) {
+          @for (academicKnowledge of page.data; track academicKnowledge.id) {
+            <div class="w-full">
+              <p-card>
+                <ng-template pTemplate="header">
+                  <div class="flex w-full justify-between px-10 pt-5">
+                    <div class="flex flex-col flex-wrap mt-5">
+                      <div>
+                        <h3 class="font-bold text-2xl">{{ academicKnowledge.name }}</h3>
+                      </div>
+                      <div>
+                        <h4 class="text-xl">{{ academicKnowledge.type }} otorgado por {{ academicKnowledge.organizationName }} </h4>
+                      </div>
+                      <div class="mt-1">
+                        <p>
+                          {{ academicKnowledge.initDate | date: 'mediumDate' }} -
+                          {{ academicKnowledge.finishDate | date: 'mediumDate'}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="flex justify-between mt-5 gap-3">
+                      <div>
+                        <button
+                          (click)="onClickShowEditDialog(academicKnowledge.id)"
+                          class="p-button-rounded p-button-text"
+                          pTooltip="Editar conocimiento académico"
+                          tooltipPosition="bottom"
+                        >
+                          <span class="material-symbols-outlined text-orange"> edit </span>
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          (click)="onClickShowDeleteDialog(academicKnowledge.id)"
+                          class="p-button-rounded p-button-text"
+                          pTooltip="Eliminar conocimiento académico"
+                          tooltipPosition="bottom"
+                        >
+                          <span class="material-symbols-outlined red-icon"> delete </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-card>
+            </div>
+          }
+        }
+      </div>
+      <div class="mt-2 w-44">
+        <p-button
+        icon="pi pi-angle-down"
+        (onClick)="academicKnowledgeRequest.fetchNextPage()"
+        [disabled]="nextButtonDisabled()"
+        [loading]="academicKnowledgeRequest.isFetchingNextPage()"
+        [text]="true"
+        [style]="{ width: '100%' }"
+        [label]="nextButtonText()"
+      />
+      </div>
+    }
+  </div>
+  
+

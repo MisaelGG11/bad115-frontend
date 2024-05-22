@@ -1,0 +1,91 @@
+<p-dialog
+  header="Añadir Conocimiento Académico"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+
+        <div class="w-full lg:basis-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre"
+            fieldName="name"
+            placeholder="Titulo/Diploma/Curso obtenido"
+            formControlName="name"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+
+        <div class="w-full lg:w-1/2">
+          <label
+            for="birthDay"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+            >Tipo *</label
+          >
+          <p-dropdown
+            formControlName="type"
+            [options]="typeOptions"
+            [style]="{ width: '100%' }"
+            [placeholder]="'Seleccione una opción'"
+          />
+        </div>
+      </div>
+    
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-1">
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-calendar
+            fieldName="initDate"
+            [required]="true"
+            [parentForm]="form"
+            formControlName="initDate"
+            label="Fecha de inicio"
+            [maxDate]="today"
+          ></app-calendar>
+        </div>
+
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-calendar
+            fieldName="finishDate"
+            [required]="checked()"
+            [parentForm]="form"
+            formControlName="finishDate"
+            label="Fecha de finalización"
+            [maxDate]="today"
+          ></app-calendar>
+          
+        </div>
+      </div>
+
+       
+  
+      <div class="w-full mt-4">
+        <app-custom-input
+          [parentForm]="form"
+          label="Institución"
+          fieldName="organizationName"
+          placeholder="Nombre de la Institución Educativa"
+          formControlName="organizationName"
+          [type]="'text'"
+          [required]="true"
+        />
+      </div>
+      
+     
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="createAcademicKnowledgeMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>
