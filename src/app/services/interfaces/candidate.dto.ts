@@ -32,6 +32,8 @@ export interface CreateRecognitionDto {
   };
 }
 
+export interface UpdateRecognitionDto extends Partial<CreateRecognitionDto> {}
+
 export interface CreatePublicationDto {
   name: string;
   place: string;

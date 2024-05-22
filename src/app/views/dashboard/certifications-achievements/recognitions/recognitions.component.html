@@ -11,8 +11,13 @@
     />
   </div>
   <div>
-    <app-recognitions-list />
+    <app-recognitions-list
+      (showDeleteDialog)="showDeleteDialog($event)"
+      (showEditDialog)="showEditDialog($event)"
+    />
   </div>
 
   <app-create-recognition-modal [visible]="showAddModal" />
+
+  <app-delete-recognition-modal [visible]="showDeleteModal" [recognitionId]="selectedRecognition" />
 </div>

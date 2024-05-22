@@ -17,6 +17,7 @@ import {
   CreateCertificationDto,
   UpdateCertificationDto,
   CreateRecognitionDto,
+  UpdateRecognitionDto,
   CreatePublicationDto,
   UpdatePublicationDto,
   CreateParticipationDto,
@@ -150,6 +151,14 @@ export class CandidateService {
     return response.data;
   }
 
+  async getRecognition(candidateId: string, recognitionId: string): Promise<Recognition> {
+    const response = await network.get<Recognition>(
+      `/candidates/${candidateId}/recognition/${recognitionId}`,
+    );
+
+    return response.data;
+  }
+
   async createRecognition(
     candidateId: string,
     recognition: CreateRecognitionDto,
@@ -160,6 +169,23 @@ export class CandidateService {
     );
 
     return response.data;
+  }
+
+  async updateRecognition(
+    candidateId: string,
+    recognitionId: string,
+    recognition: UpdateRecognitionDto,
+  ): Promise<Recognition> {
+    const response = await network.put<Recognition>(
+      `/candidates/${candidateId}/recognition/${recognitionId}`,
+      recognition,
+    );
+
+    return response.data;
+  }
+
+  async deleteRecognition(candidateId: string, recognitionId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/recognition/${recognitionId}`);
   }
 
   // Publications
