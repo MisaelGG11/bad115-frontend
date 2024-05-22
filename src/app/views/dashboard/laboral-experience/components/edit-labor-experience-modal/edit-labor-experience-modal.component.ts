@@ -107,7 +107,7 @@ export class EditLaborExperienceModalComponent implements OnChanges {
         updateLaborExperienceDto,
       ),
     onSuccess: async () => {
-      toast.success('Experiencia laboral edita', { duration: 3000 });
+      toast.success('Experiencia laboral editada', { duration: 3000 });
       this.visible.set(false);
       await this.queryClient.invalidateQueries({ queryKey: ['laborExperience'] });
     },
