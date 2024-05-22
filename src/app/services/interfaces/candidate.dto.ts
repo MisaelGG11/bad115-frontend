@@ -41,6 +41,8 @@ export interface CreatePublicationDto {
   isbn: string;
 }
 
+export interface UpdatePublicationDto extends Partial<CreatePublicationDto> {}
+
 export interface CreateParticipationDto {
   date: Date;
   place: string;

@@ -18,6 +18,7 @@ import {
   UpdateCertificationDto,
   CreateRecognitionDto,
   CreatePublicationDto,
+  UpdatePublicationDto,
   CreateParticipationDto,
   UpdateParticipationDto,
   CreateAcademicKnowledgeDto,
@@ -173,9 +174,9 @@ export class CandidateService {
     return response.data;
   }
 
-  async getParticipation(candidateId: string, participationId: string): Promise<Participation> {
-    const response = await network.get<Participation>(
-      `/candidates/${candidateId}/participation/${participationId}`,
+  async getPublication(candidateId: string, publicationId: string): Promise<Publication> {
+    const response = await network.get<Publication>(
+      `/candidates/${candidateId}/publication/${publicationId}`,
     );
 
     return response.data;
@@ -193,6 +194,23 @@ export class CandidateService {
     return response.data;
   }
 
+  async updatePublication(
+    candidateId: string,
+    publicationId: string,
+    publication: UpdatePublicationDto,
+  ): Promise<Publication> {
+    const response = await network.put<Publication>(
+      `/candidates/${candidateId}/publication/${publicationId}`,
+      publication,
+    );
+
+    return response.data;
+  }
+
+  async deletePublication(candidateId: string, publicationId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/publication/${publicationId}`);
+  }
+
   //Participations
   async getParticipations(
     candidateId: string,
@@ -207,6 +225,14 @@ export class CandidateService {
 
   async getParticipationTypes(): Promise<ParticipationType[]> {
     const response = await network.get<ParticipationType[]>(`/catalogs/participation-types`);
+
+    return response.data;
+  }
+
+  async getParticipation(candidateId: string, participationId: string): Promise<Participation> {
+    const response = await network.get<Participation>(
+      `/candidates/${candidateId}/participation/${participationId}`,
+    );
 
     return response.data;
   }

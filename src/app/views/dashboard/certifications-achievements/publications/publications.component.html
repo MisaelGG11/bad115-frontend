@@ -11,8 +11,13 @@
     />
   </div>
   <div>
-    <app-publications-list />
+    <app-publications-list
+      (showDeleteDialog)="showDeleteDialog($event)"
+      (showEditDialog)="showEditDialog($event)"
+    />
   </div>
 
   <app-create-publication-modal [visible]="showAddModal" />
+
+  <app-delete-publication-modal [visible]="showDeleteModal" [publicationId]="selectedPublication" />
 </div>
