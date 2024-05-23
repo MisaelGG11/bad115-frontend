@@ -1,26 +1,27 @@
 <div class="w-full flex flex-col">
   <div class="flex flex-col md:flex-row w-full justify-between gap-2">
-    <div class="mt-1 font-bold text-2xl">
+    <div class="mt-1 font-bold text-xl md:text-2xl">
       <h1>Participaciones</h1>
     </div>
     <p-button
       label="Agregar"
       icon="pi pi-plus"
       class="p-button-rounded mx-auto mz- md:mx-0 my-1"
+      styleClass="h-10 text-sm md:text-base md:h-auto"
       (onClick)="showAddDialog()"
     />
-  </div>
-  <div>
-    <app-participations-list
-      (showDeleteDialog)="showDeleteDialog($event)"
-      (showEditDialog)="showEditDialog($event)"
+    <div>
+      <app-participations-list
+        (showDeleteDialog)="showDeleteDialog($event)"
+        (showEditDialog)="showEditDialog($event)"
+      />
+    </div>
+
+    <app-create-participation-modal [visible]="showAddModal" />
+
+    <app-delete-participation-modal
+      [visible]="showDeleteModal"
+      [participationId]="selectedParticipation"
     />
   </div>
-
-  <app-create-participation-modal [visible]="showAddModal" />
-
-  <app-delete-participation-modal
-    [visible]="showDeleteModal"
-    [participationId]="selectedParticipation"
-  />
 </div>
