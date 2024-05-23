@@ -57,33 +57,15 @@ export class DocumentsFormComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.personRequest.refetch();
+    const { data } = await this.personService.getPerson(this.person.id);
+    this.assignFormValues(data);
   }
 
   personRequest = injectQuery(() => ({
     queryKey: ['person', { personId: this.person?.id }],
     queryFn: async (): Promise<Person> => {
       const { data } = await this.personService.getPerson(this.person.id);
-      const { documents } = data;
-
-      if (!documents) {
-        return data;
-      }
-
-      this.form.patchValue({
-        duiId: documents.find((document) => document.type === DocumentTypeEnum.DUI)?.id,
-        duiNumber:
-          documents.find((document) => document.type === DocumentTypeEnum.DUI)?.number ?? '',
-        nitId: documents.find((document) => document.type === DocumentTypeEnum.NIT)?.id,
-        nitNumber:
-          documents.find((document) => document.type === DocumentTypeEnum.NIT)?.number ?? '',
-        passportId: documents.find((document) => document.type === DocumentTypeEnum.PASSPORT)?.id,
-        passportNumber:
-          documents.find((document) => document.type === DocumentTypeEnum.PASSPORT)?.number ?? '',
-        nupId: documents.find((document) => document.type === DocumentTypeEnum.NUP)?.id,
-        nupNumber:
-          documents.find((document) => document.type === DocumentTypeEnum.NUP)?.number ?? '',
-      });
+      this.assignFormValues(data);
 
       return data;
     },
@@ -92,6 +74,7 @@ export class DocumentsFormComponent implements OnInit {
   upsertDocumentMutation = injectMutation(() => ({
     mutationFn: async (input: UpsertDocumentDto) =>
       await this.personService.upsertDocument(this.person.id, input),
+
     onSuccess: async () => {
       await this.queryClient.invalidateQueries({ queryKey: ['person'] });
     },
@@ -115,16 +98,35 @@ export class DocumentsFormComponent implements OnInit {
       { id: this.form.value.nupId, type: DocumentTypeEnum.NUP, number: this.form.value.nupNumber },
     ];
 
-    await Promise.all([
-      documents.map((doc) => {
-        if (doc.number === '') {
-          return null;
-        }
+    for await (const doc of documents) {
+      if (doc.number === '') {
+        continue;
+      }
 
-        return this.upsertDocumentMutation.mutateAsync(doc);
-      }),
-    ]);
+      await this.upsertDocumentMutation.mutateAsync(doc);
+    }
+
     await this.personRequest.refetch();
     toast.success('Documentos actualizados', { duration: 3000 });
+  }
+
+  assignFormValues(data: Person) {
+    const { documents } = data;
+
+    if (!documents) {
+      return;
+    }
+
+    this.form.patchValue({
+      duiId: documents.find((document) => document.type === DocumentTypeEnum.DUI)?.id,
+      duiNumber: documents.find((document) => document.type === DocumentTypeEnum.DUI)?.number ?? '',
+      nitId: documents.find((document) => document.type === DocumentTypeEnum.NIT)?.id,
+      nitNumber: documents.find((document) => document.type === DocumentTypeEnum.NIT)?.number ?? '',
+      passportId: documents.find((document) => document.type === DocumentTypeEnum.PASSPORT)?.id,
+      passportNumber:
+        documents.find((document) => document.type === DocumentTypeEnum.PASSPORT)?.number ?? '',
+      nupId: documents.find((document) => document.type === DocumentTypeEnum.NUP)?.id,
+      nupNumber: documents.find((document) => document.type === DocumentTypeEnum.NUP)?.number ?? '',
+    });
   }
 }

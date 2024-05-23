@@ -14,6 +14,7 @@ import { CardMenu } from '../../../interfaces/route.interface';
 import { Store } from '@ngrx/store';
 import { Session } from '../../../interfaces/user.interface';
 import { PERMISSIONS, ROLES } from '../../../utils/constants.utils';
+
 @Component({
   selector: 'app-home',
   standalone: true,
