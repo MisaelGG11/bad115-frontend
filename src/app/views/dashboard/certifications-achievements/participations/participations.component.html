@@ -10,18 +10,18 @@
       styleClass="h-10 text-sm md:text-base md:h-auto"
       (onClick)="showAddDialog()"
     />
-    <div>
-      <app-participations-list
-        (showDeleteDialog)="showDeleteDialog($event)"
-        (showEditDialog)="showEditDialog($event)"
-      />
-    </div>
-
-    <app-create-participation-modal [visible]="showAddModal" />
-
-    <app-delete-participation-modal
-      [visible]="showDeleteModal"
-      [participationId]="selectedParticipation"
+  </div>
+  <div>
+    <app-participations-list
+      (showDeleteDialog)="showDeleteDialog($event)"
+      (showEditDialog)="showEditDialog($event)"
     />
   </div>
+
+  <app-create-participation-modal [visible]="showAddModal" />
+
+  <app-delete-participation-modal
+    [visible]="showDeleteModal"
+    [participationId]="selectedParticipation"
+  />
 </div>
