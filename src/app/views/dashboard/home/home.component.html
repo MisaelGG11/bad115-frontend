@@ -1,5 +1,5 @@
 <div class="flex flex-col p-3 w-full">
-  <p>home works!</p>
+  <!-- <p>home works!</p>
   <button
     class="bg-emerald-700 text-white"
     (click)="toast.success('Manuelin hara todo el proyecto')"
@@ -56,5 +56,45 @@
         </div>
       </ng-template>
     </app-data-table>
-  </div>
+  </div> -->
+</div>
+
+<!-- Home Component -->
+<div
+  class="flex flex-col bg-[url('./assets/img/register_bg_2.png')] bg-no-repeat bg-cover"
+  style="min-height: calc(85vh - 1rem)"
+>
+  <main
+    style="min-height: calc(85vh - 1rem)"
+    class="flex- bg-gray-100 dark:bg-gray-800 p-6 md:p-10 md:pt-16 bg-white/70"
+  >
+    <div class="max-w-5xl mx-auto flex flex-col items-center">
+      <div class="mb-8">
+        <h1 class="text-3xl text-center font-bold text-gray-900 dark:text-gray-100 mb-1">
+          Bienvenido, {{ person.firstName }}!
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400 text-center">
+          Aquí tienes una guía de las acciones que puedes realizar en esta increíble plataforma.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        @for (element of routes; track element.path) {
+          <a
+            class="bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 flex flex-col items-center justify-center gap-2"
+            [routerLink]="[element.path]"
+          >
+            <span class="material-symbols-outlined !text-4xl" [ngClass]="'text-' + element.color">
+              {{ element.icon }}
+            </span>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 text-center">
+              {{ element.name }}
+            </h3>
+            <p class="text-gray-600 text-sm dark:text-gray-400 text-center">
+              {{ element.description }}
+            </p>
+          </a>
+        }
+      </div>
+    </div>
+  </main>
 </div>
