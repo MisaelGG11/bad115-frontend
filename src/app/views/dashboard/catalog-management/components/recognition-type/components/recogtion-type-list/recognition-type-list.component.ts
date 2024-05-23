@@ -23,6 +23,11 @@ import {
 export class RecognitionTypeListComponent implements OnInit {
   private recognitionTypeService = inject(RecognitionTypeService);
   private authService = inject(AuthService);
+  showAddModal = signal(false);
+  showDeleteModal = signal(false);
+  showEditModal = signal(false);
+  selectedRecognitionType = signal<RecognitionType | null>(null);
+
   permissionUser = this.authService.getPermissions();
   person = getPersonLocalStorage();
   dataTable: RecognitionType[] = [];
@@ -43,8 +48,9 @@ export class RecognitionTypeListComponent implements OnInit {
       icon: 'edit',
       iconColor: 'text-orange',
       permission: this.permissionUser.includes(PERMISSIONS.UPDATE_CATALOG),
-      onClick: (value: any) => {
-        console.log('Editar:', value);
+      onClick: (value: RecognitionType) => {
+        this.selectedRecognitionType.set(value);
+        this.showEditModal.set(true);
       },
     },
     {
@@ -52,8 +58,9 @@ export class RecognitionTypeListComponent implements OnInit {
       icon: 'delete',
       iconColor: 'text-red-600',
       permission: this.permissionUser.includes(PERMISSIONS.DELETE_CATALOG),
-      onClick: (value: any) => {
-        console.log('Eliminar:', value);
+      onClick: (value: RecognitionType) => {
+        this.selectedRecognitionType.set(value);
+        this.showDeleteModal.set(true);
       },
     },
   ];
@@ -64,7 +71,7 @@ export class RecognitionTypeListComponent implements OnInit {
       { page: this.pagination.page(), perPage: this.pagination.perPage() },
     ],
     queryFn: async () => {
-      const response = await this.recognitionTypeService.getRecognitionTypes({
+      const response = await this.recognitionTypeService.find({
         page: this.pagination.page(),
         perPage: this.pagination.perPage(),
       });
