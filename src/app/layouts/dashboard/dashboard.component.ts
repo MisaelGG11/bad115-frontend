@@ -5,6 +5,7 @@ import { FooterDashboardComponent } from '../../components/footers/footer-dashbo
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderStatsComponent } from '../../components/headers/header-stats/header-stats.component';
 import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimental';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimen
     FooterDashboardComponent,
     HeaderStatsComponent,
     AngularQueryDevtools,
+    CommonModule,
   ],
   templateUrl: './dashboard.component.html',
   styles: `
@@ -29,4 +31,10 @@ import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimen
     }
   `,
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  visible = true;
+
+  handleSidebar(visibility: boolean) {
+    this.visible = visibility;
+  }
+}

@@ -2,7 +2,19 @@
 <nav
   class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
 >
-  <div class="w-full mx-autp items-center flex justify-end md:flex-nowrap flex-wrap lg:px-10 px-4">
+  <div
+    class="w-full items-center flex justify-start md:flex-nowrap flex-wrap lg:px-4"
+    [ngClass]="visible ? 'lg:ml-64' : 'lg:ml-0'"
+  >
+    <button
+      class="cursor-pointer text-white px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+      type="button"
+      (click)="toggleSidebar()"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <div class="w-full mx-auto items-center flex justify-end md:flex-nowrap flex-wrap lg:px-10 px-4">
     <!-- User -->
     <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
       <app-user-dropdown class="block"></app-user-dropdown>

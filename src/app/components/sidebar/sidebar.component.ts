@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserDropdownComponent } from '../dropdowns/user-dropdown/user-dropdown.component';
 import { NotificationDropdownComponent } from '../dropdowns/notification-dropdown/notification-dropdown.component';
@@ -21,6 +21,7 @@ import { PERMISSIONS, ROLES } from '../../utils/constants.utils';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
+  @Input() visible = true;
   router = inject(Router);
   store = inject(Store);
   sessionValue: Session | undefined;

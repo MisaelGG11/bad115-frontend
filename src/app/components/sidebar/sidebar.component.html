@@ -1,8 +1,10 @@
 <nav
-  class="lg:left-0 lg:block lg:fixed lg:top-0 lg:bottom-0 lg:overflow-y-auto lg:flex-row lg:flex-nowrap lg:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative lg:w-64 z-20 py-2 lg:py-4"
+  class="lg:left-0 lg:top-0 lg:absolute lg:bottom-0 lg:overflow-y-auto lg:flex-row lg:flex-nowrap lg:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative z-20 py-2 lg:py-4 lg:w-64 transition-all duration-500 ease-in-out lg:rounded-md"
+  [ngClass]="visible ? 'transform-none' : '-translate-x-full'"
 >
   <div
     class="lg:flex-col lg:items-stretch lg:min-h-full lg:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full px-2"
+    [ngClass]="visible ? 'flex' : 'hidden'"
   >
     <!-- Toggler -->
     <button
@@ -42,7 +44,7 @@
         <div class="flex flex-wrap justify-center items-center">
           <div class="w-6/12">
             <a
-              [routerLink]="['/']"
+              [routerLink]="['/dashboard']"
               class="lg:flex font-extrabold text-slate-600 mr-0 whitespace-nowrap text-sm uppercase p-4 px-0"
             >
               Talent Hub Connect

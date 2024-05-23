@@ -1,7 +1,7 @@
 <div>
-  <app-sidebar></app-sidebar>
-  <div class="lg:ml-64 bg-blueGray-100">
-    <app-dashboard-navbar />
+  <app-sidebar [visible]="visible"></app-sidebar>
+  <div class="bg-blueGray-100" [ngClass]="visible ? 'lg:ml-64' : 'lg:ml-0'">
+    <app-dashboard-navbar (showSidebar)="handleSidebar($event)" />
     <app-header-stats />
     <div class="sm:px-4 md:px-10 mx-auto w-full scrollbar-hide">
       <div
