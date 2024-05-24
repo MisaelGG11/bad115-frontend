@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toast } from 'ngx-sonner';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -7,13 +7,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
-import { PaginationTableOutput } from '../../../interfaces/pagination.interface';
 import { getPersonLocalStorage } from '../../../utils/person-local-storage.utils';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CardMenu } from '../../../interfaces/route.interface';
 import { Store } from '@ngrx/store';
 import { Session } from '../../../interfaces/user.interface';
 import { PERMISSIONS, ROLES } from '../../../utils/constants.utils';
+
 @Component({
   selector: 'app-home',
   standalone: true,

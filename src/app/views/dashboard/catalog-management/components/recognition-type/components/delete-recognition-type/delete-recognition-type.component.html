@@ -1,0 +1,31 @@
+<p-dialog
+  header="Eliminar tipo de reconocimiento"
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex flex-col w-full">
+    <div class="flex items-center">
+      ¿Estás seguro que quieres eliminar el tipo de reconocimiento&nbsp;
+      <strong>{{ recognitionType.name }}</strong
+      >?
+    </div>
+    <div class="flex justify-end gap-4 mt-5">
+      <p-button
+        label="No, gracias"
+        severity="secondary"
+        [text]="true"
+        [raised]="true"
+        (click)="closeModal()"
+      />
+      <p-button
+        label="Eliminar"
+        icon="pi pi-trash"
+        [raised]="true"
+        [loading]="deleteRecognitionTypeMutation.isPending()"
+        (click)="delete()"
+      />
+    </div>
+  </div>
+</p-dialog>

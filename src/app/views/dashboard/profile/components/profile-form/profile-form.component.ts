@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -47,7 +47,7 @@ import { getPersonLocalStorage } from '../../../../../utils/person-local-storage
   templateUrl: './profile-form.component.html',
   styles: [],
 })
-export class ProfileFormComponent {
+export class ProfileFormComponent implements OnInit {
   private personService = inject(PersonService);
   private store = inject(Store);
   queryClient = injectQueryClient();
@@ -70,6 +70,10 @@ export class ProfileFormComponent {
       birthday: new FormControl<Date>(new Date(), Validators.required),
       gender: new FormControl<string>('M', Validators.required),
     });
+  }
+
+  async ngOnInit() {
+    await this.personRequest.refetch();
   }
 
   updatePersonMutation = injectMutation(() => ({

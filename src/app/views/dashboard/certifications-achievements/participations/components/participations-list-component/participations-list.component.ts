@@ -73,7 +73,7 @@ export class ParticipationsListComponent {
       case 'Cumbre':
         return 'diversity_3';
       default:
-        return 'pi pi-question';
+        return 'groups';
     }
   }
 }
