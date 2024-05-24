@@ -3,6 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { CertificationsListComponent } from './components/certifications-list/certifications-list.component';
 import { CreateCertificationModalComponent } from './components/create-certification-modal/create-certification-modal.component';
 import { DeleteCertificationModalComponent } from './components/delete-certification-modal/delete-certification-modal.component';
+import { EditCertificationModalComponent } from './components/edit-certification-modal/edit-certification-modal.component';
 
 @Component({
   selector: 'app-certifications',
@@ -12,6 +13,7 @@ import { DeleteCertificationModalComponent } from './components/delete-certifica
     CertificationsListComponent,
     CreateCertificationModalComponent,
     DeleteCertificationModalComponent,
+    EditCertificationModalComponent,
   ],
   templateUrl: './certifications.component.html',
   styles: ``,
