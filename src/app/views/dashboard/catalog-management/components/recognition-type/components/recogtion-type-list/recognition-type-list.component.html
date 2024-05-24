@@ -30,4 +30,14 @@
       </div>
     </ng-template>
   </app-data-table>
+
+  <app-edit-recognition-type
+    [visible]="showEditModal"
+    [recognitionType]="selectedRecognitionType()"
+  />
+
+  <app-delete-recognition-type
+    [visible]="showDeleteModal"
+    [recognitionType]="selectedRecognitionType()"
+  />
 </div>

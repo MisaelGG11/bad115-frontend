@@ -41,4 +41,8 @@ export class RecognitionTypeService {
 
     return recognitionType.data;
   }
+
+  async delete(id: string): Promise<void> {
+    await network.delete(`/catalogs/recognition-types/${id}`);
+  }
 }

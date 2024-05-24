@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RecognitionTypeService } from '../../../../../../../services/recognition-type.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { DataTableComponent } from '../../../../../../../components/data-table/data-table.component';
@@ -12,20 +12,32 @@ import {
   PaginationTableInput,
   PaginationTableOutput,
 } from '../../../../../../../interfaces/pagination.interface';
+import { DeleteRecognitionTypeComponent } from '../delete-recognition-type/delete-recognition-type.component';
+import { EditRecognitionTypeComponent } from '../edit-recognition-type/edit-recognition-type.component';
 
 @Component({
   selector: 'app-recognition-type-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass],
+  imports: [
+    DataTableComponent,
+    TooltipModule,
+    NgClass,
+    DeleteRecognitionTypeComponent,
+    EditRecognitionTypeComponent,
+  ],
   templateUrl: './recognition-type-list.component.html',
   styles: [],
 })
 export class RecognitionTypeListComponent implements OnInit {
   private recognitionTypeService = inject(RecognitionTypeService);
   private authService = inject(AuthService);
-  @Output() showDeleteDialog = new EventEmitter<string>();
-  @Output() showEditDialog = new EventEmitter<string>();
   showAddModal = signal(false);
+  showEditModal = signal(false);
+  showDeleteModal = signal(false);
+  selectedRecognitionType = signal<RecognitionType>({
+    id: '',
+    name: '',
+  });
 
   permissionUser = this.authService.getPermissions();
   person = getPersonLocalStorage();
@@ -70,7 +82,7 @@ export class RecognitionTypeListComponent implements OnInit {
         iconColor: 'text-orange',
         permission: this.permissionUser.includes(PERMISSIONS.UPDATE_CATALOG),
         onClick: (value: RecognitionType) => {
-          this.onClickEdit(value.id);
+          this.onClickEdit(value);
         },
       },
       {
@@ -79,7 +91,7 @@ export class RecognitionTypeListComponent implements OnInit {
         iconColor: 'text-red-600',
         permission: this.permissionUser.includes(PERMISSIONS.DELETE_CATALOG),
         onClick: (value: RecognitionType) => {
-          this.onClickDelete(value.id);
+          this.onClickDelete(value);
         },
       },
     ];
@@ -92,12 +104,14 @@ export class RecognitionTypeListComponent implements OnInit {
     await this.recognitionTypesRequest.refetch();
   }
 
-  onClickEdit(id: string) {
-    this.showEditDialog.emit(id);
+  onClickEdit(value: RecognitionType) {
+    this.selectedRecognitionType.set(value);
+    this.showEditModal.set(true);
   }
 
-  onClickDelete(id: string) {
-    this.showDeleteDialog.emit(id);
+  onClickDelete(value: RecognitionType) {
+    this.selectedRecognitionType.set(value);
+    this.showDeleteModal.set(true);
   }
 
   constructor() {}

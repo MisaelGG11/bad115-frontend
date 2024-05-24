@@ -3,8 +3,9 @@ import { ButtonModule } from 'primeng/button';
 import { CustomInputComponent } from '../../../../../../../components/inputs/custom-input/custom-input.component';
 import { DialogModule } from 'primeng/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { injectMutation, injectQuery } from '@tanstack/angular-query-experimental';
+import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { RecognitionTypeService } from '../../../../../../../services/recognition-type.service';
+import { RecognitionType } from '../../../../../../../interfaces/recognition-type.interface';
 
 @Component({
   selector: 'app-edit-recognition-type',
@@ -15,8 +16,9 @@ import { RecognitionTypeService } from '../../../../../../../services/recognitio
 })
 export class EditRecognitionTypeComponent implements OnChanges {
   private recognitionTypeService = inject(RecognitionTypeService);
+  private queryClient = injectQueryClient();
   @Input() visible = signal(false);
-  @Input() recognitionTypeId = '';
+  @Input() recognitionType!: RecognitionType;
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -26,22 +28,21 @@ export class EditRecognitionTypeComponent implements OnChanges {
   }
 
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
-    if (changes['recognitionTypeId']) {
-      const { data } = await this.recognitionTypeRequest.refetch();
+    if (changes['recognitionType'] && !changes['recognitionType'].isFirstChange()) {
       this.form.patchValue({
-        name: data?.name,
+        name: this.recognitionType.name,
       });
     }
   }
 
-  recognitionTypeRequest = injectQuery(() => ({
-    queryKey: ['recognitionType', { recognitionTypeId: this.recognitionTypeId }],
-    queryFn: async () => await this.recognitionTypeService.findOne(this.recognitionTypeId),
-  }));
-
   editRecognitionTypeMutation = injectMutation(() => ({
     mutationFn: async (name: string) =>
-      this.recognitionTypeService.update(this.recognitionTypeId, name),
+      this.recognitionTypeService.update(this.recognitionType.id, name),
+    onSuccess: async () => {
+      await this.queryClient.invalidateQueries({
+        queryKey: ['recognitionTypes'],
+      });
+    },
   }));
 
   async submit() {
