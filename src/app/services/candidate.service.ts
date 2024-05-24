@@ -4,7 +4,7 @@ import {
   LaboralExperience,
   Certification,
   Recognition,
-  RecognitionTypeCatalog,
+  RecognitionType,
   Publication,
   Participation,
   ParticipationType,
@@ -145,8 +145,8 @@ export class CandidateService {
     return response.data;
   }
 
-  async getRecognitionTypes(): Promise<RecognitionTypeCatalog[]> {
-    const response = await network.get<RecognitionTypeCatalog[]>(`/catalogs/recognition-types`);
+  async getRecognitionTypes(): Promise<RecognitionType[]> {
+    const response = await network.get<RecognitionType[]>(`/catalogs/recognition-types`);
 
     return response.data;
   }

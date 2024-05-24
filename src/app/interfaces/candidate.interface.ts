@@ -35,11 +35,8 @@ export interface Recognition {
 }
 
 export interface RecognitionType {
-  name: string;
-}
-
-export interface RecognitionTypeCatalog extends RecognitionType {
   id: string;
+  name: string;
 }
 
 export interface Publication {

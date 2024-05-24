@@ -27,9 +27,7 @@ export interface UpdateCertificationDto extends Partial<CreateCertificationDto> 
 export interface CreateRecognitionDto {
   name: string;
   finishDate: Date;
-  recognitionType: {
-    name: string;
-  };
+  recognitionTypeId: string;
 }
 
 export interface UpdateRecognitionDto extends Partial<CreateRecognitionDto> {}

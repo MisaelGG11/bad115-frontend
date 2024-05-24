@@ -22,7 +22,7 @@ import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../../components/inputs/calendar/calendar.component';
 import { SelectComponent } from '../../../../../../components/inputs/select/select.component';
-import { RecognitionTypeCatalog } from '../../../../../../interfaces/candidate.interface';
+import { RecognitionType } from '../../../../../../interfaces/candidate.interface';
 
 @Component({
   selector: 'app-create-recognition-modal',
@@ -53,12 +53,12 @@ export class CreateRecognitionModalComponent {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      recognitionType: [null, [Validators.required]],
+      recognitionTypeId: [null, [Validators.required]],
       finishDate: [null, [Validators.required]],
     });
   }
 
-  regonoctionsTypesRequest = injectQuery(() => ({
+  recognitionsTypesRequest = injectQuery(() => ({
     queryKey: ['recognitionType'],
     queryFn: async () => {
       const data = await this.candidateService.getRecognitionTypes();
@@ -67,10 +67,10 @@ export class CreateRecognitionModalComponent {
     },
   }));
 
-  addRecognitionsTypesOptions(types: RecognitionTypeCatalog[]) {
+  addRecognitionsTypesOptions(types: RecognitionType[]) {
     this.recognitionsTypesOptions = types.map((type) => ({
       label: type.name,
-      value: { name: type.name },
+      value: type.id,
     }));
   }
 
@@ -78,7 +78,7 @@ export class CreateRecognitionModalComponent {
     mutationFn: async (input: CreateRecognitionDto) =>
       await this.candidateService.createRecognition(this.person.candidateId, input),
     onSuccess: async () => {
-      toast.success('Reconicimiento creado', { duration: 3000 });
+      toast.success('Reconocimiento creado', { duration: 3000 });
       this.visible.set(false);
       await this.queryClient.invalidateQueries({ queryKey: ['recognitions'] });
       this.form.reset();
@@ -90,10 +90,16 @@ export class CreateRecognitionModalComponent {
     if (this.form.invalid) {
       return;
     }
+    console.log(this.form.value);
+
     await this.createRecognitionMutation.mutateAsync(this.form.value);
   }
 
   getFormControl(name: string) {
     return this.form.get(name) as FormControl;
+  }
+
+  ngOnInit(): void {
+    this.recognitionsTypesRequest.refetch();
   }
 }
