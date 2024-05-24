@@ -42,28 +42,7 @@ export class RecognitionTypeListComponent implements OnInit {
     { field: 'name', header: 'Nombre', column_align: 'left', row_align: 'center' },
   ];
 
-  actionsList = [
-    {
-      label: 'Editar',
-      icon: 'edit',
-      iconColor: 'text-orange',
-      permission: this.permissionUser.includes(PERMISSIONS.UPDATE_CATALOG),
-      onClick: (value: RecognitionType) => {
-        this.selectedRecognitionType.set(value);
-        this.showEditModal.set(true);
-      },
-    },
-    {
-      label: 'Eliminar',
-      icon: 'delete',
-      iconColor: 'text-red-600',
-      permission: this.permissionUser.includes(PERMISSIONS.DELETE_CATALOG),
-      onClick: (value: RecognitionType) => {
-        this.selectedRecognitionType.set(value);
-        this.showDeleteModal.set(true);
-      },
-    },
-  ];
+  actionsList: any[] = [];
 
   recognitionTypesRequest = injectQuery(() => ({
     queryKey: [
@@ -85,6 +64,28 @@ export class RecognitionTypeListComponent implements OnInit {
 
   async ngOnInit() {
     await this.recognitionTypesRequest.refetch();
+    this.actionsList = [
+      {
+        label: 'Editar',
+        icon: 'edit',
+        iconColor: 'text-orange',
+        permission: this.permissionUser.includes(PERMISSIONS.UPDATE_CATALOG),
+        onClick: (value: RecognitionType) => {
+          this.selectedRecognitionType.set(value);
+          this.showEditModal.set(true);
+        },
+      },
+      {
+        label: 'Eliminar',
+        icon: 'delete',
+        iconColor: 'text-red-600',
+        permission: this.permissionUser.includes(PERMISSIONS.DELETE_CATALOG),
+        onClick: (value: RecognitionType) => {
+          this.selectedRecognitionType.set(value);
+          this.showDeleteModal.set(true);
+        },
+      },
+    ];
   }
 
   async paginatePage(pag: PaginationTableOutput) {
