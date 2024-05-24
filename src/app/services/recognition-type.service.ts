@@ -24,4 +24,21 @@ export class RecognitionTypeService {
 
     return recognitionType.data;
   }
+
+  async findOne(id: string): Promise<RecognitionType> {
+    const recognitionType = await network.get<RecognitionType>(`/catalogs/recognition-types/${id}`);
+
+    return recognitionType.data;
+  }
+
+  async update(id: string, name: string): Promise<RecognitionType> {
+    const recognitionType = await network.put<RecognitionType>(
+      `/catalogs/recognition-types/${id}`,
+      {
+        name,
+      },
+    );
+
+    return recognitionType.data;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
 import { RecognitionTypeService } from '../../../../../../../services/recognition-type.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { DataTableComponent } from '../../../../../../../components/data-table/data-table.component';
@@ -23,10 +23,9 @@ import {
 export class RecognitionTypeListComponent implements OnInit {
   private recognitionTypeService = inject(RecognitionTypeService);
   private authService = inject(AuthService);
+  @Output() showDeleteDialog = new EventEmitter<string>();
+  @Output() showEditDialog = new EventEmitter<string>();
   showAddModal = signal(false);
-  showDeleteModal = signal(false);
-  showEditModal = signal(false);
-  selectedRecognitionType = signal<RecognitionType | null>(null);
 
   permissionUser = this.authService.getPermissions();
   person = getPersonLocalStorage();
@@ -71,8 +70,7 @@ export class RecognitionTypeListComponent implements OnInit {
         iconColor: 'text-orange',
         permission: this.permissionUser.includes(PERMISSIONS.UPDATE_CATALOG),
         onClick: (value: RecognitionType) => {
-          this.selectedRecognitionType.set(value);
-          this.showEditModal.set(true);
+          this.onClickEdit(value.id);
         },
       },
       {
@@ -81,8 +79,7 @@ export class RecognitionTypeListComponent implements OnInit {
         iconColor: 'text-red-600',
         permission: this.permissionUser.includes(PERMISSIONS.DELETE_CATALOG),
         onClick: (value: RecognitionType) => {
-          this.selectedRecognitionType.set(value);
-          this.showDeleteModal.set(true);
+          this.onClickDelete(value.id);
         },
       },
     ];
@@ -93,6 +90,14 @@ export class RecognitionTypeListComponent implements OnInit {
     this.pagination.perPage.set(pag.perPage);
 
     await this.recognitionTypesRequest.refetch();
+  }
+
+  onClickEdit(id: string) {
+    this.showEditDialog.emit(id);
+  }
+
+  onClickDelete(id: string) {
+    this.showDeleteDialog.emit(id);
   }
 
   constructor() {}

@@ -1,1 +1,28 @@
-<p>edit-recognition-type works!</p>
+<p-dialog
+  header="Añadir tipo de reconocimiento"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+    <div class="w-full mt-2">
+      <app-custom-input
+        [parentForm]="form"
+        label="Nombre del tipo de reconocimiento"
+        fieldName="name"
+        placeholder="Congreso de informática"
+        formControlName="name"
+        type="text"
+        [required]="true"
+        class="border-0 p-0"
+      />
+    </div>
+
+    <div class="flex w-full justify-end mt-3">
+      <p-button type="submit" label="Guardar" [loading]="editRecognitionTypeMutation.isPending()" />
+    </div>
+  </form>
+</p-dialog>

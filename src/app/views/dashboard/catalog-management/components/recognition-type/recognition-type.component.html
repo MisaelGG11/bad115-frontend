@@ -4,7 +4,15 @@
       <span class="material-symbols-outlined"> add </span>
     </p-button>
   </div>
-  <app-recognition-type-list />
+  <app-recognition-type-list
+    (showEditDialog)="onClickEdit($event)"
+    (showDeleteDialog)="onClickDelete($event)"
+  />
 
   <app-create-recognition-type [visible]="showAddModal" />
+
+  <app-edit-recognition-type
+    [visible]="showEditModal"
+    [recognitionTypeId]="selectedRecognitionType()"
+  />
 </div>
