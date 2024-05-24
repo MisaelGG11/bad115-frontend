@@ -3,6 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { PublicationsListComponent } from './components/publications-list/publications-list.component';
 import { CreatePublicationModalComponent } from './components/create-publication-modal/create-publication-modal.component';
 import { DeletePublicationModalComponent } from './components/delete-publication-modal/delete-publication-modal.component';
+import { EditPublicationModalComponent } from './components/edit-publication-modal/edit-publication-modal.component';
 
 @Component({
   selector: 'app-publications',
@@ -12,6 +13,7 @@ import { DeletePublicationModalComponent } from './components/delete-publication
     PublicationsListComponent,
     CreatePublicationModalComponent,
     DeletePublicationModalComponent,
+    EditPublicationModalComponent,
   ],
   templateUrl: './publications.component.html',
   styles: ``,
