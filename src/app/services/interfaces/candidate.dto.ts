@@ -48,9 +48,7 @@ export interface CreateParticipationDto {
   place: string;
   country: string;
   eventHost: string;
-  participationType: {
-    name: string;
-  };
+  participationTypeId: string;
 }
 
 export interface UpdateParticipationDto extends Partial<CreateParticipationDto> {}

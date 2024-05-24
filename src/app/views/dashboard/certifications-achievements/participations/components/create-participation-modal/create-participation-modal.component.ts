@@ -24,7 +24,7 @@ import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../../components/inputs/calendar/calendar.component';
 import { SelectComponent } from '../../../../../../components/inputs/select/select.component';
-import { RecognitionTypeCatalog } from '../../../../../../interfaces/candidate.interface';
+import { ParticipationType } from '../../../../../../interfaces/candidate.interface';
 
 @Component({
   selector: 'app-create-participation-modal',
@@ -57,7 +57,7 @@ export class CreateParticipationModalComponent {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       eventHost: ['', [Validators.required]],
-      participacionType: [null, [Validators.required]],
+      participationTypeId: ['', [Validators.required]],
       date: [null, [Validators.required]],
       place: ['', [Validators.required]],
       country: ['', [Validators.required]],
@@ -89,10 +89,10 @@ export class CreateParticipationModalComponent {
     }));
   }
 
-  addParticipationsTypesOptions(types: RecognitionTypeCatalog[]) {
+  addParticipationsTypesOptions(types: ParticipationType[]) {
     this.participationsTypesOptions = types.map((type) => ({
       label: type.name,
-      value: { name: type.name },
+      value: type.id,
     }));
   }
 

@@ -56,7 +56,7 @@ export interface Participation {
   country: string;
   eventHost: string;
   candidateId: string;
-  participacionType: ParticipationType;
+  participationType: ParticipationType;
 }
 export interface ParticipationType {
   id: string;
