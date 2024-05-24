@@ -3,6 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { RecognitionsListComponent } from './components/recognitions-list/recognitions-list.component';
 import { CreateRecognitionModalComponent } from './components/create-recognition-modal/create-recognition-modal.component';
 import { DeleteRecognitionModalComponent } from './components/delete-recognition-modal/delete-recognition-modal.component';
+import { EditRecognitionModalComponent } from './components/edit-recognition-modal/edit-recognition-modal.component';
 
 @Component({
   selector: 'app-recognitions',
@@ -12,6 +13,7 @@ import { DeleteRecognitionModalComponent } from './components/delete-recognition
     RecognitionsListComponent,
     CreateRecognitionModalComponent,
     DeleteRecognitionModalComponent,
+    EditRecognitionModalComponent,
   ],
   templateUrl: './recognitions.component.html',
   styles: ``,
