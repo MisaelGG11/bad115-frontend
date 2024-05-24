@@ -143,21 +143,21 @@ export class HomeComponent {
           path: '/dashboard/perfil',
           icon: 'person',
           description: 'Ver y editar tu perfil',
-          color: 'blue-500',
+          color: 'text-blue-500',
         },
         {
           name: 'Experiencia Laboral',
           path: '/dashboard/experiencia-laboral',
           icon: 'business_center',
           description: 'Agrega tu experiencia laboral',
-          color: 'yellow-900',
+          color: 'text-yellow-900',
         },
         {
           name: 'Educación',
           path: '/dashboard/educacion',
           icon: 'school',
           description: 'Agrega tu educación y tus estudios',
-          color: 'green-500',
+          color: 'text-green-500',
         },
         {
           name: 'Certificaciones y logros',
@@ -165,14 +165,14 @@ export class HomeComponent {
           icon: 'trophy',
           description:
             'Agrega tus certificaciones, reconocimientos, participación en eventos y publicaciones',
-          color: 'yellow-300',
+          color: 'text-yellow-300',
         },
         {
           name: 'Habilidades',
           path: '/dashboard/habilidades',
           icon: 'handshake',
           description: 'Agrega tus habilidades técnicas y lingüísticas',
-          color: 'red-500',
+          color: 'text-red-500',
         },
       ];
     }
@@ -184,14 +184,14 @@ export class HomeComponent {
           path: '/dashboard/usuarios',
           icon: 'group',
           description: 'Gestiona los usuarios de la plataforma',
-          color: 'blue-500',
+          color: 'text-blue-500',
         },
         {
           name: 'Desbloqueo de usuarios',
           path: '/dashboard/desbloqueo-usuarios',
           icon: 'account_circle_off',
           description: 'Desbloquea a los usuarios que han sido bloqueados',
-          color: 'yellow-500',
+          color: 'text-yellow-500',
         },
       );
     }
@@ -202,7 +202,7 @@ export class HomeComponent {
         path: '/dashboard/roles',
         icon: 'manage_accounts',
         description: 'Gestiona los roles de la plataforma',
-        color: 'green-500',
+        color: 'text-green-500',
       });
     }
 
@@ -212,7 +212,7 @@ export class HomeComponent {
         path: '/dashboard/permisos',
         icon: 'key',
         description: 'Gestiona los permisos de la plataforma',
-        color: 'indigo-500',
+        color: 'text-indigo-500',
       });
     }
 
@@ -222,7 +222,7 @@ export class HomeComponent {
         path: '/dashboard/catalogos',
         icon: 'book_2',
         description: 'Gestiona los catálogos de la plataforma',
-        color: 'red-500',
+        color: 'text-red-500',
       });
     }
   }
