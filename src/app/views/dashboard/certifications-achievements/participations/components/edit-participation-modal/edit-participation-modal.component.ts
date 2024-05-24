@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import {
   FormBuilder,
@@ -19,7 +19,7 @@ import {
 import { Country } from '../../../../../../interfaces/person.interface';
 import { CandidateService } from '../../../../../../services/candidate.service';
 import { AddressService } from '../../../../../../services/address.service';
-import { CreateParticipationDto } from '../../../../../../services/interfaces/candidate.dto';
+import { UpdateParticipationDto } from '../../../../../../services/interfaces/candidate.dto';
 import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../../components/inputs/calendar/calendar.component';
@@ -27,7 +27,7 @@ import { SelectComponent } from '../../../../../../components/inputs/select/sele
 import { ParticipationType } from '../../../../../../interfaces/candidate.interface';
 
 @Component({
-  selector: 'app-create-participation-modal',
+  selector: 'app-edit-participation-modal',
   standalone: true,
   imports: [
     DialogModule,
@@ -40,15 +40,16 @@ import { ParticipationType } from '../../../../../../interfaces/candidate.interf
     CalendarComponent,
     SelectComponent,
   ],
-  templateUrl: './create-participation-modal.component.html',
+  templateUrl: './edit-participation-modal.component.html',
   styles: ``,
 })
-export class CreateParticipationModalComponent {
+export class EditParticipationModalComponent {
   private candidateService = inject(CandidateService);
   private addressService = inject(AddressService);
   private person = JSON.parse(localStorage.getItem('person') ?? '');
   private queryClient = injectQueryClient();
   @Input() visible = signal(false);
+  @Input() participationId = '';
   form: FormGroup;
   participationsTypesOptions: Array<{ label: string; value: string | { name: string } }> = [];
   countriesOptions: Array<{ label: string; value: string }> = [];
@@ -64,6 +65,21 @@ export class CreateParticipationModalComponent {
     });
   }
 
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
+    if (changes['participationId'] && !changes['participationId'].isFirstChange()) {
+      await this.participationsTypesRequest.refetch();
+      await this.countriesRequest.refetch();
+      const { data } = await this.participationRequest.refetch();
+      console.log(data);
+      this.form.patchValue({
+        ...data,
+        participationTypeId: data?.participationType.id,
+        date: data?.date ? new Date(data.date) : null,
+      });
+      console.log(this.form.value);
+    }
+  }
+
   participationsTypesRequest = injectQuery(() => ({
     queryKey: ['participationType'],
     queryFn: async () => {
@@ -77,6 +93,7 @@ export class CreateParticipationModalComponent {
     queryKey: ['countries'],
     queryFn: async () => {
       const { data } = await this.addressService.getCountries();
+      console.log(data);
       this.addCountriesOptions(data);
       return data;
     },
@@ -96,14 +113,30 @@ export class CreateParticipationModalComponent {
     }));
   }
 
-  createParticipationMutation = injectMutation(() => ({
-    mutationFn: async (input: CreateParticipationDto) =>
-      await this.candidateService.createParticipation(this.person.candidateId, input),
+  participationRequest = injectQuery(() => ({
+    queryKey: [
+      'participations',
+      {
+        candidateId: this.person.candidateId,
+        participationId: this.participationId,
+      },
+    ],
+    queryFn: async () =>
+      await this.candidateService.getParticipation(this.person.candidateId, this.participationId),
+    enabled: !!this.participationId,
+  }));
+
+  editParticipationMutation = injectMutation(() => ({
+    mutationFn: async (updateParticipationDto: UpdateParticipationDto) =>
+      await this.candidateService.updateParticipation(
+        this.person.candidateId,
+        this.participationId,
+        updateParticipationDto,
+      ),
     onSuccess: async () => {
-      toast.success('Participación creada', { duration: 3000 });
+      toast.success('Participación actualizada', { duration: 3000 });
       this.visible.set(false);
       await this.queryClient.invalidateQueries({ queryKey: ['participations'] });
-      this.form.reset();
     },
   }));
 
@@ -112,7 +145,7 @@ export class CreateParticipationModalComponent {
     if (this.form.invalid) {
       return;
     }
-    await this.createParticipationMutation.mutateAsync(this.form.value);
+    await this.editParticipationMutation.mutateAsync(this.form.value);
   }
 
   getFormControl(name: string) {
@@ -120,7 +153,9 @@ export class CreateParticipationModalComponent {
   }
 
   ngOnInit(): void {
-    this.countriesRequest.refetch();
-    this.participationsTypesRequest.refetch();
+    if (this.visible()) {
+      this.countriesRequest.refetch();
+      this.participationsTypesRequest.refetch();
+    }
   }
 }

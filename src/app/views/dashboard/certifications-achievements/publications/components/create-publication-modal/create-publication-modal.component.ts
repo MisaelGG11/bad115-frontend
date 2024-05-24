@@ -22,7 +22,6 @@ import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../../components/inputs/calendar/calendar.component';
 import { SelectComponent } from '../../../../../../components/inputs/select/select.component';
-import { RecognitionTypeCatalog } from '../../../../../../interfaces/candidate.interface';
 
 @Component({
   selector: 'app-create-publication-modal',

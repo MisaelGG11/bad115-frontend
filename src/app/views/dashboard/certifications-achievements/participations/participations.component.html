@@ -24,4 +24,9 @@
     [visible]="showDeleteModal"
     [participationId]="selectedParticipation"
   />
+
+  <app-edit-participation-modal
+    [visible]="showEditModal"
+    [participationId]="selectedParticipation()"
+  />
 </div>

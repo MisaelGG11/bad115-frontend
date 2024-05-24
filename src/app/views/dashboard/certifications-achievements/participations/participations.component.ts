@@ -3,6 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { ParticipationsListComponent } from './components/participations-list-component/participations-list.component';
 import { CreateParticipationModalComponent } from './components/create-participation-modal/create-participation-modal.component';
 import { DeleteParticipationModalComponent } from './components/delete-participation-modal/delete-participation-modal.component';
+import { EditParticipationModalComponent } from './components/edit-participation-modal/edit-participation-modal.component';
 
 @Component({
   selector: 'app-participations',
@@ -12,6 +13,7 @@ import { DeleteParticipationModalComponent } from './components/delete-participa
     ParticipationsListComponent,
     CreateParticipationModalComponent,
     DeleteParticipationModalComponent,
+    EditParticipationModalComponent,
   ],
   templateUrl: './participations.component.html',
   styles: ``,

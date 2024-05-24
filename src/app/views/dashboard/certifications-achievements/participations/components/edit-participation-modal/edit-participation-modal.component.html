@@ -53,8 +53,8 @@
             label="País de participación"
             [selectOptions]="countriesOptions"
             [required]="true"
-            [filter]="true"
             [loading]="countriesRequest.isPending()"
+            [filter]="true"
             [parentForm]="form"
             fieldName="country"
             formControlName="country"
@@ -75,11 +75,7 @@
       </div>
 
       <div class="flex w-full justify-end mt-3">
-        <p-button
-          type="submit"
-          label="Guardar"
-          [loading]="createParticipationMutation.isPending()"
-        />
+        <p-button type="submit" label="Guardar" [loading]="editParticipationMutation.isPending()" />
       </div>
     </form>
   </div>
