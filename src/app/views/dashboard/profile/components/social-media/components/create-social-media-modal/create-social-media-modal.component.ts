@@ -1,0 +1,97 @@
+import { Component, inject, Input, signal } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
+import { CustomInputComponent } from '../../../../../../../components/inputs/custom-input/custom-input.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CommonModule } from '@angular/common';
+import {
+  injectMutation,
+  injectQueryClient,
+  injectQuery,
+} from '@tanstack/angular-query-experimental';
+import { PersonService } from '../../../../../../../services/person.service';
+import { CreateSocialMediaDto } from '../../../../../../../services/interfaces/person.dto';
+import { SocialMediaType } from '../../../../../../../interfaces/person.interface';
+import { toast } from 'ngx-sonner';
+import { StyleClassModule } from 'primeng/styleclass';
+import { SelectComponent } from '../../../../../../../components/inputs/select/select.component';
+
+@Component({
+  selector: 'app-create-social-media-modal',
+  standalone: true,
+  imports: [
+    DialogModule,
+    ReactiveFormsModule,
+    CalendarModule,
+    CustomInputComponent,
+    InputTextareaModule,
+    CommonModule,
+    StyleClassModule,
+    SelectComponent,
+  ],
+  templateUrl: './create-social-media-modal.component.html',
+  styles: ``,
+})
+export class CreateSocialMediaModalComponent {
+  private personService = inject(PersonService);
+  private person = JSON.parse(localStorage.getItem('person') ?? '');
+  private queryClient = injectQueryClient();
+  @Input() visible = signal(false);
+  form: FormGroup;
+  socialMediaTypesOptions: Array<{ label: string; value: string | { name: string } }> = [];
+  today = new Date();
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      nickname: ['', [Validators.required]],
+      typeSocialNetworkId: ['', [Validators.required]],
+      url: ['', [Validators.required]],
+    });
+  }
+
+  socialMediaTypesRequest = injectQuery(() => ({
+    queryKey: ['socialMediaType'],
+    queryFn: async () => {
+      const data = await this.personService.geSocialMediaTypes();
+      this.addSocialMediaTypesOptions(data);
+      return data;
+    },
+  }));
+
+  addSocialMediaTypesOptions(types: SocialMediaType[]) {
+    this.socialMediaTypesOptions = types.map((type) => ({
+      label: type.name,
+      value: type.id,
+    }));
+  }
+
+  createSocialMediaMutation = injectMutation(() => ({
+    mutationFn: async (createSocialMediaDto: CreateSocialMediaDto) =>
+      await this.personService.createSocialMedia(this.person.id, createSocialMediaDto),
+    onSuccess: async () => {
+      toast.success('Red social creada', { duration: 3000 });
+      this.visible.set(false);
+      await this.queryClient.invalidateQueries({ queryKey: ['socialMedia'] });
+      this.form.reset();
+    },
+  }));
+
+  async submit() {
+    this.form.markAllAsTouched();
+    if (this.form.invalid) {
+      return;
+    }
+    await this.createSocialMediaMutation.mutateAsync(this.form.value);
+  }
+
+  getFormControl(name: string) {
+    return this.form.get(name) as FormControl;
+  }
+}

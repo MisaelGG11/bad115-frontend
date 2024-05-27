@@ -60,3 +60,16 @@ export enum DocumentTypeEnum {
 }
 
 export type DocumentType = (typeof DocumentTypeEnum)[keyof typeof DocumentTypeEnum];
+
+export interface SocialMedia {
+  id: string;
+  nickname: string;
+  url: string;
+  personId: string;
+  typeSocialNetwork: SocialMediaType;
+}
+
+export interface SocialMediaType {
+  id: string;
+  name: string;
+}

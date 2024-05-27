@@ -18,3 +18,15 @@ export interface UpsertDocumentDto {
   number: string;
   type: DocumentType;
 }
+
+export interface SocialMediaType {
+  id: string;
+  name: string;
+}
+export interface CreateSocialMediaDto {
+  nickname: string;
+  url: string;
+  typeSocialNetwork: string;
+}
+
+export interface UpdateSocialMediaDto extends CreateSocialMediaDto {}
