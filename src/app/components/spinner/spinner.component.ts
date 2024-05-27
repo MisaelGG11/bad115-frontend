@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
@@ -8,4 +8,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   templateUrl: './spinner.component.html',
   styles: [],
 })
-export class SpinnerComponent {}
+export class SpinnerComponent {
+  @Input() styles = { width: '4rem', height: '4rem' };
+}

@@ -65,17 +65,22 @@
           </span>
           Perfil
         </li>
-
       </a>
       <li class="cursor-pointer flex items-center hover:bg-primary/30">
-        <button 
-          class="flex items-center px-4 py-2 w-full h-full"
+        <button
+          class="flex items-center justify-between pl-3 pr-4 py-2 w-full h-full"
           (click)="downloadCV()"
+          [disabled]="downloadFileMutation.isPending()"
         >
-          <span class="material-symbols-outlined text-slate-700 mr-2" style="font-size: 20px">
-            article
-          </span>
-          Descargar CV
+          <div>
+            <span class="material-symbols-outlined text-slate-700 mr-1" style="font-size: 20px">
+              article
+            </span>
+            Descargar CV
+          </div>
+          @if (downloadFileMutation.isPending()) {
+            <app-spinner [styles]="{ width: '1.3rem', height: '1.3rem' }" />
+          }
         </button>
       </li>
       <a

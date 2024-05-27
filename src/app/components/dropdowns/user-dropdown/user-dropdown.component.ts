@@ -9,11 +9,14 @@ import { map, Observable, shareReplay, timer } from 'rxjs';
 import { CandidateService } from '../../../services/candidate.service';
 import { getPersonLocalStorage } from '../../../utils/person-local-storage.utils';
 import { saveFile } from '../../../utils/file.utils';
+import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
+import { toast } from 'ngx-sonner';
+import { SpinnerComponent } from '../../spinner/spinner.component';
 
 @Component({
   selector: 'app-user-dropdown',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule, NgOptimizedImage, SpinnerComponent],
   templateUrl: './user-dropdown.component.html',
 })
 export class UserDropdownComponent implements AfterViewInit {
@@ -22,6 +25,7 @@ export class UserDropdownComponent implements AfterViewInit {
   private router = inject(Router);
   private candidateService = inject(CandidateService);
   sessionValue: Session | undefined;
+  private queryClient = injectQueryClient();
   person = getPersonLocalStorage();
 
   private _time$: Observable<Date> = timer(0, 1000).pipe(
@@ -53,9 +57,17 @@ export class UserDropdownComponent implements AfterViewInit {
     this.router.navigate(['/']);
   }
 
+  downloadFileMutation = injectMutation(() => ({
+    mutationFn: async () => await this.candidateService.downloadCV(this.person.candidateId),
+    onSuccess: async () => {
+      toast.success('Curriculum generado correctamente', { duration: 3000 });
+      await this.queryClient.invalidateQueries({ queryKey: ['files'] });
+    },
+  }));
+
   async downloadCV() {
     try {
-      const buffer = await this.candidateService.downloadCV(this.person.candidateId);
+      const buffer = await this.downloadFileMutation.mutateAsync();
       const filename = `CV - ${this.person.firstName} ${this.person.middleName} ${this.person.lastName} ${this.person.secondLastName}.pdf`;
 
       saveFile(buffer, filename);
