@@ -32,6 +32,13 @@ import {
 export class CandidateService {
   constructor() {}
 
+  // PDF - CV file
+  async downloadCV(candidateId: string): Promise<string> {
+    const response = await network.post(`/candidates/${candidateId}/pdfs`, {}, { responseType: 'blob' });
+
+    return response.data;
+  }
+
   // Labor Experience
   async getLaborExperiences(
     candidateId: string,

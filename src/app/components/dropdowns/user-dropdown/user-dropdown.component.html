@@ -65,7 +65,19 @@
           </span>
           Perfil
         </li>
+
       </a>
+      <li class="cursor-pointer flex items-center hover:bg-primary/30">
+        <button 
+          class="flex items-center px-4 py-2 w-full h-full"
+          (click)="downloadCV()"
+        >
+          <span class="material-symbols-outlined text-slate-700 mr-2" style="font-size: 20px">
+            article
+          </span>
+          Descargar CV
+        </button>
+      </li>
       <a
         (click)="logout()"
         class="block hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

@@ -6,6 +6,9 @@ import { createPopper } from '@popperjs/core';
 import { logout } from '../../../store/auth.actions';
 import { Router } from '@angular/router';
 import { map, Observable, shareReplay, timer } from 'rxjs';
+import { CandidateService } from '../../../services/candidate.service';
+import { getPersonLocalStorage } from '../../../utils/person-local-storage.utils';
+import { saveFile } from '../../../utils/file.utils';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -17,7 +20,9 @@ export class UserDropdownComponent implements AfterViewInit {
   dropdownPopoverShow = false;
   private store = inject(Store);
   private router = inject(Router);
+  private candidateService = inject(CandidateService);
   sessionValue: Session | undefined;
+  person = getPersonLocalStorage();
 
   private _time$: Observable<Date> = timer(0, 1000).pipe(
     map(() => new Date()),
@@ -46,6 +51,17 @@ export class UserDropdownComponent implements AfterViewInit {
   logout() {
     this.store.dispatch(logout());
     this.router.navigate(['/']);
+  }
+
+  async downloadCV() {
+    try {
+      const buffer = await this.candidateService.downloadCV(this.person.candidateId);
+      const filename = `CV - ${this.person.firstName} ${this.person.middleName} ${this.person.lastName} ${this.person.secondLastName}.pdf`;
+
+      saveFile(buffer, filename);
+    } catch (error) {
+      console.error('Error al descargar CV:', error);
+    }
   }
 
   get time() {
