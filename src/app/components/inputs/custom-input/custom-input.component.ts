@@ -2,13 +2,24 @@ import { Component, Input, forwardRef } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputErrorsComponent } from '../input-errors/input-errors.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-custom-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputErrorsComponent],
+  imports: [CommonModule, ReactiveFormsModule, InputErrorsComponent, TooltipModule],
   templateUrl: './custom-input.component.html',
-  styles: ``,
+  styles: `
+  .file-input {
+    padding: 0px; /* Padding adicional si es necesario */
+    cursor: pointer; /* Cambia el cursor cuando el input es de tipo file */
+  }
+  ::ng-host button{
+    border-radius: 5px;
+    margin: 0px;
+    background-color: red;
+  }
+  `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,7 +30,7 @@ import { InputErrorsComponent } from '../input-errors/input-errors.component';
 })
 export class CustomInputComponent {
   public value: string = '';
-  public changed: (value: string) => void = () => {};
+  public changed: (value: string | Object | null) => void = () => {};
   public touched: () => void = () => {};
 
   // Input properties
@@ -65,6 +76,13 @@ export class CustomInputComponent {
   }
 
   public onChange(event: Event): void {
+    if(this.type === 'file') {
+      const files = (<HTMLInputElement>event.target).files;
+      if(files) {
+        this.changed(files[0]);
+      }
+      return;
+    }
     const value: string = (<HTMLInputElement>event.target).value;
 
     this.changed(value);
@@ -76,5 +94,9 @@ export class CustomInputComponent {
 
   public registerOnTouched(fn: any): void {
     this.touched = fn;
+  }
+
+  deleteFile(){
+    this.changed(null);
   }
 }

@@ -15,11 +15,29 @@
     [ngClass]="{
       '!border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block':
       formField.errors !== null && formField.touched,
-      '!border-white': formField.errors === null && formField.touched
+      '!border-white': formField.errors === null && formField.touched,
+      'file-input border-2': type === 'file',
+
+
     }"
     (input)="onChange($event)"
     (blur)="touched()"
   />
+  @if(type === 'file' && formField.value !== null && formField.errors === null){
+    <div class="flex flex-row justify-start items-center mt-1">
+      <p class="text-primary-500 text-sm"><b>Archivo cargado:</b> {{formField.value.name }}</p>
+      <div  class="flex justify-end items-center ml-2">
+        <button
+          class="rounded-full h-5 w-5 flex -p-1 items-center justify-center bg-red-500 text-white"
+          pTooltip="Eliminar archivo"
+          tooltipPosition="top"
+          (click)="deleteFile()"
+        >
+          <span class="material-symbols-outlined" style="font-size:12px;">close</span>
+        </button>
+      </div>
+    </div>
+  }
   <div class="input-group--prepend-icon" *ngIf="prependIcon">
     <i
       [ngClass]="{
