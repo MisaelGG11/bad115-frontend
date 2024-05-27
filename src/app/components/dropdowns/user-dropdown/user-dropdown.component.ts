@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Session } from '../../../interfaces/user.interface';
 import { createPopper } from '@popperjs/core';
 import { logout } from '../../../store/auth.actions';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { map, Observable, shareReplay, timer } from 'rxjs';
 import { CandidateService } from '../../../services/candidate.service';
 import { getPersonLocalStorage } from '../../../utils/person-local-storage.utils';
@@ -16,7 +16,7 @@ import { SpinnerComponent } from '../../spinner/spinner.component';
 @Component({
   selector: 'app-user-dropdown',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, SpinnerComponent],
+  imports: [CommonModule, NgOptimizedImage, SpinnerComponent, RouterLink],
   templateUrl: './user-dropdown.component.html',
 })
 export class UserDropdownComponent implements AfterViewInit {
