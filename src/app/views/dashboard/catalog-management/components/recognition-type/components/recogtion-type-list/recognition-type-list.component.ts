@@ -12,6 +12,8 @@ import {
   PaginationTableInput,
   PaginationTableOutput,
 } from '../../../../../../../interfaces/pagination.interface';
+import { Store } from '@ngrx/store';
+import { Session } from '../../../../../../../interfaces/user.interface';
 import { DeleteRecognitionTypeComponent } from '../delete-recognition-type/delete-recognition-type.component';
 import { EditRecognitionTypeComponent } from '../edit-recognition-type/edit-recognition-type.component';
 
@@ -30,7 +32,7 @@ import { EditRecognitionTypeComponent } from '../edit-recognition-type/edit-reco
 })
 export class RecognitionTypeListComponent implements OnInit {
   private recognitionTypeService = inject(RecognitionTypeService);
-  private authService = inject(AuthService);
+  private store = inject(Store);
   showAddModal = signal(false);
   showEditModal = signal(false);
   showDeleteModal = signal(false);
@@ -38,8 +40,9 @@ export class RecognitionTypeListComponent implements OnInit {
     id: '',
     name: '',
   });
+  sessionValue: Session | undefined;
+  permissionUser: string[] = [];
 
-  permissionUser = this.authService.getPermissions();
   person = getPersonLocalStorage();
   dataTable: RecognitionType[] = [];
   pagination: PaginationTableInput = {
@@ -75,6 +78,10 @@ export class RecognitionTypeListComponent implements OnInit {
 
   async ngOnInit() {
     await this.recognitionTypesRequest.refetch();
+    this.store.select('session').subscribe((session) => {
+      this.sessionValue = session;
+    });
+    this.permissionUser = this.sessionValue?.user?.permissions ?? [];
     this.actionsList = [
       {
         label: 'Editar',
