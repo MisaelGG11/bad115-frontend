@@ -55,34 +55,36 @@
       class="text-sm text-gray-700 dark:text-gray-200"
       aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
     >
-      <a
-        [routerLink]="['perfil']"
-        class="block hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-      >
-        <li class="cursor-pointer px-4 py-2 flex items-center hover:bg-primary/30">
-          <span class="material-symbols-outlined text-slate-700" style="font-size: 20px">
-            person
-          </span>
-          Perfil
-        </li>
-      </a>
-      <li class="cursor-pointer flex items-center hover:bg-primary/30">
-        <button
-          class="flex items-center justify-between pl-3 pr-4 py-2 w-full h-full"
-          (click)="downloadCV()"
-          [disabled]="downloadFileMutation.isPending()"
+      @if (person.candidateId) {
+        <a
+          [routerLink]="['perfil']"
+          class="block hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
         >
-          <div class="flex items-center">
-            <span class="material-symbols-outlined text-slate-700 mr-1" style="font-size: 20px">
-              article
+          <li class="cursor-pointer px-4 py-2 flex items-center hover:bg-primary/30">
+            <span class="material-symbols-outlined text-slate-700" style="font-size: 20px">
+              person
             </span>
-            Descargar CV
-          </div>
-          @if (downloadFileMutation.isPending()) {
-            <app-spinner [styles]="{ width: '1.3rem', height: '1.3rem' }" />
-          }
-        </button>
-      </li>
+            Perfil
+          </li>
+        </a>
+        <li class="cursor-pointer flex items-center hover:bg-primary/30">
+          <button
+            class="flex items-center justify-between pl-3 pr-4 py-2 w-full h-full"
+            (click)="downloadCV()"
+            [disabled]="downloadFileMutation.isPending()"
+          >
+            <div class="flex items-center">
+              <span class="material-symbols-outlined text-slate-700 mr-1" style="font-size: 20px">
+                article
+              </span>
+              Descargar CV
+            </div>
+            @if (downloadFileMutation.isPending()) {
+              <app-spinner [styles]="{ width: '1.3rem', height: '1.3rem' }" />
+            }
+          </button>
+        </li>
+      }
       <a
         (click)="logout()"
         class="block hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
