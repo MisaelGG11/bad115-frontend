@@ -15,7 +15,7 @@ export const validateInitAndFinishDate: ValidatorFn = (
 
   if (currentJob) {
     finishDate?.setErrors(null);
-    return { finishDate: null };
+    return null;
   }
 
   if (initDate?.value > finishDate?.value) {
