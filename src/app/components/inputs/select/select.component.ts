@@ -50,7 +50,6 @@ export class SelectComponent {
 
   public onChange(event: any): void {
     const value: string | number = event.value;
-    console.log('value', value);
     this.changed(value);
   }
 

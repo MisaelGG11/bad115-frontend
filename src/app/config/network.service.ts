@@ -60,7 +60,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     if ((response.status === 200 || response.status === 201) && response.data.message) {
-      console.log(response.data.message);
       setNotification({
         type: 'success',
         summary: 'Éxito',
@@ -95,7 +94,6 @@ instance.interceptors.response.use(
           message = error.response.data.message ?? 'Acceso no autorizado';
         } else {
           try {
-            console.log(localStorage.getItem(LOCAL_STORAGE.REFRESH_TOKEN));
             const response = await axios.post(`${environment.api}/auth/refresh-token`, {
               refreshToken: localStorage.getItem(LOCAL_STORAGE.REFRESH_TOKEN),
             });
@@ -115,7 +113,6 @@ instance.interceptors.response.use(
         }
         break;
       default:
-        console.log('entro al default state');
         if (error.response?.status >= 400 && error.response?.status < 500) {
           if (error.response?.data?.message) {
             message = error.response?.data?.message;
@@ -131,7 +128,6 @@ instance.interceptors.response.use(
 
     if (typeof message === 'object' && !Array.isArray(message)) {
       for (const messageProper in message) {
-        console.log({ messageProper });
         if (Array.isArray(message[messageProper])) {
           // Check if messageProper is an array
           message[messageProper].forEach(function (msg) {

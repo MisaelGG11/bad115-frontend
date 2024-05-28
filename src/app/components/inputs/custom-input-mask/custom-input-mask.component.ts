@@ -33,7 +33,6 @@ export class CustomInputMaskComponent {
 
   public onChange(event: Event): void {
     const value: string = (<HTMLInputElement>event.target).value;
-    console.log('value', value);
     this.parentForm?.setValue({ [this.fieldName]: value });
 
     this.changed(value);

@@ -70,13 +70,11 @@ export class EditParticipationModalComponent {
       await this.participationsTypesRequest.refetch();
       await this.countriesRequest.refetch();
       const { data } = await this.participationRequest.refetch();
-      console.log(data);
       this.form.patchValue({
         ...data,
         participationTypeId: data?.participationType.id,
         date: data?.date ? new Date(data.date) : null,
       });
-      console.log(this.form.value);
     }
   }
 
@@ -93,7 +91,6 @@ export class EditParticipationModalComponent {
     queryKey: ['countries'],
     queryFn: async () => {
       const { data } = await this.addressService.getCountries();
-      console.log(data);
       this.addCountriesOptions(data);
       return data;
     },

@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, Output, signal, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UserDropdownComponent } from '../../dropdowns/user-dropdown/user-dropdown.component';
 import { NotificationDropdownComponent } from '../../dropdowns/notification-dropdown/notification-dropdown.component';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,6 @@ export class DashboardNavbarComponent {
 
   toggleSidebar() {
     this.visible = !this.visible;
-    console.log(this.visible);
     this.showSidebar.emit(this.visible);
   }
 }

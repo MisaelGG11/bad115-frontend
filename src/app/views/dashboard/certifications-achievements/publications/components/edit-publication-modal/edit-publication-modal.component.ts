@@ -78,11 +78,9 @@ export class EditPublicationModalComponent {
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
     if (changes['publicationId'] && !changes['publicationId'].isFirstChange()) {
       const { data } = await this.publicationRequest.refetch();
-      console.log(data);
       this.form.patchValue({
         ...data,
       });
-      console.log(this.form.value);
     }
   }
 

@@ -65,7 +65,6 @@ export class EditSocialMediaModalComponent {
         ...data,
         typeSocialNetworkId: data?.typeSocialNetwork.id,
       });
-      console.log(this.form.value);
     }
   }
 

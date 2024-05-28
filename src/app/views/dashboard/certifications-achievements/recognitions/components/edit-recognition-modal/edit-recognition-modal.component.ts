@@ -64,13 +64,11 @@ export class EditRecognitionModalComponent {
     if (changes['recognitionId'] && !changes['recognitionId'].isFirstChange()) {
       await this.recognitionsTypesRequest.refetch();
       const { data } = await this.recognitionRequest.refetch();
-      console.log(data);
       this.form.patchValue({
         ...data,
         recognitionTypeId: data?.recognitionType.id,
         finishDate: data?.finishDate ? new Date(data.finishDate) : null,
       });
-      console.log(this.form.value);
     }
   }
 

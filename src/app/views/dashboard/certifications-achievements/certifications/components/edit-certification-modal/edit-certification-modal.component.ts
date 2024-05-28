@@ -74,13 +74,11 @@ export class EditCertificationModalComponent {
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
     if (changes['certificationId'] && !changes['certificationId'].isFirstChange()) {
       const { data } = await this.certificationRequest.refetch();
-      console.log(data);
       this.form.patchValue({
         ...data,
         initDate: data?.initDate ? new Date(data.initDate) : null,
         finishDate: data?.finishDate ? new Date(data.finishDate) : null,
       });
-      console.log(this.form.value);
     }
   }
 

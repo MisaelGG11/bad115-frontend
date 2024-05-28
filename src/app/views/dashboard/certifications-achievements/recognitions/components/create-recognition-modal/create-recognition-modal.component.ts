@@ -90,7 +90,6 @@ export class CreateRecognitionModalComponent {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value);
 
     await this.createRecognitionMutation.mutateAsync(this.form.value);
   }
