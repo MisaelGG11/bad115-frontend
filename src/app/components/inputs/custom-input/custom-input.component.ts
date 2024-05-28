@@ -10,15 +10,15 @@ import { TooltipModule } from 'primeng/tooltip';
   imports: [CommonModule, ReactiveFormsModule, InputErrorsComponent, TooltipModule],
   templateUrl: './custom-input.component.html',
   styles: `
-  .file-input {
-    padding: 0px; /* Padding adicional si es necesario */
-    cursor: pointer; /* Cambia el cursor cuando el input es de tipo file */
-  }
-  ::ng-host button{
-    border-radius: 5px;
-    margin: 0px;
-    background-color: red;
-  }
+    .file-input {
+      padding: 0px; /* Padding adicional si es necesario */
+      cursor: pointer; /* Cambia el cursor cuando el input es de tipo file */
+    }
+    ::ng-host button {
+      border-radius: 5px;
+      margin: 0px;
+      background-color: red;
+    }
   `,
   providers: [
     {
@@ -38,10 +38,10 @@ export class CustomInputComponent {
   @Input() isDisabled: boolean = false;
   @Input() fieldName: string = '';
   @Input() placeholder: string = '';
-  @Input() prependIcon: string | null = null;
-  @Input() endIcon: string | null = null;
+  @Input() prependIcon: string = '';
+  @Input() endIcon: string = '';
   @Input() type: string = 'text';
-  @Input() rounded: string = 'lg';
+  @Input() rounded: string = '';
   @Input() label: string = '';
   @Input() required: boolean = false;
 
@@ -52,20 +52,21 @@ export class CustomInputComponent {
 
   // Computed property for input class
   get inputClass() {
-    const classes = ['input-group--field'];
+    const classes = [''];
     if (this.prependIcon) classes.push('pl-12');
     if (this.endIcon) classes.push('pr-12');
     if (this.rounded) {
       if (this.rounded === 'full') classes.push('rounded-full');
       else classes.push(`rounded-${this.rounded}`);
     }
-    if (!this.prependIcon && !this.endIcon) classes.push('px-6');
     return classes.join(' ');
   }
 
   // Toggle password visibility
-  togglePasswordVisibility() {
+  togglePasswordVisibility(event: MouseEvent) {
     this.showPassword = !this.showPassword;
+    this.type = this.showPassword ? 'text' : 'password';
+    event.preventDefault();
   }
   public writeValue(value: string): void {
     this.value = value;
@@ -76,9 +77,9 @@ export class CustomInputComponent {
   }
 
   public onChange(event: Event): void {
-    if(this.type === 'file') {
+    if (this.type === 'file') {
       const files = (<HTMLInputElement>event.target).files;
-      if(files) {
+      if (files) {
         this.changed(files[0]);
       }
       return;
@@ -96,7 +97,7 @@ export class CustomInputComponent {
     this.touched = fn;
   }
 
-  deleteFile(){
+  deleteFile() {
     this.changed(null);
   }
 }

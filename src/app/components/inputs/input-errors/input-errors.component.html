@@ -1,4 +1,4 @@
-<ng-container class="absolute" *ngIf="formField.invalid && (formField?.dirty || formField.touched)">
+<ng-container class="relative" *ngIf="formField.invalid && (formField?.dirty || formField.touched)">
   <span [class]="errorsStyles" *ngIf="formField?.hasError('required')">
     El campo {{ fieldName }} es requerido.
   </span>
@@ -37,7 +37,10 @@
     Campo {{ fieldName }} debe disponer de un valor máximo de {{ formField.errors?.['max'].max }}.
   </span>
 
-  <span [class]="errorsStyles" *ngIf="formField?.hasError(propertyName)">
+  <span
+    [class]="errorsStyles"
+    *ngIf="formField?.hasError(propertyName) && formField?.getError(propertyName) !== true"
+  >
     {{ formField.getError(propertyName) }}
   </span>
 </ng-container>
