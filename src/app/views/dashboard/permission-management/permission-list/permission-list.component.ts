@@ -84,7 +84,7 @@ export class PermissionListComponent implements OnInit {
         label: 'Visualizar',
         icon: 'visibility',
         iconColor: 'text-blue-500',
-        permission: this.permissionUser.includes(PERMISSIONS.READ_CATALOG),
+        permission: this.permissionUser.includes(PERMISSIONS.READ_PERMISSION),
         onClick: (value: Permission) => {
           this.onClickVisualize(value);
         },
@@ -93,7 +93,7 @@ export class PermissionListComponent implements OnInit {
         label: 'Editar',
         icon: 'edit',
         iconColor: 'text-orange',
-        permission: this.permissionUser.includes(PERMISSIONS.UPDATE_CATALOG),
+        permission: this.permissionUser.includes(PERMISSIONS.UPDATE_PERMISSION),
         onClick: (value: Permission) => {
           this.onClickEdit(value);
         },
@@ -102,7 +102,7 @@ export class PermissionListComponent implements OnInit {
         label: 'Eliminar',
         icon: 'delete',
         iconColor: 'text-red-600',
-        permission: this.permissionUser.includes(PERMISSIONS.DELETE_CATALOG),
+        permission: this.permissionUser.includes(PERMISSIONS.DELETE_PERMISSION),
         onClick: (value: Permission) => {
           this.onClickDelete(value);
         },
