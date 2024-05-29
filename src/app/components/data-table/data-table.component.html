@@ -24,17 +24,32 @@
     <ng-template pTemplate="header" let-columns>
       <tr>
         @for (col of columns; track col.field) {
-          <th [id]="col.field">
+          <th
+            [id]="col.field"
+            [ngClass]="[
+              col.column_align,
+              invertedColors ? 'text-slate-300 bg-slate-700' : 'text-slate-800 bg-slate-200'
+            ]"
+          >
             <div
               class="w-full text-center font-black text-[14px]"
-              [ngClass]="[col.column_align, invertedColors ? 'text-[#737c8e]' : 'text-slate-800']"
+              [ngClass]="[
+                col.column_align,
+                invertedColors ? 'text-slate-300 bg-slate-700' : 'text-slate-800 bg-slate-200'
+              ]"
             >
               {{ col.header }}
             </div>
           </th>
         }
         @if (haveActions) {
-          <th id="actions" ngClass="w-[12%]">
+          <th
+            id="actions"
+            [ngClass]="[
+              'w-[12%]',
+              invertedColors ? 'text-slate-300 bg-slate-700' : 'text-slate-800 bg-slate-200'
+            ]"
+          >
             <div class="w-full text-center font-black text-[14px]">Acciones</div>
           </th>
         }
