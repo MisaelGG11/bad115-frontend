@@ -1,0 +1,55 @@
+<p-dialog
+  header="Agregar permiso"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre de permiso"
+            fieldName="name"
+            placeholder="Nombre de permiso"
+            formControlName="name"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Código"
+            fieldName="codename"
+            placeholder="Código de permiso"
+            formControlName="codename"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full">
+          <app-custom-input
+            [parentForm]="form"
+            label="Descripción"
+            fieldName="description"
+            placeholder="Descripción del permiso"
+            formControlName="description"
+            [type]="'text'"
+            [required]="true"
+          />
+        </div>
+      </div>
+      <div class="flex w-full justify-end mt-3">
+        <p-button type="submit" label="Guardar" [loading]="createPermissionMutation.isPending()" />
+      </div>
+    </form>
+  </div>
+</p-dialog>
