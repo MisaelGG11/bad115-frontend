@@ -14,6 +14,7 @@ import { LaborExperienceComponent } from './views/dashboard/laboral-experience/l
 import { CertificationsAchievementsComponent } from './views/dashboard/certifications-achievements/certifications-achievements.component';
 import { CatalogManagementComponent } from './views/dashboard/catalog-management/catalog-management.component';
 import { PermissionManagementComponent } from './views/dashboard/permission-management/permission-management.component';
+import { RoleManagementComponent } from './views/dashboard/role-management/role-management.component';
 import { AcademicKnowledgeComponent } from './views/dashboard/academic-knowledge/academic-knowledge.component';
 
 export const routes: Routes = [
@@ -45,6 +46,7 @@ export const routes: Routes = [
       { path: 'habilidades', component: AccessForbiddenComponent },
       { path: 'catalogos', component: CatalogManagementComponent },
       { path: 'permisos', component: PermissionManagementComponent },
+      { path: 'roles', component: RoleManagementComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

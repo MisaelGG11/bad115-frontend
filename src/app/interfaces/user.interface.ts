@@ -24,3 +24,10 @@ export interface Permission {
   description: string;
   codename: string;
 }
+
+export interface Role {
+  id: string;
+  name: string;
+  description: string;
+  permissions: Permission[];
+}

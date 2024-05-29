@@ -1,0 +1,29 @@
+<div class="flex flex-wrap p-1 items-center gap-2">
+  @switch (permission.codename.split(':')[0].toLocaleLowerCase()) {
+    @case ('read') {
+      <span class="material-symbols-outlined text-green-500">visibility</span>
+    }
+    @case ('create') {
+      <span class="material-symbols-outlined text-blue-500">add_circle</span>
+    }
+    @case ('update') {
+      <span class="material-symbols-outlined text-orange">edit</span>
+    }
+    @case ('delete') {
+      <span class="material-symbols-outlined text-red-500">delete</span>
+    }
+    @case ('manage') {
+      <span class="material-symbols-outlined text-purple-500">settings</span>
+    }
+    @default {
+      <span class="material-symbols-outlined text-sm">tag</span>
+    }
+  }
+  <div class="flex-1 flex flex-col">
+    <span class="font-bold text-[14px]">{{ permission.name }}</span>
+    <div class="flex items-center gap-1">
+      <i class="pi pi-tag" style="font-size: 12px"></i>
+      <span class="text-sm">{{ permission.codename.split(':')[1] }}</span>
+    </div>
+  </div>
+</div>

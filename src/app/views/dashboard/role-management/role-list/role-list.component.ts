@@ -5,45 +5,38 @@ import { DataTableComponent } from '../../../../components/data-table/data-table
 import { PERMISSIONS } from '../../../../utils/constants.utils';
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
-import { Session, Permission } from '../../../../interfaces/user.interface';
+import { Session, Role } from '../../../../interfaces/user.interface';
 import {
   PaginationTableInput,
   PaginationTableOutput,
 } from '../../../../interfaces/pagination.interface';
 import { Store } from '@ngrx/store';
-import { DeletePermissionComponent } from '../delete-permission/delete-permission.component';
-import { EditPermissionComponent } from '../edit-permission/edit-permission.component';
+import { EditRoleComponent } from '../edit-role/edit-role.component';
 
 @Component({
-  selector: 'app-permission-list',
+  selector: 'app-role-list',
   standalone: true,
-  imports: [
-    DataTableComponent,
-    TooltipModule,
-    NgClass,
-    EditPermissionComponent,
-    DeletePermissionComponent,
-  ],
-  templateUrl: './permission-list.component.html',
+  imports: [DataTableComponent, TooltipModule, NgClass, EditRoleComponent],
+  templateUrl: './role-list.component.html',
   styles: [],
 })
-export class PermissionListComponent implements OnInit {
+export class RolesListComponent implements OnInit {
   private userService = inject(UserService);
   private store = inject(Store);
   showAddModal = signal(false);
   showEditModal = signal(false);
   showDeleteModal = signal(false);
   readonly = signal(false);
-  selectedPermission = signal<Permission>({
+  selectedRole = signal<Role>({
     id: '',
     name: '',
     description: '',
-    codename: '',
+    permissions: [],
   });
   sessionValue: Session | undefined;
   permissionUser: string[] = [];
 
-  dataTable: Permission[] = [];
+  dataTable: Role[] = [];
   pagination: PaginationTableInput = {
     total: 0,
     perPage: signal(10),
@@ -53,15 +46,14 @@ export class PermissionListComponent implements OnInit {
   columns = [
     { field: 'id', header: 'ID', column_align: 'left', row_align: 'center' },
     { field: 'name', header: 'Nombre', column_align: 'left', row_align: 'center' },
-    { field: 'codename', header: 'Código de permiso', column_align: 'left', row_align: 'center' },
   ];
 
   actionsList: any[] = [];
 
-  permissionsRequest = injectQuery(() => ({
-    queryKey: ['permissions', { page: this.pagination.page(), perPage: this.pagination.perPage() }],
+  rolesRequest = injectQuery(() => ({
+    queryKey: ['roles', { page: this.pagination.page(), perPage: this.pagination.perPage() }],
     queryFn: async () => {
-      const response = await this.userService.findPermissionsPaginated({
+      const response = await this.userService.findRoles({
         page: this.pagination.page(),
         perPage: this.pagination.perPage(),
       });
@@ -74,7 +66,7 @@ export class PermissionListComponent implements OnInit {
   }));
 
   async ngOnInit() {
-    await this.permissionsRequest.refetch();
+    await this.rolesRequest.refetch();
     this.store.select('session').subscribe((session) => {
       this.sessionValue = session;
     });
@@ -84,8 +76,8 @@ export class PermissionListComponent implements OnInit {
         label: 'Visualizar',
         icon: 'visibility',
         iconColor: 'text-blue-500',
-        permission: this.permissionUser.includes(PERMISSIONS.READ_PERMISSION),
-        onClick: (value: Permission) => {
+        permission: this.permissionUser.includes(PERMISSIONS.READ_ROLE),
+        onClick: (value: Role) => {
           this.onClickVisualize(value);
         },
       },
@@ -93,8 +85,8 @@ export class PermissionListComponent implements OnInit {
         label: 'Editar',
         icon: 'edit',
         iconColor: 'text-orange',
-        permission: this.permissionUser.includes(PERMISSIONS.UPDATE_PERMISSION),
-        onClick: (value: Permission) => {
+        permission: this.permissionUser.includes(PERMISSIONS.UPDATE_ROLE),
+        onClick: (value: Role) => {
           this.onClickEdit(value);
         },
       },
@@ -102,8 +94,8 @@ export class PermissionListComponent implements OnInit {
         label: 'Eliminar',
         icon: 'delete',
         iconColor: 'text-red-600',
-        permission: this.permissionUser.includes(PERMISSIONS.DELETE_PERMISSION),
-        onClick: (value: Permission) => {
+        permission: this.permissionUser.includes(PERMISSIONS.DELETE_ROLE),
+        onClick: (value: Role) => {
           this.onClickDelete(value);
         },
       },
@@ -114,23 +106,23 @@ export class PermissionListComponent implements OnInit {
     this.pagination.page.set(pag.page);
     this.pagination.perPage.set(pag.perPage);
 
-    await this.permissionsRequest.refetch();
+    await this.rolesRequest.refetch();
   }
 
-  onClickVisualize(value: Permission) {
-    this.selectedPermission.set(value);
+  onClickVisualize(value: Role) {
+    this.selectedRole.set(value);
     this.readonly.set(true);
     this.showEditModal.set(true);
   }
 
-  onClickEdit(value: Permission) {
-    this.selectedPermission.set(value);
+  onClickEdit(value: Role) {
+    this.selectedRole.set(value);
     this.readonly.set(false);
     this.showEditModal.set(true);
   }
 
-  onClickDelete(value: Permission) {
-    this.selectedPermission.set(value);
+  onClickDelete(value: Role) {
+    this.selectedRole.set(value);
     this.showDeleteModal.set(true);
   }
 

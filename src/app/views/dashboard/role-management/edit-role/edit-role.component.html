@@ -1,0 +1,82 @@
+<p-dialog
+  [header]="readOnly() ? 'Detalles de rol ' + role.name : 'Editar rol'"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre de rol"
+            fieldName="name"
+            placeholder="Nombre de rol"
+            formControlName="name"
+            [type]="'text'"
+            [isDisabled]="true"
+            [required]="true"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col flex-wrap lg:flex-nowrap w-full mt-4">
+        <span class="block uppercase text-slate-600 text-[14px] mb-1 font-bold dark:text-white"
+          >Permisos</span
+        >
+        <hr class="border-slate-500" />
+        @if (readOnly()) {
+          @if (role.permissions.length === 0) {
+            <div class="w-full flex justify-center flex-col gap-1 mt-3 text-yellow-300">
+              <span class="material-symbols-outlined text-center" style="font-size: 30px">
+                error
+              </span>
+              <h1 class="font-bold text-primary-dark text-center">Sin permisos asignados</h1>
+            </div>
+          } @else {
+            <div
+              class="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 overflow-y-auto w-full"
+              style="max-height: calc(55vh + 2.5rem)"
+            >
+              @for (permission of role.permissions; track permission.id) {
+                <app-permission-template [permission]="permission" />
+              }
+            </div>
+          }
+        } @else {
+          <div class="mt-3 overflow-y-auto" style="max-height: calc(50vh + 2.5rem)">
+            <p-pickList
+              [source]="availablePermissionsOptions"
+              [target]="rolPermissions"
+              sourceHeader="Permisos disponibles"
+              targetHeader="Permisos otorgados"
+              [dragdrop]="true"
+              [responsive]="true"
+              [sourceStyle]="{ height: '20rem' }"
+              [targetStyle]="{ height: '20rem' }"
+              [showSourceControls]="false"
+              [showTargetControls]="false"
+              filterBy="name"
+              sourceFilterPlaceholder="Filtro por nombre"
+              targetFilterPlaceholder="Filtro por nombre"
+              sourceStyle="{ background-color: '#A7C87C' }"
+              breakpoint="1400px"
+            >
+              <ng-template let-item pTemplate="item">
+                <app-permission-template [permission]="item" />
+              </ng-template>
+            </p-pickList>
+          </div>
+        }
+      </div>
+      @if (!readOnly()) {
+        <div class="flex w-full justify-end mt-3">
+          <p-button type="submit" label="Guardar" [loading]="editRoleMutation.isPending()" />
+        </div>
+      }
+    </form>
+  </div>
+</p-dialog>

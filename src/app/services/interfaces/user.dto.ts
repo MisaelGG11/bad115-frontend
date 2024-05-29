@@ -1,6 +1,9 @@
 export interface PermissionDto {
-  id: string;
   name: string;
   description: string;
   codename: string;
+}
+
+export interface RoleDto {
+  permissions: PermissionDto[];
 }
