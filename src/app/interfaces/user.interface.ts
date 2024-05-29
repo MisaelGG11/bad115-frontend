@@ -17,3 +17,10 @@ export interface Session {
   token: string | null;
   person: Person | null;
 }
+
+export interface Permission {
+  id: string;
+  name: string;
+  description: string;
+  codename: string;
+}
