@@ -15,7 +15,23 @@ import { InputErrorsComponent } from '../input-errors/input-errors.component';
   standalone: true,
   imports: [DropdownModule, ReactiveFormsModule, CommonModule, FormsModule, InputErrorsComponent],
   templateUrl: './select.component.html',
-  styles: ``,
+  styles: `
+    ::ng-deep .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
+      border-color: white;
+      color: #1a202c;
+      placeholder-color: #cbd5e0;
+      padding-left: 12px;
+      padding-right: 36px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-size: 0.875rem;
+      border-radius: 0.25rem;
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+      width: 100%;
+    }
+  `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
