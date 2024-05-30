@@ -10,12 +10,12 @@ import { PermissionDto, RoleDto } from './interfaces/user.dto';
 export class UserService {
   constructor() {}
 
-  async findPermissionsPaginated({
-    page,
-    perPage,
-  }: PaginationParams): Promise<PaginatedResponse<Permission>> {
+  async findPermissionsPaginated(
+    { page, perPage }: PaginationParams,
+    search: string,
+  ): Promise<PaginatedResponse<Permission>> {
     const permissions = await network.get<PaginatedResponse<Permission>>(
-      `/permissions/paginated?page=${page}&perPage=${perPage}`,
+      `/permissions/paginated?page=${page}&perPage=${perPage}&search=${search}`,
     );
 
     return permissions.data;

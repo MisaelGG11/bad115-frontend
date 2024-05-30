@@ -7,6 +7,8 @@
     [showPagination]="true"
     [pagination]="pagination"
     (setPagination)="paginatePage($event)"
+    [showGlobalFilter]="true"
+    (setGlobalFilter)="filterData($event)"
   >
     <ng-template #actions let-rowData>
       <div class="flex justify-center items-center gap-2.5">

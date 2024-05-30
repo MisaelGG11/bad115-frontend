@@ -49,6 +49,7 @@ export class PermissionListComponent implements OnInit {
     perPage: signal(10),
     page: signal(1),
   };
+  search = signal('');
 
   columns = [
     { field: 'id', header: 'ID', column_align: 'left', row_align: 'center' },
@@ -61,10 +62,13 @@ export class PermissionListComponent implements OnInit {
   permissionsRequest = injectQuery(() => ({
     queryKey: ['permissions', { page: this.pagination.page(), perPage: this.pagination.perPage() }],
     queryFn: async () => {
-      const response = await this.userService.findPermissionsPaginated({
-        page: this.pagination.page(),
-        perPage: this.pagination.perPage(),
-      });
+      const response = await this.userService.findPermissionsPaginated(
+        {
+          page: this.pagination.page(),
+          perPage: this.pagination.perPage(),
+        },
+        this.search(),
+      );
       const { data, pagination } = response;
       this.pagination.total = pagination.totalItems ?? 0;
       this.dataTable = data ?? [];
@@ -114,6 +118,11 @@ export class PermissionListComponent implements OnInit {
     this.pagination.page.set(pag.page);
     this.pagination.perPage.set(pag.perPage);
 
+    await this.permissionsRequest.refetch();
+  }
+
+  async filterData(search: string) {
+    this.search.set(search);
     await this.permissionsRequest.refetch();
   }
 
