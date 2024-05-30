@@ -9,6 +9,30 @@
     [tableStyle]="{ tableStyle }"
     styleClass=""
   >
+    @if (showGlobalFilter) {
+      <ng-template pTemplate="caption">
+        <div class="flex justify-end">
+          <div class="flex flex-col w-full md:w-1/2 lg:w-1/4">
+            <input
+              id="search"
+              [(ngModel)]="search"
+              type="text"
+              placeholder="Palabra clave de búsqueda"
+              class="border-white text-gray-900 font-normal placeholder-slate-300 px-3 py-3 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              [ngClass]="{
+                '!border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block':
+                  errorSearch,
+                '!border-white': !errorSearch
+              }"
+              (input)="onChange($event)"
+            />
+            <span class="text-red-700 font-normal text-[0.7rem] pl-1 mt-0" *ngIf="errorSearch">
+              Solo se permite el ingreso de letras y números
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    }
     <ng-template pTemplate="emptymessage">
       <tr>
         <td [attr.colspan]="columns.length + 1">

@@ -41,15 +41,33 @@ export class DataTableComponent {
     perPage: signal(10),
     page: signal(1),
   };
+  @Input() showGlobalFilter: boolean = false;
   @ContentChild('actions', { static: true }) actionsTemplate!: TemplateRef<any>;
   @Output() setPagination = new EventEmitter();
+  @Output() setGlobalFilter = new EventEmitter();
 
   selectedOption: any = 10;
   currentPage: number = 1;
+  search = '';
+  errorSearch = false;
   rowsToShow: any[] = [];
 
   ngOnInit() {
     this.paginate();
+  }
+
+  alphaNumericSpace = (value: string) => {
+    const regex = /^[A-Za-záéíóúüñÁÉÍÓÚÜÑ0-9\s:]*$/;
+    return regex.test(value);
+  };
+
+  public onChange(event: Event): void {
+    if (this.alphaNumericSpace(this.search)) {
+      this.errorSearch = false;
+      this.setGlobalFilter.emit(this.search);
+    } else {
+      this.errorSearch = true;
+    }
   }
 
   colorTag(estado: any) {
