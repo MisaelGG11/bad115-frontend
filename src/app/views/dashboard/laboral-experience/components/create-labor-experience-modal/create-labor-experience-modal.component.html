@@ -72,29 +72,15 @@
       </div>
 
       <div class="w-full mt-4">
-        <label
-          for="functionPerformed"
-          class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
-          >Funciones desempeñadas *</label
-        >
-        <textarea
-          id="functionPerformed"
-          pInputTextarea
+        <app-textarea
+          [parentForm]="form"
+          label="Funciones desempeñadas"
           formControlName="functionPerformed"
-          rows="3"
-          [autoResize]="true"
-          [style]="{ width: '100%' }"
-          [ngClass]="
-            getFormControl('functionPerformed').invalid && getFormControl('functionPerformed').dirty
-              ? 'border-red-500'
-              : ''
-          "
-        ></textarea>
-        <app-input-errors
-          [fieldName]="'funciones desempeñadas'"
-          [formField]="getFormControl('functionPerformed')"
-          propertyName="functionPerformed"
-        />
+          fieldName="functionPerformed"
+          [rows]="3"
+          placeholder="Descripción de las funciones realizadas en el puesto de trabajo"
+          [required]="true"
+        ></app-textarea>
       </div>
 
       <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-1">

@@ -24,6 +24,7 @@ import { NgClass } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputErrorsComponent } from '../../../../../components/inputs/input-errors/input-errors.component';
 import { toast } from 'ngx-sonner';
+import { TextareaComponent } from '../../../../../components/inputs/textarea/textarea.component';
 
 @Component({
   selector: 'edit-labor-experience-modal',
@@ -37,7 +38,7 @@ import { toast } from 'ngx-sonner';
     InputTextareaModule,
     NgClass,
     ButtonModule,
-    InputErrorsComponent,
+    TextareaComponent,
   ],
   templateUrl: './edit-labor-experience-modal.component.html',
   styles: [],

@@ -21,6 +21,7 @@ import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
 import { phoneRegex } from '../../../../../utils/regex.utils';
+import { TextareaComponent } from '../../../../../components/inputs/textarea/textarea.component';
 
 @Component({
   selector: 'create-labor-experience-modal',
@@ -37,7 +38,7 @@ import { phoneRegex } from '../../../../../utils/regex.utils';
     InputErrorsComponent,
     StyleClassModule,
     CalendarComponent,
-    CalendarComponent,
+    TextareaComponent,
   ],
   templateUrl: './create-labor-experience-modal.component.html',
   styles: [],
