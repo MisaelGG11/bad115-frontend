@@ -27,7 +27,38 @@ import { toast } from 'ngx-sonner';
     PermissionTemplateComponent,
   ],
   templateUrl: './edit-role.component.html',
-  styles: [],
+  styles: `
+    :host ::ng-deep .p-picklist .p-picklist-list .p-picklist-item {
+      padding: 0.2rem;
+    }
+    :host ::ng-deep .p-picklist .p-picklist-filter-container {
+      padding: 0.8rem;
+    }
+    :host ::ng-deep .p-picklist .p-picklist-filter-container .p-picklist-filter-input {
+      border-color: white;
+      color: #1a202c;
+      placeholder-color: #cbd5e0;
+      padding-left: 12px;
+      padding-right: 36px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-size: 0.875rem;
+      border-radius: 0.25rem;
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+      width: 100%;
+    }
+    :host ::ng-deep .p-picklist .p-picklist-header {
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    :host ::ng-deep .p-button-icon-only {
+      background-color: #334155;
+      border-color: #334155;
+    }
+  `,
 })
 export class EditRoleComponent {
   private userService = inject(UserService);
