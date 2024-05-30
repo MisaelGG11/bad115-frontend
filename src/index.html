@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scrollbar-hide">
   <head>
     <meta charset="utf-8" />
     <title>BolsaTrabajoFrontend</title>
@@ -11,6 +11,15 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
   </head>
+  <style>
+    .scrollbar-hide::-webkit-scrollbar {
+      width: 0; /* Ancho 0 para ocultar la scrollbar */
+    }
+
+    .scrollbar-hide {
+      scrollbar-width: none; /* Firefox */
+    }
+  </style>
   <body>
     <app-root></app-root>
   </body>
