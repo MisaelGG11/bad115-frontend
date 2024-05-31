@@ -71,13 +71,13 @@ export class DataTableComponent {
   }
 
   colorTag(estado: any) {
-    if (['Activo'].includes(estado)) {
+    if (['Activo', 'Aprobada'].includes(estado)) {
       return 'success';
     }
-    if (['Inactivo'].includes(estado)) {
+    if (['Inactivo', 'Rechazada'].includes(estado)) {
       return 'danger';
     }
-    if (['Inhabilitado'].includes(estado)) {
+    if (['Inhabilitado', 'Pendiente'].includes(estado)) {
       return 'warning';
     }
     return 'info';

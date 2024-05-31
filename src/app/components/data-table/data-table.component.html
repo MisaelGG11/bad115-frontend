@@ -89,7 +89,7 @@
       <tr>
         @for (col of columns; track col.field) {
           <td>
-            @if (col.field === 'estado') {
+            @if (col.field === 'status') {
               <div [ngClass]="'text-' + col.row_align">
                 @if (rowData[col.field].nombre) {
                   <p-tag
