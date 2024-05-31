@@ -30,3 +30,8 @@ export interface CreateSocialMediaDto {
 }
 
 export interface UpdateSocialMediaDto extends CreateSocialMediaDto {}
+
+export interface UpdateUnlockRequestDto {
+  status: string;
+  reason: string;
+}

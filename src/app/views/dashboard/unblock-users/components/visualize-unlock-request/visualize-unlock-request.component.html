@@ -1,0 +1,89 @@
+<p-dialog
+  header="Detalle de solicitud"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" class="w-full gap-2">
+      <div class="flex flex-wrap flex-row w-full gap-2">
+        <div class="w-full lg:w-1/2 mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Correo electrónico"
+            fieldName="email"
+            placeholder="example@gmail.com"
+            formControlName="email"
+            type="text"
+            [isDisabled]="true"
+            class="p-0 border-0"
+          />
+        </div>
+        <div class="flex w-full flex-col lg:w-[48%] mt-2">
+          <label class="flex uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white">
+            Estado
+          </label>
+          <span
+            class="flex justify-center font-medium text-center py-3 rounded shadow"
+            [ngClass]="{
+              'bg-yellow-100 text-yellow-800 text-sm dark:bg-yellow-900 dark:text-yellow-300':
+                status === 'Pendiente',
+              'bg-red-100 text-red-800 text-sm dark:bg-red-900 dark:text-red-300':
+                status === 'Rechazada',
+              'bg-green-100 text-green-800 text-sm dark:bg-green-900 dark:text-green-300':
+                status === 'Aprobada'
+            }"
+          >
+            {{ status }}
+          </span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombres"
+            fieldName="name"
+            placeholder="Nombres del usuario"
+            formControlName="name"
+            type="text"
+            [isDisabled]="true"
+            class="p-0 border-0"
+          />
+        </div>
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Apellidos"
+            fieldName="lastName"
+            placeholder="Apellidos del usuario"
+            formControlName="lastName"
+            type="text"
+            [isDisabled]="true"
+            class="p-0 border-0"
+          />
+        </div>
+      </div>
+
+      @if (status === 'Rechazada') {
+        <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
+          <div class="w-full">
+            <app-textarea
+              [parentForm]="form"
+              label="Motivo de rechazo de solicitud"
+              formControlName="reason"
+              fieldName="reason"
+              [rows]="2"
+              placeholder="Motivo de rechazo de solicitud"
+              [isDisabled]="true"
+            />
+          </div>
+        </div>
+      }
+    </form>
+  </div>
+</p-dialog>

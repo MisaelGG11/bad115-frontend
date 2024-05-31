@@ -1,0 +1,45 @@
+<div class="w-full">
+  <app-data-table
+    [columns]="columns"
+    [rows]="dataTable"
+    [haveActions]="true"
+    [headerAlign]="'left'"
+    [showPagination]="true"
+    [pagination]="pagination"
+    (setPagination)="paginatePage($event)"
+  >
+    <ng-template #actions let-rowData>
+      <div class="flex justify-center items-center gap-2.5">
+        @for (action of actionsList; track action.label) {
+          @if (action.permission) {
+            <button
+              type="button"
+              class="bg-transparent rounded-full"
+              [pTooltip]="action.label"
+              tooltipPosition="top"
+              showDelay="300"
+              hideDelay="300"
+              (click)="action.onClick(rowData)"
+            >
+              <span [ngClass]="'material-symbols-outlined ' + action.iconColor">
+                {{ action.icon }}
+              </span>
+            </button>
+          }
+        }
+      </div>
+    </ng-template>
+  </app-data-table>
+
+  <app-unlock-request-resolution
+    [visible]="showResolutionModal"
+    [unlockRequest]="selectedUnlockRequest()"
+    [status]="selectedStatus()"
+  />
+
+  <app-visualize-unlock-request
+    [visible]="showVisualizeModal"
+    [unlockRequest]="selectedUnlockRequest()"
+    [status]="selectedStatus()"
+  />
+</div>

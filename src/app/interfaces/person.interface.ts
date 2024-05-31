@@ -20,6 +20,10 @@ export interface User {
   avatar: string;
 }
 
+export interface UserWithPerson extends User {
+  person: Person;
+}
+
 export interface Address {
   id: string;
   street: string;
@@ -72,4 +76,11 @@ export interface SocialMedia {
 export interface SocialMediaType {
   id: string;
   name: string;
+}
+
+export interface UnlockRequest {
+  id: string;
+  user: UserWithPerson;
+  status: string;
+  reason: string | null;
 }

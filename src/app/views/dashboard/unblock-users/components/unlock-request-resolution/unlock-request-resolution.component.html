@@ -1,0 +1,53 @@
+<p-dialog
+  [header]="
+    status === 'REJECTED' ? 'Rechazar solicitud de desbloqueo' : 'Aprobar solicitud de desbloqueo'
+  "
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex flex-col w-full">
+    <div class="flex items-center">
+      ¿Estás seguro que quieres&nbsp;
+      <strong>{{ status === 'REJECTED' ? 'rechazar' : 'aprobar' }} </strong>&nbsp; la solicitud de
+      desbloqueo de usuario de&nbsp;
+      <strong>{{ unlockRequest.name }} {{ unlockRequest.lastName }}</strong
+      >?
+    </div>
+    @if (status === 'REJECTED') {
+      <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+        <div class="flex flex-wrap lg:flex-nowrap w-full mt-4">
+          <div class="w-full">
+            <app-textarea
+              [parentForm]="form"
+              label="Motivo"
+              formControlName="reason"
+              fieldName="reason"
+              [rows]="2"
+              placeholder="Motivo de rechazo de solicitud"
+              [isDisabled]="updateStateUnlockRequestMutation.isPending()"
+            />
+          </div>
+        </div>
+      </form>
+    }
+    <div class="flex justify-end gap-4 mt-5">
+      <p-button
+        label="No, gracias"
+        severity="secondary"
+        [text]="true"
+        [raised]="true"
+        (click)="visible.set(false)"
+      />
+      <p-button
+        [label]="status === 'REJECTED' ? 'Rechazar' : 'Aprobar'"
+        [icon]="status === 'REJECTED' ? 'pi pi-times' : 'pi pi-check'"
+        [severity]="status === 'REJECTED' ? 'danger' : 'success'"
+        [raised]="true"
+        [loading]="updateStateUnlockRequestMutation.isPending()"
+        (click)="submit()"
+      />
+    </div>
+  </div>
+</p-dialog>

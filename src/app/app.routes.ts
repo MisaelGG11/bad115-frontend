@@ -16,6 +16,7 @@ import { CatalogManagementComponent } from './views/dashboard/catalog-management
 import { PermissionManagementComponent } from './views/dashboard/permission-management/permission-management.component';
 import { RoleManagementComponent } from './views/dashboard/role-management/role-management.component';
 import { AcademicKnowledgeComponent } from './views/dashboard/academic-knowledge/academic-knowledge.component';
+import { UnblockUsersComponent } from './views/dashboard/unblock-users/unblock-users.component';
 
 export const routes: Routes = [
   // no layout views
@@ -47,6 +48,7 @@ export const routes: Routes = [
       { path: 'catalogos', component: CatalogManagementComponent },
       { path: 'permisos', component: PermissionManagementComponent },
       { path: 'roles', component: RoleManagementComponent },
+      { path: 'desbloqueo-usuarios', component: UnblockUsersComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
