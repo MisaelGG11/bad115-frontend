@@ -1,6 +1,6 @@
 import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { CustomInputComponent } from '../../../../components/inputs/custom-input/custom-input.component';
+import { CustomInputComponent } from '../../../../../components/inputs/custom-input/custom-input.component';
 import { DialogModule } from 'primeng/dialog';
 import { PickListModule } from 'primeng/picklist';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,11 +9,11 @@ import {
   injectQuery,
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
-import { UserService } from '../../../../services/user.service';
-import { AuthService } from '../../../../services/auth.service';
+import { UserService } from '../../../../../services/user.service';
+import { AuthService } from '../../../../../services/auth.service';
 import { Store } from '@ngrx/store';
-import { resetState } from '../../../../store/auth.actions';
-import { Role, Permission } from '../../../../interfaces/user.interface';
+import { resetState } from '../../../../../store/auth.actions';
+import { Role, Permission } from '../../../../../interfaces/user.interface';
 import { PermissionTemplateComponent } from './components/permission-template/permission-template.component';
 import { toast } from 'ngx-sonner';
 

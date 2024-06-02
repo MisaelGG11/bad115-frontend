@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { RolesListComponent } from './role-list/role-list.component';
-import { CreateRoleComponent } from './create-role/create-role.component';
+import { RolesListComponent } from './components/role-list/role-list.component';
+import { CreateRoleComponent } from './components/create-role/create-role.component';
 
 @Component({
   selector: 'app-role-management-type',

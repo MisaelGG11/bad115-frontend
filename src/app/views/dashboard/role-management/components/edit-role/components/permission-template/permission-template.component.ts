@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { Permission } from '../../../../../../interfaces/user.interface';
+import { Permission } from '../../../../../../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 
 @Component({
