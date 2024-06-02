@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   async refreshToken(refreshToken: string) {
-    return await network.post<RefreshResponse>('/refresh-token', { refreshToken });
+    return await network.post<RefreshResponse>('/auth/refresh-token', { refreshToken });
   }
 
   async getUserData() {

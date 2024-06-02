@@ -10,7 +10,9 @@ import {
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
 import { UserService } from '../../../../services/user.service';
-import { RoleDto } from '../../../../services/interfaces/user.dto';
+import { AuthService } from '../../../../services/auth.service';
+import { Store } from '@ngrx/store';
+import { resetState } from '../../../../store/auth.actions';
 import { Role, Permission } from '../../../../interfaces/user.interface';
 import { PermissionTemplateComponent } from './components/permission-template/permission-template.component';
 import { toast } from 'ngx-sonner';
@@ -62,6 +64,8 @@ import { toast } from 'ngx-sonner';
 })
 export class EditRoleComponent {
   private userService = inject(UserService);
+  private authService = inject(AuthService);
+  private store = inject(Store);
   private queryClient = injectQueryClient();
   @Input() visible = signal(false);
   @Input() readOnly = signal(false);
@@ -91,7 +95,6 @@ export class EditRoleComponent {
     this.availablePermissionsOptions = permissions.filter(
       (permission) => !permissionsIds.includes(permission.id),
     );
-    console.log(this.availablePermissionsOptions);
   }
 
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
@@ -109,6 +112,13 @@ export class EditRoleComponent {
       this.userService.updateRole(this.role.id, permissions),
     onSuccess: async () => {
       toast.success('Rol actualizado', { duration: 3000 });
+      const { data } = await this.authService.refreshToken(
+        localStorage.getItem('refresh_token') ?? '',
+      );
+      if (data) {
+        localStorage.setItem('access_token', data.accessToken);
+        this.store.dispatch(resetState());
+      }
       await this.queryClient.invalidateQueries({
         queryKey: ['roles'],
       });

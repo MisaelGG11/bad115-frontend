@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Session } from '../interfaces/user.interface';
 import { decoderToken } from '../utils/token.utils';
-import { login, logout, setPerson } from './auth.actions';
+import { login, logout, setPerson, resetState } from './auth.actions';
 import { Person } from '../interfaces/person.interface';
 import { LOCAL_STORAGE } from '../utils/constants.utils';
 
@@ -52,5 +52,8 @@ export const sessionReducer = createReducer(
       ...state,
       person: person,
     };
+  }),
+  on(resetState, () => {
+    return initStore();
   }),
 );

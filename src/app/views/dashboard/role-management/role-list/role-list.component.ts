@@ -69,37 +69,37 @@ export class RolesListComponent implements OnInit {
     await this.rolesRequest.refetch();
     this.store.select('session').subscribe((session) => {
       this.sessionValue = session;
+      this.permissionUser = this.sessionValue?.user?.permissions ?? [];
+      this.actionsList = [
+        {
+          label: 'Visualizar',
+          icon: 'visibility',
+          iconColor: 'text-blue-500',
+          permission: this.permissionUser.includes(PERMISSIONS.READ_ROLE),
+          onClick: (value: Role) => {
+            this.onClickVisualize(value);
+          },
+        },
+        {
+          label: 'Editar',
+          icon: 'edit',
+          iconColor: 'text-orange',
+          permission: this.permissionUser.includes(PERMISSIONS.UPDATE_ROLE),
+          onClick: (value: Role) => {
+            this.onClickEdit(value);
+          },
+        },
+        {
+          label: 'Eliminar',
+          icon: 'delete',
+          iconColor: 'text-red-600',
+          permission: this.permissionUser.includes(PERMISSIONS.DELETE_ROLE),
+          onClick: (value: Role) => {
+            this.onClickDelete(value);
+          },
+        },
+      ];
     });
-    this.permissionUser = this.sessionValue?.user?.permissions ?? [];
-    this.actionsList = [
-      {
-        label: 'Visualizar',
-        icon: 'visibility',
-        iconColor: 'text-blue-500',
-        permission: this.permissionUser.includes(PERMISSIONS.READ_ROLE),
-        onClick: (value: Role) => {
-          this.onClickVisualize(value);
-        },
-      },
-      {
-        label: 'Editar',
-        icon: 'edit',
-        iconColor: 'text-orange',
-        permission: this.permissionUser.includes(PERMISSIONS.UPDATE_ROLE),
-        onClick: (value: Role) => {
-          this.onClickEdit(value);
-        },
-      },
-      {
-        label: 'Eliminar',
-        icon: 'delete',
-        iconColor: 'text-red-600',
-        permission: this.permissionUser.includes(PERMISSIONS.DELETE_ROLE),
-        onClick: (value: Role) => {
-          this.onClickDelete(value);
-        },
-      },
-    ];
   }
 
   async paginatePage(pag: PaginationTableOutput) {
