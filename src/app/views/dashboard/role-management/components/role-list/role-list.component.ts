@@ -12,11 +12,12 @@ import {
 } from '../../../../../interfaces/pagination.interface';
 import { Store } from '@ngrx/store';
 import { EditRoleComponent } from '../edit-role/edit-role.component';
+import { DeleteRoleComponent } from '../delete-role/delete-role.component';
 
 @Component({
   selector: 'app-role-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass, EditRoleComponent],
+  imports: [DataTableComponent, TooltipModule, NgClass, EditRoleComponent, DeleteRoleComponent],
   templateUrl: './role-list.component.html',
   styles: [],
 })

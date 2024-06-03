@@ -1,5 +1,5 @@
 <p-dialog
-  header="Eliminar permiso"
+  header="Eliminar rol"
   [(visible)]="visible"
   [modal]="true"
   [draggable]="false"
@@ -7,8 +7,8 @@
 >
   <div class="flex flex-col w-full">
     <div class="flex items-center">
-      ¿Estás seguro que quieres eliminar el permiso&nbsp;
-      <strong>{{ permission.name }}</strong
+      ¿Estás seguro que quieres eliminar el rol&nbsp;
+      <strong>{{ role.name }}</strong
       >?
     </div>
     <div class="flex justify-end gap-4 mt-5">
@@ -23,7 +23,7 @@
         label="Eliminar"
         icon="pi pi-trash"
         [raised]="true"
-        [loading]="deletePermissionMutation.isPending()"
+        [loading]="deleteRoleMutation.isPending()"
         (click)="delete()"
       />
     </div>
