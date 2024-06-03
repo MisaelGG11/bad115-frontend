@@ -3,7 +3,7 @@
   [ngClass]="visible ? 'transform-none lg:w-64' : '-translate-x-full lg:w-64'"
 >
   <div
-    class="lg:flex-col lg:items-stretch lg:min-h-full lg:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full px-2"
+    class="lg:flex-col lg:items-stretch lg:min-h-full lg:flex-nowrap flex flex-wrap items-center justify-between w-full px-2"
     [ngClass]="visible ? 'flex' : 'hidden'"
   >
     <!-- Toggler -->
@@ -22,7 +22,7 @@
       <img
         src="assets/img/logo_sidebar.png"
         alt="logo"
-        class="h-auto w-[60%] lg:w-36 lg:w-full rounded-xl border-2 border-solid border-transparent hidden sm:block"
+        class="h-auto w-[60%] lg:w-full rounded-xl border-2 border-solid border-transparent hidden sm:block"
       />
     </a>
     <!-- User -->
@@ -37,7 +37,7 @@
     <!-- Collapse -->
     <div
       class="lg:flex lg:flex-col g:items-stretch lg:opacity-100 lg:relative lg:mt-0 lg:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded"
-      [ngClass]="collapseShow"
+      [ngClass]="collapseShow + ' first-letter:!lg:px-2'"
     >
       <!-- Collapse header -->
       <div class="lg:min-w-full lg:hidden block mb-4">
