@@ -42,13 +42,17 @@ export class DataTableComponent {
     page: signal(1),
   };
   @Input() showGlobalFilter: boolean = false;
+  @Input() canSort: boolean = false;
+  @Input() sortByOptions: any[] = [];
   @ContentChild('actions', { static: true }) actionsTemplate!: TemplateRef<any>;
   @Output() setPagination = new EventEmitter();
   @Output() setGlobalFilter = new EventEmitter();
+  @Output() setSorting = new EventEmitter();
 
   selectedOption: any = 10;
   currentPage: number = 1;
   search = '';
+  sortBy = '';
   errorSearch = false;
   rowsToShow: any[] = [];
 
@@ -68,6 +72,10 @@ export class DataTableComponent {
     } else {
       this.errorSearch = true;
     }
+  }
+
+  public onSort(event: any): void {
+    this.setSorting.emit(this.sortBy);
   }
 
   colorTag(estado: any) {
