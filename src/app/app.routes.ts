@@ -15,20 +15,37 @@ export const routes: Routes = [
     path: 'auth',
     component: AuthComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'registro', component: SignupComponent },
-      { path: 'unblock-user', component: UnblockUserComponent },
+      {
+        path: 'login',
+        title: 'Inicio de sesión',
+        component: LoginComponent,
+      },
+      {
+        path: 'registro',
+        title: 'Registro',
+        component: SignupComponent,
+      },
+      {
+        path: 'unblock-user',
+        title: 'Desbloquear usuario',
+        component: UnblockUserComponent,
+      },
     ],
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'registro', component: SignupComponent },
-  { path: 'unblock-user', component: UnblockUserComponent },
   {
     path: 'dashboard',
     canActivate: [verifyRoleGuard],
     loadChildren: () => import('./dashboard-routing.module').then((m) => m.DashboardRoutingModule),
   },
-  { path: 'forbidden', component: AccessForbiddenComponent },
+  {
+    path: 'forbidden',
+    title: 'Acceso denegado',
+    component: AccessForbiddenComponent,
+  },
   // route not found
-  { path: '**', component: NotFoundComponent },
+  {
+    path: '**',
+    title: 'Página no encontrada',
+    component: NotFoundComponent,
+  },
 ];
