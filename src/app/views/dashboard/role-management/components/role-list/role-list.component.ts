@@ -30,7 +30,6 @@ export class RolesListComponent implements OnInit {
   selectedRole = signal<Role>({
     id: '',
     name: '',
-    description: '',
     permissions: [],
   });
   sessionValue: Session | undefined;

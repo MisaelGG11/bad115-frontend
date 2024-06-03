@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
 import network from '../config/network.service';
-import { Permission, Role } from '../interfaces/user.interface';
+import { Permission, Role, User } from '../interfaces/user.interface';
 import { PermissionDto, RoleDto } from './interfaces/user.dto';
 
 @Injectable({
@@ -9,6 +9,18 @@ import { PermissionDto, RoleDto } from './interfaces/user.dto';
 })
 export class UserService {
   constructor() {}
+
+  async findUsers(
+    { page, perPage }: PaginationParams,
+    search: string,
+    sortBy: string,
+  ): Promise<PaginatedResponse<User>> {
+    const users = await network.get<PaginatedResponse<User>>(
+      `/users?page=${page}&perPage=${perPage}&search=${search}&sort=${sortBy}`,
+    );
+
+    return users.data;
+  }
 
   async findPermissionsPaginated(
     { page, perPage }: PaginationParams,

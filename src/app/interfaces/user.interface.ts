@@ -28,6 +28,14 @@ export interface Permission {
 export interface Role {
   id: string;
   name: string;
-  description: string;
   permissions: Permission[];
+}
+
+export interface User {
+  id: string;
+  email: string;
+  avatar: string | null;
+  person: Person;
+  company: string | null;
+  roles: Role[];
 }
