@@ -3,14 +3,16 @@
     <div class="mt-1 font-bold text-xl md:text-2xl">
       <h1>Gestión de roles</h1>
     </div>
-    <p-button
-      label="Agregar"
-      class="mx-auto md:mx-0 my-1"
-      styleClass="h-10 text-sm md:text-base md:h-auto"
-      (click)="onClickCreate()"
-    >
-      <span class="material-symbols-outlined"> add </span>
-    </p-button>
+    @if (canCreate()) {
+      <p-button
+        label="Agregar"
+        class="mx-auto md:mx-0 my-1"
+        styleClass="h-10 text-sm md:text-base md:h-auto"
+        (click)="onClickCreate()"
+      >
+        <span class="material-symbols-outlined"> add </span>
+      </p-button>
+    }
   </div>
   <app-role-list />
 
