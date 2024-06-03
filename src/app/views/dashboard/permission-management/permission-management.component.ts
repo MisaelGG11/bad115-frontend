@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { PermissionListComponent } from './permission-list/permission-list.component';
-import { CreatePermissionComponent } from './create-permission/create-permission.component';
+import { PermissionListComponent } from './components/permission-list/permission-list.component';
+import { CreatePermissionComponent } from './components/create-permission/create-permission.component';
 
 @Component({
   selector: 'app-permission-management-type',

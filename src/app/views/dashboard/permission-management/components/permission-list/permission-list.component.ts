@@ -1,15 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { UserService } from '../../../../services/user.service';
+import { UserService } from '../../../../../services/user.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
-import { DataTableComponent } from '../../../../components/data-table/data-table.component';
-import { PERMISSIONS } from '../../../../utils/constants.utils';
+import { DataTableComponent } from '../../../../../components/data-table/data-table.component';
+import { PERMISSIONS } from '../../../../../utils/constants.utils';
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
-import { Session, Permission } from '../../../../interfaces/user.interface';
+import { Session, Permission } from '../../../../../interfaces/user.interface';
 import {
   PaginationTableInput,
   PaginationTableOutput,
-} from '../../../../interfaces/pagination.interface';
+} from '../../../../../interfaces/pagination.interface';
 import { Store } from '@ngrx/store';
 import { DeletePermissionComponent } from '../delete-permission/delete-permission.component';
 import { EditPermissionComponent } from '../edit-permission/edit-permission.component';

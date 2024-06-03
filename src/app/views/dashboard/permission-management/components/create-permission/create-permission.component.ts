@@ -1,12 +1,12 @@
 import { Component, inject, Input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { CustomInputComponent } from '../../../../components/inputs/custom-input/custom-input.component';
+import { CustomInputComponent } from '../../../../../components/inputs/custom-input/custom-input.component';
 import { DialogModule } from 'primeng/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
-import { UserService } from '../../../../services/user.service';
-import { Permission } from '../../../../interfaces/user.interface';
-import { PermissionDto } from '../../../../services/interfaces/user.dto';
+import { UserService } from '../../../../../services/user.service';
+import { Permission } from '../../../../../interfaces/user.interface';
+import { PermissionDto } from '../../../../../services/interfaces/user.dto';
 import { toast } from 'ngx-sonner';
 
 @Component({

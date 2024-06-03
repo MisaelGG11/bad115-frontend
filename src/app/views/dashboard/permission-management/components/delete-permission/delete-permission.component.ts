@@ -2,8 +2,8 @@ import { Component, Input, OnChanges, SimpleChanges, signal, inject } from '@ang
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
-import { UserService } from '../../../../services/user.service';
-import { Permission } from '../../../../interfaces/user.interface';
+import { UserService } from '../../../../../services/user.service';
+import { Permission } from '../../../../../interfaces/user.interface';
 import { toast } from 'ngx-sonner';
 
 @Component({
