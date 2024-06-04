@@ -11,17 +11,26 @@
     <span class="sr-only">Open user menu</span>
   </div>
   {{ time | async | date: 'hh:mm:ss a' }}&nbsp;
+  {{ sessionValue?.company?.logo }}
   <img
     class="w-8 h-8 me-2 rounded-full"
     [src]="
-      sessionValue?.person?.gender === 'F'
-        ? 'assets/img/avatars/avatar-women.jpeg'
-        : 'assets/img/avatars/avatar-men.jpeg'
+      sessionValue?.company
+        ? sessionValue?.company?.logo
+          ? sessionValue?.company?.logo
+          : 'assets/img/avatars/avatar-company.png'
+        : sessionValue?.person?.gender === 'F'
+          ? 'assets/img/avatars/avatar-women.jpeg'
+          : 'assets/img/avatars/avatar-men.jpeg'
     "
     alt="user-avatar"
   />
   <div class="hidden md:block">
-    {{ sessionValue?.person?.firstName + ' ' + sessionValue?.person?.lastName }}
+    @if (sessionValue?.person) {
+      {{ sessionValue?.person?.firstName + ' ' + sessionValue?.person?.lastName }}
+    } @else {
+      {{ sessionValue?.company?.name }}
+    }
   </div>
   <svg
     class="w-2.5 h-2.5 ms-3"
@@ -47,7 +56,11 @@
   >
     <div class="px-4 py-2 text-sm text-gray-900 dark:text-white">
       <div class="font-medium">
-        {{ sessionValue?.person?.firstName + ' ' + sessionValue?.person?.lastName }}
+        @if (sessionValue?.person) {
+          {{ sessionValue?.person?.firstName + ' ' + sessionValue?.person?.lastName }}
+        } @else {
+          {{ sessionValue?.company?.name }}
+        }
       </div>
       <div class="!text-[12px]">{{ sessionValue?.user?.email }}</div>
     </div>

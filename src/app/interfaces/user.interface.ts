@@ -1,3 +1,4 @@
+import { Company } from './company.interface';
 import { Person } from './person.interface';
 
 export interface UserData {
@@ -12,10 +13,21 @@ export interface UserData {
   exp: number;
 }
 
+export interface UserDataCompany {
+  email: string;
+  userId: string;
+  companyId: string;
+  permissions: string[];
+  roles: string[];
+  iat: number;
+  exp: number;
+}
+
 export interface Session {
-  user: UserData | null;
+  user: UserData | UserDataCompany | null;
   token: string | null;
   person: Person | null;
+  company: Company | null;
 }
 
 export interface Permission {

@@ -14,10 +14,12 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { CustomInputComponent } from '../../../components/inputs/custom-input/custom-input.component';
 import { AuthService } from '../../../services/auth.service';
-import { login, setPerson } from '../../../store/auth.actions';
+import { login, setCompany, setPerson } from '../../../store/auth.actions';
 import { PersonService } from '../../../services/person.service';
-import { Session } from '../../../interfaces/user.interface';
+import { Session, UserData, UserDataCompany } from '../../../interfaces/user.interface';
 import { Observable } from 'rxjs';
+import { LOCAL_STORAGE } from '../../../utils/constants.utils';
+import { CompanyService } from '../../../services/company.service';
 
 @Component({
   selector: 'app-signup',
@@ -28,7 +30,8 @@ import { Observable } from 'rxjs';
 })
 export class SignupComponent {
   private authService = inject(AuthService);
-  private person = inject(PersonService);
+  private personService = inject(PersonService);
+  private companyService = inject(CompanyService);
   private router = inject(Router);
   private store = inject(Store);
   session$: Observable<Session>;
@@ -62,9 +65,17 @@ export class SignupComponent {
 
   async loginStore() {
     this.store.dispatch(login());
-    const { data } = await this.person.getPerson(this.sessionValue?.user?.personId ?? '');
-    this.store.dispatch(setPerson(data));
-    localStorage.setItem('person', JSON.stringify(data));
+    if (this.sessionValue?.user) {
+      if (this.isPersonUser(this.sessionValue.user)) {
+        const { data } = await this.personService.getPerson(this.sessionValue?.user?.personId);
+        this.store.dispatch(setPerson(data));
+        localStorage.setItem(LOCAL_STORAGE.PERSON, JSON.stringify(data));
+      }
+    }
+  }
+
+  private isPersonUser(user: UserData | UserDataCompany): user is UserData {
+    return 'personId' in user;
   }
 
   async submit() {

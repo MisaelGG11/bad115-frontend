@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Session } from '../interfaces/user.interface';
 import { decoderToken } from '../utils/token.utils';
-import { login, logout, setPerson, resetState } from './auth.actions';
+import { login, logout, setPerson, setCompany, resetState } from './auth.actions';
 import { Person } from '../interfaces/person.interface';
 import { LOCAL_STORAGE } from '../utils/constants.utils';
 
@@ -12,16 +12,19 @@ function initStore() {
   if (token) {
     const userInfo = decoderToken(token);
     const person: Person = JSON.parse(localStorage.getItem(LOCAL_STORAGE.PERSON) as string);
+    const company = JSON.parse(localStorage.getItem(LOCAL_STORAGE.COMPANY) as string);
     return {
       token: token,
       user: userInfo,
       person: person,
+      company: company,
     };
   } else
     return {
       user: null,
       person: null,
       token: '',
+      company: null,
     };
 }
 
@@ -40,11 +43,13 @@ export const sessionReducer = createReducer(
     localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
     localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
     localStorage.removeItem(LOCAL_STORAGE.PERSON);
+    localStorage.removeItem(LOCAL_STORAGE.COMPANY);
     return {
       ...state,
       token: '',
       user: null,
       person: null,
+      company: null,
     };
   }),
   on(setPerson, (state, { person }) => {
@@ -55,5 +60,11 @@ export const sessionReducer = createReducer(
   }),
   on(resetState, () => {
     return initStore();
+  }),
+  on(setCompany, (state, { company }) => {
+    return {
+      ...state,
+      company: company,
+    };
   }),
 );
