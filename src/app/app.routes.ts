@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/auth/login/login.component';
 import { SignupComponent } from './views/auth/signup/signup.component';
+import { CreateCompanyComponent } from './views/auth/create-company/create-company.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { UnblockUserComponent } from './views/auth/unblock-user/unblock-user.component';
 import { AccessForbiddenComponent } from './views/access-forbidden/access-forbidden.component';
@@ -29,6 +30,11 @@ export const routes: Routes = [
         path: 'unblock-user',
         title: 'Desbloquear usuario',
         component: UnblockUserComponent,
+      },
+      {
+        path: 'registro-empresa',
+        title: 'Registro de empresa',
+        component: CreateCompanyComponent,
       },
     ],
   },

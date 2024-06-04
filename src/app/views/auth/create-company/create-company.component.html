@@ -1,0 +1,97 @@
+<div class="flex flex-col px-4 lg:px-10 py-10 pt-0">
+  <div class="text-center">
+    <h4 class="text-slate-500 text-xl font-bold">Crear nueva cuenta empresarial</h4>
+  </div>
+  <hr class="mt-3 border-b-5 mb-7 border-slate-400" />
+
+  <form [formGroup]="form" (submit)="submit()" class="flex flex-col gap-4">
+    <app-custom-input
+      [parentForm]="form"
+      label="Nombre de organización"
+      fieldName="name"
+      placeholder="Nombre de organización"
+      formControlName="name"
+      [type]="'text'"
+      [required]="true"
+    />
+
+    <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
+      <div class="w-full lg:w-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Tipo de organización"
+          fieldName="type"
+          placeholder="Tipo de organización"
+          formControlName="type"
+          [type]="'text'"
+        />
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <app-select
+          label="Tamaño de empresa"
+          [selectOptions]="sizeOptions"
+          [required]="true"
+          [parentForm]="form"
+          fieldName="size"
+          formControlName="size"
+        ></app-select>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
+      <div class="w-full lg:w-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Teléfono de organización"
+          formControlName="phone"
+          fieldName="phone"
+          placeholder="XXXX-XXXX"
+          [type]="'tel'"
+        />
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <app-select
+          label="País de organización"
+          [selectOptions]="countriesOptions"
+          [required]="true"
+          [filter]="true"
+          [loading]="countriesRequest.isPending()"
+          [parentForm]="form"
+          fieldName="countryId"
+          formControlName="countryId"
+        ></app-select>
+      </div>
+    </div>
+
+    <app-custom-input
+      [parentForm]="form"
+      label="Correo electrónico"
+      placeholder="example@gmail.com"
+      fieldName="email"
+      formControlName="email"
+      [type]="'email'"
+      [required]="true"
+    />
+
+    <app-custom-input
+      [parentForm]="form"
+      label="Contraseña"
+      placeholder="•••••••••"
+      fieldName="password"
+      formControlName="password"
+      [type]="'password'"
+      [required]="true"
+    />
+
+    <div class="text-center mt-6">
+      <button
+        class="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+        type="submit"
+      >
+        Registrarse
+      </button>
+    </div>
+  </form>
+</div>
