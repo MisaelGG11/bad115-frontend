@@ -1,3 +1,5 @@
+import { extend } from '@hapi/joi';
+
 export interface CreateCompanyDto {
   name: string;
   size: string;
@@ -9,3 +11,5 @@ export interface CreateCompanyDto {
   phone: string;
   type: string;
 }
+
+export interface UpdateCompanyDto extends CreateCompanyDto {}

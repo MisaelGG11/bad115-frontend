@@ -1,0 +1,110 @@
+<div class="w-full p-4">
+  <div class="flex flex-col md:flex-row w-full justify-between gap-2 mb-3">
+    <div class="mt-1 font-bold text-xl md:text-2xl">
+      <h1>Perfil de empresa</h1>
+    </div>
+  </div>
+  <form [formGroup]="form" (submit)="submit()" class="flex flex-col gap-4">
+    <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
+      <div class="w-full lg:w-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Nombre de organización"
+          fieldName="name"
+          placeholder="Nombre de organización"
+          formControlName="name"
+          [type]="'text'"
+          [required]="true"
+        />
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Teléfono de organización"
+          formControlName="phone"
+          fieldName="phone"
+          placeholder="XXXX-XXXX"
+          [type]="'tel'"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
+      <div class="w-full lg:w-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Tipo de organización"
+          fieldName="type"
+          placeholder="Tipo de organización"
+          formControlName="type"
+          [type]="'text'"
+        />
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <app-select
+          label="Tamaño de empresa"
+          [selectOptions]="sizeOptions"
+          [required]="true"
+          [parentForm]="form"
+          fieldName="size"
+          formControlName="size"
+        ></app-select>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
+      <div class="w-full lg:w-1/2">
+        <app-custom-input
+          [parentForm]="form"
+          label="Reclutadores asignados"
+          formControlName="assignedRecruiter"
+          fieldName="assignedRecruiter"
+          placeholder="0"
+          [isDisabled]="true"
+          [type]="'number'"
+        />
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <app-select
+          label="País de organización"
+          [selectOptions]="countriesOptions"
+          [required]="true"
+          [filter]="true"
+          [loading]="countriesRequest.isPending()"
+          [parentForm]="form"
+          fieldName="countryId"
+          formControlName="countryId"
+        ></app-select>
+      </div>
+    </div>
+
+    <app-custom-input
+      [parentForm]="form"
+      label="Sitio web de la organización"
+      placeholder="www.mywebsite.ejemplo.com"
+      fieldName="website"
+      formControlName="website"
+      [type]="'text'"
+    />
+
+    <app-textarea
+      [parentForm]="form"
+      label="Descripción de la organización"
+      placeholder="Descripció de la organización"
+      fieldName="description"
+      formControlName="description"
+      [rows]="3"
+    />
+
+    <div class="flex justify-end w-full mt-3">
+      <p-button
+        type="submit"
+        label="Guardar cambios"
+        [loading]="updateCompanyMutation.isPending()"
+      />
+    </div>
+  </form>
+</div>
