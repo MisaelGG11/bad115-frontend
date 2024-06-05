@@ -48,6 +48,6 @@ export interface User {
   email: string;
   avatar: string | null;
   person: Person;
-  company: string | null;
+  company: Company | null;
   roles: Role[];
 }

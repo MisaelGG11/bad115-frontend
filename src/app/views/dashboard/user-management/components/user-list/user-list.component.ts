@@ -16,7 +16,6 @@ export interface DataTableUser {
   id: string;
   email: string;
   name: string;
-  lastName: string;
   roles: string;
 }
 
@@ -55,8 +54,7 @@ export class UserListComponent implements OnInit {
 
   columns = [
     { field: 'id', header: 'ID', column_align: 'left', row_align: 'center' },
-    { field: 'name', header: 'Nombres', column_align: 'left', row_align: 'center' },
-    { field: 'lastName', header: 'Apellidos', column_align: 'left', row_align: 'center' },
+    { field: 'name', header: 'Nombre de usuario', column_align: 'left', row_align: 'center' },
     { field: 'email', header: 'Correo', column_align: 'left', row_align: 'center' },
     { field: 'roles', header: 'Roles', column_align: 'left', row_align: 'center' },
   ];
@@ -82,12 +80,20 @@ export class UserListComponent implements OnInit {
         this.dataTable.push({
           id: user.id,
           email: user.email,
-          name: [user.person.firstName, user.person.middleName].filter(Boolean).join(' '),
-          lastName: [user.person.lastName, user.person.secondLastName].filter(Boolean).join(' '),
+          name: user.company
+            ? user.company.name
+            : [
+                user.person.firstName,
+                user.person.middleName,
+                user.person.lastName,
+                user.person.secondLastName,
+              ]
+                .filter(Boolean)
+                .join(' '),
           roles: user.roles.map((role) => role.name).join(', '),
         });
       });
-
+      console.log('data', this.dataTable);
       return response;
     },
   }));
