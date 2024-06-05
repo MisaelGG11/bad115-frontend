@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
 import { format } from 'date-fns';
 import { Person } from '../../../../../../../interfaces/person.interface';
-import { getPersonLocalStorage } from '../../../../../../../utils/person-local-storage.utils';
+import { getPersonLocalStorage } from '../../../../../../../utils/local-storage.utils';
 import { injectInfiniteQuery } from '@tanstack/angular-query-experimental';
 import { PersonService } from '../../../../../../../services/person.service';
 import { CardModule } from 'primeng/card';

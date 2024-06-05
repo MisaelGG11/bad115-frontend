@@ -6,7 +6,7 @@ import {
   injectQuery,
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
-import { getPersonLocalStorage } from '../../../../../utils/person-local-storage.utils';
+import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
 import {
   FormBuilder,
   FormControl,

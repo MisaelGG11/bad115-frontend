@@ -5,7 +5,7 @@ import {
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
 import { DocumentTypeEnum, Person } from '../../../../../interfaces/person.interface';
-import { getPersonLocalStorage } from '../../../../../utils/person-local-storage.utils';
+import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
 import { PersonService } from '../../../../../services/person.service';
 import { ButtonModule } from 'primeng/button';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';

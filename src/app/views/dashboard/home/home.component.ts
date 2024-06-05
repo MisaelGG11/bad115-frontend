@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { getPersonLocalStorage } from '../../../utils/person-local-storage.utils';
+import { getCompanyLocalStorage, getPersonLocalStorage } from '../../../utils/local-storage.utils';
 import { Router, RouterLink } from '@angular/router';
 import { GlobalFunctionsService } from '../../../utils/services/global-functions.service';
 import { CommonModule } from '@angular/common';
@@ -16,4 +16,5 @@ export class HomeComponent {
   router = inject(Router);
   routes = this.global.getMenu(false);
   person = getPersonLocalStorage();
+  company = getCompanyLocalStorage();
 }

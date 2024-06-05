@@ -8,7 +8,7 @@ import {
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
 import { ButtonModule } from 'primeng/button';
-import { getPersonLocalStorage } from '../../../../../utils/person-local-storage.utils';
+import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
 
 @Component({
   selector: 'app-delete-labor-experience-modal',

@@ -7,7 +7,7 @@ import { logout } from '../../../store/auth.actions';
 import { Router, RouterLink } from '@angular/router';
 import { map, Observable, shareReplay, timer } from 'rxjs';
 import { CandidateService } from '../../../services/candidate.service';
-import { getPersonLocalStorage } from '../../../utils/person-local-storage.utils';
+import { getPersonLocalStorage } from '../../../utils/local-storage.utils';
 import { saveFile } from '../../../utils/file.utils';
 import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { toast } from 'ngx-sonner';

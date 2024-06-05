@@ -27,7 +27,7 @@ import { Person } from '../../../../../interfaces/person.interface';
 import { UpdatePersonDto } from '../../../../../services/interfaces/person.dto';
 import { setPerson } from '../../../../../store/auth.actions';
 import { Store } from '@ngrx/store';
-import { getPersonLocalStorage } from '../../../../../utils/person-local-storage.utils';
+import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
 
 @Component({
   selector: 'app-profile-form',

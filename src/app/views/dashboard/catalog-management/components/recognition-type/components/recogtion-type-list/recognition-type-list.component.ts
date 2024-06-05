@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RecognitionTypeService } from '../../../../../../../services/recognition-type.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { DataTableComponent } from '../../../../../../../components/data-table/data-table.component';
-import { getPersonLocalStorage } from '../../../../../../../utils/person-local-storage.utils';
+import { getPersonLocalStorage } from '../../../../../../../utils/local-storage.utils';
 import { AuthService } from '../../../../../../../services/auth.service';
 import { PERMISSIONS } from '../../../../../../../utils/constants.utils';
 import { TooltipModule } from 'primeng/tooltip';
