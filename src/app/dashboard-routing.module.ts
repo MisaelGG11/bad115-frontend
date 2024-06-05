@@ -15,6 +15,7 @@ import { UnblockUsersComponent } from './views/dashboard/unblock-users/unblock-u
 import { UserManagementComponent } from './views/dashboard/user-management/user-management.component';
 import { verifyPermissionGuard } from './guards/verify-permission.guard';
 import { PERMISSIONS } from './utils/constants.utils';
+import { ProfileCompanyComponent } from './views/dashboard/profile-company/profile-company.component';
 
 const routes: Routes = [
   {
@@ -31,35 +32,35 @@ const routes: Routes = [
         title: 'Perfil',
         component: ProfileComponent,
         canActivate: [verifyPermissionGuard],
-        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
+        data: { permission: PERMISSIONS.READ_CANDIDATE },
       },
       {
         path: 'experiencia-laboral',
         title: 'Experiencia Laboral',
         component: LaborExperienceComponent,
         canActivate: [verifyPermissionGuard],
-        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
+        data: { permission: PERMISSIONS.READ_CANDIDATE },
       },
       {
         path: 'educacion',
         title: 'Educación',
         component: AcademicKnowledgeComponent,
         canActivate: [verifyPermissionGuard],
-        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
+        data: { permission: PERMISSIONS.READ_CANDIDATE },
       },
       {
         path: 'certificaciones-logros',
         title: 'Certificaciones y Logros',
         component: CertificationsAchievementsComponent,
         canActivate: [verifyPermissionGuard],
-        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
+        data: { permission: PERMISSIONS.READ_CANDIDATE },
       },
       {
         path: 'habilidades',
         title: 'Habilidades',
         component: AccessForbiddenComponent,
         canActivate: [verifyPermissionGuard],
-        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
+        data: { permission: PERMISSIONS.READ_CANDIDATE },
       },
       {
         path: 'usuarios',
@@ -95,6 +96,27 @@ const routes: Routes = [
         component: CatalogManagementComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.MANAGE_CATALOG },
+      },
+      {
+        path: 'empresas',
+        title: 'Gestión de Empresas',
+        component: AccessForbiddenComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_COMPANY },
+      },
+      {
+        path: 'perfil-empresa',
+        title: 'Perfil de Empresa',
+        component: ProfileCompanyComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.READ_COMPANY },
+      },
+      {
+        path: 'reclutadores',
+        title: 'Gestión de Reclutadores',
+        component: AccessForbiddenComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_COMPANY },
       },
     ],
   },

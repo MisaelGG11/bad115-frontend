@@ -36,7 +36,7 @@ export class GlobalFunctionsService {
   getMenu(sidebar: boolean): CardMenu[] {
     let routes: CardMenu[] = [];
     if (!this.roles().includes(ROLES.ADMIN)) {
-      if (this.permissions().includes(PERMISSIONS.MANAGE_CANDIDATE)) {
+      if (this.roles().includes(ROLES.USER)) {
         routes = [
           {
             name: 'Perfil',
@@ -125,6 +125,38 @@ export class GlobalFunctionsService {
         description: 'Gestiona los catálogos de la plataforma',
         color: 'text-red-500',
       });
+    }
+
+    if (this.roles().includes(ROLES.COMPANY)) {
+      if (this.permissions().includes(PERMISSIONS.READ_COMPANY)) {
+        routes.push({
+          name: 'Perfil de empresa',
+          path: '/dashboard/perfil-empresa',
+          icon: sidebar ? 'fa fa-building' : 'business',
+          description: 'Ver y editar tu perfil de empresa',
+          color: 'text-blue-500',
+        });
+      }
+
+      if (this.permissions().includes(PERMISSIONS.UPDATE_COMPANY)) {
+        routes.push({
+          name: 'Gestión de reclutadores',
+          path: '/dashboard/reclutadores',
+          icon: sidebar ? 'fa fa-user-tie' : 'engineering',
+          description: 'Gestiona los reclutadores de tu empresa',
+          color: 'text-yellow-500',
+        });
+      }
+
+      if (this.permissions().includes(PERMISSIONS.MANAGE_JOB)) {
+        routes.push({
+          name: 'Gestión de vacantes',
+          path: '/dashboard/vacantes',
+          icon: sidebar ? 'fa fa-briefcase' : 'business_center',
+          description: 'Gestiona las vacantes de tu empresa',
+          color: 'text-green-500',
+        });
+      }
     }
     return routes;
   }
