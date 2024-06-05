@@ -1,29 +1,31 @@
 <app-index-navbar></app-index-navbar>
-<section class="header relative pt-16 items-center flex h-screen">
+<section class="header relative pt-16 items-center flex md:h-screen">
   <div class="container flex lg:ml-4 justify-center flex-wrap z-10 lg:justify-start">
     <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-8 justify-center md:justify-start">
       <div class="pt-0 flex flex-col justify-center lg:justify-start">
         <img
           alt="..."
-          class="max-w-48 mb-5 lg:ml-6 justify-self-center rounded-full"
+          class="max-w-48 mt-4 md:mt-0 mb-5 lg:ml-6 justify-self-center rounded-lg"
           src="assets/img/talenthub_bg_blue.png"
         />
-        <h2 class="font-semibold text-4xl text-slate-600">TalentHub Connect</h2>
-        <p class="mt-4 text-lg leading-relaxed text-slate-500">
+        <h2 class="font-semibold text-3xl md:text-4xl text-slate-600">TalentHub Connect</h2>
+        <p class="mt-4 text-normal md:text-lg leading-relaxed text-slate-500">
           Una plataforma de bolsa de trabajo innovadora que conecta a empresas y profesionales de
-          manera eficiente, ofreciendo oportunidades laborales relevantes y personalizadas.
+          manera eficiente, ofreciendo oportunidades laborales relevantes y personalizadas o ¿Eres
+          una empresa y buscas talento?.
         </p>
-        <div class="mt-12 mb-6 w-96">
-          <a
-            routerLink="/auth/registro"
-            class="w-full text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-primary-dark active:bg-primary-dark-active uppercase text-sm"
-          >
-            ¡Empieza ya!
-          </a>
-          <p class="mt-9 text-lg leading-relaxed text-slate-500">
-            o ¿Eres una empresa y buscas talento?
-          </p>
-          <div class="mt-9 mb-6">
+        <div class="flex flex-col lg:flex-row mt-12 mb-6">
+          <div>
+            <a
+              routerLink="/auth/registro"
+              class="w-full text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-primary-dark active:bg-primary-dark-active uppercase text-sm"
+            >
+              ¡Empieza ya!
+            </a>
+          </div>
+          <p-divider layout="vertical" class="hidden lg:flex" />
+          <p-divider layout="horizontal" class="py-3 md:mt-0 flex lg:hidden" />
+          <div>
             <a
               routerLink="/auth/registro-empresa"
               class="text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-primary-dark active:bg-primary-dark-active uppercase text-sm"
@@ -62,7 +64,7 @@
   </div>
   <div class="container mx-auto">
     <div class="flex flex-wrap items-center">
-      <div class="w-10/12 md:w-6/12 lg:w-4/12 px-12 md:px-4 mr-auto ml-auto -mt-32">
+      <div class="w-10/12 md:w-6/12 lg:w-4/12 md:px-4 mr-auto ml-auto -mt-32">
         <div
           class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-primary"
         >
