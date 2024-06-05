@@ -1,4 +1,9 @@
-export const ROLES = { ADMIN: 'admin', USER: 'user', RECLUITER: 'recluiter' };
+export const ROLES = {
+  ADMIN: 'admin',
+  USER: 'user',
+  RECLUITER: 'recluiter',
+  COMPANY: 'company',
+};
 export const PERMISSIONS = {
   // CATALOG
   MANAGE_CATALOG: 'manage:catalog',
