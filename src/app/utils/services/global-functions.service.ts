@@ -29,6 +29,10 @@ export class GlobalFunctionsService {
     return this.roles();
   }
 
+  getPermissions(): string[] {
+    return this.permissions();
+  }
+
   getMenu(sidebar: boolean): CardMenu[] {
     let routes: CardMenu[] = [];
     if (!this.roles().includes(ROLES.ADMIN)) {
@@ -122,7 +126,6 @@ export class GlobalFunctionsService {
         color: 'text-red-500',
       });
     }
-    console.log(routes);
     return routes;
   }
 }

@@ -13,6 +13,8 @@ import { RoleManagementComponent } from './views/dashboard/role-management/role-
 import { AcademicKnowledgeComponent } from './views/dashboard/academic-knowledge/academic-knowledge.component';
 import { UnblockUsersComponent } from './views/dashboard/unblock-users/unblock-users.component';
 import { UserManagementComponent } from './views/dashboard/user-management/user-management.component';
+import { verifyPermissionGuard } from './guards/verify-permission.guard';
+import { PERMISSIONS } from './utils/constants.utils';
 
 const routes: Routes = [
   {
@@ -28,51 +30,71 @@ const routes: Routes = [
         path: 'perfil',
         title: 'Perfil',
         component: ProfileComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
       },
       {
         path: 'experiencia-laboral',
         title: 'Experiencia Laboral',
         component: LaborExperienceComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
       },
       {
         path: 'educacion',
         title: 'Educación',
         component: AcademicKnowledgeComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
       },
       {
         path: 'certificaciones-logros',
         title: 'Certificaciones y Logros',
         component: CertificationsAchievementsComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
       },
       {
         path: 'habilidades',
         title: 'Habilidades',
         component: AccessForbiddenComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_CANDIDATE },
       },
       {
         path: 'usuarios',
         title: 'Gestión de Usuarios',
         component: UserManagementComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_USER },
       },
       {
         path: 'permisos',
         title: 'Gestión de Permisos',
         component: PermissionManagementComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_PERMISSION },
       },
       {
         path: 'roles',
         title: 'Gestión de Roles',
         component: RoleManagementComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_ROLE },
       },
       {
         path: 'desbloqueo-usuarios',
         title: 'Desbloqueo de Usuarios',
         component: UnblockUsersComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_USER },
       },
       {
         path: 'catalogos',
         title: 'Gestión de Catálogos',
         component: CatalogManagementComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.MANAGE_CATALOG },
       },
     ],
   },

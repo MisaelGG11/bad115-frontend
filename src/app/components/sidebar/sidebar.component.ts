@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, SimpleChanges } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserDropdownComponent } from '../dropdowns/user-dropdown/user-dropdown.component';
 import { NotificationDropdownComponent } from '../dropdowns/notification-dropdown/notification-dropdown.component';
 import { CardMenu } from '../../interfaces/route.interface';
 import { GlobalFunctionsService } from '../../utils/services/global-functions.service';
+import { Store } from '@ngrx/store';
+import { string } from '@hapi/joi';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,11 +23,23 @@ import { GlobalFunctionsService } from '../../utils/services/global-functions.se
 export class SidebarComponent {
   @Input() visible = true;
   private global = inject(GlobalFunctionsService);
+  private store = inject(Store);
   router = inject(Router);
-  roles = this.global.getRoles();
-  routes = this.global.getMenu(true);
+  roles!: string[];
+  permissions!: string[];
+  routes!: CardMenu[];
 
   collapseShow = 'hidden';
+
+  constructor() {
+    this.store.select('session').subscribe((session) => {
+      if (session.user) {
+        this.roles = session.user.roles;
+        this.permissions = session.user.permissions;
+        this.routes = this.global.getMenu(true);
+      }
+    });
+  }
 
   toggleCollapseShow(classes: string) {
     this.collapseShow = classes;
