@@ -11,12 +11,13 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
-import { login, setCompany, setPerson } from '../../../store/auth.actions';
+import { login, logout, setCompany, setPerson } from '../../../store/auth.actions';
 import { Session, UserData, UserDataCompany } from '../../../interfaces/user.interface';
 import { CustomInputComponent } from '../../../components/inputs/custom-input/custom-input.component';
 import { PersonService } from '../../../services/person.service';
 import { LOCAL_STORAGE } from '../../../utils/constants.utils';
 import { CompanyService } from '../../../services/company.service';
+import { hasExpiredToken } from '../../../utils/token.utils';
 
 @Component({
   selector: 'app-login',
@@ -45,8 +46,10 @@ export class LoginComponent {
       this.sessionValue = session;
     });
 
-    if (this.sessionValue?.token) {
+    if (this.sessionValue?.token && !hasExpiredToken(this.sessionValue.token)) {
       this.router.navigate(['/dashboard']);
+    } else {
+      this.store.dispatch(logout());
     }
   }
   async loginStore() {

@@ -11,6 +11,7 @@ export function hasExpiredToken(token: string) {
   const { exp } = decoderToken(token);
 
   const currentData = new Date().getTime();
+  const expirationDate = new Date(exp * 1000).getTime();
 
-  return exp <= currentData;
+  return currentData > expirationDate;
 }

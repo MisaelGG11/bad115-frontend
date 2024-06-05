@@ -7,7 +7,7 @@ import { AuthComponent } from './layouts/auth/auth.component';
 import { UnblockUserComponent } from './views/auth/unblock-user/unblock-user.component';
 import { AccessForbiddenComponent } from './views/access-forbidden/access-forbidden.component';
 import { NotFoundComponent } from './views/notfound/notfound.component';
-import { verifyRoleGuard } from './guards/verify-role.guard';
+import { verifyActiveSession } from './guards/verify-active-session.guard';
 
 export const routes: Routes = [
   // no layout views
@@ -40,7 +40,7 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [verifyRoleGuard],
+    canActivate: [verifyActiveSession],
     loadChildren: () => import('./dashboard-routing.module').then((m) => m.DashboardRoutingModule),
   },
   {
