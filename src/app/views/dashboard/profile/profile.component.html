@@ -39,5 +39,15 @@
       </ng-template>
       <app-social-media />
     </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> encrypted </span>
+          <span class="font-bold whitespace-nowrap m-0">Privacidad</span>
+        </div>
+      </ng-template>
+      <app-privacy-settings />
+    </p-tabPanel>
   </p-tabView>
 </div>

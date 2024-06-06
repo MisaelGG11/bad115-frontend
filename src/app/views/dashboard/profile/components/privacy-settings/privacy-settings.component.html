@@ -1,0 +1,31 @@
+<div class="p-6 bg-white rounded-lg shadow-md">
+  <p>
+    En esta sección puedes configurar la privacidad de tu perfil. Puedes elegir si deseas que cierta
+    información sea
+    <b>visible</b> para otros usuarios o si prefieres mantenerla <b>privada</b>.
+  </p>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+      @for (field of formFields; track field.controlName) {
+        <div class="flex items-center">
+          <label class="w-1/2 text-gray-700 font-bold mb-2">{{ field.label }}</label>
+          <p-toggleButton
+            [onLabel]="'Privado'"
+            [offLabel]="'Visible'"
+            [onIcon]="'pi pi-lock'"
+            [offIcon]="'pi pi-lock-open'"
+            formControlName="{{ field.controlName }}"
+            [styleClass]="
+              form.get(field.controlName)?.value
+                ? 'bg-red-500 text-white border-red-500'
+                : 'bg-green-500 text-white border-green-500'
+            "
+          ></p-toggleButton>
+        </div>
+      }
+    </div>
+    <div class="flex justify-end w-full mt-6">
+      <p-button type="submit" label="Guardar cambios" />
+    </div>
+  </form>
+</div>

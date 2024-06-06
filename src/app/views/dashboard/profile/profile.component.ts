@@ -4,6 +4,7 @@ import { ProfileFormComponent } from './components/profile-form/profile-form.com
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { DocumentsFormComponent } from './components/documents-form/documents-form.component';
 import { SocialMediaComponent } from './components/social-media/social-media.component';
+import { PrivacySettingsComponent } from './components/privacy-settings/privacy-settings.component';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ import { SocialMediaComponent } from './components/social-media/social-media.com
     AddressFormComponent,
     DocumentsFormComponent,
     SocialMediaComponent,
+    PrivacySettingsComponent,
   ],
   templateUrl: './profile.component.html',
   styles: [],

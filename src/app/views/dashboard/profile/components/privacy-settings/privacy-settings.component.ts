@@ -1,0 +1,58 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-privacy-settings',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, ToggleButtonModule, ButtonModule],
+  templateUrl: './privacy-settings.component.html',
+  styles: `
+    :host ::ng-deep .p-button-icon-left {
+      color: white;
+    }
+  `,
+})
+export class PrivacySettingsComponent {
+  form: FormGroup;
+
+  formFields = [
+    { label: 'Dirección', controlName: 'address' },
+    { label: 'Documentos', controlName: 'documents' },
+    { label: 'Redes Sociales', controlName: 'socialNetwork' },
+    { label: 'Experiencia Laboral', controlName: 'laboralExperiences' },
+    { label: 'Educación', controlName: 'academicKnowledges' },
+    { label: 'Certificaciones', controlName: 'certifications' },
+    { label: 'Habilidades Técnicas', controlName: 'technicalSkills' },
+    { label: 'Habilidades de idiomas', controlName: 'languageSkills' },
+    { label: 'Reconocimientos', controlName: 'recognitions' },
+    { label: 'Publicaciones', controlName: 'publications' },
+    { label: 'Participaciones', controlName: 'participations' },
+    { label: 'Pruebas', controlName: 'tests' },
+    { label: 'Recomendaciones', controlName: 'recomendations' },
+  ];
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      address: [false],
+      documents: [false],
+      socialNetwork: [false],
+      laboralExperiences: [false],
+      academicKnowledges: [false],
+      certifications: [false],
+      technicalSkills: [false],
+      languageSkills: [false],
+      recognitions: [false],
+      publications: [false],
+      participations: [false],
+      tests: [false],
+      recomendations: [false],
+    });
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
+  }
+}
