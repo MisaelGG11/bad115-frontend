@@ -141,7 +141,7 @@ export class GlobalFunctionsService {
       if (this.permissions().includes(PERMISSIONS.UPDATE_COMPANY)) {
         routes.push({
           name: 'Gestión de reclutadores',
-          path: '/dashboard/reclutadores',
+          path: '/dashboard/reclutadores-empresa',
           icon: sidebar ? 'fa fa-user-tie' : 'engineering',
           description: 'Gestiona los reclutadores de tu empresa',
           color: 'text-yellow-500',

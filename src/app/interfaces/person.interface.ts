@@ -1,3 +1,5 @@
+import { Company } from './company.interface';
+
 export interface Person {
   id: string;
   firstName: string;
@@ -22,6 +24,10 @@ export interface User {
 
 export interface UserWithPerson extends User {
   person: Person;
+}
+
+export interface UserWithCompany extends User {
+  company: Company;
 }
 
 export interface Address {
@@ -83,4 +89,8 @@ export interface UnlockRequest {
   user: UserWithPerson;
   status: string;
   reason: string | null;
+}
+
+export interface Recruiter extends Person {
+  user: UserWithCompany;
 }

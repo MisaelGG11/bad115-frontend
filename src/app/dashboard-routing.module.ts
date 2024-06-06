@@ -16,6 +16,7 @@ import { UserManagementComponent } from './views/dashboard/user-management/user-
 import { verifyPermissionGuard } from './guards/verify-permission.guard';
 import { PERMISSIONS } from './utils/constants.utils';
 import { ProfileCompanyComponent } from './views/dashboard/profile-company/profile-company.component';
+import { RecruiterManagementComponent } from './views/dashboard/recruiter-management/recruiter-management.component';
 
 const routes: Routes = [
   {
@@ -112,11 +113,11 @@ const routes: Routes = [
         data: { permission: PERMISSIONS.READ_COMPANY },
       },
       {
-        path: 'reclutadores',
-        title: 'Gestión de Reclutadores',
-        component: AccessForbiddenComponent,
+        path: 'reclutadores-empresa',
+        title: 'Gestión de Reclutadores de Empresa',
+        component: RecruiterManagementComponent,
         canActivate: [verifyPermissionGuard],
-        data: { permission: PERMISSIONS.MANAGE_COMPANY },
+        data: { permission: PERMISSIONS.UPDATE_COMPANY },
       },
     ],
   },

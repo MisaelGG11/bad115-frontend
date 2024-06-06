@@ -1,0 +1,19 @@
+<div class="w-full p-4">
+  <div class="flex flex-col md:flex-row w-full justify-between gap-2 mb-3">
+    <div class="mt-1 font-bold text-xl md:text-2xl">
+      <h1>Gestión de reclutadores de {{ company.name }}</h1>
+    </div>
+    <p-button
+      label="Agregar"
+      class="mx-auto md:mx-0 my-1"
+      styleClass="h-10 text-sm md:text-base md:h-auto"
+      (click)="onClickCreate()"
+    >
+      <span class="material-symbols-outlined"> add </span>
+    </p-button>
+  </div>
+
+  <app-recruiter-list />
+
+  <app-assign-recruiter [visible]="showAddModal" />
+</div>

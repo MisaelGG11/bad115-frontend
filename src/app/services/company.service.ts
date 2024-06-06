@@ -3,6 +3,7 @@ import network from '../config/network.service';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
 import { CreateCompanyDto, UpdateCompanyDto } from './interfaces/company.dto';
 import { Company } from '../interfaces/company.interface';
+import { Recruiter } from '../interfaces/person.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +31,24 @@ export class CompanyService {
     const response = await network.put<Company>(`/companies/${companyId}`, company);
 
     return response.data;
+  }
+
+  async deleteCompany(companyId: string): Promise<void> {
+    await network.delete(`/companies/${companyId}`);
+  }
+
+  async findCompanyRecruiters(
+    companyId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<Recruiter>> {
+    const response = await network.get<PaginatedResponse<Recruiter>>(
+      `/companies/${companyId}/recruiters?page=${page}&perPage=${perPage}`,
+    );
+
+    return response.data;
+  }
+
+  assignRecruiter(companyId: string, email: string) {
+    return network.post(`/companies/${companyId}/recruiters`, { email });
   }
 }
