@@ -22,6 +22,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
 import { phoneRegex } from '../../../../../utils/regex.utils';
 import { TextareaComponent } from '../../../../../components/inputs/textarea/textarea.component';
+import { CustomInputMaskComponent } from '../../../../../components/inputs/custom-input-mask/custom-input-mask.component';
 
 @Component({
   selector: 'create-labor-experience-modal',
@@ -39,6 +40,7 @@ import { TextareaComponent } from '../../../../../components/inputs/textarea/tex
     StyleClassModule,
     CalendarComponent,
     TextareaComponent,
+    CustomInputMaskComponent,
   ],
   templateUrl: './create-labor-experience-modal.component.html',
   styles: [],
@@ -62,7 +64,7 @@ export class CreateLaborExperienceModalComponent {
         functionPerformed: ['', [Validators.required]],
         currentJob: [false],
         organizationContactEmail: ['', [Validators.email]],
-        organizationContactPhone: ['', [Validators.required, Validators.pattern(phoneRegex)]],
+        organizationContactPhone: ['', [Validators.required]],
       },
       {
         validators: [validateInitAndFinishDate],

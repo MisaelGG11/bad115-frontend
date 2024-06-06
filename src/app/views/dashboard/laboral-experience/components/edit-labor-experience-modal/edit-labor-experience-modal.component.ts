@@ -25,6 +25,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputErrorsComponent } from '../../../../../components/inputs/input-errors/input-errors.component';
 import { toast } from 'ngx-sonner';
 import { TextareaComponent } from '../../../../../components/inputs/textarea/textarea.component';
+import { CustomInputMaskComponent } from '../../../../../components/inputs/custom-input-mask/custom-input-mask.component';
 
 @Component({
   selector: 'edit-labor-experience-modal',
@@ -39,6 +40,7 @@ import { TextareaComponent } from '../../../../../components/inputs/textarea/tex
     NgClass,
     ButtonModule,
     TextareaComponent,
+    CustomInputMaskComponent,
   ],
   templateUrl: './edit-labor-experience-modal.component.html',
   styles: [],
@@ -63,7 +65,7 @@ export class EditLaborExperienceModalComponent implements OnChanges {
         functionPerformed: ['', [Validators.required]],
         currentJob: [false],
         organizationContactEmail: ['', [Validators.email]],
-        organizationContactPhone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+        organizationContactPhone: ['', [Validators.required]],
       },
       {
         validators: validateInitAndFinishDate,

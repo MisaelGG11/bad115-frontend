@@ -97,12 +97,13 @@
         </div>
 
         <div class="w-full lg:basis-1/2">
-          <app-custom-input
+          <app-custom-input-mask
+            mask="9999-99999"
             [parentForm]="form"
             label="Teléfono contacto empresa"
             formControlName="organizationContactPhone"
             fieldName="organizationContactPhone"
-            placeholder="XXXX-XXXX"
+            placeholder="0000-0000"
             [type]="'tel'"
             [required]="true"
           />

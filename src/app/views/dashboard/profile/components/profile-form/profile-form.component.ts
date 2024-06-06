@@ -28,6 +28,7 @@ import { UpdatePersonDto } from '../../../../../services/interfaces/person.dto';
 import { setPerson } from '../../../../../store/auth.actions';
 import { Store } from '@ngrx/store';
 import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
+import { CustomInputMaskComponent } from '../../../../../components/inputs/custom-input-mask/custom-input-mask.component';
 
 @Component({
   selector: 'app-profile-form',
@@ -43,6 +44,7 @@ import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils'
     CalendarComponent,
     CalendarModule,
     ButtonModule,
+    CustomInputMaskComponent,
   ],
   templateUrl: './profile-form.component.html',
   styles: [],
@@ -69,6 +71,7 @@ export class ProfileFormComponent implements OnInit {
       secondLastName: new FormControl<string>(''),
       birthday: new FormControl<Date>(new Date(), Validators.required),
       gender: new FormControl<string>('M', Validators.required),
+      phone: new FormControl<string>(''),
     });
   }
 
