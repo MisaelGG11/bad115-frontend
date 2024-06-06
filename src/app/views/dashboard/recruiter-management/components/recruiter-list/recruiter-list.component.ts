@@ -13,6 +13,8 @@ import {
 import { Store } from '@ngrx/store';
 import { Recruiter } from '../../../../../interfaces/person.interface';
 import { getCompanyLocalStorage } from '../../../../../utils/local-storage.utils';
+import { RecruiterProfileComponent } from '../recruiter-profile/recruiter-profile.component';
+import { DismissRecruiterComponent } from '../dismiss-recruiter/dismiss-recruiter.component';
 
 export interface DataTableRecruiter {
   id: string;
@@ -25,7 +27,13 @@ export interface DataTableRecruiter {
 @Component({
   selector: 'app-recruiter-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass],
+  imports: [
+    DataTableComponent,
+    TooltipModule,
+    NgClass,
+    RecruiterProfileComponent,
+    DismissRecruiterComponent,
+  ],
   templateUrl: './recruiter-list.component.html',
   styles: [],
 })
@@ -35,8 +43,9 @@ export class RecruiterListComponent implements OnInit {
   company = getCompanyLocalStorage();
   showAddModal = signal(false);
   showVisualizeModal = signal(false);
-  showDeleteModal = signal(false);
-  selectedRecruiter!: WritableSignal<Recruiter>;
+  showDismissModal = signal(false);
+  selectedRecruiterId: WritableSignal<string> = signal('');
+  selectedRecruiterName: WritableSignal<string> = signal('');
   sessionValue: Session | undefined;
   permissionUser: string[] = [];
 
@@ -72,7 +81,7 @@ export class RecruiterListComponent implements OnInit {
       this.dataTable = [];
       data?.forEach((recruiter) => {
         this.dataTable.push({
-          id: recruiter.id,
+          id: recruiter.recruiterId,
           email: recruiter.user.email,
           name: [recruiter.firstName, recruiter.middleName].join(' '),
           lastName: [recruiter.lastName, recruiter.secondLastName].join(' '),
@@ -95,16 +104,16 @@ export class RecruiterListComponent implements OnInit {
           icon: 'visibility',
           iconColor: 'text-blue-500',
           permission: this.permissionUser.includes(PERMISSIONS.UPDATE_COMPANY),
-          onClick: (value: Recruiter) => {
+          onClick: (value: DataTableRecruiter) => {
             this.onClickVisualize(value);
           },
         },
         {
-          label: 'Eliminar',
-          icon: 'delete',
+          label: 'Retirar reclutador',
+          icon: 'person_remove',
           iconColor: 'text-red-600',
           permission: this.permissionUser.includes(PERMISSIONS.DELETE_COMPANY),
-          onClick: (value: Recruiter) => {
+          onClick: (value: DataTableRecruiter) => {
             this.onClickDelete(value);
           },
         },
@@ -119,14 +128,15 @@ export class RecruiterListComponent implements OnInit {
     await this.recruitersRequest.refetch();
   }
 
-  onClickVisualize(value: Recruiter) {
-    this.selectedRecruiter.set(value);
+  onClickVisualize(value: DataTableRecruiter) {
+    this.selectedRecruiterId.set(value.id);
     this.showVisualizeModal.set(true);
   }
 
-  onClickDelete(value: Recruiter) {
-    this.selectedRecruiter.set(value);
-    this.showDeleteModal.set(true);
+  onClickDelete(value: DataTableRecruiter) {
+    this.selectedRecruiterId.set(value.id);
+    this.selectedRecruiterName.set([value.name, value.lastName].join(' '));
+    this.showDismissModal.set(true);
   }
 
   constructor() {}

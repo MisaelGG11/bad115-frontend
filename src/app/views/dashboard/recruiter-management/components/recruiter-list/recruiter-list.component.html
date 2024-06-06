@@ -30,4 +30,12 @@
       </div>
     </ng-template>
   </app-data-table>
+
+  <app-recruiter-profile [visible]="showVisualizeModal" [recruiterId]="selectedRecruiterId()" />
+
+  <app-dismiss-recruiter
+    [visible]="showDismissModal"
+    [recruiterId]="selectedRecruiterId()"
+    [recruiterName]="selectedRecruiterName()"
+  />
 </div>

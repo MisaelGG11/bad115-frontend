@@ -48,7 +48,19 @@ export class CompanyService {
     return response.data;
   }
 
-  assignRecruiter(companyId: string, email: string) {
-    return network.post(`/companies/${companyId}/recruiters`, { email });
+  async assignRecruiter(companyId: string, email: string): Promise<void> {
+    return await network.post(`/companies/${companyId}/recruiters`, { email });
+  }
+
+  async getCompanyRecruiter(companyId: string, recruiterId: string): Promise<Recruiter> {
+    const response = await network.get<Recruiter>(
+      `/companies/${companyId}/recruiters/${recruiterId}`,
+    );
+
+    return response.data;
+  }
+
+  async dismissRecruiter(companyId: string, recruiterId: string): Promise<void> {
+    await network.delete(`/companies/${companyId}/recruiters/${recruiterId}`);
   }
 }

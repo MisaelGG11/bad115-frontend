@@ -1,0 +1,30 @@
+<p-dialog
+  header="Retirar reclutador"
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex flex-col w-full">
+    <div class="flex items-center">
+      ¿Estas seguro que quieres retirar al reclutador &nbsp; <b>{{ recruiterName }}</b
+      >?
+    </div>
+    <div class="flex justify-end gap-4 mt-5">
+      <p-button
+        label="No, gracias"
+        severity="secondary"
+        [text]="true"
+        [raised]="true"
+        (click)="closeModal()"
+      />
+      <p-button
+        label="Retirar"
+        icon="pi pi-user-minus"
+        [raised]="true"
+        [loading]="dismissRecruiterMutation.isPending()"
+        (click)="dismiss()"
+      />
+    </div>
+  </div>
+</p-dialog>
