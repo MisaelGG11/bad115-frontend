@@ -20,7 +20,6 @@ import { InputErrorsComponent } from '../../../../../components/inputs/input-err
 import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
-import { phoneRegex } from '../../../../../utils/regex.utils';
 import { TextareaComponent } from '../../../../../components/inputs/textarea/textarea.component';
 import { CustomInputMaskComponent } from '../../../../../components/inputs/custom-input-mask/custom-input-mask.component';
 

@@ -22,7 +22,6 @@ import { CalendarComponent } from '../../../../../components/inputs/calendar/cal
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { NgClass } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { InputErrorsComponent } from '../../../../../components/inputs/input-errors/input-errors.component';
 import { toast } from 'ngx-sonner';
 import { TextareaComponent } from '../../../../../components/inputs/textarea/textarea.component';
 import { CustomInputMaskComponent } from '../../../../../components/inputs/custom-input-mask/custom-input-mask.component';
