@@ -11,6 +11,7 @@ export interface Person {
   recruiterId: string;
   userId: string;
   gender: 'F' | 'M';
+  phone: string | null;
   address: Address | null;
   user: User;
   documents: Document[] | null;
@@ -93,4 +94,9 @@ export interface UnlockRequest {
 
 export interface Recruiter extends Person {
   user: UserWithCompany;
+}
+
+export interface Candidate {
+  id: string;
+  person: Recruiter;
 }

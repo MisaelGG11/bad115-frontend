@@ -9,6 +9,7 @@ import {
   Participation,
   ParticipationType,
   AcademicKnowledge,
+  CandidateDetails,
 } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
@@ -25,6 +26,7 @@ import {
   CreateAcademicKnowledgeDto,
   UpdateAcademicKnowledgeDto,
 } from './interfaces/candidate.dto';
+import { Candidate } from '../interfaces/person.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +36,28 @@ export class CandidateService {
 
   // PDF - CV file
   async downloadCV(candidateId: string): Promise<string> {
-    const response = await network.post(`/candidates/${candidateId}/pdfs`, {}, { responseType: 'blob' });
+    const response = await network.post(
+      `/candidates/${candidateId}/pdfs`,
+      {},
+      { responseType: 'blob' },
+    );
+
+    return response.data;
+  }
+
+  async getAllCandidates(
+    search: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<Candidate>> {
+    const response = await network.get<PaginatedResponse<Candidate>>(
+      `/candidates?page=${page}&perPage=${perPage}&search=${search}`,
+    );
+
+    return response.data;
+  }
+
+  async getCandidate(candidateId: string): Promise<CandidateDetails> {
+    const response = await network.get<CandidateDetails>(`/candidates/${candidateId}`);
 
     return response.data;
   }

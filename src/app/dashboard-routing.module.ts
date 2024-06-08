@@ -17,6 +17,7 @@ import { verifyPermissionGuard } from './guards/verify-permission.guard';
 import { PERMISSIONS } from './utils/constants.utils';
 import { ProfileCompanyComponent } from './views/dashboard/profile-company/profile-company.component';
 import { RecruiterManagementComponent } from './views/dashboard/recruiter-management/recruiter-management.component';
+import { CandidateProfileComponent } from './views/dashboard/candidate-profile/candidate-profile.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,13 @@ const routes: Routes = [
         path: 'perfil',
         title: 'Perfil',
         component: ProfileComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.READ_CANDIDATE },
+      },
+      {
+        path: 'perfil-usuario/:candidateId',
+        title: 'Perfil de usuario',
+        component: CandidateProfileComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.READ_CANDIDATE },
       },

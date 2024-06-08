@@ -1,3 +1,5 @@
+import { Candidate } from './person.interface';
+
 export interface LaboralExperience {
   id: string;
   candidateId: string;
@@ -71,4 +73,18 @@ export interface AcademicKnowledge {
   initDate: Date;
   finishDate: Date;
   organizationName: string;
+}
+
+export interface CandidateDetails extends Candidate {
+  id: string;
+  academicKnowledges: AcademicKnowledge[];
+  laboralExperiences: LaboralExperience[];
+  certifications: Certification[];
+  technicalSkills: any[];
+  languageSkills: any[];
+  recognitions: Recognition[];
+  publications: Publication[];
+  participations: Participation[];
+  tests: any[];
+  recomendations: any[];
 }
