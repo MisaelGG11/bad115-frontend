@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import network from '../config/network.service';
-import { Person, SocialMedia, SocialMediaType } from '../interfaces/person.interface';
+import {
+  Person,
+  PrivacySettings,
+  SocialMedia,
+  SocialMediaType,
+} from '../interfaces/person.interface';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
 import {
   CreateAddressDto,
@@ -8,6 +13,7 @@ import {
   UpsertDocumentDto,
   CreateSocialMediaDto,
   UpdateSocialMediaDto,
+  privacySettingsDto,
 } from './interfaces/person.dto';
 
 @Injectable({
@@ -90,5 +96,24 @@ export class PersonService {
 
   async deleteSocialMedia(personId: string, socialMediaId: string): Promise<void> {
     await network.delete(`/person/${personId}/social-network/${socialMediaId}`);
+  }
+
+  async getPrivacySettings(
+    candidateId: string,
+    privacySettingsId: string,
+  ): Promise<PrivacySettings> {
+    const response = await network.get<PrivacySettings>(
+      `candidates/${candidateId}/privacy-settings/${privacySettingsId}`,
+    );
+
+    return response.data;
+  }
+
+  async updatePrivacySettings(
+    candidateId: string,
+    privacySettingsId: string,
+    privacySettingsDto: privacySettingsDto,
+  ): Promise<void> {
+    await network.post(`/candidates/${candidateId}/privacy-settings`, privacySettingsDto);
   }
 }

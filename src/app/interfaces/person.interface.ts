@@ -15,6 +15,7 @@ export interface Person {
   address: Address | null;
   user: User;
   documents: Document[] | null;
+  privacySettingsId: string;
 }
 
 export interface User {
@@ -99,4 +100,21 @@ export interface Recruiter extends Person {
 export interface Candidate {
   id: string;
   person: Recruiter;
+}
+
+export interface PrivacySettings {
+  id: string;
+  address: boolean;
+  documents: boolean;
+  socialNetwork: boolean;
+  laboralExperiences: boolean;
+  academicKnowledges: boolean;
+  certifications: boolean;
+  technicalSkills: boolean;
+  languageSkills: boolean;
+  recognitions: boolean;
+  publications: boolean;
+  participations: boolean;
+  tests: boolean;
+  recomendations: boolean;
 }

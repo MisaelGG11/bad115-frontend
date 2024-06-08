@@ -1,8 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import {
+  injectMutation,
+  injectQuery,
+  injectQueryClient,
+} from '@tanstack/angular-query-experimental';
+import { toast } from 'ngx-sonner';
+import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
+import { privacySettingsDto } from '../../../../../services/interfaces/person.dto';
+import { PersonService } from '../../../../../services/person.service';
+import { PrivacySettings } from '../../../../../interfaces/person.interface';
 
 @Component({
   selector: 'app-privacy-settings',
@@ -16,6 +26,9 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class PrivacySettingsComponent {
+  queryClient = injectQueryClient();
+  personService = inject(PersonService);
+  person = getPersonLocalStorage();
   form: FormGroup;
 
   formFields = [
@@ -52,7 +65,39 @@ export class PrivacySettingsComponent {
     });
   }
 
-  onSubmit() {
+  async ngOnInit() {
+    await this.privacySettingsRequest.refetch();
+  }
+
+  updatePrivacySettingsMutation = injectMutation(() => ({
+    mutationFn: async (privacySettingsDto: privacySettingsDto) =>
+      await this.personService.updatePrivacySettings(
+        this.person?.candidateId,
+        this.person?.privacySettingsId,
+        privacySettingsDto,
+      ),
+    onSuccess: async () => {
+      toast.success('Configuración de perfil actualizada', { duration: 3000 });
+      await this.queryClient.invalidateQueries({ queryKey: ['privacy-settings'] });
+    },
+  }));
+
+  privacySettingsRequest = injectQuery(() => ({
+    queryKey: ['privacy-settings', { personId: this.person?.id }],
+    queryFn: async (): Promise<PrivacySettings> => {
+      const settings = await this.personService.getPrivacySettings(
+        this.person?.candidateId,
+        this.person?.privacySettingsId,
+      );
+      this.form.patchValue({ ...settings });
+      return settings;
+    },
+  }));
+
+  async onSubmit() {
     console.log(this.form.value);
+    if (this.form.valid) {
+      await this.updatePrivacySettingsMutation.mutateAsync(this.form.value);
+    }
   }
 }
