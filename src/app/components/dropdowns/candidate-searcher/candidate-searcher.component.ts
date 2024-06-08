@@ -1,0 +1,98 @@
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { injectQuery } from '@tanstack/angular-query-experimental';
+import { PaginationTableInput } from '../../../interfaces/pagination.interface';
+import { CandidateService } from '../../../services/candidate.service';
+import { Candidate } from '../../../interfaces/person.interface';
+import { Router } from '@angular/router';
+
+interface AutoCompleteCompleteEvent {
+  originalEvent: Event;
+  query: string;
+}
+
+interface UserDataTable {
+  id: string;
+  name: string;
+  email: any;
+  gender: string;
+}
+
+@Component({
+  selector: 'app-candidate-searcher',
+  standalone: true,
+  imports: [AutoCompleteModule, CommonModule, FormsModule],
+  templateUrl: './candidate-searcher.component.html',
+  styles: `
+    :host ::ng-deep .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
+      padding: 0.2rem 0.7rem;
+    }
+  `,
+})
+export class CandidateSearcherComponent {
+  private router = inject(Router);
+  private candidateService = inject(CandidateService);
+  @Input() sidebar: boolean = true;
+  selectedUser: UserDataTable | null = null;
+  visible = true;
+  filteredUsers: UserDataTable[] = [];
+  pagination: PaginationTableInput = {
+    total: 0,
+    perPage: signal(10),
+    page: signal(1),
+  };
+  search: WritableSignal<string> = signal('');
+
+  candidatesRequest = injectQuery(() => ({
+    queryKey: ['candidates', { page: this.pagination.page(), perPage: this.pagination.perPage() }],
+    queryFn: async () => {
+      const response = await this.candidateService.getAllCandidates(this.search(), {
+        page: this.pagination.page(),
+        perPage: this.pagination.perPage(),
+      });
+      const { data, pagination } = response;
+      this.pagination.total = pagination.totalItems ?? 0;
+      this.filteredUsers = [];
+      data.forEach((candidate: Candidate) => {
+        {
+          this.filteredUsers.push({
+            id: candidate.id,
+            name: [
+              candidate.person.firstName,
+              candidate.person.middleName,
+              candidate.person.lastName,
+              candidate.person.secondLastName,
+            ]
+              .filter(Boolean)
+              .join(' '),
+            email: candidate.person.user.email,
+            gender: candidate.person.gender,
+          });
+        }
+      });
+      console.log('Filtered users:', this.filteredUsers);
+
+      return response;
+    },
+  }));
+
+  onSubmit(event: any) {
+    console.log(event.value);
+  }
+
+  onSelect(event: any) {
+    console.log('Selected user:', event.value);
+    this.router.navigate(['/dashboard/perfil-usuario', event.value.id]);
+  }
+
+  async filterUsers(event: AutoCompleteCompleteEvent) {
+    const query = event.query.toLowerCase();
+    this.search.set(query);
+    await this.candidatesRequest.refetch();
+    this.filteredUsers.sort((a, b) => {
+      return a.name.toLowerCase().indexOf(query) - b.name.toLowerCase().indexOf(query);
+    });
+  }
+}
