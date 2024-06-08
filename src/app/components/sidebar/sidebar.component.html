@@ -63,9 +63,12 @@
       </div>
 
       <!-- Divider -->
+      <hr class="my-3 lg:hidden border-slate-300" />
+      <div class="w-full">
+        <app-candidate-searcher [sidebar]="true" />
+      </div>
       <hr class="my-3 lg:min-w-full border-primary" />
       <!-- Navigation -->
-
       <ul class="lg:flex-col lg:min-w-full flex flex-col list-none text-slate-600">
         @for (route of routes; track $index) {
           <li class="items-center hover:bg-slate-100 px-3 rounded-md">

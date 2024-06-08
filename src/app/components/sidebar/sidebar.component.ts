@@ -6,7 +6,7 @@ import { NotificationDropdownComponent } from '../dropdowns/notification-dropdow
 import { CardMenu } from '../../interfaces/route.interface';
 import { GlobalFunctionsService } from '../../utils/services/global-functions.service';
 import { Store } from '@ngrx/store';
-import { string } from '@hapi/joi';
+import { CandidateSearcherComponent } from '../dropdowns/candidate-searcher/candidate-searcher.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,6 +17,7 @@ import { string } from '@hapi/joi';
     CommonModule,
     UserDropdownComponent,
     NotificationDropdownComponent,
+    CandidateSearcherComponent,
   ],
   templateUrl: './sidebar.component.html',
 })
