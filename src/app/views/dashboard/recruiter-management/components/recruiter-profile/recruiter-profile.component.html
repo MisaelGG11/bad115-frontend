@@ -19,28 +19,26 @@
       />
       <div class="ml-4">
         <h2 class="text-xl font-bold">
-          {{ profile?.firstName }} {{ profile?.middleName }} {{ profile?.lastName }}
-          {{ profile?.secondLastName }}
+          {{ profile.firstName }} {{ profile.middleName }} {{ profile.lastName }}
+          {{ profile.secondLastName }}
         </h2>
-        <p class="text-gray-600">{{ profile?.user?.email }}</p>
+        <p class="text-gray-600">{{ profile.user.email }}</p>
       </div>
     </div>
     <!-- <div class="mb-4">
     <h3 class="text-lg font-semibold">Company Information</h3>
-    <p>{{ profile?.user?.company?.name }} ({{ profile?.user?.company?.size }})</p>
-    <p>{{ profile?.user?.company?.description }}</p>
-    <p><a href="{{ profile?.user?.company?.website }}" class="text-blue-600">{{ profile?.user?.company?.website }}</a></p>
+    <p>{{ profile.user.company.name }} ({{ profile.user.company.size }})</p>
+    <p>{{ profile.user.company.description }}</p>
+    <p><a href="{{ profile.user.company.website }}" class="text-blue-600">{{ profile.user.company.website }}</a></p>
   </div> -->
     <div class="mb-4">
       <h3 class="text-lg font-semibold">Dirección</h3>
       @if (profile.address) {
-        <p>{{ profile?.address?.street }}, {{ profile?.address?.numberHouse }}</p>
-        @if (profile?.address?.country?.name === 'El Salvador') {
-          <p>
-            {{ profile?.address?.municipality?.name }}, {{ profile?.address?.department?.name }}
-          </p>
+        <p>{{ profile.address.street }}, {{ profile.address.numberHouse }}</p>
+        @if (profile.address.country.name === 'El Salvador') {
+          <p>{{ profile.address.municipality.name }}, {{ profile.address.department.name }}</p>
         }
-        <p>{{ profile?.address?.country?.name }}</p>
+        <p>{{ profile.address.country.name }}</p>
       } @else {
         <p>Sin información acerca de dirección</p>
       }
