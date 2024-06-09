@@ -25,6 +25,7 @@ import {
   UpdateParticipationDto,
   CreateAcademicKnowledgeDto,
   UpdateAcademicKnowledgeDto,
+  CreateRecommendationDto,
 } from './interfaces/candidate.dto';
 import { Candidate } from '../interfaces/person.interface';
 
@@ -372,5 +373,29 @@ export class CandidateService {
 
   async deleteAcademicKnowledge(candidateId: string, AcademicKnowledgeId: string): Promise<void> {
     await network.delete(`/candidates/${candidateId}/academic-knowledge/${AcademicKnowledgeId}`);
+  }
+
+  // Recommendations
+  async getRecommendations(candidateId: string): Promise<Recognition[]> {
+    const response = await network.get<Recognition[]>(`/candidates/${candidateId}/recommendations`);
+
+    return response.data;
+  }
+
+  async createRecommendation(
+    candidateId: string,
+    userId: string,
+    recommendation: CreateRecommendationDto,
+  ): Promise<Recognition> {
+    const response = await network.post<Recognition>(
+      `/candidates/${candidateId}/recomendation/${userId}`,
+      recommendation,
+    );
+
+    return response.data;
+  }
+
+  async deleteRecommendation(candidateId: string, recommendationId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/recommendations/${recommendationId}`);
   }
 }

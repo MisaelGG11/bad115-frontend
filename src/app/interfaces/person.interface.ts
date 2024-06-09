@@ -97,9 +97,14 @@ export interface Recruiter extends Person {
   user: UserWithCompany;
 }
 
+export interface CandidatePerson extends Person {
+  user: User;
+  socialNetwork: SocialMedia[];
+}
+
 export interface Candidate {
   id: string;
-  person: Recruiter;
+  person: CandidatePerson;
 }
 
 export interface PrivacySettings {

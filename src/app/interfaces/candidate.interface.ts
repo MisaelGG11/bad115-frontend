@@ -1,4 +1,4 @@
-import { Candidate } from './person.interface';
+import { Candidate, User } from './person.interface';
 
 export interface LaboralExperience {
   id: string;
@@ -73,6 +73,14 @@ export interface AcademicKnowledge {
   initDate: Date;
   finishDate: Date;
   organizationName: string;
+}
+
+export interface Recommendation {
+  id: string;
+  candidateId: string;
+  recommendation: string;
+  type: string;
+  users: User[];
 }
 
 export interface CandidateDetails extends Candidate {

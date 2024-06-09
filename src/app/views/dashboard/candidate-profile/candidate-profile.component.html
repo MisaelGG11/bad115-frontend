@@ -3,335 +3,443 @@
     <app-spinner></app-spinner>
   </div>
 } @else {
-  <div class="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
-    <!-- profile Information -->
-    <div class="flex items-center space-x-4 mb-6">
-      <img
-        [src]="
-          profile.person.user.avatar
-            ? profile.person.user.avatar
-            : '../../../../../../assets/img/avatars/avatar' +
-              (profile.person.gender === 'M' ? '-men.jpeg' : '-women.jpeg')
-        "
-        alt="profile Avatar"
-        class="w-16 h-16 rounded-full"
-      />
-      <div>
-        <h2 class="text-xl font-semibold">
-          {{ profile.person.firstName }} {{ profile.person.middleName }}
-          {{ profile.person.lastName }} {{ profile.person.secondLastName }}
-        </h2>
-        <p class="text-gray-500">{{ profile.person.user.email }}</p>
+  @if (profile) {
+    <div class="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
+      <!-- profile Information -->
+      <div class="flex items-center space-x-4 mb-6">
+        <img
+          [src]="
+            profile.person.user.avatar
+              ? profile.person.user.avatar
+              : '../../../../../../assets/img/avatars/avatar' +
+                (profile.person.gender === 'M' ? '-men.jpeg' : '-women.jpeg')
+          "
+          alt="profile Avatar"
+          class="w-16 h-16 rounded-full"
+        />
+        <div>
+          <h2 class="text-xl font-semibold">
+            {{ profile.person.firstName }} {{ profile.person.middleName }}
+            {{ profile.person.lastName }} {{ profile.person.secondLastName }}
+          </h2>
+          <p class="text-gray-500">{{ profile.person.user.email }}</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Personal Details -->
-    <div class="mb-6">
-      <h3 class="text-lg font-semibold mb-1">Detalles de la persona</h3>
-      <hr class="border-2 border-slate-800 mb-4 mr-8" />
-      <p>
-        <span class="font-semibold">Fecha de nacimiento:</span> {{ profile.person.birthday | date }}
-      </p>
-      <p>
-        <span class="font-semibold">Sexo:</span>
-        {{ profile.person.gender ? 'Masculino' : 'Femenino' }}
-      </p>
-    </div>
-
-    <!-- Address -->
-    @if (profile.person.address) {
+      <!-- Personal Details -->
       <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Dirección</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        <p>{{ profile.person.address.street }}, {{ profile.person.address.numberHouse }}</p>
-        @if (profile.person.address.country.name === 'El Salvador') {
-          <p>
-            {{ profile.person.address.municipality.name }},
-            {{ profile.person.address.department.name }}
-          </p>
-        }
-        <p class="font-semibold">
-          {{ profile.person.address.country.name }} ({{ profile.person.address.country.areaCode }})
+        <h3 class="text-lg font-semibold mb-1">Detalles de la persona</h3>
+        <hr class="border-2 border-slate-800 mb-4" />
+        <p>
+          <span class="font-semibold">Fecha de nacimiento:</span>
+          {{ profile.person.birthday | date }}
+        </p>
+        <p>
+          <span class="font-semibold">Sexo:</span>
+          {{ profile.person.gender ? 'Masculino' : 'Femenino' }}
         </p>
       </div>
-    }
 
-    <!-- Company Details -->
-    <!-- <div class="mb-6">
-      <h3 class="text-lg font-semibold mb-2">Company Details</h3>
-      <p><span class="font-semibold">Company:</span> {{ profile.person.user.company.name }}</p>
-      <p><span class="font-semibold">Description:</span> {{ profile.person.user.company.description }}</p>
-      <p><span class="font-semibold">Website:</span> <a [href]="profile.person.user.company.website" class="text-blue-500 hover:underline">{{ profile.person.user.company.website }}</a></p>
-      <p><span class="font-semibold">Phone:</span> {{ profile.person.user.company.phone }}</p>
-    </div> -->
-
-    <!-- Roles -->
-    <!-- <div class="mb-6">
-      <h3 class="text-lg font-semibold mb-2">Roles</h3>
-      <ul class="list-disc pl-6">
-        @for(rol of profile.person.user.roles; track role.id)
-        <li>
-          {{ role.name }} - Permissions:
-          <ul class="list-disc pl-6">
-            <li *ngFor="let permission of role.permissions">{{ permission.name }}: {{ permission.description }}</li>
-          </ul>
-        </li>
-      </ul>
-    </div> -->
-
-    <!-- Documents -->
-    @if (profile.person.documents) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Documentos</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        <ul class="list-disc pl-6">
-          @for (doc of profile.person.documents; track doc.id) {
-            <div class="flex gap-2">
-              <span class="material-symbols-outlined">id_card</span>
-              <span class="font-semibold"
-                >{{ doc.type === 'PASSPORT' ? 'PASAPORTE' : doc.type }}:</span
-              >
-              {{ doc.number }}
-            </div>
+      <!-- Address -->
+      @if (profile.person.address !== undefined) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Dirección</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.person.address) {
+            <p>{{ profile.person.address.street }}, {{ profile.person.address.numberHouse }}</p>
+            @if (profile.person.address.country.name === 'El Salvador') {
+              <p>
+                {{ profile.person.address.municipality.name }},
+                {{ profile.person.address.department.name }}
+              </p>
+            }
+            <p class="font-semibold">
+              {{ profile.person.address.country.name }} ({{
+                profile.person.address.country.areaCode
+              }})
+            </p>
+          } @else {
+            <p>No dispone de una dirección registrada</p>
           }
-        </ul>
-      </div>
-    }
+        </div>
+      }
 
-    <!-- Laboral Experiences -->
-    @if (profile.laboralExperiences) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Experiencia laboral</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        <ol class="relative border-l-2 border-slate-200 dark:border-slate-700">
-          @for (experience of profile.laboralExperiences; track experience.id) {
-            <li class="mb-5 ml-4 relative">
-              <span
-                class="absolute w-3.5 h-3.5 bg-gray-200 rounded-full -left-6 top-1 bg-slate-200 border-white dark:border-gray-900 dark:bg-gray-700"
-              ></span>
-              <time
-                class="mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500"
-                >{{ experience.initDate | date }}</time
-              >
-              <h3 class="text-lg font-semibold text-slate-700 dark:text-white">
-                {{ experience.name }}
-              </h3>
-              <p class="text-sm">
-                {{ experience.initDate | date }} -
-                {{ experience.currentJob ? 'Actualidad' : (experience.finishDate | date) }}
-              </p>
-              <p class="text-sm font-semibold text-blue-800/60">
-                {{ experience.organizationName }}
-              </p>
-              <p class="text-sm">{{ experience?.organizationContact?.email }}</p>
-              <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-                {{ experience.functionPerformed }}
-              </p>
-            </li>
+      <!-- Documents -->
+      @if (profile.person.documents) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Documentos</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.person.documents.length === 0) {
+            <p>No dispone de documentos registrados</p>
+          } @else {
+            <ul class="list-disc pl-6">
+              @for (doc of profile.person.documents; track doc.id) {
+                <div class="flex gap-2">
+                  <span class="material-symbols-outlined">id_card</span>
+                  <span class="font-semibold"
+                    >{{ doc.type === 'PASSPORT' ? 'PASAPORTE' : doc.type }}:</span
+                  >
+                  {{ doc.number }}
+                </div>
+              }
+            </ul>
           }
-        </ol>
-      </div>
-    }
+        </div>
+      }
 
-    <!-- Academic Knowledges -->
-    @if (profile.academicKnowledges) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Educación</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        @for (education of profile.academicKnowledges; track education.id) {
-          <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
-              >school</span
-            >
-            <div>
-              <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
-                {{ education.name }}
-              </p>
-              <span
-                class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
-                >{{ education.type }}</span
-              >
-              <p class="text-sm font-semibold text-zinc-800">{{ education.organizationName }}</p>
-              <p class="text-sm">
-                {{ education.initDate | date }} - {{ education.finishDate | date }}
-              </p>
-            </div>
-          </div>
-          <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
-        }
-      </div>
-    }
-
-    <!-- Certifications -->
-    @if (profile.certifications) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Certificaciones</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        @for (certification of profile.certifications; track certification.id) {
-          <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
-              >workspace_premium</span
-            >
-            <div>
-              <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
-                {{ certification.name }}
-              </p>
-              <span
-                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
-                >{{ certification.type }}</span
-              >
-              <p class="text-sm font-semibold text-zinc-800">
-                {{ certification.organizationName }}
-              </p>
-              <p class="text-sm">
-                {{ certification.initDate | date }} - {{ certification.finishDate | date }}
-              </p>
-              <p class="text-sm"><span class="font-bold">Código: </span>{{ certification.code }}</p>
-            </div>
-          </div>
-          <hr class="border-[1px] border-slate-600 my-5 w-16 md:w-32 mx-auto" />
-        }
-      </div>
-    }
-
-    <!-- Technical Skills -->
-    @if (profile.technicalSkills) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Technical Skills</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        <ul class="list-disc pl-6">
-          <li *ngFor="let skill of profile.technicalSkills">{{ skill.name }}</li>
-        </ul>
-      </div>
-    }
-
-    <!-- Language Skills -->
-    @if (profile.languageSkills) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Language Skills</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        <ul class="list-disc pl-6">
-          <li *ngFor="let lang of profile.languageSkills">
-            {{ lang.skill }} - {{ lang.level }} ({{ lang.language.language }})
-          </li>
-        </ul>
-      </div>
-    }
-
-    <!-- Recognitions -->
-    @if (profile.recognitions) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Reconocimientos</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        @for (recognition of profile.recognitions; track recognition.id) {
-          <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
-              >stars</span
-            >
-            <div>
-              <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
-                {{ recognition.name }}
-              </p>
-              <span
-                class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"
-                >{{ recognition?.recognitionType?.name ?? 'tipo' }}</span
-              >
-              <p class="text-sm">{{ recognition.finishDate | date }}</p>
-            </div>
-          </div>
-          <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
-        }
-      </div>
-    }
-
-    <!-- Publications -->
-    @if (profile.publications) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Publicaciones</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        @for (publication of profile.publications; track publication.id) {
-          <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px">
-              {{ publication.type === 'Libro' ? 'book_2' : 'article' }}
-            </span>
-            <div>
-              <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
-                {{ publication.name }}
-              </p>
-              <span
-                class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
-                >{{ publication.type }}
-                {{ publication.edition ? ' - ' + publication.edition + 'a edición' : '' }}</span
-              >
-              <p class="text-sm">{{ publication.place }}</p>
-              @if (publication.type === 'Libro') {
-                <p class="text-sm"><span class="font-bold">ISBN: </span>{{ publication.isbn }}</p>
+      <!-- Social Media -->
+      @if (profile.person.socialNetwork) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Redes sociales</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.person.socialNetwork.length === 0) {
+            <p>No dispone de redes sociales registradas</p>
+          } @else {
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
+              @for (socialMedia of profile.person.socialNetwork; track socialMedia.id) {
+                <a
+                  [href]="socialMedia.url"
+                  target="_blank"
+                  [style]="{
+                    'border-color': handleColor(socialMedia.typeSocialNetwork.name),
+                    'color': handleColor(socialMedia.typeSocialNetwork.name),
+                    'border-width': '2px',
+                    'border-style': 'solid'
+                  }"
+                  class="flex items-center rounded-full bg-white font-normal text-sm border-on-secondary px-3 py-1 gap-1 h-auto justify-center"
+                >
+                  <i [class]="handleIcon(socialMedia.typeSocialNetwork.name) + ' text-lg'"></i>
+                  {{ '@' + socialMedia.nickname }}
+                </a>
               }
             </div>
-          </div>
-          <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
-        }
-      </div>
-    }
+          }
+        </div>
+      }
 
-    <!-- Participations -->
-    @if (profile.participations) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Participations</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        @for (participation of profile.participations; track participation.id) {
-          <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
-              >event</span
-            >
-            <div>
-              <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
-                {{ participation?.participationType?.name }}
-              </p>
-              <div class="flex items-center text-primary font-semibold">
-                <span class="text-sm mr-1">{{ participation.eventHost }}</span>
-                <span class="material-symbols-outlined font-semibold" style="font-size: 15px"
-                  >verified</span
+      <!-- Laboral Experiences -->
+      @if (profile.laboralExperiences) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Experiencia laboral</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.laboralExperiences.length === 0) {
+            <p>No dispone de experiencias laborales registradas</p>
+          } @else {
+            <ol class="relative border-l-2 border-slate-200 dark:border-slate-700">
+              @for (experience of profile.laboralExperiences; track experience.id) {
+                <li class="mb-5 ml-4 relative">
+                  <span
+                    class="absolute w-3.5 h-3.5 bg-gray-200 rounded-full -left-6 top-1 bg-slate-200 border-white dark:border-gray-900 dark:bg-gray-700"
+                  ></span>
+                  <time
+                    class="mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500"
+                    >{{ experience.initDate | date }}</time
+                  >
+                  <h3 class="text-lg font-semibold text-slate-700 dark:text-white">
+                    {{ experience.name }}
+                  </h3>
+                  <p class="text-sm">
+                    {{ experience.initDate | date }} -
+                    {{ experience.currentJob ? 'Actualidad' : (experience.finishDate | date) }}
+                  </p>
+                  <p class="text-sm font-semibold text-blue-800/60">
+                    {{ experience.organizationName }}
+                  </p>
+                  <p class="text-sm">{{ experience?.organizationContact?.email }}</p>
+                  <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+                    {{ experience.functionPerformed }}
+                  </p>
+                </li>
+              }
+            </ol>
+          }
+        </div>
+      }
+
+      <!-- Academic Knowledges -->
+      @if (profile.academicKnowledges) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Educación</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.academicKnowledges.length === 0) {
+            <p>No dispone de educación registrada</p>
+          } @else {
+            @for (education of profile.academicKnowledges; track education.id) {
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
+                  >school</span
                 >
+                <div>
+                  <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
+                    {{ education.name }}
+                  </p>
+                  <span
+                    class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
+                    >{{ education.type }}</span
+                  >
+                  <p class="text-sm font-semibold text-zinc-800">
+                    {{ education.organizationName }}
+                  </p>
+                  <p class="text-sm">
+                    {{ education.initDate | date }} - {{ education.finishDate | date }}
+                  </p>
+                </div>
               </div>
-              <p class="text-sm">{{ participation.place }}</p>
-              <p class="text-sm">{{ participation.date | date }}</p>
-            </div>
+              <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
+            }
+          }
+        </div>
+      }
+
+      <!-- Certifications -->
+      @if (profile.certifications) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Certificaciones</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.certifications.length === 0) {
+            <p>No dispone de certificaciones registradas</p>
+          } @else {
+            @for (certification of profile.certifications; track certification.id) {
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
+                  >workspace_premium</span
+                >
+                <div>
+                  <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
+                    {{ certification.name }}
+                  </p>
+                  <span
+                    class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+                    >{{ certification.type }}</span
+                  >
+                  <p class="text-sm font-semibold text-zinc-800">
+                    {{ certification.organizationName }}
+                  </p>
+                  <p class="text-sm">
+                    {{ certification.initDate | date }} - {{ certification.finishDate | date }}
+                  </p>
+                  <p class="text-sm">
+                    <span class="font-bold">Código: </span>{{ certification.code }}
+                  </p>
+                </div>
+              </div>
+              <hr class="border-[1px] border-slate-600 my-5 w-16 md:w-32 mx-auto" />
+            }
+          }
+        </div>
+      }
+
+      <!-- Technical Skills -->
+      @if (profile.technicalSkills) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Technical Skills</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.technicalSkills.length === 0) {
+            <p>No dispone de habilidades técnicas registradas</p>
+          } @else {
+            <ul class="list-disc pl-6">
+              @for (skill of profile.technicalSkills; track skill.id) {
+                <li>{{ skill.name }}</li>
+              }
+            </ul>
+          }
+        </div>
+      }
+
+      <!-- Language Skills -->
+      @if (profile.languageSkills) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Language Skills</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.languageSkills.length === 0) {
+            <p>No dispone de habilidades de idiomas registradas</p>
+          } @else {
+            <ul class="list-disc pl-6">
+              @for (lang of profile.languageSkills; track lang.id) {
+                <li>{{ lang.skill }} - {{ lang.level }} ({{ lang.language.language }})</li>
+              }
+            </ul>
+          }
+        </div>
+      }
+
+      <!-- Recognitions -->
+      @if (profile.recognitions) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Reconocimientos</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.recognitions.length === 0) {
+            <p>No dispone de reconocimientos registrados</p>
+          } @else {
+            @for (recognition of profile.recognitions; track recognition.id) {
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
+                  >stars</span
+                >
+                <div>
+                  <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
+                    {{ recognition.name }}
+                  </p>
+                  <span
+                    class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"
+                    >{{ recognition?.recognitionType?.name ?? 'tipo' }}</span
+                  >
+                  <p class="text-sm">{{ recognition.finishDate | date }}</p>
+                </div>
+              </div>
+              <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
+            }
+          }
+        </div>
+      }
+
+      <!-- Publications -->
+      @if (profile.publications) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Publicaciones</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.publications.length === 0) {
+            <p>No dispone de publicaciones registradas</p>
+          } @else {
+            @for (publication of profile.publications; track publication.id) {
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px">
+                  {{ publication.type === 'Libro' ? 'book_2' : 'article' }}
+                </span>
+                <div>
+                  <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
+                    {{ publication.name }}
+                  </p>
+                  <span
+                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
+                    >{{ publication.type }}
+                    {{ publication.edition ? ' - ' + publication.edition + 'a edición' : '' }}</span
+                  >
+                  <p class="text-sm">{{ publication.place }}</p>
+                  @if (publication.type === 'Libro') {
+                    <p class="text-sm">
+                      <span class="font-bold">ISBN: </span>{{ publication.isbn }}
+                    </p>
+                  }
+                </div>
+              </div>
+              <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
+            }
+          }
+        </div>
+      }
+
+      <!-- Participations -->
+      @if (profile.participations) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Participaciones</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.participations.length === 0) {
+            <p>No dispone de participaciones registradas</p>
+          } @else {
+            @for (participation of profile.participations; track participation.id) {
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
+                  >event</span
+                >
+                <div>
+                  <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
+                    {{ participation?.participationType?.name }}
+                  </p>
+                  <div class="flex items-center text-primary font-semibold">
+                    <span class="text-sm mr-1">{{ participation.eventHost }}</span>
+                    <span class="material-symbols-outlined font-semibold" style="font-size: 15px"
+                      >verified</span
+                    >
+                  </div>
+                  <p class="text-sm">{{ participation.place }}</p>
+                  <p class="text-sm">{{ participation.date | date }}</p>
+                </div>
+              </div>
+              <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
+            }
+          }
+        </div>
+      }
+
+      <!-- Tests -->
+      @if (profile.tests) {
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Pruebas</h3>
+          <hr class="border-2 border-slate-800 mb-4" />
+          @if (profile.tests.length === 0) {
+            <p>No dispone de pruebas registradas</p>
+          } @else {
+            @for (test of profile.tests; track test.id) {
+              <p>
+                <span class="font-semibold">Result:</span> {{ test.result ? 'Passed' : 'Failed' }}
+              </p>
+              <p>
+                <span class="font-semibold">URL:</span>
+                <a [href]="test.urlDocs" class="text-blue-500 hover:underline">{{
+                  test.urlDocs
+                }}</a>
+              </p>
+              <p><span class="font-semibold">Type:</span> {{ test.testType.name }}</p>
+            }
+          }
+        </div>
+      }
+
+      <!-- Recommendations -->
+      @if (profile.recomendations) {
+        <div class="mb-6">
+          <div class="flex items-end justify-between">
+            <h3 class="text-lg font-semibold mb-1">Recomendaciones</h3>
+            @if (!currentUser && !hasAlreadyRecommended) {
+              <button
+                class="flex items-center text-sm justify-center bg-sky-700 text-white px-4 py-2 rounded-full mb-1"
+                (click)="showAddRecommendationDialog()"
+              >
+                Recomendar
+              </button>
+            }
           </div>
-          <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
-        }
-      </div>
-    }
+          <hr class="border-2 border-slate-800 mb-4" />
 
-    <!-- Tests -->
-    @if (profile.tests) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Tests</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        @for (test of profile.tests; track test.id) {
-          <p><span class="font-semibold">Result:</span> {{ test.result ? 'Passed' : 'Failed' }}</p>
-          <p>
-            <span class="font-semibold">URL:</span>
-            <a [href]="test.urlDocs" class="text-blue-500 hover:underline">{{ test.urlDocs }}</a>
-          </p>
-          <p><span class="font-semibold">Type:</span> {{ test.testType.name }}</p>
-        }
-      </div>
-    }
-
-    <!-- Recommendations -->
-    @if (profile.recomendations) {
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold mb-1">Recommendations</h3>
-        <hr class="border-2 border-slate-800 mb-4 mr-8" />
-        @for (recomendation of profile.recomendations; track recomendation.id) {
-          <p><span class="font-semibold">Type:</span> {{ recomendation.type }}</p>
-          <p>
-            <span class="font-semibold">Recommendation:</span> {{ recomendation.recomendation }}
-          </p>
-          <p><span class="font-semibold">Recommender:</span> {{ recomendation.profiles.email }}</p>
-        }
-      </div>
-    }
-  </div>
+          <app-create-recommendation
+            [candidateId]="candidateId"
+            [visible]="showAddRecommendationModal"
+          />
+          @if (profile.recomendations.length === 0) {
+            <p>No dispone de recomendaciones registradas</p>
+          } @else {
+            @for (recomendation of profile.recomendations; track recomendation.id) {
+              <div class="bg-white shadow-md rounded-md mt-3 p-4">
+                <div class="flex items-center space-x-4 mb-3">
+                  <img
+                    [src]="
+                      recomendation.users[0].avatar
+                        ? recomendation.users[0].avatar
+                        : '../../../../../../assets/img/avatars/avatar' +
+                          (recomendation.users[0].person.gender === 'M'
+                            ? '-men.jpeg'
+                            : '-women.jpeg')
+                    "
+                    alt="profile Avatar"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <div>
+                    <h2 class="text-xs font-semibold">
+                      {{ recomendation.users[0].person.firstName }}
+                      {{ recomendation.users[0].person.middleName }}
+                      {{ recomendation.users[0].person.lastName }}
+                      {{ recomendation.users[0].person.secondLastName }}
+                    </h2>
+                    <p class="text-gray-500 text-xs">{{ recomendation.type }}</p>
+                  </div>
+                </div>
+                <p class="text-justify">{{ recomendation.recomendation }}</p>
+              </div>
+            }
+          }
+        </div>
+      }
+    </div>
+  }
 }

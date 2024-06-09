@@ -62,3 +62,8 @@ export interface CreateAcademicKnowledgeDto {
 }
 
 export interface UpdateAcademicKnowledgeDto extends Partial<CreateAcademicKnowledgeDto> {}
+
+export interface CreateRecommendationDto {
+  type: string;
+  recommendation: string;
+}

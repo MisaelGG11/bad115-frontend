@@ -1,0 +1,48 @@
+<p-dialog
+  header="Añadir certificación"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full">
+          <app-select
+            label="Tipo de recomendación"
+            [selectOptions]="recommendationsTypesOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="type"
+            formControlName="type"
+          ></app-select>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full mt-4">
+        <div class="w-full">
+          <app-textarea
+            [parentForm]="form"
+            label="Recomendación"
+            formControlName="recomendation"
+            fieldName="recomendation"
+            [rows]="5"
+            placeholder="Detalles de la recomendación"
+            [required]="true"
+          ></app-textarea>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="createRecommendationMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>
