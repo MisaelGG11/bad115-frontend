@@ -78,7 +78,7 @@ export interface AcademicKnowledge {
 export interface Recommendation {
   id: string;
   candidateId: string;
-  recommendation: string;
+  recomendation: string;
   type: string;
   users: User[];
 }

@@ -7,13 +7,21 @@ import { CandidateService } from '../../../services/candidate.service';
 import { ActivatedRoute } from '@angular/router';
 import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 import { CreateRecommendationComponent } from './components/create-recommendation/create-recommendation.component';
+import { EditRecommendationComponent } from './components/edit-recommendation/edit-recommendation.component';
+import { DeleteRecommendationComponent } from './components/delete-recommendation/delete-recommendation.component';
 import { getPersonLocalStorage } from '../../../utils/local-storage.utils';
-import { User } from '../../../interfaces/person.interface';
 
 @Component({
   selector: 'app-candidate-profile',
   standalone: true,
-  imports: [CommonModule, DialogModule, SpinnerComponent, CreateRecommendationComponent],
+  imports: [
+    CommonModule,
+    DialogModule,
+    SpinnerComponent,
+    CreateRecommendationComponent,
+    EditRecommendationComponent,
+    DeleteRecommendationComponent,
+  ],
   templateUrl: './candidate-profile.component.html',
   styles: ``,
 })
@@ -24,6 +32,8 @@ export class CandidateProfileComponent {
   profile!: CandidateDetails;
   person = getPersonLocalStorage();
   showAddRecommendationModal = signal(false);
+  showEditRecommendationModal = signal(false);
+  showDeleteRecommendationModal = signal(false);
   currentUser = this.person.candidateId === this.candidateId;
   hasAlreadyRecommended = false;
 
@@ -52,6 +62,14 @@ export class CandidateProfileComponent {
 
   showAddRecommendationDialog(): void {
     this.showAddRecommendationModal.set(true);
+  }
+
+  showEditRecommendationDialog(): void {
+    this.showEditRecommendationModal.set(true);
+  }
+
+  showDeleteRecommendationDialog(): void {
+    this.showDeleteRecommendationModal.set(true);
   }
 
   handleIcon = (socialMedia: string) => {

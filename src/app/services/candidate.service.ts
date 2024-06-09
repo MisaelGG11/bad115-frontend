@@ -10,6 +10,7 @@ import {
   ParticipationType,
   AcademicKnowledge,
   CandidateDetails,
+  Recommendation,
 } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
@@ -26,6 +27,7 @@ import {
   CreateAcademicKnowledgeDto,
   UpdateAcademicKnowledgeDto,
   CreateRecommendationDto,
+  UpdateRecommendationDto,
 } from './interfaces/candidate.dto';
 import { Candidate } from '../interfaces/person.interface';
 
@@ -386,8 +388,8 @@ export class CandidateService {
     candidateId: string,
     userId: string,
     recommendation: CreateRecommendationDto,
-  ): Promise<Recognition> {
-    const response = await network.post<Recognition>(
+  ): Promise<Recommendation> {
+    const response = await network.post<Recommendation>(
       `/candidates/${candidateId}/recomendation/${userId}`,
       recommendation,
     );
@@ -395,7 +397,20 @@ export class CandidateService {
     return response.data;
   }
 
+  async updateRecommendation(
+    candidateId: string,
+    recommendationId: string,
+    recommendation: UpdateRecommendationDto,
+  ): Promise<Recommendation> {
+    const response = await network.put<Recommendation>(
+      `/candidates/${candidateId}/recomendation/${recommendationId}`,
+      recommendation,
+    );
+
+    return response.data;
+  }
+
   async deleteRecommendation(candidateId: string, recommendationId: string): Promise<void> {
-    await network.delete(`/candidates/${candidateId}/recommendations/${recommendationId}`);
+    await network.delete(`/candidates/${candidateId}/recomendation/${recommendationId}`);
   }
 }

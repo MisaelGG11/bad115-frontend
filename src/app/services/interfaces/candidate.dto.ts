@@ -67,3 +67,5 @@ export interface CreateRecommendationDto {
   type: string;
   recommendation: string;
 }
+
+export interface UpdateRecommendationDto extends Partial<CreateRecommendationDto> {}

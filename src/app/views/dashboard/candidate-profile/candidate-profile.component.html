@@ -411,28 +411,59 @@
           } @else {
             @for (recomendation of profile.recomendations; track recomendation.id) {
               <div class="bg-white shadow-md rounded-md mt-3 p-4">
-                <div class="flex items-center space-x-4 mb-3">
-                  <img
-                    [src]="
-                      recomendation.users[0].avatar
-                        ? recomendation.users[0].avatar
-                        : '../../../../../../assets/img/avatars/avatar' +
-                          (recomendation.users[0].person.gender === 'M'
-                            ? '-men.jpeg'
-                            : '-women.jpeg')
-                    "
-                    alt="profile Avatar"
-                    class="w-8 h-8 rounded-full"
-                  />
-                  <div>
-                    <h2 class="text-xs font-semibold">
-                      {{ recomendation.users[0].person.firstName }}
-                      {{ recomendation.users[0].person.middleName }}
-                      {{ recomendation.users[0].person.lastName }}
-                      {{ recomendation.users[0].person.secondLastName }}
-                    </h2>
-                    <p class="text-gray-500 text-xs">{{ recomendation.type }}</p>
+                <div class="flex justify-between">
+                  <div class="flex items-center space-x-4 mb-3">
+                    <img
+                      [src]="
+                        recomendation.users[0].avatar
+                          ? recomendation.users[0].avatar
+                          : '../../../../../../assets/img/avatars/avatar' +
+                            (recomendation.users[0].person.gender === 'M'
+                              ? '-men.jpeg'
+                              : '-women.jpeg')
+                      "
+                      alt="profile Avatar"
+                      class="w-8 h-8 rounded-full"
+                    />
+                    <div>
+                      <h2 class="text-xs font-semibold">
+                        {{ recomendation.users[0].person.firstName }}
+                        {{ recomendation.users[0].person.middleName }}
+                        {{ recomendation.users[0].person.lastName }}
+                        {{ recomendation.users[0].person.secondLastName }}
+                      </h2>
+                      <p class="text-gray-500 text-xs">{{ recomendation.type }}</p>
+                    </div>
                   </div>
+                  @if (recomendation.users[0].id === person.user.id) {
+                    <div class="flex gap-2">
+                      <button
+                        class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+                        (click)="showEditRecommendationDialog()"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        class="flex items-center text-xs justify-center border-2 border-red-600 text-red-600 px-4 h-6 rounded-full"
+                        (click)="showDeleteRecommendationDialog()"
+                      >
+                        Eliminar
+                      </button>
+
+                      <!-- Modales -->
+                      <app-edit-recommendation
+                        [recommendation]="recomendation"
+                        [candidateId]="candidateId"
+                        [visible]="showEditRecommendationModal"
+                      />
+
+                      <app-delete-recommendation
+                        [recommendation]="recomendation"
+                        [candidateId]="candidateId"
+                        [visible]="showDeleteRecommendationModal"
+                      />
+                    </div>
+                  }
                 </div>
                 <p class="text-justify">{{ recomendation.recomendation }}</p>
               </div>
