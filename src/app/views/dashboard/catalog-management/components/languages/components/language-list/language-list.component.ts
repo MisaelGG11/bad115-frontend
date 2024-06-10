@@ -13,11 +13,18 @@ import { DataTableComponent } from '../../../../../../../components/data-table/d
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
 import { EditLanguageComponent } from '../edit-language/edit-language.component';
+import { DeleteLanguageComponent } from '../delete-language/delete-language.component';
 
 @Component({
   selector: 'app-language-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass, EditLanguageComponent],
+  imports: [
+    DataTableComponent,
+    TooltipModule,
+    NgClass,
+    EditLanguageComponent,
+    DeleteLanguageComponent,
+  ],
   templateUrl: './language-list.component.html',
 })
 export class LanguageListComponent implements OnInit {
