@@ -379,16 +379,21 @@
             <p>No dispone de pruebas registradas</p>
           } @else {
             @for (test of profile.tests; track test.id) {
-              <p>
-                <span class="font-semibold">Result:</span> {{ test.result ? 'Passed' : 'Failed' }}
-              </p>
-              <p>
-                <span class="font-semibold">URL:</span>
-                <a [href]="test.urlDocs" class="text-blue-500 hover:underline">{{
-                  test.urlDocs
-                }}</a>
-              </p>
-              <p><span class="font-semibold">Type:</span> {{ test.testType.name }}</p>
+              <div class="flex items-center gap-4">
+                <span
+                  class="material-symbols-outlined text-primary-dark ml-1"
+                  style="font-size: 50px"
+                >
+                  document_scanner
+                </span>
+                <div>
+                  <p class="text-lg font-semibold text-slate-700 dark:text-white -mb-1">
+                    {{ test?.testType?.name }}
+                  </p>
+                  <p class="text-sm"><span class="font-bold">Resultado: </span>{{ test.result }}</p>
+                </div>
+              </div>
+              <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
             }
           }
         </div>
