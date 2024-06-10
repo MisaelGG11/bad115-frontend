@@ -12,11 +12,12 @@ import { injectQuery } from '@tanstack/angular-query-experimental';
 import { DataTableComponent } from '../../../../../../../components/data-table/data-table.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
+import { EditLanguageComponent } from '../edit-language/edit-language.component';
 
 @Component({
   selector: 'app-language-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass],
+  imports: [DataTableComponent, TooltipModule, NgClass, EditLanguageComponent],
   templateUrl: './language-list.component.html',
 })
 export class LanguageListComponent implements OnInit {
@@ -28,7 +29,7 @@ export class LanguageListComponent implements OnInit {
   readOnly = signal(false);
   selectedLanguage = signal<Language>({
     id: '',
-    name: '',
+    language: '',
   });
   sessionValue: Session | undefined;
   columns = [

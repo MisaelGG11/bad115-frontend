@@ -1,0 +1,39 @@
+<p-dialog
+  [header]="readOnly() ? 'Detalles de lenguaje ' + selectedLanguage.language : 'Editar lenguaje'"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Idioma"
+            fieldName="language"
+            placeholder="Idioma"
+            formControlName="language"
+            [type]="'text'"
+            [isDisabled]="readOnly()"
+            [required]="true"
+          />
+        </div>
+      </div>
+
+      @if (!readOnly()) {
+        <div class="flex w-full justify-end mt-3">
+          <p-button
+            type="submit"
+            label="Guardar"
+            [loading]="editLanguageMutation.isPending()"
+            [disabled]="editLanguageMutation.isPending()"
+          />
+        </div>
+      }
+    </form>
+  </div>
+</p-dialog>

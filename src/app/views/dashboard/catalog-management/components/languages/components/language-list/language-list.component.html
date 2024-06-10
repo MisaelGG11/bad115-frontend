@@ -30,4 +30,10 @@
       </div>
     </ng-template>
   </app-data-table>
+
+  <app-edit-language
+    [visible]="showEditModal"
+    [readOnly]="readOnly"
+    [selectedLanguage]="selectedLanguage()"
+  />
 </div>
