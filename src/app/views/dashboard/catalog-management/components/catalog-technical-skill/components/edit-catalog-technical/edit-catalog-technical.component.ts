@@ -11,11 +11,18 @@ import { toast } from 'ngx-sonner';
 import { DialogModule } from 'primeng/dialog';
 import { CustomInputComponent } from '../../../../../../../components/inputs/custom-input/custom-input.component';
 import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-edit-catalog-technical',
   standalone: true,
-  imports: [DialogModule, CustomInputComponent, ReactiveFormsModule, ButtonModule],
+  imports: [
+    DialogModule,
+    CustomInputComponent,
+    ReactiveFormsModule,
+    ButtonModule,
+    ProgressSpinnerModule,
+  ],
   templateUrl: './edit-catalog-technical.component.html',
 })
 export class EditCatalogTechnicalComponent implements OnChanges {

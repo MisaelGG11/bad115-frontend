@@ -3,11 +3,12 @@ import { GlobalFunctionsService } from '../../../../../utils/services/global-fun
 import { PERMISSIONS } from '../../../../../utils/constants.utils';
 import { ButtonModule } from 'primeng/button';
 import { CatalogTechnicalSkillListComponent } from './components/catalog-technical-skill-list/catalog-technical-skill-list.component';
+import { CreateCatalogTechnicalComponent } from './components/create-catalog-technical/create-catalog-technical.component';
 
 @Component({
   selector: 'app-catalog-technical-skill',
   standalone: true,
-  imports: [ButtonModule, CatalogTechnicalSkillListComponent],
+  imports: [ButtonModule, CatalogTechnicalSkillListComponent, CreateCatalogTechnicalComponent],
   templateUrl: './catalog-technical-skill.component.html',
 })
 export class CatalogTechnicalSkillComponent {

@@ -40,16 +40,34 @@
             >Habilidades técnicas</span
           >
 
-          <div class="flex flex-row flex-wrap w-full mt-4">
-            @for (
-              catalogTechnicalSkill of catalogTechnicalSkillsRequest.data()?.technicalSkill;
-              track $index
-            ) {
-              <div class="mt-2 w-full md:w-1/2">
-                {{ catalogTechnicalSkill.name }}
-              </div>
-            }
-          </div>
+          @if (catalogTechnicalSkillsRequest.isLoading()) {
+            <p-progressSpinner></p-progressSpinner>
+          }
+
+          @if (
+            !catalogTechnicalSkillsRequest.isLoading() &&
+            catalogTechnicalSkillsRequest.data()?.technicalSkill?.length === 0
+          ) {
+            <div class="w-full flex flex-col justify-center mt-4">
+              <span class="material-symbols-outlined text-center" style="font-size: 30px">
+                error
+              </span>
+              <h1 class="font-bold text-primary-dark text-center">
+                Sin habilidades técnicas asignadas
+              </h1>
+            </div>
+          } @else {
+            <div class="flex flex-row flex-wrap w-full mt-4">
+              @for (
+                catalogTechnicalSkill of catalogTechnicalSkillsRequest.data()?.technicalSkill;
+                track $index
+              ) {
+                <div class="mt-2 w-full md:w-1/2">
+                  {{ catalogTechnicalSkill.name }}
+                </div>
+              }
+            </div>
+          }
         </div>
       }
     </form>

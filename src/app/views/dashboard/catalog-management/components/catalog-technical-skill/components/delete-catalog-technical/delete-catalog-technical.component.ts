@@ -21,10 +21,10 @@ export class DeleteCatalogTechnicalComponent {
   deleteCategoryTechnicalSkillMutation = injectMutation(() => ({
     mutationFn: async () => this.technicalSkillService.deleteCatalog(this.catalogTechnicalSkill.id),
     onSuccess: async () => {
-      toast.success('Categoria eliminada', { duration: 3000 }),
-        await this.queryClient.invalidateQueries({
-          queryKey: ['catalogTechnicalSkills'],
-        });
+      toast.success('Categoria eliminada', { duration: 3000 });
+      await this.queryClient.invalidateQueries({
+        queryKey: ['catalogTechnicalSkills'],
+      });
     },
   }));
 
