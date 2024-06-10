@@ -1,49 +1,48 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { TechnicalSkillService } from '../../../../../../../services/technical-skill.service';
+import { Store } from '@ngrx/store';
+import { TechnicalSkill } from '../../../../../../../interfaces/technical-skill.interface';
+import { Session } from '../../../../../../../interfaces/user.interface';
 import {
   PaginationTableInput,
   PaginationTableOutput,
 } from '../../../../../../../interfaces/pagination.interface';
-import { TechnicalSkillService } from '../../../../../../../services/technical-skill.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
-import { CatalogTechnicalSkill } from '../../../../../../../interfaces/technical-skill.interface';
-import { Store } from '@ngrx/store';
-import { Session } from '../../../../../../../interfaces/user.interface';
 import { PERMISSIONS } from '../../../../../../../utils/constants.utils';
 import { DataTableComponent } from '../../../../../../../components/data-table/data-table.component';
-import { DeleteRoleComponent } from '../../../../../role-management/components/delete-role/delete-role.component';
-import { EditRoleComponent } from '../../../../../role-management/components/edit-role/edit-role.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
-import { EditCatalogTechnicalComponent } from '../edit-catalog-technical/edit-catalog-technical.component';
-import { DeleteCatalogTechnicalComponent } from '../delete-catalog-technical/delete-catalog-technical.component';
+
+export interface DataTableTechnicalSkill {
+  id: string;
+  name: string;
+  category: string;
+}
 
 @Component({
-  selector: 'app-catalog-technical-skill-list',
+  selector: 'app-technical-skill-list',
   standalone: true,
-  imports: [
-    DataTableComponent,
-    DeleteRoleComponent,
-    EditRoleComponent,
-    TooltipModule,
-    NgClass,
-    EditCatalogTechnicalComponent,
-    DeleteCatalogTechnicalComponent,
-  ],
-  templateUrl: './catalog-technical-skill-list.component.html',
+  imports: [DataTableComponent, TooltipModule, NgClass],
+  templateUrl: './technical-skill-list.component.html',
 })
-export class CatalogTechnicalSkillListComponent implements OnInit {
-  private technicalSkillService = inject(TechnicalSkillService);
+export class TechnicalSkillListComponent implements OnInit {
+  private recognitionTypeService = inject(TechnicalSkillService);
   private store = inject(Store);
   showAddModal = signal(false);
   showEditModal = signal(false);
   showDeleteModal = signal(false);
   readOnly = signal(false);
-  selectedCatalogTechnicalSkill = signal<CatalogTechnicalSkill>({
+  selectedCatalogTechnicalSkill = signal<TechnicalSkill>({
     id: '',
     name: '',
+    categoryTechnicalSkillId: '',
+    categoryTechnicalSkill: {
+      id: '',
+      name: '',
+    },
   });
   sessionValue: Session | undefined;
-  dataTable: CatalogTechnicalSkill[] = [];
+  dataTable: DataTableTechnicalSkill[] = [];
   permissionUser: string[] = [];
   actionsList: any[] = [];
   pagination: PaginationTableInput = {
@@ -55,29 +54,40 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
   columns = [
     { field: 'id', header: 'ID', column_align: 'left', row_align: 'center' },
     { field: 'name', header: 'Nombre', column_align: 'left', row_align: 'center' },
+    {
+      field: 'category',
+      header: 'Categoría',
+      column_align: 'left',
+      row_align: 'center',
+    },
   ];
 
-  catalogTechnicalSkillsRequest = injectQuery(() => ({
+  technicalSkillsRequest = injectQuery(() => ({
     queryKey: [
-      'catalogTechnicalSkills',
+      'technicalSkills',
       { page: this.pagination.page(), perPage: this.pagination.perPage() },
     ],
     queryFn: async () => {
-      const response = await this.technicalSkillService.findCatalog({
+      const response = await this.recognitionTypeService.findTechnicalSkill({
         page: this.pagination.page(),
         perPage: this.pagination.perPage(),
       });
       const { data, pagination } = response;
 
       this.pagination.total = pagination.totalItems ?? 0;
-      this.dataTable = data ?? [];
+      this.dataTable =
+        data.map((technicalSkill) => ({
+          name: technicalSkill.name,
+          id: technicalSkill.id,
+          category: technicalSkill.categoryTechnicalSkill?.name ?? '',
+        })) ?? [];
 
       return response;
     },
   }));
 
   async ngOnInit() {
-    await this.catalogTechnicalSkillsRequest.refetch();
+    await this.technicalSkillsRequest.refetch();
     this.store.select('session').subscribe((session) => {
       this.sessionValue = session;
       this.permissionUser = this.sessionValue?.user?.permissions ?? [];
@@ -87,7 +97,7 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
           icon: 'visibility',
           iconColor: 'text-blue-500',
           permission: this.permissionUser.includes(PERMISSIONS.READ_ROLE),
-          onClick: (value: CatalogTechnicalSkill) => {
+          onClick: (value: TechnicalSkill) => {
             this.onClickVisualize(value);
           },
         },
@@ -96,7 +106,7 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
           icon: 'edit',
           iconColor: 'text-orange',
           permission: this.permissionUser.includes(PERMISSIONS.UPDATE_ROLE),
-          onClick: (value: CatalogTechnicalSkill) => {
+          onClick: (value: TechnicalSkill) => {
             this.onClickEdit(value);
           },
         },
@@ -105,7 +115,7 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
           icon: 'delete',
           iconColor: 'text-red-600',
           permission: this.permissionUser.includes(PERMISSIONS.DELETE_ROLE),
-          onClick: (value: CatalogTechnicalSkill) => {
+          onClick: (value: TechnicalSkill) => {
             this.onClickDelete(value);
           },
         },
@@ -117,22 +127,22 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
     this.pagination.page.set(pag.page);
     this.pagination.perPage.set(pag.perPage);
 
-    await this.catalogTechnicalSkillsRequest.refetch();
+    await this.technicalSkillsRequest.refetch();
   }
 
-  onClickVisualize(value: CatalogTechnicalSkill) {
+  onClickVisualize(value: TechnicalSkill) {
     this.selectedCatalogTechnicalSkill.set(value);
     this.readOnly.set(true);
     this.showEditModal.set(true);
   }
 
-  onClickEdit(value: CatalogTechnicalSkill) {
+  onClickEdit(value: TechnicalSkill) {
     this.selectedCatalogTechnicalSkill.set(value);
     this.readOnly.set(false);
     this.showEditModal.set(true);
   }
 
-  onClickDelete(value: CatalogTechnicalSkill) {
+  onClickDelete(value: TechnicalSkill) {
     this.selectedCatalogTechnicalSkill.set(value);
     this.showDeleteModal.set(true);
   }
