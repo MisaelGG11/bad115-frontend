@@ -15,6 +15,7 @@ import { EditRoleComponent } from '../../../../../role-management/components/edi
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
 import { EditCatalogTechnicalComponent } from '../edit-catalog-technical/edit-catalog-technical.component';
+import { DeleteCatalogTechnicalComponent } from '../delete-catalog-technical/delete-catalog-technical.component';
 
 @Component({
   selector: 'app-catalog-technical-skill-list',
@@ -26,6 +27,7 @@ import { EditCatalogTechnicalComponent } from '../edit-catalog-technical/edit-ca
     TooltipModule,
     NgClass,
     EditCatalogTechnicalComponent,
+    DeleteCatalogTechnicalComponent,
   ],
   templateUrl: './catalog-technical-skill-list.component.html',
 })
