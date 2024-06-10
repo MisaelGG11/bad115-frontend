@@ -50,12 +50,12 @@ export class TechnicalSkillService {
     return network.delete(`/catalogs/technical-skills-candidate/category/${id}`);
   }
 
-  async findTechnicalSkill({
-    page,
-    perPage,
-  }: PaginationParams): Promise<PaginatedResponse<TechnicalSkill>> {
+  async findTechnicalSkill(
+    { page, perPage }: PaginationParams,
+    search?: string,
+  ): Promise<PaginatedResponse<TechnicalSkill>> {
     const technicalSkills = await network.get<PaginatedResponse<TechnicalSkill>>(
-      `/catalogs/technical-skills-candidate/technical-skills/paginated?page=${page}&perPage=${perPage}`,
+      `/catalogs/technical-skills-candidate/technical-skills/paginated?page=${page}&perPage=${perPage}&search=${search}`,
     );
 
     return technicalSkills.data;

@@ -62,7 +62,10 @@ export class UserListComponent implements OnInit {
   actionsList: any[] = [];
 
   usersRequest = injectQuery(() => ({
-    queryKey: ['users', { page: this.pagination.page(), perPage: this.pagination.perPage() }],
+    queryKey: [
+      'users',
+      { page: this.pagination.page(), perPage: this.pagination.perPage(), search: this.search() },
+    ],
     queryFn: async () => {
       const response = await this.userService.findUsers(
         {

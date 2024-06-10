@@ -41,6 +41,7 @@ export class TechnicalSkillListComponent implements OnInit {
       name: '',
     },
   });
+  search = signal('');
   sessionValue: Session | undefined;
   dataTable: DataTableTechnicalSkill[] = [];
   permissionUser: string[] = [];
@@ -65,13 +66,16 @@ export class TechnicalSkillListComponent implements OnInit {
   technicalSkillsRequest = injectQuery(() => ({
     queryKey: [
       'technicalSkills',
-      { page: this.pagination.page(), perPage: this.pagination.perPage() },
+      { page: this.pagination.page(), perPage: this.pagination.perPage(), search: this.search() },
     ],
     queryFn: async () => {
-      const response = await this.recognitionTypeService.findTechnicalSkill({
-        page: this.pagination.page(),
-        perPage: this.pagination.perPage(),
-      });
+      const response = await this.recognitionTypeService.findTechnicalSkill(
+        {
+          page: this.pagination.page(),
+          perPage: this.pagination.perPage(),
+        },
+        this.search(),
+      );
       const { data, pagination } = response;
 
       this.pagination.total = pagination.totalItems ?? 0;
@@ -145,5 +149,10 @@ export class TechnicalSkillListComponent implements OnInit {
   onClickDelete(value: TechnicalSkill) {
     this.selectedCatalogTechnicalSkill.set(value);
     this.showDeleteModal.set(true);
+  }
+
+  async filterData(search: string) {
+    this.search.set(search);
+    await this.technicalSkillsRequest.refetch();
   }
 }
