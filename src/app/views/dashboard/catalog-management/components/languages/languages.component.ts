@@ -5,6 +5,7 @@ import { RecognitionTypeListComponent } from '../recognition-type/components/rec
 import { LanguageListComponent } from './components/language-list/language-list.component';
 import { GlobalFunctionsService } from '../../../../../utils/services/global-functions.service';
 import { PERMISSIONS } from '../../../../../utils/constants.utils';
+import { CreateLanguageComponent } from './components/create-language/create-language.component';
 
 @Component({
   selector: 'app-languages',
@@ -14,6 +15,7 @@ import { PERMISSIONS } from '../../../../../utils/constants.utils';
     CreateRecognitionTypeComponent,
     RecognitionTypeListComponent,
     LanguageListComponent,
+    CreateLanguageComponent,
   ],
   templateUrl: './languages.component.html',
 })
