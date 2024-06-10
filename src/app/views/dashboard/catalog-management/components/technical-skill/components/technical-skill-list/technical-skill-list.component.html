@@ -38,4 +38,9 @@
     [readOnly]="readOnly"
     [technicalSkill]="selectedCatalogTechnicalSkill()"
   />
+
+  <app-delete-technical-skill
+    [visible]="showDeleteModal"
+    [technicalSkill]="selectedCatalogTechnicalSkill()"
+  />
 </div>

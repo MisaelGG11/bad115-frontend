@@ -13,6 +13,7 @@ import { DataTableComponent } from '../../../../../../../components/data-table/d
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
 import { EditTechnicalSkillComponent } from '../edit-technical-skill/edit-technical-skill.component';
+import { DeleteTechnicalSkillComponent } from '../delete-technical-skill/delete-technical-skill.component';
 
 export interface DataTableTechnicalSkill {
   id: string;
@@ -23,7 +24,13 @@ export interface DataTableTechnicalSkill {
 @Component({
   selector: 'app-technical-skill-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass, EditTechnicalSkillComponent],
+  imports: [
+    DataTableComponent,
+    TooltipModule,
+    NgClass,
+    EditTechnicalSkillComponent,
+    DeleteTechnicalSkillComponent,
+  ],
   templateUrl: './technical-skill-list.component.html',
 })
 export class TechnicalSkillListComponent implements OnInit {

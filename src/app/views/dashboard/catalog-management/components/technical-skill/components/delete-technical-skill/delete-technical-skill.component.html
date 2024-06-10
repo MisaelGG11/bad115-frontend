@@ -1,0 +1,32 @@
+<p-dialog
+  header="Eliminar habilidad técnica"
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex flex-col w-full">
+    <div class="flex items-center">
+      ¿Estás seguro que quieres eliminar el catalogo&nbsp;
+      <strong>{{ technicalSkill.name }}</strong
+      >?
+    </div>
+    <div class="flex justify-end gap-4 mt-5">
+      <p-button
+        label="No, gracias"
+        severity="secondary"
+        [text]="true"
+        [raised]="true"
+        (click)="visible.set(false)"
+      />
+      <p-button
+        label="Eliminar"
+        icon="pi pi-trash"
+        [raised]="true"
+        [disabled]="deleteTechnicalSkillMutation.isPending()"
+        [loading]="deleteTechnicalSkillMutation.isPending()"
+        (click)="delete()"
+      />
+    </div>
+  </div>
+</p-dialog>
