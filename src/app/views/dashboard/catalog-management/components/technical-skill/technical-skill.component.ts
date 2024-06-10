@@ -5,6 +5,7 @@ import { CreateCatalogTechnicalComponent } from '../catalog-technical-skill/comp
 import { GlobalFunctionsService } from '../../../../../utils/services/global-functions.service';
 import { PERMISSIONS } from '../../../../../utils/constants.utils';
 import { TechnicalSkillListComponent } from './components/technical-skill-list/technical-skill-list.component';
+import { CreateTechnicalSkillComponent } from './components/create-technical-skill/create-technical-skill.component';
 
 @Component({
   selector: 'app-technical-skill',
@@ -14,6 +15,7 @@ import { TechnicalSkillListComponent } from './components/technical-skill-list/t
     CatalogTechnicalSkillListComponent,
     CreateCatalogTechnicalComponent,
     TechnicalSkillListComponent,
+    CreateTechnicalSkillComponent,
   ],
   templateUrl: './technical-skill.component.html',
 })

@@ -63,7 +63,7 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
       { page: this.pagination.page(), perPage: this.pagination.perPage() },
     ],
     queryFn: async () => {
-      const response = await this.technicalSkillService.findCatalog({
+      const response = await this.technicalSkillService.findCatalogPaginated({
         page: this.pagination.page(),
         perPage: this.pagination.perPage(),
       });

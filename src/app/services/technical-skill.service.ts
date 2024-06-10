@@ -9,7 +9,7 @@ import network from '../config/network.service';
 export class TechnicalSkillService {
   constructor() {}
 
-  async findCatalog({
+  async findCatalogPaginated({
     page,
     perPage,
   }: PaginationParams): Promise<PaginatedResponse<CatalogTechnicalSkill>> {
@@ -17,6 +17,13 @@ export class TechnicalSkillService {
       `/catalogs/technical-skills-candidate/paginated?page=${page}&perPage=${perPage}`,
     );
 
+    return catalogs.data;
+  }
+
+  async findCatalog(): Promise<CatalogTechnicalSkill[]> {
+    const catalogs = await network.get<CatalogTechnicalSkill[]>(
+      `/catalogs/technical-skills-candidate`,
+    );
     return catalogs.data;
   }
 
