@@ -147,16 +147,15 @@ export class GlobalFunctionsService {
           color: 'text-yellow-500',
         });
       }
-
-      if (this.permissions().includes(PERMISSIONS.MANAGE_JOB)) {
-        routes.push({
-          name: 'Gestión de vacantes',
-          path: '/dashboard/vacantes',
-          icon: sidebar ? 'fa fa-briefcase' : 'business_center',
-          description: 'Gestiona las vacantes de tu empresa',
-          color: 'text-green-500',
-        });
-      }
+    }
+    if (this.permissions().includes(PERMISSIONS.READ_JOB)) {
+      routes.push({
+        name: 'Posiciones de empresa',
+        path: '/dashboard/posiciones-empresa',
+        icon: sidebar ? 'fa fa-building' : 'business_center',
+        description: 'Gestiona las vacantes de tu empresa',
+        color: 'text-indigo-500',
+      });
     }
     return routes;
   }

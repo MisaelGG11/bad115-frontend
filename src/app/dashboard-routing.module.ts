@@ -18,6 +18,7 @@ import { PERMISSIONS } from './utils/constants.utils';
 import { ProfileCompanyComponent } from './views/dashboard/profile-company/profile-company.component';
 import { RecruiterManagementComponent } from './views/dashboard/recruiter-management/recruiter-management.component';
 import { CandidateProfileComponent } from './views/dashboard/candidate-profile/candidate-profile.component';
+import { JobPositionManagementComponent } from './views/dashboard/job-position-management/job-position-management.component';
 
 const routes: Routes = [
   {
@@ -126,6 +127,13 @@ const routes: Routes = [
         component: RecruiterManagementComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.UPDATE_COMPANY },
+      },
+      {
+        path: 'posiciones-empresa',
+        title: 'Posiciones de Empresa',
+        component: JobPositionManagementComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.READ_JOB },
       },
     ],
   },
