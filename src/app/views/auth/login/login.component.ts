@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute, Params } from '@angular/router';
 import {
   FormGroup,
   FormBuilder,
@@ -35,8 +35,12 @@ export class LoginComponent {
   session$: Observable<Session>;
   sessionValue: Session | undefined;
   form: FormGroup;
+  redirect: string = '/dashboard';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+  ) {
     this.form = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
@@ -46,8 +50,12 @@ export class LoginComponent {
       this.sessionValue = session;
     });
 
+    this.route.queryParams.subscribe((params: Params) => {
+      this.redirect = params['redirect'] || '/dashboard';
+    });
+
     if (this.sessionValue?.token && !hasExpiredToken(this.sessionValue.token)) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate([this.redirect]);
     } else {
       this.store.dispatch(logout());
     }
@@ -81,7 +89,7 @@ export class LoginComponent {
       const response = await this.authService.login(this.form.value);
       if (response.status === 201 || response.status === 200) {
         await this.loginStore();
-        this.router.navigate(['/dashboard']);
+        this.router.navigate([this.redirect]);
       }
     }
   }
