@@ -5,6 +5,8 @@ import { ProfileFormComponent } from '../profile/components/profile-form/profile
 import { SharedModule } from 'primeng/api';
 import { TabViewModule } from 'primeng/tabview';
 import { RecognitionTypeComponent } from './components/recognition-type/recognition-type.component';
+import { CatalogTechnicalSkillComponent } from './components/catalog-technical-skill/catalog-technical-skill.component';
+import { TechnicalSkillComponent } from './components/technical-skill/technical-skill.component';
 
 @Component({
   selector: 'app-catalog-management',
@@ -16,6 +18,8 @@ import { RecognitionTypeComponent } from './components/recognition-type/recognit
     SharedModule,
     TabViewModule,
     RecognitionTypeComponent,
+    CatalogTechnicalSkillComponent,
+    TechnicalSkillComponent,
   ],
   templateUrl: './catalog-management.component.html',
   styles: [],

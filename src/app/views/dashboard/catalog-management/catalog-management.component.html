@@ -2,6 +2,26 @@
   <p-tabView class="w-full p-2">
     <p-tabPanel>
       <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> app_registration </span>
+          <span class="font-bold whitespace-nowrap m-0">Catalogo Habilidades Técnicas</span>
+        </div>
+      </ng-template>
+      <app-catalog-technical-skill />
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> view_comfy_alt </span>
+          <span class="font-bold whitespace-nowrap m-0">Habilidades Técnicas</span>
+        </div>
+      </ng-template>
+      <app-technical-skill />
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined"> group </span>
           <span class="font-bold whitespace-nowrap m-0">Tipo de participación</span>
@@ -13,21 +33,11 @@
     <p-tabPanel>
       <ng-template pTemplate="header">
         <div class="flex items-center gap-2 h-fit">
-          <span class="material-symbols-outlined"> verified </span>
-          <span class="font-bold whitespace-nowrap m-0">Tipo de reconocimiento</span>
+          <span class="material-symbols-outlined"> language </span>
+          <span class="font-bold whitespace-nowrap m-0">Idiomas</span>
         </div>
       </ng-template>
-      <p>Tipo de reconocimiento</p>
-    </p-tabPanel>
-
-    <p-tabPanel>
-      <ng-template pTemplate="header">
-        <div class="flex items-center gap-2 h-fit">
-          <span class="material-symbols-outlined"> app_registration </span>
-          <span class="font-bold whitespace-nowrap m-0">Habilidades</span>
-        </div>
-      </ng-template>
-      <p>Catalogo habilidades</p>
+      <p>Idiomas</p>
     </p-tabPanel>
   </p-tabView>
 </div>
