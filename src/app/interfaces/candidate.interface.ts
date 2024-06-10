@@ -65,6 +65,19 @@ export interface ParticipationType {
   name: string;
 }
 
+export interface Test {
+  id: string;
+  result: string;
+  urlDocs: string;
+  candidateId: string;
+  testType: TestType;
+}
+
+export interface TestType {
+  id: string;
+  name: string;
+}
+
 export interface AcademicKnowledge {
   id: string;
   candidateId: string;

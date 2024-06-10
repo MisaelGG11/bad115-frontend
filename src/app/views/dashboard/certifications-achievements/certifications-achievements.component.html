@@ -27,7 +27,6 @@
           <span class="font-bold whitespace-nowrap m-0">Publicaciones</span>
         </div>
       </ng-template>
-      <!--          <app-profile-form [profile]="query.data.profile"></app-profile-form>-->
       <app-publications></app-publications>
     </p-tabPanel>
 
@@ -38,8 +37,17 @@
           <span class="font-bold whitespace-nowrap m-0">Participaciones</span>
         </div>
       </ng-template>
-      <!--          <app-profile-form [profile]="query.data.profile"></app-profile-form>-->
       <app-participations></app-participations>
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> document_scanner </span>
+          <span class="font-bold whitespace-nowrap m-0">Pruebas</span>
+        </div>
+      </ng-template>
+      <app-tests></app-tests>
     </p-tabPanel>
   </p-tabView>
 </div>

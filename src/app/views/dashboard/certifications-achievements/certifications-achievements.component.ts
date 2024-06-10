@@ -4,6 +4,7 @@ import { ParticipationsComponent } from './participations/participations.compone
 import { PublicationsComponent } from './publications/publications.component';
 import { RecognitionsComponent } from './recognitions/recognitions.component';
 import { CertificationsComponent } from './certifications/certifications.component';
+import { TestsComponent } from './tests/tests.component';
 
 @Component({
   selector: 'app-certifications-achievements',
@@ -14,6 +15,7 @@ import { CertificationsComponent } from './certifications/certifications.compone
     CertificationsComponent,
     PublicationsComponent,
     RecognitionsComponent,
+    TestsComponent,
   ],
   templateUrl: './certifications-achievements.component.html',
   styles: ``,

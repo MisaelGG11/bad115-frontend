@@ -53,6 +53,14 @@ export interface CreateParticipationDto {
 
 export interface UpdateParticipationDto extends Partial<CreateParticipationDto> {}
 
+export interface CreateTestDto {
+  result: string;
+  mimeTypeFile: string;
+  testTypeId: string;
+}
+
+export interface UpdateTestDto extends Partial<CreateTestDto> {}
+
 export interface CreateAcademicKnowledgeDto {
   name: string;
   type: string;

@@ -11,6 +11,8 @@ import {
   AcademicKnowledge,
   CandidateDetails,
   Recommendation,
+  Test,
+  TestType,
 } from '../interfaces/candidate.interface';
 import network from '../config/network.service';
 import {
@@ -28,6 +30,8 @@ import {
   UpdateAcademicKnowledgeDto,
   CreateRecommendationDto,
   UpdateRecommendationDto,
+  CreateTestDto,
+  UpdateTestDto,
 } from './interfaces/candidate.dto';
 import { Candidate } from '../interfaces/person.interface';
 
@@ -323,6 +327,46 @@ export class CandidateService {
 
   async deleteParticipation(candidateId: string, participationId: string): Promise<void> {
     await network.delete(`/candidates/${candidateId}/participation/${participationId}`);
+  }
+
+  // Tests
+  async getTests(
+    candidateId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<Test>> {
+    const response = await network.get<PaginatedResponse<Test>>(
+      `/candidates/${candidateId}/test?page=${page}&perPage=${perPage}`,
+    );
+
+    return response.data;
+  }
+
+  async getTest(candidateId: string, testId: string): Promise<Test> {
+    const response = await network.get<Test>(`/candidates/${candidateId}/test/${testId}`);
+
+    return response.data;
+  }
+
+  async getTestTypes(): Promise<TestType[]> {
+    const response = await network.get<TestType[]>(`/catalogs/test-type`);
+
+    return response.data;
+  }
+
+  async createTest(candidateId: string, test: CreateTestDto): Promise<Test> {
+    const response = await network.post<Test>(`/candidates/${candidateId}/test`, test);
+
+    return response.data;
+  }
+
+  async updateTest(candidateId: string, testId: string, test: UpdateTestDto): Promise<Test> {
+    const response = await network.put<Test>(`/candidates/${candidateId}/test/${testId}`, test);
+
+    return response.data;
+  }
+
+  async deleteTest(candidateId: string, testId: string): Promise<void> {
+    await network.delete(`/candidates/${candidateId}/test/${testId}`);
   }
 
   // AcademicKnowledge
