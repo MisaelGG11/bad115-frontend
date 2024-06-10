@@ -1,4 +1,7 @@
-<ng-container class="relative" *ngIf="formField.invalid && (formField?.dirty || formField.touched)">
+<ng-container
+  class="relative"
+  *ngIf="formField?.invalid && (formField?.dirty || formField.touched)"
+>
   <span [class]="errorsStyles" *ngIf="formField?.hasError('required')">
     El campo {{ fieldName }} es requerido.
   </span>

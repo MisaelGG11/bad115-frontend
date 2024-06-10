@@ -1,5 +1,11 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputErrorsComponent } from '../input-errors/input-errors.component';
 import { TooltipModule } from 'primeng/tooltip';
@@ -35,6 +41,8 @@ export class CustomInputComponent {
 
   // Input properties
   @Input() parentForm: FormGroup | null = null;
+  @Input() arrayField: FormArray | null = null;
+  @Input() position: number = 0;
   @Input() isDisabled: boolean = false;
   @Input() fieldName: string = '';
   @Input() placeholder: string = '';
@@ -73,7 +81,10 @@ export class CustomInputComponent {
   }
 
   get formField(): FormControl {
-    return this.parentForm?.get(this.fieldName) as FormControl;
+    if (this.arrayField) {
+      return this.arrayField.controls[this.position].get(this.fieldName ?? '') as FormControl;
+    }
+    return this.parentForm?.get(this.fieldName ?? '') as FormControl;
   }
 
   public onChange(event: Event): void {

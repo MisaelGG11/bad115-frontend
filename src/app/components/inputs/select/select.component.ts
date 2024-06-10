@@ -6,6 +6,7 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
   FormsModule,
+  FormArray,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputErrorsComponent } from '../input-errors/input-errors.component';
@@ -46,6 +47,8 @@ export class SelectComponent {
   public touched: () => void = () => {};
 
   @Input() parentForm: FormGroup | null = null;
+  @Input() arrayField: FormArray | null = null;
+  @Input() position: number = 0;
   @Input() fieldName: string = '';
   @Input() selectOptions: Array<any> = [];
   @Input() isDisabled: boolean = false;
@@ -61,7 +64,10 @@ export class SelectComponent {
   }
 
   get formField(): FormControl {
-    return this.parentForm?.get(this.fieldName) as FormControl;
+    if (this.arrayField) {
+      return this.arrayField.controls[this.position].get(this.fieldName ?? '') as FormControl;
+    }
+    return this.parentForm?.get(this.fieldName ?? '') as FormControl;
   }
 
   public onChange(event: any): void {
