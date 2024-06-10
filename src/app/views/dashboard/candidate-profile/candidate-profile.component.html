@@ -424,7 +424,7 @@
           } @else {
             @for (recomendation of profile.recomendations; track recomendation.id) {
               <div class="bg-white shadow-md rounded-md mt-3 p-4">
-                <div class="flex justify-between">
+                <div class="flex flex-col md:flex-row justify-between">
                   <div class="flex items-center space-x-4 mb-3">
                     <img
                       [src]="
@@ -449,7 +449,7 @@
                     </div>
                   </div>
                   @if (recomendation.users[0].id === person.user.id) {
-                    <div class="flex gap-2">
+                    <div class="flex my-2 md:my-0 justify-center gap-2">
                       <button
                         class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
                         (click)="showEditRecommendationDialog()"
