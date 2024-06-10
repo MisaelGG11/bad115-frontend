@@ -7,6 +7,7 @@ import { PaginationTableInput } from '../../../interfaces/pagination.interface';
 import { CandidateService } from '../../../services/candidate.service';
 import { Candidate } from '../../../interfaces/person.interface';
 import { Router } from '@angular/router';
+import { GlobalFunctionsService } from '../../../utils/services/global-functions.service';
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -33,6 +34,7 @@ interface UserDataTable {
 })
 export class CandidateSearcherComponent {
   private router = inject(Router);
+  private global = inject(GlobalFunctionsService);
   private candidateService = inject(CandidateService);
   @Input() sidebar: boolean = true;
   selectedUser: UserDataTable | null = null;
@@ -44,46 +46,45 @@ export class CandidateSearcherComponent {
     page: signal(1),
   };
   search: WritableSignal<string> = signal('');
+  roles = this.global.getRoles();
+  canSearch = this.roles.includes('user') || this.roles.includes('recruiter');
 
   candidatesRequest = injectQuery(() => ({
     queryKey: ['candidates', { page: this.pagination.page(), perPage: this.pagination.perPage() }],
     queryFn: async () => {
-      const response = await this.candidateService.getAllCandidates(this.search(), {
-        page: this.pagination.page(),
-        perPage: this.pagination.perPage(),
-      });
-      const { data, pagination } = response;
-      this.pagination.total = pagination.totalItems ?? 0;
-      this.filteredUsers = [];
-      data.forEach((candidate: Candidate) => {
-        {
-          this.filteredUsers.push({
-            id: candidate.id,
-            name: [
-              candidate.person.firstName,
-              candidate.person.middleName,
-              candidate.person.lastName,
-              candidate.person.secondLastName,
-            ]
-              .filter(Boolean)
-              .join(' '),
-            email: candidate.person.user.email,
-            gender: candidate.person.gender,
-          });
-        }
-      });
-      console.log('Filtered users:', this.filteredUsers);
+      if (this.canSearch) {
+        const response = await this.candidateService.getAllCandidates(this.search(), {
+          page: this.pagination.page(),
+          perPage: this.pagination.perPage(),
+        });
+        const { data, pagination } = response;
+        this.pagination.total = pagination.totalItems ?? 0;
+        this.filteredUsers = [];
+        data.forEach((candidate: Candidate) => {
+          {
+            this.filteredUsers.push({
+              id: candidate.id,
+              name: [
+                candidate.person.firstName,
+                candidate.person.middleName,
+                candidate.person.lastName,
+                candidate.person.secondLastName,
+              ]
+                .filter(Boolean)
+                .join(' '),
+              email: candidate.person.user.email,
+              gender: candidate.person.gender,
+            });
+          }
+        });
 
-      return response;
+        return response;
+      }
+      return { data: [] };
     },
   }));
 
-  onSubmit(event: any) {
-    console.log(event.value);
-  }
-
   onSelect(event: any) {
-    console.log('Selected user:', event.value);
     this.router.navigate(['/dashboard/perfil-usuario', event.value.id]);
   }
 

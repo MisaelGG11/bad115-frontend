@@ -13,10 +13,11 @@
     >
       <i class="fas fa-bars"></i>
     </button>
-
-    <div class="w-80">
-      <app-candidate-searcher [sidebar]="false" />
-    </div>
+    @if (canSearch) {
+      <div class="w-80">
+        <app-candidate-searcher [sidebar]="false" />
+      </div>
+    }
   </div>
   <div class="w-full mx-auto items-center flex justify-end md:flex-nowrap flex-wrap lg:px-10 px-4">
     <!-- User -->

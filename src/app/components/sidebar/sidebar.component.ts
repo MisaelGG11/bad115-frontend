@@ -29,6 +29,7 @@ export class SidebarComponent {
   roles!: string[];
   permissions!: string[];
   routes!: CardMenu[];
+  canSearch = false;
 
   collapseShow = 'hidden';
 
@@ -38,6 +39,8 @@ export class SidebarComponent {
         this.roles = session.user.roles;
         this.permissions = session.user.permissions;
         this.routes = this.global.getMenu(true);
+
+        this.canSearch = this.roles.includes('user') || this.roles.includes('recruiter');
       }
     });
   }
