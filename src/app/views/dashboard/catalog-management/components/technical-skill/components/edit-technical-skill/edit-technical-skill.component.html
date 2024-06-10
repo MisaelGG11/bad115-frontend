@@ -1,0 +1,52 @@
+<p-dialog
+  [header]="
+    readOnly() ? 'Detalles de habilidad técnica ' + technicalSkill.name : 'Editar habilidad técnica'
+  "
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full lg:w-1/2 mt-2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Nombre de catálogo"
+            fieldName="name"
+            placeholder="Nombre de permiso"
+            formControlName="name"
+            [type]="'text'"
+            [isDisabled]="readOnly()"
+            [required]="true"
+          />
+        </div>
+
+        <div class="w-full lg:w-1/2 mt-2">
+          <app-select
+            [parentForm]="form"
+            label="Catálogo"
+            fieldName="categoryId"
+            [required]="true"
+            formControlName="categoryId"
+            [selectOptions]="catalogs"
+            [disabled]="readOnly()"
+          />
+        </div>
+      </div>
+
+      @if (!readOnly()) {
+        <div class="flex w-full justify-end mt-3">
+          <p-button
+            type="submit"
+            label="Guardar"
+            [loading]="editTechnicalSkillMutation.isPending()"
+          />
+        </div>
+      }
+    </form>
+  </div>
+</p-dialog>

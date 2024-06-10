@@ -32,4 +32,10 @@
       </div>
     </ng-template>
   </app-data-table>
+
+  <app-edit-technical-skill
+    [visible]="showEditModal"
+    [readOnly]="readOnly"
+    [technicalSkill]="selectedCatalogTechnicalSkill()"
+  />
 </div>

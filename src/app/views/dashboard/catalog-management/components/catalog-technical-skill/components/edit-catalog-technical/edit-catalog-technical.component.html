@@ -24,16 +24,6 @@
         </div>
       </div>
 
-      @if (!readOnly()) {
-        <div class="flex w-full justify-end mt-3">
-          <p-button
-            type="submit"
-            label="Guardar"
-            [loading]="editCatalogTechnicalSkillMutation.isPending()"
-          />
-        </div>
-      }
-
       @if (readOnly()) {
         <div class="flex flex-wrap w-full mt-4">
           <span class="block uppercase text-slate-600 text-[14px] mb-1 font-bold dark:text-white"
@@ -68,6 +58,16 @@
               }
             </div>
           }
+        </div>
+      }
+
+      @if (!readOnly()) {
+        <div class="flex w-full justify-end mt-3">
+          <p-button
+            type="submit"
+            label="Guardar"
+            [loading]="editCatalogTechnicalSkillMutation.isPending()"
+          />
         </div>
       }
     </form>

@@ -50,6 +50,14 @@ export class TechnicalSkillService {
     return network.delete(`/catalogs/technical-skills-candidate/category/${id}`);
   }
 
+  async findOneTechnicalSkill(technicalSkillId: string): Promise<TechnicalSkill> {
+    const technicalSkill = await network.get<TechnicalSkill>(
+      `/catalogs/technical-skills-candidate/technical-skill/${technicalSkillId}`,
+    );
+
+    return technicalSkill.data;
+  }
+
   async findTechnicalSkill(
     { page, perPage }: PaginationParams,
     search?: string,
@@ -70,9 +78,14 @@ export class TechnicalSkillService {
     );
   }
 
-  async updateTechnicalSkill(technicalSkillId: string, name: string): Promise<TechnicalSkill> {
+  async updateTechnicalSkill(
+    technicalSkillId: string,
+    name: string,
+    categoryTechnicalSkillId: string,
+  ): Promise<TechnicalSkill> {
     return network.put(`/catalogs/technical-skills-candidate/technical-skill/${technicalSkillId}`, {
       name,
+      categoryTechnicalSkillId,
     });
   }
 
