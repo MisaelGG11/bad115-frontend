@@ -237,11 +237,15 @@
           @if (profile.technicalSkills.length === 0) {
             <p>No dispone de habilidades técnicas registradas</p>
           } @else {
-            <ul class="list-disc pl-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
               @for (skill of profile.technicalSkills; track skill.id) {
-                <li>{{ skill.name }}</li>
+                <div
+                  class="w-full border-2 border-indigo-950 text-indigo-950 bg-indigo-100/50 text-center rounded-full font-semibold"
+                >
+                  {{ skill.name }}
+                </div>
               }
-            </ul>
+            </div>
           }
         </div>
       }
@@ -254,11 +258,15 @@
           @if (profile.languageSkills.length === 0) {
             <p>No dispone de habilidades de idiomas registradas</p>
           } @else {
-            <ul class="list-disc pl-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
               @for (lang of profile.languageSkills; track lang.id) {
-                <li>{{ lang.skill }} - {{ lang.level }} ({{ lang.language.language }})</li>
+                <div
+                  class="w-full border-2 border-emerald-950 text-emerald-950 bg-emerald-100/50 text-center rounded-full font-semibold"
+                >
+                  {{ lang.skill }} - {{ lang.level }} ({{ lang.language.language }})
+                </div>
               }
-            </ul>
+            </div>
           }
         </div>
       }
