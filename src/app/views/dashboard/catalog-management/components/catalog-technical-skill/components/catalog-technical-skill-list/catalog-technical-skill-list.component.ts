@@ -14,11 +14,19 @@ import { DeleteRoleComponent } from '../../../../../role-management/components/d
 import { EditRoleComponent } from '../../../../../role-management/components/edit-role/edit-role.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { NgClass } from '@angular/common';
+import { EditCatalogTechnicalComponent } from '../edit-catalog-technical/edit-catalog-technical.component';
 
 @Component({
   selector: 'app-catalog-technical-skill-list',
   standalone: true,
-  imports: [DataTableComponent, DeleteRoleComponent, EditRoleComponent, TooltipModule, NgClass],
+  imports: [
+    DataTableComponent,
+    DeleteRoleComponent,
+    EditRoleComponent,
+    TooltipModule,
+    NgClass,
+    EditCatalogTechnicalComponent,
+  ],
   templateUrl: './catalog-technical-skill-list.component.html',
 })
 export class CatalogTechnicalSkillListComponent implements OnInit {
@@ -27,7 +35,7 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
   showAddModal = signal(false);
   showEditModal = signal(false);
   showDeleteModal = signal(false);
-  showDetailsModal = signal(false);
+  readOnly = signal(false);
   selectedCatalogTechnicalSkill = signal<CatalogTechnicalSkill>({
     id: '',
     name: '',
@@ -112,11 +120,13 @@ export class CatalogTechnicalSkillListComponent implements OnInit {
 
   onClickVisualize(value: CatalogTechnicalSkill) {
     this.selectedCatalogTechnicalSkill.set(value);
-    this.showDetailsModal.set(true);
+    this.readOnly.set(true);
+    this.showEditModal.set(true);
   }
 
   onClickEdit(value: Role) {
     this.selectedCatalogTechnicalSkill.set(value);
+    this.readOnly.set(false);
     this.showEditModal.set(true);
   }
 

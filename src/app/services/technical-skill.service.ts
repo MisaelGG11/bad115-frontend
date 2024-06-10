@@ -20,19 +20,26 @@ export class TechnicalSkillService {
     return catalogs.data;
   }
 
-  async create(name: string): Promise<CatalogTechnicalSkill> {
+  async findOneCatalog(categoryId: string): Promise<CatalogTechnicalSkill> {
+    const catalog = await network.get<CatalogTechnicalSkill>(
+      `/catalogs/technical-skills-candidate/category/${categoryId}`,
+    );
+    return catalog.data;
+  }
+
+  async createCatalog(name: string): Promise<CatalogTechnicalSkill> {
     return network.post('/catalogs/technical-skills-candidate/category', {
       name,
     });
   }
 
-  async update(id: string, name: string): Promise<CatalogTechnicalSkill> {
+  async updateCatalog(id: string, name: string): Promise<CatalogTechnicalSkill> {
     return network.put(`/catalogs/technical-skills-candidate/category/${id}`, {
       name,
     });
   }
 
-  async delete(id: string): Promise<void> {
+  async deleteCatalog(id: string): Promise<void> {
     return network.delete(`/catalogs/technical-skills-candidate/category/${id}`);
   }
 
