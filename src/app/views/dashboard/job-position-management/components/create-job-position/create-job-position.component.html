@@ -3,7 +3,7 @@
   <div class="flex w-full mt-7">
     <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
       <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
-        <div class="w-full lg:w-1/2">
+        <div class="w-full">
           <app-custom-input
             [parentForm]="form"
             label="Nombre de puesto"
@@ -12,6 +12,21 @@
             formControlName="name"
             [required]="true"
           />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:w-1/2">
+          <app-select
+            label="Compañia"
+            [filter]="true"
+            filterBy="label"
+            [selectOptions]="companiesOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="companyId"
+            formControlName="companyId"
+          ></app-select>
         </div>
 
         <div class="w-full lg:w-1/2">
@@ -115,6 +130,9 @@
           <app-select
             label="País de ubicación"
             [selectOptions]="countriesOptions"
+            [loading]="countriesRequest.isLoading()"
+            [filter]="true"
+            filterBy="label"
             [required]="true"
             [parentForm]="form"
             fieldName="country"
@@ -129,6 +147,9 @@
             <app-select
               label="Departamento de ubicación"
               [selectOptions]="departmentsOptions"
+              [loading]="departmentsRequest.isLoading()"
+              [filter]="true"
+              filterBy="label"
               [required]="true"
               [parentForm]="form"
               fieldName="departmentId"
@@ -140,7 +161,9 @@
             <app-select
               label="Municipio de ubicación"
               [selectOptions]="municipalitiesOptions"
-              [loading]="countriesRequest.isLoading()"
+              [loading]="municipalitiesRequest.isLoading()"
+              [filter]="true"
+              filterBy="label"
               [required]="true"
               [parentForm]="form"
               fieldName="municipalityId"
@@ -165,10 +188,10 @@
       </div>
 
       <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-col lg:flex-row justify-between items-center">
           <p class="text-lg font-bold mb-4">Requisitos del puesto</p>
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full w-64"
             (click)="addRequirement($event)"
           >
             Agregar requerimiento
@@ -205,10 +228,10 @@
       </div>
 
       <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-col lg:flex-row justify-between items-center">
           <p class="text-lg font-bold mb-4">Habilidades técnicas requeridas</p>
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full w-64"
             (click)="addTechnicalSkill($event)"
           >
             Agregar habilidad técnica
@@ -220,19 +243,7 @@
             [formGroupName]="i"
             class="flex flex-wrap lg:flex-nowrap w-full gap-4 mt-4 justify-center"
           >
-            <div class="w-full lg:w-1/2">
-              <app-select
-                [label]="'Categoria de habilidad técnica ' + (i + 1)"
-                [arrayField]="technicalSkills"
-                [position]="i"
-                [selectOptions]="categoriesOptions"
-                [required]="true"
-                [parentForm]="form"
-                fieldName="categoryId"
-                formControlName="categoryId"
-              ></app-select>
-            </div>
-            <div class="w-full lg:w-1/2">
+            <div class="w-full">
               <app-select
                 [label]="'Habilidad técnica ' + (i + 1)"
                 [arrayField]="technicalSkills"
@@ -240,8 +251,11 @@
                 [selectOptions]="technicalSkillsOptions"
                 [required]="true"
                 [parentForm]="form"
+                [filter]="true"
+                filterBy="label"
                 fieldName="technicalSkillId"
                 formControlName="technicalSkillId"
+                [loading]="technicalSkillsRequest.isLoading()"
               ></app-select>
             </div>
             <button
@@ -257,10 +271,10 @@
       </div>
 
       <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-col lg:flex-row justify-between items-center">
           <p class="text-lg font-bold mb-4">Habilidades de lenguaje requeridas</p>
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full w-64"
             (click)="addlanguageSkill($event)"
           >
             Agregar habilidad de lenguaje
@@ -278,6 +292,8 @@
                 [arrayField]="languageSkills"
                 [position]="i"
                 [selectOptions]="languageOptions"
+                [filter]="true"
+                filterBy="label"
                 [required]="true"
                 [parentForm]="form"
                 fieldName="languageId"
@@ -286,26 +302,30 @@
             </div>
             <div class="w-full lg:w-1/3">
               <app-select
-                [label]="'Nivel de idioma ' + (i + 1)"
-                [arrayField]="languageSkills"
-                [position]="i"
-                [selectOptions]="languageLevelOptions"
-                [required]="true"
-                [parentForm]="form"
-                fieldName="level"
-                formControlName="level"
-              ></app-select>
-            </div>
-            <div class="w-full lg:w-1/3">
-              <app-select
                 [label]="'Habilidad de idioma ' + (i + 1)"
                 [arrayField]="languageSkills"
+                [filter]="true"
+                filterBy="label"
                 [position]="i"
                 [selectOptions]="skillsOptions"
                 [required]="true"
                 [parentForm]="form"
                 fieldName="skill"
                 formControlName="skill"
+              ></app-select>
+            </div>
+            <div class="w-full lg:w-1/3">
+              <app-select
+                [label]="'Nivel de idioma ' + (i + 1)"
+                [arrayField]="languageSkills"
+                [position]="i"
+                [selectOptions]="languageLevelOptions"
+                [filter]="true"
+                filterBy="label"
+                [required]="true"
+                [parentForm]="form"
+                fieldName="level"
+                formControlName="level"
               ></app-select>
             </div>
             <button
@@ -320,7 +340,8 @@
         </div>
       </div>
 
-      <div class="flex w-full justify-end mt-3">
+      <div class="flex w-full justify-end mt-3 gap-3">
+        <p-button (onClick)="goBack()" label="Cancelar" [outlined]="true" />
         <p-button type="submit" label="Guardar" />
       </div>
     </form>

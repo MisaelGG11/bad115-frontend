@@ -14,13 +14,14 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { AddressService } from '../../../../../services/address.service';
 import { Country, Department, Municipality } from '../../../../../interfaces/person.interface';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { JobService } from '../../../../../services/job.service';
-import { Category, TechnicalSkill } from '../../../../../interfaces/job.interface';
-import { Observable } from 'rxjs';
+import { TechnicalSkill } from '../../../../../interfaces/job.interface';
 import { addDays } from 'date-fns';
 import { toast } from 'ngx-sonner';
 import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
+import { Company } from '../../../../../interfaces/company.interface';
+import { CreateJobPositionDto } from '../../../../../services/interfaces/job.dto';
 
 @Component({
   selector: 'app-create-job-position',
@@ -40,8 +41,10 @@ import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils'
   styles: ``,
 })
 export class CreateJobPositionComponent {
+  private location = inject(Location);
   private addressService = inject(AddressService);
   private jobService = inject(JobService);
+  person = getPersonLocalStorage();
   form: FormGroup;
   modalityOptions: Array<{ label: string; value: string | { name: string } }> = [
     { label: 'Presencial', value: 'ON_SITE' },
@@ -90,6 +93,7 @@ export class CreateJobPositionComponent {
   categoriesOptions: Array<{ label: string; value: string }> = [];
   technicalSkillsOptions: Array<{ label: string; value: any }> = [];
   languageOptions: Array<{ label: string; value: string }> = [];
+  companiesOptions: Array<{ label: string; value: string }> = [];
   queryClient = injectQueryClient();
 
   constructor(private fb: FormBuilder) {
@@ -171,11 +175,11 @@ export class CreateJobPositionComponent {
     },
   }));
 
-  categoriesRequest = injectQuery(() => ({
-    queryKey: ['categories'],
+  technicalSkillsRequest = injectQuery(() => ({
+    queryKey: ['technical-skills'],
     queryFn: async () => {
-      const { data } = await this.jobService.getCategories();
-      this.addCaterogies(data);
+      const { data } = await this.jobService.getTechnicalSkills();
+      this.addTechnicalSkills(data);
       return data;
     },
   }));
@@ -192,20 +196,14 @@ export class CreateJobPositionComponent {
     },
   }));
 
-  technicalSkillRequest(categoryId: any): Observable<any[]> {
-    return new Observable((observer) => {
-      this.jobService
-        .getTechnicalSkillsByCategory(categoryId)
-        .then((response) => {
-          const data = response.data;
-          observer.next(data);
-          observer.complete();
-        })
-        .catch((error) => {
-          observer.error(error);
-        });
-    });
-  }
+  companiesRequest = injectQuery(() => ({
+    queryKey: ['recruiter-companies'],
+    queryFn: async () => {
+      const { data } = await this.jobService.getRecruiterCompanies(this.person.recruiterId);
+      this.addCompanies(data);
+      return data;
+    },
+  }));
 
   addCountriesOptions(countries: Country[]) {
     this.countriesOptions = countries.map((country) => ({
@@ -231,17 +229,17 @@ export class CreateJobPositionComponent {
     }));
   }
 
-  addCaterogies(categories: Category[]) {
-    this.categoriesOptions = categories.map((category) => ({
-      label: category.name,
-      value: category.id,
-    }));
-  }
-
   addTechnicalSkills(techincialSkills: TechnicalSkill[]) {
     this.technicalSkillsOptions = techincialSkills.map((techincialSkill: TechnicalSkill) => ({
       label: techincialSkill.name,
       value: techincialSkill.id,
+    }));
+  }
+
+  addCompanies(companies: Company[]) {
+    this.companiesOptions = companies.map((company) => ({
+      label: company.name,
+      value: company.id,
     }));
   }
 
@@ -268,16 +266,9 @@ export class CreateJobPositionComponent {
 
   addTechnicalSkill(event: Event) {
     const technicalSkillFormGroup = this.fb.group({
-      categoryId: ['', Validators.required],
       technicalSkillId: ['', Validators.required],
     });
     this.technicalSkills.push(technicalSkillFormGroup);
-
-    technicalSkillFormGroup.get('categoryId')?.valueChanges.subscribe((value) => {
-      this.technicalSkillRequest(value).subscribe((data) => {
-        this.addTechnicalSkills(data);
-      });
-    });
     event.preventDefault();
   }
 
@@ -306,19 +297,21 @@ export class CreateJobPositionComponent {
   }
 
   createJobPositonMutation = injectMutation(() => ({
-    mutationFn: async (input: any) => await this.jobService.createJobPosition(input),
+    mutationFn: async (input: CreateJobPositionDto) =>
+      await this.jobService.createJobPosition(input),
     onSuccess: async () => {
-      toast.success('Participación creada', { duration: 3000 });
+      toast.success('Puesto de trabajo creado', { duration: 3000 });
+      this.location.back();
       await this.queryClient.invalidateQueries({ queryKey: ['job-positions'] });
     },
   }));
 
+  goBack() {
+    this.location.back();
+  }
+
   submit() {
     this.form.markAllAsTouched();
-
-    this.technicalSkills.controls.forEach((control: any) => {
-      (control as FormGroup).removeControl('categoryId');
-    });
     this.form.patchValue({
       address: {
         street: this.form.get('street')?.value,

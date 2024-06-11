@@ -1,13 +1,50 @@
+import { Company } from './company.interface';
+import { Address } from './person.interface';
+
 export interface Category {
   id: string;
   name: string;
 }
 
 export interface TechnicalSkill {
-  map(
-    arg0: (techincialSkill: TechnicalSkill) => { label: string; value: string },
-  ): { label: string; value: string }[];
   id: string;
   name: string;
-  cateforyTechnicalSkillId: string;
+}
+
+interface LanguageSkill {
+  id: string;
+  skill: string;
+  level: string;
+  candidateId: string;
+  language: Language;
+}
+
+interface Language {
+  id: string;
+  language: string;
+}
+
+interface Requirement {
+  id: string;
+  description: string;
+}
+
+export interface JobPosition {
+  id: string;
+  name: string;
+  salaryRange: string;
+  modality: string;
+  description: string;
+  experiencesLevel: string;
+  contractType: string;
+  status: string;
+  closeTime: string;
+  workday: string;
+  jobApplicationCount: number;
+  company: Company;
+  address: Address;
+  technicalSkills: TechnicalSkill[];
+  languageSkills: LanguageSkill[];
+  requirements: Requirement[];
+  createdAt: string;
 }

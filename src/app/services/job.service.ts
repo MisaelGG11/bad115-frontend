@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import network from '../config/network.service';
 import axios from 'axios';
 import { axiosConfiguration } from '../config/network.service';
+import { JobPosition } from '../interfaces/job.interface';
+import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
+import { CreateJobPositionDto } from './interfaces/job.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +18,31 @@ export class JobService {
     return this.axiosInstance.get('/catalogs/technical-skills-candidate');
   }
 
-  async getTechnicalSkillsByCategory(categoryId: string) {
-    return this.axiosInstance.get(
-      `/catalogs/technical-skills-candidate/technical-skills/category/${categoryId}?categoryId=${categoryId}`,
-    );
+  async getTechnicalSkills() {
+    return this.axiosInstance.get(`/catalogs/technical-skills-candidate/technical-skill`);
   }
 
   async getLanguages() {
     return this.axiosInstance.get('/catalogs/language-type');
   }
 
-  async createJobPosition(jobPosition: any): Promise<any> {
-    const response = await network.post<any>(`/job-positions`, jobPosition);
+  async getRecruiterCompanies(recruiterId: string) {
+    return this.axiosInstance.get(`/recruiters/${recruiterId}/companies`);
+  }
+
+  async createJobPosition(jobPosition: CreateJobPositionDto): Promise<JobPosition> {
+    const response = await network.post<JobPosition>(`/job-positions`, jobPosition);
+
+    return response.data;
+  }
+
+  async getJobPositionsRecruiter(
+    recruiterId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<JobPosition>> {
+    const response = await network.get<PaginatedResponse<JobPosition>>(
+      `/recruiters/${recruiterId}/job-positions?page=${page}&perPage=${perPage}`,
+    );
 
     return response.data;
   }

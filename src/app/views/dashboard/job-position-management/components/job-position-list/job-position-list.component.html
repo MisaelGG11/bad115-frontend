@@ -1,1 +1,116 @@
-<p>job-position-list works!</p>
+<div class="flex flex-wrap gap-2 w-full mt-2">
+  @if (jobPositionsRequest.isPending()) {
+    <div class="flex w-full justify-center items-center">
+      <app-spinner />
+    </div>
+  } @else {
+    <div class="flex flex-wrap gap-2 w-full">
+      @for (page of jobPositionsRequest.data()?.pages; track $index) {
+        @for (job of page.data; track job.id) {
+          <div class="w-full">
+            <p-card>
+              <ng-template pTemplate="header">
+                <div class="flex items-center gap-3 border-red px-9 pt-9 lg:px-12 lg:pt-12 pb-0">
+                  <img
+                    [src]="
+                      job.company.logo
+                        ? job.company.logo
+                        : './../../../../../../assets/img/avatars/avatar-company.png'
+                    "
+                    alt="{{ job.company.name }}"
+                    class="w-10 h-10 rounded-full"
+                  />
+                  <div>
+                    <h3 class="font-bold text-lg">{{ job.name }}</h3>
+                    <p class="text-sm text-gray-500">{{ job.company.name }}</p>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="body">
+                <div class="flex flex-col md:flex-row w-full justify-between px-4 lg:px-7 -mt-8">
+                  <div>
+                    <div class="flex flex-wrap mb-2 gap-2">
+                      <span
+                        class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+                      >
+                        {{ getModality(job.modality) }}
+                      </span>
+                      <span
+                        class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
+                      >
+                        {{ getContractType(job.contractType) }}
+                      </span>
+                      <span
+                        class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
+                      >
+                        {{ getWorkday(job.workday) }}
+                      </span>
+                    </div>
+                    <div class="flex flex-col gap-2 border-red-500 pb-0">
+                      <p>{{ job.description }}</p>
+                      <p><strong>Rango Salarial:</strong> {{ job.salaryRange }}</p>
+                      <p>
+                        <strong>Experiencia:</strong> {{ getLevelExperience(job.experiencesLevel) }}
+                      </p>
+                      <div>
+                        <span
+                          class="bg-slate-100 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300"
+                          ><strong>Disponible hasta:</strong> {{ job.closeTime | date }}</span
+                        >
+                      </div>
+
+                      <!-- <p><strong>Ubicación:</strong> {{ job.address.street }}, {{ job.address.numberHouse }}, {{ job.address.municipality.name }}, {{ job.address.department.name }}, {{ job.address.country.name }}</p> -->
+                    </div>
+                  </div>
+                  <div class="flex justify-center items-center mt-5 gap-2">
+                    <div>
+                      <button
+                        (click)="onClickShowEditDialog(job.id)"
+                        class="p-button-rounded p-button-text"
+                        pTooltip="Editar puesto de trabajo"
+                        tooltipPosition="bottom"
+                      >
+                        <span class="material-symbols-outlined text-blue-500"> visibility </span>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        (click)="onClickShowEditDialog(job.id)"
+                        class="p-button-rounded p-button-text"
+                        pTooltip="Editar puesto de trabajo"
+                        tooltipPosition="bottom"
+                      >
+                        <span class="material-symbols-outlined text-orange"> edit </span>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        (click)="onClickShowDeleteDialog(job.id)"
+                        class="p-button-rounded p-button-text"
+                        pTooltip="Eliminar puesto de trabajo"
+                        tooltipPosition="bottom"
+                      >
+                        <span class="material-symbols-outlined text-red-500"> delete </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-card>
+          </div>
+        }
+      }
+    </div>
+    <div class="mt-2 w-full md:w-44">
+      <p-button
+        icon="pi pi-angle-down"
+        (onClick)="jobPositionsRequest.fetchNextPage()"
+        [disabled]="nextButtonDisabled()"
+        [loading]="jobPositionsRequest.isFetchingNextPage()"
+        [text]="true"
+        [style]="{ width: '100%' }"
+        [label]="nextButtonText()"
+      />
+    </div>
+  }
+</div>
