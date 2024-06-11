@@ -1,1 +1,17 @@
-<p>job-position-management works!</p>
+<div class="w-full flex flex-col p-1 md:pb-4">
+  <div class="flex flex-col md:flex-row w-full justify-between gap-2">
+    <div class="mt-1 font-bold text-xl md:text-2xl">
+      <h1>Puestos de trabajo</h1>
+    </div>
+    <p-button
+      label="Agregar"
+      icon="pi pi-plus"
+      class="p-button-rounded mx-auto mz- md:mx-0 my-1"
+      styleClass="h-10 text-sm md:text-base md:h-auto"
+      (onClick)="showAddDialog()"
+    />
+  </div>
+  <div>
+    <app-job-position-list />
+  </div>
+</div>

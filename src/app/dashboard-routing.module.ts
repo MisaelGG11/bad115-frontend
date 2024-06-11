@@ -19,6 +19,7 @@ import { ProfileCompanyComponent } from './views/dashboard/profile-company/profi
 import { RecruiterManagementComponent } from './views/dashboard/recruiter-management/recruiter-management.component';
 import { CandidateProfileComponent } from './views/dashboard/candidate-profile/candidate-profile.component';
 import { JobPositionManagementComponent } from './views/dashboard/job-position-management/job-position-management.component';
+import { CreateJobPositionComponent } from './views/dashboard/job-position-management/components/create-job-position/create-job-position.component';
 
 const routes: Routes = [
   {
@@ -129,11 +130,18 @@ const routes: Routes = [
         data: { permission: PERMISSIONS.UPDATE_COMPANY },
       },
       {
-        path: 'posiciones-empresa',
-        title: 'Posiciones de Empresa',
+        path: 'puestos-empresa',
+        title: 'Puestos de Empresa',
         component: JobPositionManagementComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.READ_JOB },
+      },
+      {
+        path: 'puestos-empresa/crear-puesto',
+        title: 'Crear Puesto de Trabajo',
+        component: CreateJobPositionComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.CREATE_JOB },
       },
     ],
   },

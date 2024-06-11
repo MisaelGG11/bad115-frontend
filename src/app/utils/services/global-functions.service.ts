@@ -150,8 +150,8 @@ export class GlobalFunctionsService {
     }
     if (this.permissions().includes(PERMISSIONS.READ_JOB)) {
       routes.push({
-        name: 'Posiciones de empresa',
-        path: '/dashboard/posiciones-empresa',
+        name: 'Puestos de empresa',
+        path: '/dashboard/puestos-empresa',
         icon: sidebar ? 'fa fa-building' : 'business_center',
         description: 'Gestiona las vacantes de tu empresa',
         color: 'text-indigo-500',
