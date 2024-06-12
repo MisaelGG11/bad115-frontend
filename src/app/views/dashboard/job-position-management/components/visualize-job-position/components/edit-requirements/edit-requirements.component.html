@@ -1,0 +1,65 @@
+<p-dialog
+  header="Editar requerimientos del puesto"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="flex flex-col lg:flex-row justify-between items-center">
+          <p class="text-lg font-bold mb-4">Requisitos del puesto</p>
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full w-64"
+            (click)="addRequirement($event)"
+          >
+            Agregar requerimiento
+          </button>
+        </div>
+        <div
+          formArrayName="requirements"
+          class="flex items-center flex-col justify-centeroverflow-y-auto"
+          style="max-height: calc(55vh + 2.5rem)"
+        >
+          <div
+            *ngFor="let requirement of requirements.controls; let i = index"
+            [formGroupName]="i"
+            class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4"
+          >
+            <div class="w-full">
+              <app-custom-input
+                [parentForm]="form"
+                [arrayField]="requirements"
+                [position]="i"
+                [label]="'Descripción del requisito ' + (i + 1)"
+                fieldName="description"
+                placeholder="Requsito del puesto de trabajo"
+                formControlName="description"
+                [required]="true"
+              />
+            </div>
+            <button
+              (click)="removeRequirement($event, i)"
+              class="p-button-rounded p-button-text ml-2"
+              pTooltip="Eliminar requesito"
+              tooltipPosition="bottom"
+            >
+              <span class="material-symbols-outlined text-red-500"> delete </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="editJobPositionRequirementsMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>

@@ -73,16 +73,17 @@
           <div class="flex my-2 md:my-0 justify-center gap-2">
             <button
               class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+              (click)="showEditRequirementsDialog()"
             >
               Editar
             </button>
 
             <!-- Modales -->
-            <!-- <app-edit-recommendation
-              [recommendation]="recomendation"
-              [candidateId]="candidateId"
-              [visible]="showEditRecommendationModal"
-            /> -->
+            <app-edit-requirements
+              [jobPositionRequirements]="job.requirements"
+              [jobPositionId]="job.id"
+              [visible]="showEditRequirementsModal"
+            />
           </div>
         </div>
         <ul class="list-disc pl-6">

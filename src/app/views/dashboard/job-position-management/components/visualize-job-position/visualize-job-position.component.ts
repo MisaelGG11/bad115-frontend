@@ -4,12 +4,21 @@ import { JobService } from '../../../../../services/job.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { DatePipe, CommonModule } from '@angular/common';
 import { SpinnerComponent } from '../../../../../components/spinner/spinner.component';
+import { EditRequirementsComponent } from './components/edit-requirements/edit-requirements.component';
 import { EditTechnicalSkillsComponent } from './components/edit-technical-skills/edit-technical-skills.component';
+import { EditLanguageSkillsComponent } from './components/edit-language-skills/edit-language-skills.component';
 
 @Component({
   selector: 'app-visualize-job-position',
   standalone: true,
-  imports: [CommonModule, DatePipe, SpinnerComponent, EditTechnicalSkillsComponent],
+  imports: [
+    CommonModule,
+    DatePipe,
+    SpinnerComponent,
+    EditRequirementsComponent,
+    EditTechnicalSkillsComponent,
+    EditLanguageSkillsComponent,
+  ],
   templateUrl: './visualize-job-position.component.html',
   styles: ``,
 })
@@ -18,6 +27,7 @@ export class VisualizeJobPositionComponent {
   private jobService = inject(JobService);
   @Input() jobPositionId = this.route.snapshot.params['jobPositionId'];
   showEditTechnicalSkillsModal = signal(false);
+  showEditRequirementsModal = signal(false);
   job!: any;
   jobAddress: string = '';
 
@@ -47,6 +57,10 @@ export class VisualizeJobPositionComponent {
 
   showEditTechnicalSkillsDialog() {
     this.showEditTechnicalSkillsModal.set(true);
+  }
+
+  showEditRequirementsDialog() {
+    this.showEditRequirementsModal.set(true);
   }
 
   getModality(modality: string) {

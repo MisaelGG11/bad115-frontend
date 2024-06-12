@@ -11,7 +11,7 @@ export interface TechnicalSkill {
   name: string;
 }
 
-interface LanguageSkill {
+export interface LanguageSkill {
   id: string;
   skill: string;
   level: string;
@@ -19,12 +19,12 @@ interface LanguageSkill {
   language: Language;
 }
 
-interface Language {
+export interface Language {
   id: string;
   language: string;
 }
 
-interface Requirement {
+export interface Requirement {
   id: string;
   description: string;
 }
