@@ -46,4 +46,10 @@ export class JobService {
 
     return response.data;
   }
+
+  async getJobPosition(jobPositionId: string): Promise<JobPosition> {
+    const response = await network.get<JobPosition>(`/job-positions/${jobPositionId}`);
+
+    return response.data;
+  }
 }

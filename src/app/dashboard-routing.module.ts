@@ -20,6 +20,7 @@ import { RecruiterManagementComponent } from './views/dashboard/recruiter-manage
 import { CandidateProfileComponent } from './views/dashboard/candidate-profile/candidate-profile.component';
 import { JobPositionManagementComponent } from './views/dashboard/job-position-management/job-position-management.component';
 import { CreateJobPositionComponent } from './views/dashboard/job-position-management/components/create-job-position/create-job-position.component';
+import { VisualizeJobPositionComponent } from './views/dashboard/job-position-management/components/visualize-job-position/visualize-job-position.component';
 
 const routes: Routes = [
   {
@@ -142,6 +143,13 @@ const routes: Routes = [
         component: CreateJobPositionComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.CREATE_JOB },
+      },
+      {
+        path: 'puestos-empresa/:jobPositionId',
+        title: 'Puesto de Trabajo',
+        component: VisualizeJobPositionComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.READ_JOB },
       },
     ],
   },

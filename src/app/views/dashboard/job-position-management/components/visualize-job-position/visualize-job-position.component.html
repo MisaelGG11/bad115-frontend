@@ -1,0 +1,154 @@
+@if (jobPositionRequest.isPending()) {
+  <div class="flex w-full justify-center items-center">
+    <app-spinner />
+  </div>
+} @else {
+  <div class="p-12">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-2">
+      <div class="flex items center gap-3">
+        <img
+          [src]="
+            job?.company?.logo
+              ? job.company.logo
+              : './../../../../../../assets/img/avatars/avatar-company.png'
+          "
+          alt="logo-empresa"
+          class="w-10 h-10 rounded-full"
+        />
+        <div>
+          <h3 class="font-bold text-lg">{{ job?.name }}</h3>
+          <p class="text-sm text-gray-500">{{ job?.company?.name }}</p>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row items-center gap-3 mb-3 md:mb-0">
+        <button
+          class="bg-emerald-600 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:etxt-base"
+        >
+          Aplicar a este empleo
+        </button>
+        <button
+          class="flex bg-indigo-500 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:etxt-base items-center"
+        >
+          <span class="material-symbols-outlined m-0 p-0 mr-2">visibility</span>
+          Visualizar aplicaciones
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col w-full justify-between">
+      <div>
+        <div class="flex flex-wrap mb-2 gap-2">
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+          >
+            {{ getModality(job.modality) }}
+          </span>
+          <span
+            class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
+          >
+            {{ getContractType(job.contractType) }}
+          </span>
+          <span
+            class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
+          >
+            {{ getWorkday(job.workday) }}
+          </span>
+        </div>
+        <div class="flex flex-col gap-2 border-red-500 pb-0">
+          <p>{{ job.description }}</p>
+          <p><strong>Rango Salarial:</strong> {{ job.salaryRange }}</p>
+          <p><strong>Experiencia:</strong> {{ getLevelExperience(job.experiencesLevel) }}</p>
+          <p><strong>Ubicación:</strong> {{ jobAddress }}</p>
+          <div>
+            <span
+              class="bg-slate-100 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300"
+              ><strong>Disponible hasta:</strong> {{ job.closeTime | date }}</span
+            >
+          </div>
+        </div>
+      </div>
+      <!-- Requerimientos -->
+      <div class="mt-8">
+        <div class="flex flex-col items-center lg:flex-row justify-between mb-4">
+          <h3 class="text-lg font-semibold">Requerimientos:</h3>
+          <div class="flex my-2 md:my-0 justify-center gap-2">
+            <button
+              class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+            >
+              Editar
+            </button>
+
+            <!-- Modales -->
+            <!-- <app-edit-recommendation
+              [recommendation]="recomendation"
+              [candidateId]="candidateId"
+              [visible]="showEditRecommendationModal"
+            /> -->
+          </div>
+        </div>
+        <ul class="list-disc pl-6">
+          @for (requirement of job.requirements; track requirement.id) {
+            <li>{{ requirement.description }}</li>
+          }
+        </ul>
+      </div>
+
+      <div class="mt-8">
+        <div class="flex flex-col items-center lg:flex-row justify-between mb-4">
+          <h3 class="text-lg font-semibold">Habilidades de técnicas requeridas:</h3>
+          <div class="flex my-2 md:my-0 justify-center gap-2">
+            <button
+              class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+            >
+              Editar
+            </button>
+
+            <!-- Modales -->
+            <!-- <app-edit-recommendation
+              [recommendation]="recomendation"
+              [candidateId]="candidateId"
+              [visible]="showEditRecommendationModal"
+            /> -->
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
+          @for (skill of job.technicalSkills; track skill.id) {
+            <div
+              class="flex items-center justify-center w-full border-2 border-indigo-950 text-indigo-950 bg-indigo-100/50 text-center rounded-full font-semibold"
+            >
+              {{ skill.technicalSkill.name }}
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="flex flex-col items-center lg:flex-row justify-between mb-4">
+          <h3 class="text-lg font-semibold">Habilidades técnicas requeridas:</h3>
+          <div class="flex my-2 md:my-0 justify-center gap-2">
+            <button
+              class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+            >
+              Editar
+            </button>
+
+            <!-- Modales -->
+            <!-- <app-edit-recommendation
+              [recommendation]="recomendation"
+              [candidateId]="candidateId"
+              [visible]="showEditRecommendationModal"
+            /> -->
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
+          @for (lang of job.languageSkills; track lang.id) {
+            <div
+              class="flex items-center justify-center w-full border-2 border-emerald-950 text-emerald-950 bg-emerald-100/50 text-center rounded-full font-semibold"
+            >
+              {{ lang.skill }} - {{ lang.level }} ({{ lang.language.language }})
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -8,10 +8,14 @@
       icon="pi pi-plus"
       class="p-button-rounded mx-auto mz- md:mx-0 my-1"
       styleClass="h-10 text-sm md:text-base md:h-auto"
-      (onClick)="showAddDialog()"
+      (onClick)="showAddPage()"
     />
   </div>
   <div>
-    <app-job-position-list />
+    <app-job-position-list
+      (showDeleteDialog)="showDeleteDialog($event)"
+      (showEditDialog)="showEditDialog($event)"
+      (showVisualizePage)="showVisualizePage($event)"
+    />
   </div>
 </div>

@@ -17,8 +17,12 @@ export class JobPositionManagementComponent {
   showEditModal = signal(false);
   selectedTest = signal('');
 
-  showAddDialog() {
+  showAddPage() {
     this.router.navigate(['/dashboard/puestos-empresa/crear-puesto']);
+  }
+
+  showVisualizePage(jobPositionId: string) {
+    this.router.navigate(['/dashboard/puestos-empresa/', jobPositionId]);
   }
 
   showEditDialog(certificationId: string) {

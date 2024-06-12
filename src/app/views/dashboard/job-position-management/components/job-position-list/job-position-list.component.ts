@@ -27,6 +27,7 @@ export class JobPositionListComponent {
   private company: Company = getCompanyLocalStorage();
   @Output() showDeleteDialog = new EventEmitter<string>();
   @Output() showEditDialog = new EventEmitter<string>();
+  @Output() showVisualizePage = new EventEmitter<string>();
 
   constructor() {}
 
@@ -55,12 +56,16 @@ export class JobPositionListComponent {
         : 'No hay más registros',
   );
 
-  onClickShowEditDialog(testId: string) {
-    this.showEditDialog.emit(testId);
+  onClickShowEditDialog(jobPositionId: string) {
+    this.showEditDialog.emit(jobPositionId);
   }
 
-  onClickShowDeleteDialog(testId: string) {
-    this.showDeleteDialog.emit(testId);
+  onClickShowDeleteDialog(jobPositionId: string) {
+    this.showDeleteDialog.emit(jobPositionId);
+  }
+
+  onClickShowVisualizePage(jobPositionId: string) {
+    this.showVisualizePage.emit(jobPositionId);
   }
 
   getModality(modality: string) {
