@@ -27,6 +27,7 @@ export class VisualizeJobPositionComponent {
   private jobService = inject(JobService);
   @Input() jobPositionId = this.route.snapshot.params['jobPositionId'];
   showEditTechnicalSkillsModal = signal(false);
+  showEditLanguageSkillsModal = signal(false);
   showEditRequirementsModal = signal(false);
   job!: any;
   jobAddress: string = '';
@@ -61,6 +62,10 @@ export class VisualizeJobPositionComponent {
 
   showEditRequirementsDialog() {
     this.showEditRequirementsModal.set(true);
+  }
+
+  showEditLanguageSkillsDialog() {
+    this.showEditLanguageSkillsModal.set(true);
   }
 
   getModality(modality: string) {

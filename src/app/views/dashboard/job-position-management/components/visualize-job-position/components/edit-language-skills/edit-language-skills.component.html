@@ -1,0 +1,98 @@
+<p-dialog
+  header="Editar habilidades técnicas del puesto"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '80vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="flex flex-col lg:flex-row justify-between items-center">
+          <p class="text-lg font-bold mb-4">Habilidades de lenguaje requeridas</p>
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full w-64"
+            (click)="addlanguageSkill($event)"
+          >
+            Agregar habilidad de lenguaje
+          </button>
+        </div>
+        <div
+          formArrayName="languageSkills"
+          class="flex items-center flex-col overflow-y-auto"
+          style="max-height: calc(55vh + 2.5rem)"
+        >
+          <div
+            *ngFor="let skill of languageSkills.controls; let i = index"
+            [formGroupName]="i"
+            class="flex flex-wrap w-full gap-4 mt-4 justify-center"
+          >
+            <div class="w-full lg:w-[29%]">
+              <app-select
+                [label]="'Idioma ' + (i + 1)"
+                [arrayField]="languageSkills"
+                [position]="i"
+                [selectOptions]="languageOptions"
+                [filter]="true"
+                filterBy="label"
+                [required]="true"
+                [parentForm]="form"
+                fieldName="languageId"
+                formControlName="languageId"
+                class="p-0 border-0"
+              ></app-select>
+            </div>
+            <div class="w-full lg:w-[29%]">
+              <app-select
+                [label]="'Habilidad de idioma ' + (i + 1)"
+                [arrayField]="languageSkills"
+                [filter]="true"
+                filterBy="label"
+                [position]="i"
+                [selectOptions]="skillsOptions"
+                [required]="true"
+                [parentForm]="form"
+                fieldName="skill"
+                formControlName="skill"
+                class="p-0 border-0"
+              ></app-select>
+            </div>
+            <div class="w-full lg:w-[29%]">
+              <app-select
+                [label]="'Nivel de idioma ' + (i + 1)"
+                [arrayField]="languageSkills"
+                [position]="i"
+                [selectOptions]="languageLevelOptions"
+                [filter]="true"
+                filterBy="label"
+                [required]="true"
+                [parentForm]="form"
+                fieldName="level"
+                formControlName="level"
+                class="p-0 border-0"
+              ></app-select>
+            </div>
+            <button
+              (click)="removelanguageSkill($event, i)"
+              class="p-button-rounded p-button-text ml-2"
+              pTooltip="Eliminar habilidad de lenguaje"
+              tooltipPosition="bottom"
+            >
+              <span class="material-symbols-outlined text-red-500"> delete </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="editJobPositionLanguageSkillsMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>
