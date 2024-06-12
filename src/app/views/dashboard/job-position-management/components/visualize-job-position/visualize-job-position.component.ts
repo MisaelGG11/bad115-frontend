@@ -1,14 +1,15 @@
-import { Component, inject, Input, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../../../../../services/job.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { DatePipe, CommonModule } from '@angular/common';
 import { SpinnerComponent } from '../../../../../components/spinner/spinner.component';
+import { EditTechnicalSkillsComponent } from './components/edit-technical-skills/edit-technical-skills.component';
 
 @Component({
   selector: 'app-visualize-job-position',
   standalone: true,
-  imports: [CommonModule, DatePipe, SpinnerComponent],
+  imports: [CommonModule, DatePipe, SpinnerComponent, EditTechnicalSkillsComponent],
   templateUrl: './visualize-job-position.component.html',
   styles: ``,
 })
@@ -16,6 +17,7 @@ export class VisualizeJobPositionComponent {
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);
   @Input() jobPositionId = this.route.snapshot.params['jobPositionId'];
+  showEditTechnicalSkillsModal = signal(false);
   job!: any;
   jobAddress: string = '';
 
@@ -42,6 +44,10 @@ export class VisualizeJobPositionComponent {
     },
     enabled: !!this.jobPositionId,
   }));
+
+  showEditTechnicalSkillsDialog() {
+    this.showEditTechnicalSkillsModal.set(true);
+  }
 
   getModality(modality: string) {
     //ON_SITE, REMOTE, HYBRID

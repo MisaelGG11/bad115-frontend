@@ -4,7 +4,7 @@ import axios from 'axios';
 import { axiosConfiguration } from '../config/network.service';
 import { JobPosition } from '../interfaces/job.interface';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
-import { CreateJobPositionDto } from './interfaces/job.dto';
+import { CreateJobPositionDto, TechnicalSkillDto } from './interfaces/job.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -51,5 +51,25 @@ export class JobService {
     const response = await network.get<JobPosition>(`/job-positions/${jobPositionId}`);
 
     return response.data;
+  }
+
+  async updateJobPosition(
+    jobPositionId: string,
+    jobPosition: CreateJobPositionDto,
+  ): Promise<JobPosition> {
+    const response = await network.put<JobPosition>(`/job-positions/${jobPositionId}`, jobPosition);
+
+    return response.data;
+  }
+
+  async deleteJobPosition(jobPositionId: string): Promise<void> {
+    await network.delete(`/job-positions/${jobPositionId}`);
+  }
+
+  async updateTechnicalSkills(
+    jobPositionId: string,
+    technicalSkills: TechnicalSkillDto,
+  ): Promise<void> {
+    await network.put(`/job-positions/${jobPositionId}/technical-skills`, technicalSkills);
   }
 }

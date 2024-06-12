@@ -1,0 +1,68 @@
+<p-dialog
+  header="Editar habilidades técnicas del puesto"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="flex flex-col lg:flex-row justify-between items-center">
+          <p class="text-lg font-bold mb-4">Habilidades técnicas asignadas</p>
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full w-64"
+            (click)="addTechnicalSkill($event)"
+          >
+            Agregar habilidad técnica
+          </button>
+        </div>
+        <div
+          formArrayName="technicalSkills"
+          class="flex items-center flex-col overflow-y-auto"
+          style="max-height: calc(55vh + 2.5rem)"
+        >
+          <div
+            *ngFor="let skill of technicalSkills.controls; let i = index"
+            [formGroupName]="i"
+            class="flex flex-wrap lg:flex-nowrap w-full gap-4 mt-4 justify-center"
+          >
+            <div class="w-full">
+              <app-select
+                [label]="'Habilidad técnica ' + (i + 1)"
+                [arrayField]="technicalSkills"
+                [position]="i"
+                [selectOptions]="technicalSkillsOptions"
+                [required]="true"
+                [parentForm]="form"
+                [filter]="true"
+                filterBy="label"
+                fieldName="technicalSkillId"
+                formControlName="technicalSkillId"
+                [loading]="technicalSkillsRequest.isLoading()"
+              ></app-select>
+            </div>
+            <button
+              (click)="removeTechnicalSkill($event, i)"
+              class="p-button-rounded p-button-text ml-2"
+              pTooltip="Eliminar habilidad técnica"
+              tooltipPosition="bottom"
+            >
+              <span class="material-symbols-outlined text-red-500"> delete </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="editJobPositionTechnicalSkillsMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>
