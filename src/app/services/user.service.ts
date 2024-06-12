@@ -22,6 +22,16 @@ export class UserService {
     return users.data;
   }
 
+  async findOneUser(id: string): Promise<User> {
+    const user = await network.get<User>(`/users/${id}`);
+
+    return user.data;
+  }
+
+  async updateUser(id: string, user: User) {
+    return null;
+  }
+
   async findPermissionsPaginated(
     { page, perPage }: PaginationParams,
     search: string,

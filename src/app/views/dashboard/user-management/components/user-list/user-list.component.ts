@@ -11,6 +11,7 @@ import {
   PaginationTableOutput,
 } from '../../../../../interfaces/pagination.interface';
 import { Store } from '@ngrx/store';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 export interface DataTableUser {
   id: string;
@@ -22,16 +23,15 @@ export interface DataTableUser {
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass],
+  imports: [DataTableComponent, TooltipModule, NgClass, EditUserComponent],
   templateUrl: './user-list.component.html',
   styles: [],
 })
 export class UserListComponent implements OnInit {
   private userService = inject(UserService);
   private store = inject(Store);
-  showVisualizeModal = signal(false);
   showEditModal = signal(false);
-  showDeleteModal = signal(false);
+  showBlockModal = signal(false);
   readonly = signal(false);
   selectedUser = signal<User | null>(null);
   sessionValue: Session | undefined;
@@ -100,6 +100,7 @@ export class UserListComponent implements OnInit {
       return response;
     },
   }));
+  User: any;
 
   async ngOnInit() {
     await this.usersRequest.refetch();
@@ -113,27 +114,28 @@ export class UserListComponent implements OnInit {
         icon: 'visibility',
         iconColor: 'text-blue-500',
         permission: this.permissionUser.includes(PERMISSIONS.READ_USER),
-        // onClick: (value: Permission) => {
-        //   this.onClickVisualize(value);
-        // },
+        onClick: (value: User) => {
+          console.log(value);
+          this.onClickVisualize(value);
+        },
       },
       {
         label: 'Editar',
         icon: 'edit',
         iconColor: 'text-orange',
         permission: this.permissionUser.includes(PERMISSIONS.UPDATE_USER),
-        // onClick: (value: Permission) => {
-        //   this.onClickEdit(value);
-        // },
+        onClick: (value: User) => {
+          this.onClickEdit(value);
+        },
       },
       {
-        label: 'Eliminar',
-        icon: 'delete',
+        label: 'Bloquear',
+        icon: 'block',
         iconColor: 'text-red-600',
         permission: this.permissionUser.includes(PERMISSIONS.DELETE_USER),
-        // onClick: (value: Permission) => {
-        //   this.onClickDelete(value);
-        // },
+        onClick: (value: User) => {
+          this.onClickBlock(value);
+        },
       },
     ];
   }
@@ -155,22 +157,22 @@ export class UserListComponent implements OnInit {
     await this.usersRequest.refetch();
   }
 
-  // onClickVisualize(value: Permission) {
-  //   this.selectedPermission.set(value);
-  //   this.readonly.set(true);
-  //   this.showEditModal.set(true);
-  // }
+  onClickVisualize(value: User) {
+    this.selectedUser.set(value);
+    this.readonly.set(true);
+    this.showEditModal.set(true);
+  }
 
-  // onClickEdit(value: Permission) {
-  //   this.selectedPermission.set(value);
-  //   this.readonly.set(false);
-  //   this.showEditModal.set(true);
-  // }
+  onClickEdit(value: User) {
+    this.selectedUser.set(value);
+    this.readonly.set(false);
+    this.showEditModal.set(true);
+  }
 
-  // onClickDelete(value: Permission) {
-  //   this.selectedPermission.set(value);
-  //   this.showDeleteModal.set(true);
-  // }
+  onClickBlock(value: User) {
+    this.selectedUser.set(value);
+    this.showBlockModal.set(true);
+  }
 
   constructor() {}
 }

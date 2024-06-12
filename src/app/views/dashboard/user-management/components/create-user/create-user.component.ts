@@ -14,6 +14,7 @@ import { CustomInputComponent } from '../../../../../components/inputs/custom-in
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectComponent } from '../../../../../components/inputs/select/select.component';
+import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
 
 @Component({
   selector: 'app-create-user',
@@ -26,6 +27,7 @@ import { SelectComponent } from '../../../../../components/inputs/select/select.
     CalendarModule,
     DropdownModule,
     SelectComponent,
+    CalendarComponent,
   ],
   templateUrl: './create-user.component.html',
 })
