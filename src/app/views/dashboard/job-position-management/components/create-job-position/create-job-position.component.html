@@ -197,11 +197,11 @@
             Agregar requerimiento
           </button>
         </div>
-        <div formArrayName="requirements" class="flex items-center flex-col justify-center">
+        <div formArrayName="requirements" class="flex items-center flex-col">
           <div
             *ngFor="let requirement of requirements.controls; let i = index"
             [formGroupName]="i"
-            class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4"
+            class="flex flex-wrap lg:flex-nowrap w-full gap-4 mt-4 justify-center"
           >
             <div class="w-full">
               <app-custom-input
