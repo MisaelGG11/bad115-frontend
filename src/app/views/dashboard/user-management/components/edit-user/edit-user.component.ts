@@ -82,7 +82,7 @@ export class EditUserComponent implements OnChanges {
 
       return response;
     },
-    enabled: !!this.user.id,
+    enabled: !!this.user,
   }));
 
   editUserMutation = injectMutation(() => ({

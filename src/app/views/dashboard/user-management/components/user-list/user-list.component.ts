@@ -12,6 +12,7 @@ import {
 } from '../../../../../interfaces/pagination.interface';
 import { Store } from '@ngrx/store';
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { BlockUserComponent } from '../block-user/block-user.component';
 
 export interface DataTableUser {
   id: string;
@@ -23,7 +24,7 @@ export interface DataTableUser {
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [DataTableComponent, TooltipModule, NgClass, EditUserComponent],
+  imports: [DataTableComponent, TooltipModule, NgClass, EditUserComponent, BlockUserComponent],
   templateUrl: './user-list.component.html',
   styles: [],
 })

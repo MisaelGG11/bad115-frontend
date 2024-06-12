@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
 import network from '../config/network.service';
 import { Permission, Role, User } from '../interfaces/user.interface';
-import { PermissionDto, RoleDto } from './interfaces/user.dto';
+import { PermissionDto } from './interfaces/user.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,10 @@ export class UserService {
     return user.data;
   }
 
-  async updateUser(id: string, user: User) {
-    return null;
+  async blockUser(id: string): Promise<void> {
+    await network.put(`/users/${id}`, {
+      isActive: false,
+    });
   }
 
   async findPermissionsPaginated(
