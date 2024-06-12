@@ -69,5 +69,3 @@ export class AcademicKnowledgesListComponent {
     this.showDeleteDialog.emit(academicKnowledgeId);
   }
 }
-
-

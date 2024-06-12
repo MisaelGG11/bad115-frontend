@@ -40,4 +40,3 @@ export class AcademicKnowledgeComponent {
     this.showDeleteModal.set(true);
   }
 }
-

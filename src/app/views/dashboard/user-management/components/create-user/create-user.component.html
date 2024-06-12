@@ -1,0 +1,115 @@
+<p-dialog
+  header="Añadir experiencia laboral"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="w-full">
+    <form [formGroup]="form" (submit)="submit()">
+      <div class="grid lg:grid-cols-2 gap-4">
+        <app-custom-input
+          [parentForm]="form"
+          label="Primer nombre"
+          fieldName="firstName"
+          placeholder="Primer nombre"
+          formControlName="firstName"
+          [type]="'text'"
+          [required]="true"
+        />
+
+        <app-custom-input
+          [parentForm]="form"
+          label="Segundo nombre"
+          fieldName="middleName"
+          placeholder="Segundo nombre"
+          formControlName="middleName"
+          [type]="'text'"
+        />
+
+        <app-custom-input
+          [parentForm]="form"
+          label="Primer apellido"
+          fieldName="lastName"
+          placeholder="Primer apellido"
+          formControlName="lastName"
+          [type]="'text'"
+          [required]="true"
+        />
+
+        <app-custom-input
+          [parentForm]="form"
+          label="Segundo apellido"
+          fieldName="secondLastName"
+          placeholder="Segundo apellido"
+          formControlName="secondLastName"
+          [type]="'text'"
+        />
+
+        <app-custom-input
+          [parentForm]="form"
+          label="Correo electrónico"
+          placeholder="example@gmail.com"
+          fieldName="email"
+          formControlName="email"
+          [type]="'email'"
+          [required]="true"
+        />
+
+        <app-custom-input
+          [parentForm]="form"
+          label="Contraseña"
+          placeholder="•••••••••"
+          fieldName="password"
+          formControlName="password"
+          [type]="'password'"
+          [required]="true"
+        />
+
+        <div>
+          <label
+            for="birthday"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+            >Fecha Nacimiento *</label
+          >
+          <p-calendar
+            id="birthday"
+            [formControlName]="'birthday'"
+            [inputStyleClass]="
+              'w-full block border-white text-gray-900 placeholder-slate-300 px-3 py-3 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            "
+            [placeholder]="'Fecha de nacimiento'"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            inputId="icondisplay"
+            [required]="true"
+            dateFormat="dd/mm/yy"
+            [maxDate]="maxDate"
+            [style]="{ width: '100%' }"
+          />
+        </div>
+
+        <div class="w-full">
+          <app-select
+            [parentForm]="form"
+            label="Genero"
+            fieldName="gender"
+            formControlName="gender"
+            [required]="true"
+            [selectOptions]="genderOptions"
+          />
+        </div>
+      </div>
+      <div class="flex justify-end mt-4">
+        <p-button
+          label="Guardar"
+          type="submit"
+          [loading]="createUserMutation.isPending()"
+          [disabled]="createUserMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>

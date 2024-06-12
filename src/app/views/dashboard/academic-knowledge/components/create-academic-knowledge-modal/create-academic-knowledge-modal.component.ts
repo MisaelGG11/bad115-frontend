@@ -70,7 +70,7 @@ export class CreateAcademicKnowledgeModalComponent {
       },
       {
         validators: [validateInitAndFinishDate],
-      }
+      },
     );
 
     this.form.valueChanges.subscribe((values) => {

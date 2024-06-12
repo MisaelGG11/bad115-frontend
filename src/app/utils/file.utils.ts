@@ -8,4 +8,4 @@ export const saveFile = (data: string, filename: string) => {
   a.click();
   document.body.removeChild(a);
   window.URL.revokeObjectURL(url);
-}
+};
