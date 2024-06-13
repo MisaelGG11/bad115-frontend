@@ -1,0 +1,60 @@
+<p-dialog
+  header="Añadir Habilidad Lingüística"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full">
+          <app-select
+            label="Idioma"
+            [selectOptions]="LanguageSkillsTypesOptions"
+            [required]="true"
+            [filter]="true"
+            [loading]="LanguageSkillsTypesRequest.isPending()"
+            [parentForm]="form"
+            fieldName="languageId"
+            formControlName="languageId"
+          ></app-select>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-select
+            label="Dominio"
+            [selectOptions]="languageSkillOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="skill"
+            formControlName="skill"
+          ></app-select>
+        </div>
+
+        <div class="w-full lg:basis-1/2 mt-2">
+          <app-select
+            label="Nivel"
+            [selectOptions]="languageLevelOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="level"
+            formControlName="level"
+          ></app-select>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="createLanguageSkillMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>

@@ -22,6 +22,7 @@ import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarComponent } from '../../../../../components/inputs/calendar/calendar.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { SelectComponent } from '../../../../../components/inputs/select/select.component';
 
 @Component({
   selector: 'app-create-academic-knowledge-modal',
@@ -39,6 +40,7 @@ import { DropdownModule } from 'primeng/dropdown';
     StyleClassModule,
     CalendarComponent,
     DropdownModule,
+    SelectComponent,
   ],
   templateUrl: './create-academic-knowledge-modal.component.html',
   styles: [],

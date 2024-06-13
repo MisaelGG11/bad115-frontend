@@ -8,6 +8,7 @@ import { RecognitionTypeComponent } from './components/recognition-type/recognit
 import { CatalogTechnicalSkillComponent } from './components/catalog-technical-skill/catalog-technical-skill.component';
 import { TechnicalSkillComponent } from './components/technical-skill/technical-skill.component';
 import { LanguagesComponent } from './components/languages/languages.component';
+import { CategoryTecnicalHabilitieComponent } from './components/category-tecnical-habilitie/category-tecnical-habilitie.component';
 
 @Component({
   selector: 'app-catalog-management',
@@ -22,6 +23,7 @@ import { LanguagesComponent } from './components/languages/languages.component';
     CatalogTechnicalSkillComponent,
     TechnicalSkillComponent,
     LanguagesComponent,
+    CategoryTecnicalHabilitieComponent,
   ],
   templateUrl: './catalog-management.component.html',
   styles: [],

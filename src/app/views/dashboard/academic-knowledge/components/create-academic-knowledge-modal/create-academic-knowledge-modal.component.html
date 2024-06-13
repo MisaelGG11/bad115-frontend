@@ -23,17 +23,15 @@
         </div>
 
         <div class="w-full lg:w-1/2">
-          <label
-            for="birthDay"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
-            >Tipo *</label
-          >
-          <p-dropdown
-            formControlName="type"
-            [options]="typeOptions"
-            [style]="{ width: '100%' }"
-            [placeholder]="'Seleccione una opción'"
-          />
+          <app-select
+          label="Tipo"
+          [selectOptions]="typeOptions"
+          [required]="true"
+          [parentForm]="form"
+          fieldName="type"
+          formControlName="type"
+          [filter]="true"
+        ></app-select>
         </div>
       </div>
 

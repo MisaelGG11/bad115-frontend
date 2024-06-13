@@ -21,6 +21,7 @@ import { CandidateProfileComponent } from './views/dashboard/candidate-profile/c
 import { JobPositionManagementComponent } from './views/dashboard/job-position-management/job-position-management.component';
 import { CreateJobPositionComponent } from './views/dashboard/job-position-management/components/create-job-position/create-job-position.component';
 import { VisualizeJobPositionComponent } from './views/dashboard/job-position-management/components/visualize-job-position/visualize-job-position.component';
+import { SkillsAchievementsComponent } from './views/dashboard/skills-achievements/skills-achievements.component';
 
 const routes: Routes = [
   {
@@ -70,7 +71,7 @@ const routes: Routes = [
       {
         path: 'habilidades',
         title: 'Habilidades',
-        component: AccessForbiddenComponent,
+        component: SkillsAchievementsComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.READ_CANDIDATE },
       },

@@ -1,0 +1,28 @@
+<div class="w-full flex flex-col">
+    <div class="flex flex-col md:flex-row w-full justify-between gap-2">
+      <div class="mt-1 font-bold text-2xl">
+        <h1>Habilidades Técnicas</h1>
+      </div>
+      <p-button
+        label="Agregar"
+        icon="pi pi-plus"
+        class="p-button-rounded mx-auto mz- md:mx-0 my-1"
+        styleClass="h-10 text-sm md:text-base md:h-auto"
+        (onClick)="showAddDialog()"
+      />
+    </div>
+    <div>
+      <app-technical-skill-list
+        (showDeleteDialog)="showDeleteDialog($event)"
+      
+      />
+    </div>
+  
+    <app-create-technical-skill-modal [visible]="showAddModal" />
+  
+    <app-delete-technical-skill-modal [visible]="showDeleteModal" [technicalSkillId]="selectedTechnicalSkill" />
+    
+   <!--  <app-edit-technical-skill-modal [visible]="showEditModal" [technicalSkillId]="selectedTechnicalSkill()" /> -->
+
+  </div>
+  

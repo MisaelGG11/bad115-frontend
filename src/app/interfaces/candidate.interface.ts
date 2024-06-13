@@ -109,3 +109,40 @@ export interface CandidateDetails extends Candidate {
   tests: Test[];
   recomendations: Recommendation[];
 }
+
+//LanguageSkill
+export interface LanguageSkill {
+  id: string;
+  candidateId: string;
+  skill: string;
+  level: string;
+  language:LanguageSkillType;
+}
+
+export interface LanguageSkillType {
+  id: string;
+  language: string;
+}
+
+//TechnicalSkills
+export interface TechnicalSkills {
+  id: string;
+  candidateId: string;
+  technicalSkill: TechnicalSkillType;
+}
+
+export interface TechnicalSkillType {
+  id: string;
+  name: string;
+ categoryTecnicalSkillId:TechnicalCategoryTypes;
+}
+
+export interface TechnicalType {
+  id: string;
+  name: string;
+}
+export interface TechnicalCategoryTypes {
+  id: string;
+  name: string;
+}
+

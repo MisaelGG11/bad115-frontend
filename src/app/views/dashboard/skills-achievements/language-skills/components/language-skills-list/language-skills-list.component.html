@@ -1,0 +1,66 @@
+  <div class="flex flex-wrap gap-2 w-full mt-2">
+    @if (LanguageSkillsRequest.isPending()) {
+      <div class="flex w-full justify-center items-center">
+        <app-spinner />
+      </div>
+    } @else {
+      <div class="flex flex-wrap gap-2 w-full">
+        @for (page of LanguageSkillsRequest.data()?.pages; track $index) {
+          @for (LanguageSkill of page.data; track LanguageSkill.id) {
+            <div class="w-full">
+              <p-card>
+                <ng-template pTemplate="header">
+                  <div class="flex w-full justify-between px-10 pt-5">
+                    <div class="flex flex-col flex-wrap mt-5">
+                      <div>
+                        <h3 class="font-bold text-2xl">{{ LanguageSkill.language.language }}</h3>
+                      </div>
+                      <div class="mt-1">
+                        <p>
+                          {{ LanguageSkill.skill }} {{ LanguageSkill.level }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="flex justify-between mt-5 gap-3">
+                      <div>
+                        <button
+                          (click)="onClickShowEditDialog(LanguageSkill.id)"
+                          class="p-button-rounded p-button-text"
+                          pTooltip="Editar Habilidad"
+                          tooltipPosition="bottom"
+                        >
+                          <span class="material-symbols-outlined text-orange"> edit </span>
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          (click)="onClickShowDeleteDialog(LanguageSkill.id)"
+                          class="p-button-rounded p-button-text"
+                          pTooltip="Eliminar Habilidad"
+                          tooltipPosition="bottom"
+                          style="color: red;"
+                        >
+                          <span class="material-symbols-outlined red-icon"> delete </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-card>
+            </div>
+          }
+        }
+      </div>
+      <div class="mt-2 w-44">
+        <p-button
+        icon="pi pi-angle-down"
+        (onClick)="LanguageSkillsRequest.fetchNextPage()"
+        [disabled]="nextButtonDisabled()"
+        [loading]="LanguageSkillsRequest.isFetchingNextPage()"
+        [text]="true"
+        [style]="{ width: '100%' }"
+        [label]="nextButtonText()"
+      />
+      </div>
+    }
+  </div>

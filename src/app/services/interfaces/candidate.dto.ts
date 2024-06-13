@@ -77,3 +77,18 @@ export interface CreateRecommendationDto {
 }
 
 export interface UpdateRecommendationDto extends Partial<CreateRecommendationDto> {}
+
+export interface CreateLanguageSkillDto {
+  skill: string;
+  level: string;
+  languageTypeId: string;
+}
+
+export interface UpdateLanguageSkillDto extends Partial<CreateLanguageSkillDto> {}
+
+export interface CreateTechnicalSkillDto {
+  technicalSkill: string;
+  technicalSkillTypeId: string;
+}
+
+export interface UpdateTechnicalSkillsDto extends Partial<CreateTechnicalSkillDto> {}
