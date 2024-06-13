@@ -40,6 +40,10 @@ export class PersonService {
     return network.post(`/persons/${personId}/addresses`, createAddressDto);
   }
 
+  async updateAddress(personId: string, createAddressDto: CreateAddressDto) {
+    return network.put(`/persons/${personId}/addresses`, createAddressDto);
+  }
+
   async upsertDocument(personId: string, upsertDocumentDto: UpsertDocumentDto) {
     return network.put(`/persons/${personId}/documents`, upsertDocumentDto);
   }

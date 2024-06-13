@@ -73,22 +73,23 @@ export class AddressFormComponent implements OnInit {
 
   async ngOnInit() {
     const { data: personInfo } = await this.personService.getPerson(this.person.id);
-    this.selectedDepartment.set(personInfo?.address?.department.id ?? '');
+    this.selectedDepartment.set(personInfo?.address?.department?.id ?? '');
     this.selectedNameCountry = signal(personInfo?.address?.country.name ?? '');
 
-    if (personInfo?.address?.department.id) {
+    if (personInfo?.address?.department?.id) {
       const { data: municipalities } = await this.addressService.getMunicipalitiesByDepartment(
         personInfo?.address?.department.id,
       );
       this.addMunicipalitiesOptions(municipalities);
     }
 
+    console.log(personInfo?.address);
     this.form.patchValue({
       ...personInfo?.address,
       countryId: personInfo?.address?.country.id,
       countryName: personInfo?.address?.country.name,
-      departmentId: personInfo?.address?.department.id,
-      municipalityId: personInfo?.address?.municipality.id,
+      departmentId: personInfo?.address?.department?.id,
+      municipalityId: personInfo?.address?.municipality?.id,
     });
   }
 
@@ -98,6 +99,7 @@ export class AddressFormComponent implements OnInit {
       const { data } = await this.personService.getPerson(this.person.id);
       return data;
     },
+    enabled: !!this.person,
   }));
   countriesRequest = injectQuery(() => ({
     queryKey: ['countries'],
@@ -119,13 +121,19 @@ export class AddressFormComponent implements OnInit {
   addAddressMutation = injectMutation(() => ({
     mutationFn: async (input: CreateAddressDto) =>
       await this.personService.addAddress(this.person.id, input),
+    onSuccess: async () => {
+      toast.success('Dirección creada correctamente', { duration: 3000 });
+    },
   }));
 
   updateAddressMutation = injectMutation(() => ({
     mutationFn: async (input: CreateAddressDto) =>
-      await this.personService.addAddress(this.person.id, input),
+      await this.personService.updateAddress(this.person.id, input),
     onError: () => {
       toast.error('Error al actualizar la dirección');
+    },
+    onSuccess: () => {
+      toast.success('Dirección actualizada correctamente', { duration: 3000 });
     },
   }));
 
@@ -173,6 +181,8 @@ export class AddressFormComponent implements OnInit {
   }
 
   async submit() {
+    this.form.markAllAsTouched();
+
     if (!this.form.valid) {
       return;
     }
