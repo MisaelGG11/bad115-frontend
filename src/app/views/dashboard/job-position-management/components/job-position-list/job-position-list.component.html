@@ -4,6 +4,97 @@
       <app-spinner />
     </div>
   } @else {
+    @if (candidatesView) {
+      <div class="mt-1 font-bold text-base md:text-lg text-indigo-500">
+        <h1>Filtros de empleos:</h1>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+        <div class="w-full">
+          <input
+            id="search"
+            [(ngModel)]="filters.name"
+            type="text"
+            placeholder="Búsqueda por nombre"
+            class="block border-white text-gray-900 placeholder-slate-600 px-3 py-2.5 text-base rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            (input)="onFilterName($event)"
+          />
+        </div>
+        <div class="w-full">
+          <p-dropdown
+            [(ngModel)]="filters.modality"
+            optionLabel="label"
+            optionValue="value"
+            appendTo="body"
+            placeholder="Búsqueda por modalidad"
+            [options]="modalityOptions"
+            styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            (onChange)="onFilterModality($event)"
+          />
+        </div>
+        <div class="w-full">
+          <p-dropdown
+            [(ngModel)]="filters.experiencesLevel"
+            optionLabel="label"
+            optionValue="value"
+            appendTo="body"
+            placeholder="Búsqueda por experiencia"
+            [options]="experienceOptions"
+            styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            (onChange)="onFilterExperience($event)"
+          />
+        </div>
+        <div class="w-full">
+          <p-dropdown
+            [(ngModel)]="filters.workday"
+            optionLabel="label"
+            optionValue="value"
+            appendTo="body"
+            placeholder="Búsqueda por jornada"
+            [options]="workDayOptions"
+            styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            (onChange)="onFilterWorkday($event)"
+          />
+        </div>
+        <div class="w-full">
+          <p-dropdown
+            [(ngModel)]="filters.contractType"
+            optionLabel="label"
+            optionValue="value"
+            appendTo="body"
+            placeholder="Búsqueda por contrato"
+            [options]="contractOptions"
+            styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            (onChange)="onFilterContract($event)"
+          />
+        </div>
+        <div class="w-full">
+          <p-dropdown
+            [(ngModel)]="filters.countryId"
+            optionLabel="label"
+            optionValue="value"
+            appendTo="body"
+            filter="true"
+            filterBy="label"
+            placeholder="Búsqueda por país"
+            [options]="countriesOptions"
+            styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            (onChange)="onFilterCountry($event)"
+          />
+        </div>
+        <div class="w-full">
+          <p-dropdown
+            [(ngModel)]="filters.companyId"
+            optionLabel="label"
+            optionValue="value"
+            appendTo="body"
+            placeholder="Búsqueda por empresa"
+            [options]="modalityOptions"
+            styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            (onChange)="onFilterCompany($event)"
+          />
+        </div>
+      </div>
+    }
     <div class="flex flex-wrap gap-2 w-full">
       @for (page of jobPositionsRequest.data()?.pages; track $index) {
         @for (job of page.data; track job.id) {
@@ -73,26 +164,28 @@
                         <span class="material-symbols-outlined text-blue-500"> visibility </span>
                       </button>
                     </div>
-                    <div>
-                      <button
-                        (click)="onClickShowEditDialog(job.id)"
-                        class="p-button-rounded p-button-text"
-                        pTooltip="Editar puesto de trabajo"
-                        tooltipPosition="bottom"
-                      >
-                        <span class="material-symbols-outlined text-orange"> edit </span>
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        (click)="onClickShowDeleteDialog(job.id)"
-                        class="p-button-rounded p-button-text"
-                        pTooltip="Eliminar puesto de trabajo"
-                        tooltipPosition="bottom"
-                      >
-                        <span class="material-symbols-outlined text-red-500"> delete </span>
-                      </button>
-                    </div>
+                    @if (!candidatesView) {
+                      <div>
+                        <button
+                          (click)="onClickShowEditDialog(job.id)"
+                          class="p-button-rounded p-button-text"
+                          pTooltip="Editar puesto de trabajo"
+                          tooltipPosition="bottom"
+                        >
+                          <span class="material-symbols-outlined text-orange"> edit </span>
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          (click)="onClickShowDeleteDialog(job.id)"
+                          class="p-button-rounded p-button-text"
+                          pTooltip="Eliminar puesto de trabajo"
+                          tooltipPosition="bottom"
+                        >
+                          <span class="material-symbols-outlined text-red-500"> delete </span>
+                        </button>
+                      </div>
+                    }
                   </div>
                 </div>
               </ng-template>

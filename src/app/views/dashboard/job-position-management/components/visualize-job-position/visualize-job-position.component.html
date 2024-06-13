@@ -3,7 +3,7 @@
     <app-spinner />
   </div>
 } @else {
-  <div class="p-12">
+  <div class="p-4 sm:p-12">
     <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-2">
       <div class="flex items center gap-3">
         <img
@@ -26,12 +26,14 @@
         >
           Aplicar a este empleo
         </button>
-        <button
-          class="flex bg-indigo-500 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:etxt-base items-center"
-        >
-          <span class="material-symbols-outlined m-0 p-0 mr-2">visibility</span>
-          Visualizar aplicaciones
-        </button>
+        @if (companyRecruiter) {
+          <button
+            class="flex bg-indigo-500 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:etxt-base items-center"
+          >
+            <span class="material-symbols-outlined m-0 p-0 mr-2">visibility</span>
+            Visualizar aplicaciones
+          </button>
+        }
       </div>
     </div>
     <div class="flex flex-col w-full justify-between">
@@ -70,21 +72,23 @@
       <div class="mt-8">
         <div class="flex flex-col items-center lg:flex-row justify-between mb-4">
           <h3 class="text-lg font-semibold">Requerimientos:</h3>
-          <div class="flex my-2 md:my-0 justify-center gap-2">
-            <button
-              class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
-              (click)="showEditRequirementsDialog()"
-            >
-              Editar
-            </button>
+          @if (companyRecruiter) {
+            <div class="flex my-2 md:my-0 justify-center gap-2">
+              <button
+                class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+                (click)="showEditRequirementsDialog()"
+              >
+                Editar
+              </button>
 
-            <!-- Modales -->
-            <app-edit-requirements
-              [jobPositionRequirements]="job.requirements"
-              [jobPositionId]="job.id"
-              [visible]="showEditRequirementsModal"
-            />
-          </div>
+              <!-- Modales -->
+              <app-edit-requirements
+                [jobPositionRequirements]="job.requirements"
+                [jobPositionId]="job.id"
+                [visible]="showEditRequirementsModal"
+              />
+            </div>
+          }
         </div>
         <ul class="list-disc pl-6">
           @for (requirement of job.requirements; track requirement.id) {
@@ -96,21 +100,23 @@
       <div class="mt-8">
         <div class="flex flex-col items-center lg:flex-row justify-between mb-4">
           <h3 class="text-lg font-semibold">Habilidades de técnicas requeridas:</h3>
-          <div class="flex my-2 md:my-0 justify-center gap-2">
-            <button
-              class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
-              (click)="showEditTechnicalSkillsDialog()"
-            >
-              Editar
-            </button>
+          @if (companyRecruiter) {
+            <div class="flex my-2 md:my-0 justify-center gap-2">
+              <button
+                class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+                (click)="showEditTechnicalSkillsDialog()"
+              >
+                Editar
+              </button>
 
-            <!-- Modales -->
-            <app-edit-technical-skills
-              [jobPositionTechnicalSkills]="job.technicalSkills"
-              [jobPositionId]="job.id"
-              [visible]="showEditTechnicalSkillsModal"
-            />
-          </div>
+              <!-- Modales -->
+              <app-edit-technical-skills
+                [jobPositionTechnicalSkills]="job.technicalSkills"
+                [jobPositionId]="job.id"
+                [visible]="showEditTechnicalSkillsModal"
+              />
+            </div>
+          }
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
           @for (skill of job.technicalSkills; track skill.id) {
@@ -126,21 +132,23 @@
       <div class="mt-8">
         <div class="flex flex-col items-center lg:flex-row justify-between mb-4">
           <h3 class="text-lg font-semibold">Habilidades de lenguaje requeridas:</h3>
-          <div class="flex my-2 md:my-0 justify-center gap-2">
-            <button
-              class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
-              (click)="showEditLanguageSkillsDialog()"
-            >
-              Editar
-            </button>
+          @if (companyRecruiter) {
+            <div class="flex my-2 md:my-0 justify-center gap-2">
+              <button
+                class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
+                (click)="showEditLanguageSkillsDialog()"
+              >
+                Editar
+              </button>
 
-            <!-- Modales -->
-            <app-edit-language-skills
-              [jobPositionLanguageSkills]="job.languageSkills"
-              [jobPositionId]="job.id"
-              [visible]="showEditLanguageSkillsModal"
-            />
-          </div>
+              <!-- Modales -->
+              <app-edit-language-skills
+                [jobPositionLanguageSkills]="job.languageSkills"
+                [jobPositionId]="job.id"
+                [visible]="showEditLanguageSkillsModal"
+              />
+            </div>
+          }
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
           @for (lang of job.languageSkills; track lang.id) {

@@ -148,13 +148,26 @@ export class GlobalFunctionsService {
         });
       }
     }
-    if (this.permissions().includes(PERMISSIONS.READ_JOB)) {
+    if (
+      this.permissions().includes(PERMISSIONS.MANAGE_JOB) &&
+      !this.roles().includes(ROLES.ADMIN)
+    ) {
       routes.push({
         name: 'Puestos de empresa',
         path: '/dashboard/puestos-empresa',
         icon: sidebar ? 'fa fa-building' : 'business_center',
         description: 'Gestiona las vacantes de tu empresa',
         color: 'text-indigo-500',
+      });
+    }
+
+    if (this.permissions().includes(PERMISSIONS.READ_JOB)) {
+      routes.push({
+        name: 'Red TalentHub',
+        path: '/dashboard/red-talenthub',
+        icon: sidebar ? 'fa fa-users' : 'group',
+        description: 'Ver la red de usuarios y empleos de TalentHub',
+        color: 'text-blue-500',
       });
     }
     return routes;

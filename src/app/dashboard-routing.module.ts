@@ -21,7 +21,8 @@ import { CandidateProfileComponent } from './views/dashboard/candidate-profile/c
 import { JobPositionManagementComponent } from './views/dashboard/job-position-management/job-position-management.component';
 import { CreateJobPositionComponent } from './views/dashboard/job-position-management/components/create-job-position/create-job-position.component';
 import { VisualizeJobPositionComponent } from './views/dashboard/job-position-management/components/visualize-job-position/visualize-job-position.component';
-import { SkillsAchievementsComponent } from './views/dashboard/skills-achievements/skills-achievements.component';
+import { RedTalentHubComponent } from './views/dashboard/red-talent-hub/red-talent-hub.component';
+import { getCompanyLocalStorage } from './utils/local-storage.utils';
 
 const routes: Routes = [
   {
@@ -71,7 +72,7 @@ const routes: Routes = [
       {
         path: 'habilidades',
         title: 'Habilidades',
-        component: SkillsAchievementsComponent,
+        component: AccessForbiddenComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.READ_CANDIDATE },
       },
@@ -136,7 +137,10 @@ const routes: Routes = [
         title: 'Puestos de Empresa',
         component: JobPositionManagementComponent,
         canActivate: [verifyPermissionGuard],
-        data: { permission: PERMISSIONS.READ_JOB },
+        data: {
+          permission: PERMISSIONS.MANAGE_JOB,
+          company: getCompanyLocalStorage() ?? null,
+        },
       },
       {
         path: 'puestos-empresa/crear-puesto',
@@ -147,6 +151,20 @@ const routes: Routes = [
       },
       {
         path: 'puestos-empresa/:jobPositionId',
+        title: 'Puesto de Trabajo',
+        component: VisualizeJobPositionComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.READ_JOB },
+      },
+      {
+        path: 'red-talenthub',
+        title: 'Red TalentHub',
+        component: RedTalentHubComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.READ_JOB },
+      },
+      {
+        path: 'red-talenthub/empleos/:jobPositionId',
         title: 'Puesto de Trabajo',
         component: VisualizeJobPositionComponent,
         canActivate: [verifyPermissionGuard],

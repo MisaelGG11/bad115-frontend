@@ -86,7 +86,6 @@ export class CreateJobPositionComponent {
   ];
   today = new Date();
   tomorrow = addDays(new Date(), 1);
-  companyId: string = '385bbe66-ec1d-4639-831b-8499fb939cd8';
   countriesOptions: Array<{ label: string; value: { id: string; name: string } }> = [];
   departmentsOptions: Array<{ label: string; value: string }> = [];
   municipalitiesOptions: Array<{ label: string; value: string }> = [];
@@ -106,7 +105,7 @@ export class CreateJobPositionComponent {
       workday: ['', Validators.required],
       description: ['', Validators.required],
       closeTime: ['', Validators.required],
-      companyId: [this.companyId, Validators.required],
+      companyId: ['', Validators.required],
       address: [null],
       street: ['', Validators.required],
       numberHouse: ['', Validators.required],

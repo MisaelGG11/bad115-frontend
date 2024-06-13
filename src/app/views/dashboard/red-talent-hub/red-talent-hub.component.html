@@ -1,0 +1,26 @@
+<div class="w-full">
+  <div class="mt-4 px-3 font-bold text-xl md:text-2xl">
+    <h1>Red TalentHub Connect</h1>
+  </div>
+  <p-tabView class="w-full p-2">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined"> group </span>
+          <span class="font-bold whitespace-nowrap m-0">Usuarios</span>
+        </div>
+      </ng-template>
+      <app-certifications></app-certifications>
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 h-fit">
+          <span class="material-symbols-outlined"> business_center</span>
+          <span class="font-bold whitespace-nowrap m-0">Empleos</span>
+        </div>
+      </ng-template>
+      <app-job-position-candidates></app-job-position-candidates>
+    </p-tabPanel>
+  </p-tabView>
+</div>

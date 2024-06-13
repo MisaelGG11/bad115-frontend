@@ -11,6 +11,8 @@ import {
   TechnicalSkillDto,
 } from './interfaces/job.dto';
 import { Language } from '../interfaces/language.interface';
+import { filter } from 'rxjs';
+import { JobFilters } from '../views/dashboard/job-position-management/components/job-position-list/job-position-list.component';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +40,21 @@ export class JobService {
 
   async createJobPosition(jobPosition: CreateJobPositionDto): Promise<JobPosition> {
     const response = await network.post<JobPosition>(`/job-positions`, jobPosition);
+
+    return response.data;
+  }
+
+  async getAllJobPositions(
+    { perPage = 10, page = 1 }: PaginationParams,
+    filters: any,
+  ): Promise<PaginatedResponse<JobPosition>> {
+    const response = await network.get<PaginatedResponse<JobPosition>>(`/job-positions`, {
+      params: {
+        page,
+        perPage,
+        ...filters,
+      },
+    });
 
     return response.data;
   }

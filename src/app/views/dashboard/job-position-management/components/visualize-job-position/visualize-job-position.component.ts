@@ -7,6 +7,8 @@ import { SpinnerComponent } from '../../../../../components/spinner/spinner.comp
 import { EditRequirementsComponent } from './components/edit-requirements/edit-requirements.component';
 import { EditTechnicalSkillsComponent } from './components/edit-technical-skills/edit-technical-skills.component';
 import { EditLanguageSkillsComponent } from './components/edit-language-skills/edit-language-skills.component';
+import { Company } from '../../../../../interfaces/company.interface';
+import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
 
 @Component({
   selector: 'app-visualize-job-position',
@@ -29,6 +31,10 @@ export class VisualizeJobPositionComponent {
   showEditTechnicalSkillsModal = signal(false);
   showEditLanguageSkillsModal = signal(false);
   showEditRequirementsModal = signal(false);
+  companiesOptions: Array<{ name: string; id: string }> = [];
+  companyRecruiter = false;
+  companyJobPosition = '';
+  person = getPersonLocalStorage();
   job!: any;
   jobAddress: string = '';
 
@@ -42,12 +48,21 @@ export class VisualizeJobPositionComponent {
     queryKey: ['job-positions', { jobPositionId: this.jobPositionId }],
     queryFn: async () => {
       this.job = await this.jobService.getJobPosition(this.jobPositionId);
+      this.companyJobPosition = this.job.company.id;
+      if (this.companiesOptions.length > 0) {
+        console.log(this.companyJobPosition);
+        console.log(this.companiesOptions);
+        this.companyRecruiter = this.companiesOptions.some(
+          (company) => company.id === this.companyJobPosition,
+        );
+        console.log(this.companyRecruiter);
+      }
       this.jobAddress = [
-        this.job.address.street,
-        this.job.address.numberHouse,
-        this.job.address.municipality.name,
-        this.job.address.department.name,
-        this.job.address.country.name,
+        this.job?.address?.street,
+        this.job?.address?.numberHouse,
+        this.job?.address?.municipality?.name,
+        this.job?.address?.department?.name,
+        this.job?.address?.country?.name,
       ]
         .filter(Boolean)
         .join(', ');
@@ -55,6 +70,22 @@ export class VisualizeJobPositionComponent {
     },
     enabled: !!this.jobPositionId,
   }));
+
+  companiesRequest = injectQuery(() => ({
+    queryKey: ['recruiter-companies'],
+    queryFn: async () => {
+      const { data } = await this.jobService.getRecruiterCompanies(this.person.recruiterId);
+      this.addCompanies(data);
+      return data;
+    },
+  }));
+
+  addCompanies(companies: Company[]) {
+    this.companiesOptions = companies.map((company) => ({
+      name: company.name,
+      id: company.id,
+    }));
+  }
 
   showEditTechnicalSkillsDialog() {
     this.showEditTechnicalSkillsModal.set(true);
