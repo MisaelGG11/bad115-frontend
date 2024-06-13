@@ -58,7 +58,6 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      name: ['', [Validators.required]],
       technicalSkillCategoryId: [null, [Validators.required]],
       technicalSkillTypeId: [null, [Validators.required]],
     });
@@ -128,11 +127,12 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
   }));
 
   async submit() {
+    console.log(this.form.value);
+
     this.form.markAllAsTouched();
     if (this.form.invalid) {
       return;
     }
-
     await this.createTechnicalSkillMutation.mutateAsync(this.form.value);
   }
 

@@ -521,71 +521,73 @@ export class CandidateService {
     await network.delete(`/candidates/${candidateId}/language-skills/${LanguageSkillId}`);
   }
 
-    // TechnicalSkills
+  // TechnicalSkills
 
-    async getTechnicalSkills(
-      candidateId: string,
-      { perPage = 10, page = 1 }: PaginationParams,
-    ): Promise<PaginatedResponse<TechnicalSkills>> {
-      const response = await network.get<PaginatedResponse<TechnicalSkills>>(
-        `/candidates/${candidateId}/technical-skill-candidate/technical-skill/category?page=${page}&perPage=${perPage}`,
-      );
-    
-      return response.data;
-    }
-      
-    async getTechnicalCategoryTypes(
-    ): Promise<TechnicalCategoryTypes[]> {
-      const response = await network.get<TechnicalCategoryTypes[]>(`/catalogs/technical-skills-candidate`);
-  
-      return response.data;  
-    } 
+  async getTechnicalSkills(
+    candidateId: string,
+    { perPage = 10, page = 1 }: PaginationParams,
+  ): Promise<PaginatedResponse<TechnicalSkills>> {
+    const response = await network.get<PaginatedResponse<TechnicalSkills>>(
+      `/candidates/${candidateId}/technical-skill-candidate/technical-skill/category?page=${page}&perPage=${perPage}`,
+    );
 
-    async getTechnicalSkillTypes(
-      categoryId: string,
-    ): Promise<TechnicalSkillType[]> {
-      const response = await network.get<TechnicalSkillType[]>(`/catalogs/technical-skills-candidate/technical-skills/category/${categoryId}`,
-      );
-      return response.data;  
-    } 
+    return response.data;
+  }
 
-    async getTechnicalSkill(candidateId: string, technicalSkillId: string): Promise<TechnicalSkillType> {
-      const response = await network.get<TechnicalSkillType>(
-        `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}`,
-      
-      );
-  
-      return response.data;
-    }
-  
-    async createTechnicalSkill(
-      candidateId: string, 
-      categoryId: string,
-      technicalSkillId: CreateTechnicalSkillDto,
-    ): Promise<TechnicalSkills> {
-      const response = await network.post<TechnicalSkills>(
-        `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}/category/${categoryId}`,
-        technicalSkillId,
-      );
-      return response.data;
-    }
-  
-    async updateTechnicalSkills(
-      candidateId: string,
-      technicalSkillId: string,
-      technicalSkillCandidate: UpdateTechnicalSkillsDto,
-    ): Promise<TechnicalSkills> { 
-      const response = await network.put<TechnicalSkills>(
-        `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}`,
-        technicalSkillCandidate,
-      );
-  
-      return response.data;
-    }
-  
-    async deleteTechnicalSkill(candidateId: string, technicalSkillId: string): Promise<void> {
-      await network.delete(`/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}`);
-    }
-  
+  async getTechnicalCategoryTypes(): Promise<TechnicalCategoryTypes[]> {
+    const response = await network.get<TechnicalCategoryTypes[]>(
+      `/catalogs/technical-skills-candidate`,
+    );
 
+    return response.data;
+  }
+
+  async getTechnicalSkillTypes(categoryId: string): Promise<TechnicalSkillType[]> {
+    const response = await network.get<TechnicalSkillType[]>(
+      `/catalogs/technical-skills-candidate/technical-skills/category/${categoryId}`,
+    );
+    return response.data;
+  }
+
+  async getTechnicalSkill(
+    candidateId: string,
+    technicalSkillId: string,
+  ): Promise<TechnicalSkillType> {
+    const response = await network.get<TechnicalSkillType>(
+      `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}`,
+    );
+
+    return response.data;
+  }
+
+  async createTechnicalSkill(
+    candidateId: string,
+    categoryId: string,
+    technicalSkillId: CreateTechnicalSkillDto,
+  ): Promise<TechnicalSkills> {
+    const response = await network.post<TechnicalSkills>(
+      `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}/category/${categoryId}`,
+      technicalSkillId,
+    );
+    return response.data;
+  }
+
+  async updateTechnicalSkills(
+    candidateId: string,
+    technicalSkillId: string,
+    technicalSkillCandidate: UpdateTechnicalSkillsDto,
+  ): Promise<TechnicalSkills> {
+    const response = await network.put<TechnicalSkills>(
+      `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}`,
+      technicalSkillCandidate,
+    );
+
+    return response.data;
+  }
+
+  async deleteTechnicalSkill(candidateId: string, technicalSkillId: string): Promise<void> {
+    await network.delete(
+      `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}`,
+    );
+  }
 }
