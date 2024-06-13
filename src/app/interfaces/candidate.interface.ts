@@ -1,4 +1,4 @@
-import { Candidate, User, UserWithPerson } from './person.interface';
+import { Candidate, UserWithPerson } from './person.interface';
 
 export interface LaboralExperience {
   id: string;
@@ -134,7 +134,7 @@ export interface TechnicalSkills {
 export interface TechnicalSkillType {
   id: string;
   name: string;
-  categoryTecnicalSkillId: TechnicalCategoryTypes;
+  categoryTechnicalSkill: TechnicalCategoryTypes;
 }
 
 export interface TechnicalType {

@@ -24,7 +24,6 @@ import { ButtonModule } from 'primeng/button';
 import { SelectComponent } from '../../../../../../components/inputs/select/select.component';
 import {
   TechnicalCategoryTypes,
-  TechnicalSkillType,
   TechnicalType,
 } from '../../../../../../interfaces/candidate.interface';
 
@@ -115,8 +114,8 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
     mutationFn: async (input: CreateTechnicalSkillDto) =>
       await this.candidateService.createTechnicalSkill(
         this.person.candidateId,
-        this.person.categoryId,
-        input,
+        input.technicalSkillTypeId,
+        input.technicalSkill,
       ),
     onSuccess: async () => {
       toast.success('Habilidad Técnica creada', { duration: 3000 });
@@ -127,16 +126,15 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
   }));
 
   async submit() {
-    console.log(this.form.value);
-
     this.form.markAllAsTouched();
+
     if (this.form.invalid) {
       return;
     }
-    await this.createTechnicalSkillMutation.mutateAsync(this.form.value);
-  }
 
-  getFormControl(name: string) {
-    return this.form.get(name) as FormControl;
+    await this.createTechnicalSkillMutation.mutateAsync({
+      technicalSkill: this.form.value.technicalSkillTypeId,
+      technicalSkillTypeId: this.form.value.technicalSkillCategoryId,
+    });
   }
 }

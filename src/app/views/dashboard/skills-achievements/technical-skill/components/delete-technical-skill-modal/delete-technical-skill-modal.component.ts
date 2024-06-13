@@ -29,25 +29,31 @@ export class DeleteTechnicalSkillModalComponent {
 
   positionQuery = injectQuery(() => ({
     queryKey: [
-      'TechnicalSkills',
+      'technicalSkills',
       {
         candidateId: this.person.candidateId,
         technicalSkillId: this.technicalSkillId(),
       },
     ],
     queryFn: async () =>
-      await this.candidateService.getTechnicalSkill(this.person.candidateId, this.technicalSkillId()),
+      await this.candidateService.getTechnicalSkill(
+        this.person.candidateId,
+        this.technicalSkillId(),
+      ),
     enabled: !!this.technicalSkillId(),
   }));
 
   deleteTechnicalSkillMutation = injectMutation(() => ({
     mutationFn: async () =>
-      await this.candidateService.deleteTechnicalSkill(this.person.candidateId, this.technicalSkillId()),
+      await this.candidateService.deleteTechnicalSkill(
+        this.person.candidateId,
+        this.technicalSkillId(),
+      ),
     onSuccess: async () => {
       toast.success('Habilidad Técnica eliminado', { duration: 3000 });
       await this.queryClient.invalidateQueries({
         queryKey: [
-          'TechnicalSkills',
+          'technicalSkills',
           {
             candidateId: this.person.candidateId,
           },
@@ -65,12 +71,4 @@ export class DeleteTechnicalSkillModalComponent {
   closeModal() {
     this.visible.set(false);
   }
-
-  async ngOnChanges(changes: SimpleChanges) {
-    if (changes['technicalSkillId'] && !changes['technicalSkillId'].isFirstChange()) {
-      await this.positionQuery.refetch();
-    }
-  }
 }
-
-
