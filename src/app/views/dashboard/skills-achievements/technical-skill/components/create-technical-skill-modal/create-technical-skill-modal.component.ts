@@ -1,10 +1,20 @@
 import { Component, inject, Input, signal, OnInit } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CustomInputComponent } from '../../../../../../components/inputs/custom-input/custom-input.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CommonModule } from '@angular/common';
-import { injectMutation, injectQueryClient, injectQuery } from '@tanstack/angular-query-experimental';
+import {
+  injectMutation,
+  injectQueryClient,
+  injectQuery,
+} from '@tanstack/angular-query-experimental';
 import { CandidateService } from '../../../../../../services/candidate.service';
 import { TechnicalSkillService } from '../../../../../../services/technical-skill.service';
 import { CreateTechnicalSkillDto } from '../../../../../../services/interfaces/candidate.dto';
@@ -12,7 +22,11 @@ import { toast } from 'ngx-sonner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { SelectComponent } from '../../../../../../components/inputs/select/select.component';
-import { TechnicalCategoryTypes, TechnicalSkillType, TechnicalType } from '../../../../../../interfaces/candidate.interface';
+import {
+  TechnicalCategoryTypes,
+  TechnicalSkillType,
+  TechnicalType,
+} from '../../../../../../interfaces/candidate.interface';
 
 @Component({
   selector: 'app-create-technical-skill-modal',
@@ -40,7 +54,7 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
   form: FormGroup;
   technicalSkillsCategoryOptions: Array<{ label: string; value: string }> = [];
   technicalSkillsTypesOptions: Array<{ label: string; value: string }> = [];
-  categoryId: string | null = null; 
+  categoryId: string | null = null;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -53,8 +67,8 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
   ngOnInit(): void {
     this.technicalSkillsCategoryRequest.refetch();
     this.form.get('technicalSkillCategoryId')?.valueChanges.subscribe((categoryId) => {
-      this.categoryId = categoryId; 
-      this.technicalSkillsTypesRequest.refetch(); 
+      this.categoryId = categoryId;
+      this.technicalSkillsTypesRequest.refetch();
     });
   }
 
@@ -74,26 +88,24 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
     }));
   }
 
-
-
   technicalSkillsTypesRequest = injectQuery(() => ({
-    queryKey: ['TechnicalType', this.categoryId], 
+    queryKey: ['TechnicalType', this.categoryId],
     queryFn: async () => {
       if (!this.categoryId) {
         return [];
       }
       try {
         const data = await this.technicalSkillService.findManyByCategoryId(this.categoryId);
-        this.addTechnicalSkillTypesOptions(data);
-        console.log(data);
+        this.addTechnicalSkillTypesOptions(data?.technicalSkill ?? []);
+
         return data;
       } catch (error) {
-        console.error('Error fetching technical skills:', error); 
+        console.error('Error fetching technical skills:', error);
         return [];
       }
     },
   }));
-    addTechnicalSkillTypesOptions(types: TechnicalType[]) {
+  addTechnicalSkillTypesOptions(types: TechnicalType[]) {
     this.technicalSkillsTypesOptions = types.map((type) => ({
       label: type.name,
       value: type.id,

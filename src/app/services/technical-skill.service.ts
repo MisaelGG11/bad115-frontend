@@ -102,8 +102,8 @@ export class TechnicalSkillService {
     return catalog.data;
   }
 
-  async findManyByCategoryId(categoryId: string): Promise<CatalogTechnicalSkill[]> {
-    const catalog = await network.get<CatalogTechnicalSkill[]>(
+  async findManyByCategoryId(categoryId: string): Promise<CatalogTechnicalSkill> {
+    const catalog = await network.get<CatalogTechnicalSkill>(
       `/catalogs/technical-skills-candidate/category/${categoryId}`,
     );
     return catalog.data;

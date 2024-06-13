@@ -116,7 +116,7 @@ export interface LanguageSkill {
   candidateId: string;
   skill: string;
   level: string;
-  language:LanguageSkillType;
+  language: LanguageSkillType;
 }
 
 export interface LanguageSkillType {
@@ -134,7 +134,7 @@ export interface TechnicalSkills {
 export interface TechnicalSkillType {
   id: string;
   name: string;
- categoryTecnicalSkillId:TechnicalCategoryTypes;
+  categoryTecnicalSkillId: TechnicalCategoryTypes;
 }
 
 export interface TechnicalType {
@@ -145,4 +145,3 @@ export interface TechnicalCategoryTypes {
   id: string;
   name: string;
 }
-
