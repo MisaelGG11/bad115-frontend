@@ -39,7 +39,6 @@ import {
   UpdateTestDto,
   CreateLanguageSkillDto,
   UpdateLanguageSkillDto,
-  CreateTechnicalSkillDto,
   UpdateTechnicalSkillsDto,
 } from './interfaces/candidate.dto';
 import { Candidate } from '../interfaces/person.interface';
@@ -565,7 +564,6 @@ export class CandidateService {
     categoryId: string,
     technicalSkillId: string,
   ): Promise<TechnicalSkills> {
-    console.log({ candidateId, categoryId, technicalSkillId });
     const response = await network.post<TechnicalSkills>(
       `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}/category/${categoryId}`,
     );

@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CandidateService } from '../../../../../../services/candidate.service';
@@ -27,7 +27,7 @@ export class DeleteTechnicalSkillModalComponent {
 
   constructor() {}
 
-  positionQuery = injectQuery(() => ({
+  technicalSkillRequest = injectQuery(() => ({
     queryKey: [
       'technicalSkills',
       {

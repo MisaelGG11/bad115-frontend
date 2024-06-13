@@ -1,12 +1,6 @@
 import { Component, inject, Input, signal, OnInit } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomInputComponent } from '../../../../../../components/inputs/custom-input/custom-input.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CommonModule } from '@angular/common';
@@ -111,12 +105,13 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
   }
 
   createTechnicalSkillMutation = injectMutation(() => ({
-    mutationFn: async (input: CreateTechnicalSkillDto) =>
-      await this.candidateService.createTechnicalSkill(
+    mutationFn: async (input: CreateTechnicalSkillDto) => {
+      return await this.candidateService.createTechnicalSkill(
         this.person.candidateId,
         input.technicalSkillTypeId,
         input.technicalSkill,
-      ),
+      );
+    },
     onSuccess: async () => {
       toast.success('Habilidad Técnica creada', { duration: 3000 });
       this.visible.set(false);

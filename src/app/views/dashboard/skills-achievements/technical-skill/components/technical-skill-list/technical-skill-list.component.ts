@@ -14,13 +14,12 @@ import { SpinnerComponent } from '../../../../../../components/spinner/spinner.c
   standalone: true,
   imports: [CardModule, DatePipe, TooltipModule, ButtonModule, SpinnerComponent],
   templateUrl: './technical-skill-list.component.html',
- styles: ``,
+  styles: ``,
 })
 export class TechnicalSkillListComponent {
   private candidateService = inject(CandidateService);
   private person: Person = JSON.parse(localStorage.getItem(LOCAL_STORAGE.PERSON) ?? '');
   @Output() showDeleteDialog = new EventEmitter<string>();
- /*  @Output() showEditDialog = new EventEmitter<string>(); */
 
   constructor() {}
 
@@ -29,7 +28,7 @@ export class TechnicalSkillListComponent {
     queryFn: ({ pageParam }) =>
       this.candidateService.getTechnicalSkills(this.person.candidateId, {
         page: pageParam,
-        perPage: 3,
+        perPage: 5,
       }),
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => firstPage.pagination.previousPage ?? undefined,
@@ -49,7 +48,7 @@ export class TechnicalSkillListComponent {
         : 'No hay más registros',
   );
 
-/*   onClickShowEditDialog(technicalSkillId: string) {
+  /*   onClickShowEditDialog(technicalSkillId: string) {
     this.showEditDialog.emit(technicalSkillId);
   } */
 
@@ -57,5 +56,3 @@ export class TechnicalSkillListComponent {
     this.showDeleteDialog.emit(technicalSkillId);
   }
 }
-
-
