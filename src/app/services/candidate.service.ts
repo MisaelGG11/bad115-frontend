@@ -563,11 +563,11 @@ export class CandidateService {
     candidateId: string,
     categoryId: string,
     technicalSkillId: string,
-  ): Promise<TechnicalSkills> {
+  ): Promise<any> {
     const response = await network.post<TechnicalSkills>(
       `/candidates/${candidateId}/technical-skill-candidate/${technicalSkillId}/category/${categoryId}`,
     );
-    return response.data;
+    return response;
   }
 
   async updateTechnicalSkills(

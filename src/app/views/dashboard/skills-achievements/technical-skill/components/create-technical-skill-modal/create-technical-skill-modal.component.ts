@@ -106,11 +106,16 @@ export class CreateTechnicalSkillModalComponent implements OnInit {
 
   createTechnicalSkillMutation = injectMutation(() => ({
     mutationFn: async (input: CreateTechnicalSkillDto) => {
-      return await this.candidateService.createTechnicalSkill(
+      const respose = await this.candidateService.createTechnicalSkill(
         this.person.candidateId,
         input.technicalSkillTypeId,
         input.technicalSkill,
       );
+      if (respose.status === 200 || respose.status === 201) {
+        return respose.data;
+      } else {
+        throw new Error();
+      }
     },
     onSuccess: async () => {
       toast.success('Habilidad Técnica creada', { duration: 3000 });
