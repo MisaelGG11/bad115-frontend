@@ -23,6 +23,7 @@ import { Company } from '../../../../../interfaces/company.interface';
 import { JobService } from '../../../../../services/job.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { RippleModule } from 'primeng/ripple';
 import { ActivatedRoute } from '@angular/router';
 import { AddressService } from '../../../../../services/address.service';
 import { GlobalFunctionsService } from '../../../../../utils/services/global-functions.service';
@@ -44,6 +45,7 @@ export interface JobFilters {
   imports: [
     DropdownModule,
     CardModule,
+    RippleModule,
     DatePipe,
     TooltipModule,
     ButtonModule,
@@ -90,6 +92,7 @@ export class JobPositionListComponent {
     { label: 'Intermitente', value: 'INTERMITTENT' },
   ];
   countriesOptions: Array<{ label: string; value: string }> = [];
+  companiesOptions: Array<{ label: string; value: string }> = [];
   filters: any = {
     name: '',
     countryId: null,
@@ -119,10 +122,26 @@ export class JobPositionListComponent {
     },
   }));
 
+  companiesRequest = injectQuery(() => ({
+    queryKey: ['companies'],
+    queryFn: async () => {
+      const { data } = await this.jobService.getCompanyCatalog();
+      this.addCompaniesOptions(data);
+      return data;
+    },
+  }));
+
   addCountriesOptions(countries: Country[]) {
     this.countriesOptions = countries.map((country) => ({
       label: country.name,
       value: country.id,
+    }));
+  }
+
+  addCompaniesOptions(companies: Company[]) {
+    this.companiesOptions = companies.map((company) => ({
+      label: company.name,
+      value: company.id,
     }));
   }
 
@@ -203,6 +222,19 @@ export class JobPositionListComponent {
   }
 
   onFilterCompany(event: any) {
+    this.jobPositionsRequest.refetch();
+  }
+
+  onClearFilters() {
+    this.filters = {
+      name: '',
+      countryId: null,
+      modality: null,
+      contractType: null,
+      experiencesLevel: null,
+      workday: null,
+      companyId: this.company ? this.company.id : null,
+    };
     this.jobPositionsRequest.refetch();
   }
 

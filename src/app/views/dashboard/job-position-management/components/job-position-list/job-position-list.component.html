@@ -88,10 +88,20 @@
             optionValue="value"
             appendTo="body"
             placeholder="Búsqueda por empresa"
-            [options]="modalityOptions"
+            [options]="companiesOptions"
             styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             (onChange)="onFilterCompany($event)"
           />
+        </div>
+        <div class="w-full">
+          <button
+            pButton
+            pRipple
+            class="flex justify-center w-full font-semibold rounded-full p-button-outlined"
+            (click)="onClearFilters()"
+          >
+            Limpiar filtros
+          </button>
         </div>
       </div>
     }

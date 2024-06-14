@@ -38,6 +38,10 @@ export class JobService {
     return this.axiosInstance.get(`/recruiters/${recruiterId}/companies`);
   }
 
+  async getCompanyCatalog() {
+    return this.axiosInstance.get(`/companies/without-paginated`);
+  }
+
   async createJobPosition(jobPosition: CreateJobPositionDto): Promise<JobPosition> {
     const response = await network.post<JobPosition>(`/job-positions`, jobPosition);
 
