@@ -55,4 +55,27 @@ export class TechnicalSkillListComponent {
   onClickShowDeleteDialog(technicalSkillId: string) {
     this.showDeleteDialog.emit(technicalSkillId);
   }
-}
+
+  SkillIcon(type: string) {
+    switch (type) {
+        case 'Database':
+          return 'storage';
+        case 'Frontend':
+          return 'code';
+        case 'Backend':
+          return 'developer_board';
+        case 'Mobile':
+          return 'smartphone';
+        case 'Other':
+          return 'extension';
+        case 'Testing':
+          return 'bug_report';
+        case 'Design':
+          return 'palette';
+        case 'DevOps':
+          return 'settings';
+        default:
+          return 'build';
+      }
+    }
+  }

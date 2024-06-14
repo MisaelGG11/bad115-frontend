@@ -113,7 +113,7 @@ export class CreateCompanyComponent {
         await this.authService.login(this.form.value);
         await this.loginStore();
 
-        toast.success('Registro existoso', {
+        toast.success('Registro exitoso', {
           duration: 4500,
         });
         setTimeout(() => {

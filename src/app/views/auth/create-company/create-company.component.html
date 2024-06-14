@@ -7,9 +7,9 @@
   <form [formGroup]="form" (submit)="submit()" class="flex flex-col gap-4">
     <app-custom-input
       [parentForm]="form"
-      label="Nombre de organización"
+      label="Nombre de la organización"
       fieldName="name"
-      placeholder="Nombre de organización"
+      placeholder="Nombre de la organización"
       formControlName="name"
       [type]="'text'"
       [required]="true"
@@ -46,7 +46,7 @@
           label="Teléfono de organización"
           formControlName="phone"
           fieldName="phone"
-          placeholder="XXXX-XXXX"
+          placeholder="0000-0000"
           [type]="'tel'"
         />
       </div>

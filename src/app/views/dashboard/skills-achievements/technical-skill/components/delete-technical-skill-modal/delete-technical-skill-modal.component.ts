@@ -50,7 +50,7 @@ export class DeleteTechnicalSkillModalComponent {
         this.technicalSkillId(),
       ),
     onSuccess: async () => {
-      toast.success('Habilidad Técnica eliminado', { duration: 3000 });
+      toast.success('Habilidad Técnica eliminada', { duration: 3000 });
       await this.queryClient.invalidateQueries({
         queryKey: [
           'technicalSkills',

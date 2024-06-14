@@ -48,9 +48,9 @@ export class UserListComponent implements OnInit {
   sortBy = signal('createdAt-desc');
   sortUsersOptions = [
     { label: 'Más recientes', value: 'createdAt-desc' },
-    { label: 'Mas antiguos', value: 'createdAt-asc' },
-    { label: 'Alfabetico ascendente', value: 'person.firstName-asc' },
-    { label: 'Alfabetico descendente', value: 'person.firstName-desc' },
+    { label: 'Más antiguos', value: 'createdAt-asc' },
+    { label: 'Alfabético ascendente', value: 'person.firstName-asc' },
+    { label: 'Alfabético descendente', value: 'person.firstName-desc' },
   ];
 
   columns = [
