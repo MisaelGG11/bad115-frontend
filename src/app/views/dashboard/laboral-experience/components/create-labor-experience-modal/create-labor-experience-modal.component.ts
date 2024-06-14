@@ -90,10 +90,12 @@ export class CreateLaborExperienceModalComponent {
 
     const { currentJob } = this.form.value;
 
+    const currentJobValidation = currentJob?.length > 0 && currentJob[0] === 'true';
+
     await this.createLaborExperienceMutation.mutateAsync({
       ...this.form.value,
-      currentJob: currentJob[0] === 'true',
-      finishDate: currentJob[0] === 'true' ? null : this.form.value.finishDate,
+      currentJob: currentJobValidation,
+      finishDate: currentJobValidation ? null : this.form.value.finishDate,
       organizationContact: {
         phone: this.form.value.organizationContactPhone,
         email: this.form.value.organizationContactEmail,
