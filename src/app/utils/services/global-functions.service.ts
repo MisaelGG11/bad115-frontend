@@ -16,8 +16,8 @@ export class GlobalFunctionsService {
   constructor() {
     this.store.select('session').subscribe((session) => {
       this.sessionValue = session;
-      this.permissions.set(session.user.permissions);
-      this.roles.set(session.user.roles);
+      this.permissions.set(session?.user?.permissions);
+      this.roles.set(session?.user?.roles);
     });
   }
 

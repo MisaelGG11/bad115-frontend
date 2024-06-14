@@ -128,9 +128,9 @@ export class JobPositionListComponent {
 
   jobPositionsRequest = injectInfiniteQuery(() => {
     const queryFn = ({ pageParam }: { pageParam: number }) => {
-      const company = this.route?.routeConfig?.data?.['company'] ?? null;
-      console.log('company', company['id']);
-      return this.route.routeConfig?.path === 'red-talenthub' || company['id']
+      console.log('this.company', this.company, this.route.routeConfig?.path);
+      return this.route.routeConfig?.path === 'red-talenthub' ||
+        Object.keys(this.company).length > 0
         ? this.jobService.getAllJobPositions(
             {
               page: pageParam,
