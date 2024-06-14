@@ -47,7 +47,7 @@ export class EditLanguageSkillModalComponent {
   @Input() LanguageSkillId = '';
   form: FormGroup;
   selectedType = signal('');
-  LanguageSkillsTypesOptions: Array<{ label: string; value: string | { name: string } }> = [];
+  LanguageSkillsTypesOptions: Array<{ label: string; value: string }> = [];
 
   languageSkillOptions: Array<{ label: string; value: string }> = [
     { label: 'Escucha', value: 'Escucha' },
@@ -57,9 +57,12 @@ export class EditLanguageSkillModalComponent {
   ];
 
   languageLevelOptions: Array<{ label: string; value: string }> = [
-    { label: 'A1', value: 'A1' }, { label: 'A2', value: 'A2' },
-    { label: 'B1', value: 'B1' }, { label: 'B2', value: 'B2' },
-    { label: 'C1', value: 'C1' }, { label: 'C2', value: 'C2' },
+    { label: 'A1', value: 'A1' },
+    { label: 'A2', value: 'A2' },
+    { label: 'B1', value: 'B1' },
+    { label: 'B2', value: 'B2' },
+    { label: 'C1', value: 'C1' },
+    { label: 'C2', value: 'C2' },
   ];
 
   constructor(private fb: FormBuilder) {
@@ -76,7 +79,7 @@ export class EditLanguageSkillModalComponent {
       const { data } = await this.languageSkillsRequest.refetch();
       this.form.patchValue({
         ...data,
-        languageSkillTypeId: data?.language.id,
+        languageId: data?.language.id,
       });
     }
   }

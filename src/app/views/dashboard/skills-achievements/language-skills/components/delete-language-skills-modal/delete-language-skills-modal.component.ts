@@ -29,7 +29,7 @@ export class DeleteLanguageSkillModalComponent {
 
   positionQuery = injectQuery(() => ({
     queryKey: [
-      'languageSkills',
+      'LanguageSkills',
       {
         candidateId: this.person.candidateId,
         LanguageSkillId: this.LanguageSkillId(),
@@ -50,7 +50,7 @@ export class DeleteLanguageSkillModalComponent {
       toast.success('Habilidad Lingüística eliminada', { duration: 3000 });
       await this.queryClient.invalidateQueries({
         queryKey: [
-          'languageSkills',
+          'LanguageSkills',
           {
             candidateId: this.person.candidateId,
           },
@@ -75,4 +75,3 @@ export class DeleteLanguageSkillModalComponent {
     }
   }
 }
-
