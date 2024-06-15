@@ -85,7 +85,7 @@ export class CandidateSearcherComponent {
   }));
 
   onSelect(event: any) {
-    this.router.navigate(['/dashboard/perfil-usuario', event.value.id]);
+    this.router.navigate(['/dashboard/red-talenthub/perfil-usuario', event.value.id]);
   }
 
   async filterUsers(event: AutoCompleteCompleteEvent) {

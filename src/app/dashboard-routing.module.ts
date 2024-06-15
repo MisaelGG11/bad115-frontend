@@ -43,7 +43,7 @@ const routes: Routes = [
         data: { permission: PERMISSIONS.READ_CANDIDATE },
       },
       {
-        path: 'perfil-usuario/:candidateId',
+        path: 'red-talenthub/perfil-usuario/:candidateId',
         title: 'Perfil de usuario',
         component: CandidateProfileComponent,
         canActivate: [verifyPermissionGuard],

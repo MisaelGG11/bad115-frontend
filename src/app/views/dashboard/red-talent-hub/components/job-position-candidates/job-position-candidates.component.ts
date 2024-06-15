@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { JobPositionListComponent } from '../job-position-management/components/job-position-list/job-position-list.component';
+import { JobPositionListComponent } from '../../../job-position-management/components/job-position-list/job-position-list.component';
 import { Router } from '@angular/router';
 
 @Component({
