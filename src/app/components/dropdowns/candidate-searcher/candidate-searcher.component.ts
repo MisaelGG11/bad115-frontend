@@ -1,7 +1,7 @@
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Input, signal, ViewChild, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete, AutoCompleteModule } from 'primeng/autocomplete';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { PaginationTableInput } from '../../../interfaces/pagination.interface';
 import { CandidateService } from '../../../services/candidate.service';
@@ -36,6 +36,7 @@ export class CandidateSearcherComponent {
   private router = inject(Router);
   private global = inject(GlobalFunctionsService);
   private candidateService = inject(CandidateService);
+  @ViewChild('autoComplete') autoComplete!: AutoComplete;
   @Input() sidebar: boolean = true;
   selectedUser: UserDataTable | null = null;
   visible = true;
@@ -86,6 +87,11 @@ export class CandidateSearcherComponent {
 
   onSelect(event: any) {
     this.router.navigate(['/dashboard/red-talenthub/perfil-usuario', event.value.id]);
+  }
+
+  showMoreResults() {
+    this.router.navigate(['/dashboard/red-talenthub']);
+    this.autoComplete.hide();
   }
 
   async filterUsers(event: AutoCompleteCompleteEvent) {
