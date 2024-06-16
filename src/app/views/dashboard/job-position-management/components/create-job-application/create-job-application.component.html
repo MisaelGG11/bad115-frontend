@@ -9,31 +9,34 @@
 >
   <div class="flex flex-col w-full">
     <div class="flex items-center w-full mb-4">¿Quieres aplicar a esta posición de trabajo?</div>
-    <div>
-      <app-custom-input
-        [parentForm]="form"
-        label="Curriculum"
-        [type]="'file'"
-        [required]="false"
-        fieldName="file"
-        placeholder="Curriculum"
-      />
-    </div>
-    <div class="flex justify-end gap-4 mt-5">
-      <p-button
-        label="No, gracias"
-        severity="secondary"
-        [text]="true"
-        [raised]="true"
-        (click)="visible.set(false)"
-      />
-      <p-button
-        label="Aplicar"
-        icon="pi pi-trash"
-        [raised]="true"
-        [loading]="createJobApplicationMutation.isPending()"
-        (click)="submit()"
-      />
-    </div>
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div>
+        <app-custom-input
+          [parentForm]="form"
+          label="Curriculum"
+          [type]="'file'"
+          fieldName="file"
+          formControlName="file"
+          placeholder="Curriculum"
+        />
+      </div>
+
+      <div class="flex justify-end gap-4 mt-5">
+        <p-button
+          label="No, gracias"
+          severity="secondary"
+          [text]="true"
+          [raised]="true"
+          (click)="visible.set(false)"
+        />
+        <p-button
+          label="Aplicar"
+          icon="pi pi-trash"
+          [raised]="true"
+          [loading]="createJobApplicationMutation.isPending()"
+          (click)="submit()"
+        />
+      </div>
+    </form>
   </div>
 </p-dialog>

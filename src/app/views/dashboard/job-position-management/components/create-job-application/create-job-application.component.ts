@@ -2,18 +2,18 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { CustomInputComponent } from '../../../../../components/inputs/custom-input/custom-input.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { validateFileInput } from '../../../../../validators/file-input.validators';
 import axios from 'axios';
 import { injectMutation } from '@tanstack/angular-query-experimental';
 import { JobService } from '../../../../../services/job.service';
-import { CreateJobApplicationDto } from '../../../../../services/interfaces/job.dto';
 import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-create-job-application',
   standalone: true,
-  imports: [ButtonModule, DialogModule, CustomInputComponent],
+  imports: [ButtonModule, DialogModule, CustomInputComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './create-job-application.component.html',
 })
 export class CreateJobApplicationComponent {
@@ -26,7 +26,7 @@ export class CreateJobApplicationComponent {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group(
       {
-        mimeTypeFile: ['application/pdf', Validators.required],
+        mimeTypeFile: ['application/pdf'],
         file: [null],
       },
       {
@@ -42,6 +42,11 @@ export class CreateJobApplicationComponent {
         mimeTypeFile: mimeTypeFile,
         candidateId: this.person.candidateId,
       }),
+    onSuccess: () => {
+      this.visible.set(false);
+      toast.success('Solicitud enviada correctamente');
+      this.form.reset();
+    },
   }));
 
   async submit() {
@@ -56,15 +61,17 @@ export class CreateJobApplicationComponent {
     }
 
     const response = await this.createJobApplicationMutation.mutateAsync(
-      this.form.value?.mimeTypeFile ?? null,
+      blob ? this.form.value?.mimeTypeFile : undefined,
     );
 
-    if (blob) {
-      await axios.put(response.cv, blob, {
-        headers: {
-          'Content-Type': this.form.value.mimeTypeFile,
-        },
-      });
+    if (!blob) {
+      return;
     }
+
+    await axios.put(response.cv, blob, {
+      headers: {
+        'Content-Type': this.form.value.mimeTypeFile,
+      },
+    });
   }
 }
