@@ -5,7 +5,9 @@ import { axiosConfiguration } from '../config/network.service';
 import { JobPosition } from '../interfaces/job.interface';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
 import {
+  CreateJobApplicationDto,
   CreateJobPositionDto,
+  JobApplication,
   LanguageSkillDto,
   RequirementDto,
   TechnicalSkillDto,
@@ -109,5 +111,21 @@ export class JobService {
 
   async updateRequirements(jobPositionId: string, requirements: RequirementDto): Promise<void> {
     await network.put(`/job-positions/${jobPositionId}/requirements`, requirements);
+  }
+
+  async createJobApplication(
+    createJobApplicationDto: CreateJobApplicationDto,
+  ): Promise<JobApplication> {
+    const { jobPositionId, mimeTypeFile, candidateId } = createJobApplicationDto;
+
+    const response = await network.post<JobApplication>(
+      `/job-applications/candidate/${candidateId}/job-position/${jobPositionId}`,
+      {
+        mimeTypeFile,
+        status: 'Aplicada',
+      },
+    );
+
+    return response.data;
   }
 }

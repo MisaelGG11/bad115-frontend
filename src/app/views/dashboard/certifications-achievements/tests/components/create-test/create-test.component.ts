@@ -85,13 +85,14 @@ export class CreateTestComponent {
 
   async submit() {
     this.form.markAllAsTouched();
-    console.log(this.form.value);
+
     const blob = new Blob([this.form.value.file], { type: this.form.value.mimeTypeFile });
+
     if (this.form.invalid) {
       return;
     }
     const test = await this.createTestMutation.mutateAsync(this.form.value);
-    console.log(test);
+
     await axios.put(test.urlDocs, blob, {
       headers: {
         'Content-Type': this.form.value.mimeTypeFile,

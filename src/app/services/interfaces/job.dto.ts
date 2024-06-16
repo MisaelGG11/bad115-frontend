@@ -14,6 +14,21 @@ export interface CreateJobPositionDto {
   technicalSkills: TechnicalSkillDto[];
 }
 
+export interface CreateJobApplicationDto {
+  jobPositionId: string;
+  candidateId: string;
+  mimeTypeFile?: string;
+}
+
+export interface JobApplication {
+  id: string;
+  cv: string;
+  status: string;
+  recomendation?: string;
+  jobPositionId: string;
+  candidateId: string;
+}
+
 export interface AddressDto {
   street: string;
   numberHouse: string;

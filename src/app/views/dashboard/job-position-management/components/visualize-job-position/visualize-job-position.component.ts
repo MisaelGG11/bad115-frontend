@@ -9,6 +9,7 @@ import { EditTechnicalSkillsComponent } from './components/edit-technical-skills
 import { EditLanguageSkillsComponent } from './components/edit-language-skills/edit-language-skills.component';
 import { Company } from '../../../../../interfaces/company.interface';
 import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
+import { CreateJobApplicationComponent } from '../create-job-application/create-job-application.component';
 
 @Component({
   selector: 'app-visualize-job-position',
@@ -20,6 +21,7 @@ import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils'
     EditRequirementsComponent,
     EditTechnicalSkillsComponent,
     EditLanguageSkillsComponent,
+    CreateJobApplicationComponent,
   ],
   templateUrl: './visualize-job-position.component.html',
   styles: ``,
@@ -28,6 +30,7 @@ export class VisualizeJobPositionComponent {
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);
   @Input() jobPositionId = this.route.snapshot.params['jobPositionId'];
+  showApplyJobModal = signal(false);
   showEditTechnicalSkillsModal = signal(false);
   showEditLanguageSkillsModal = signal(false);
   showEditRequirementsModal = signal(false);
@@ -85,6 +88,10 @@ export class VisualizeJobPositionComponent {
       name: company.name,
       id: company.id,
     }));
+  }
+
+  showApplyJobDialog() {
+    this.showApplyJobModal.set(true);
   }
 
   showEditTechnicalSkillsDialog() {
