@@ -1,0 +1,105 @@
+<p-dialog
+  header="Detalles de aplicación"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onShow)="resetJobApplication()"
+>
+  <div class="flex w-full">
+    <div class="p-4 w-full bg-white shadow-md rounded-md">
+      <h2 class="text-xl font-bold mb-7 text-center">Información de la aplicación de empleo</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 mb-4 items-center justify-items-center gap-4">
+        <strong>Estado:</strong>
+        <div class="grid">
+          <span
+            class="flex justify-center font-medium text-center py-2 px-5 rounded-full shadow"
+            [ngClass]="{
+              'bg-yellow-100 text-yellow-800 text-sm dark:bg-yellow-900 dark:text-yellow-300':
+                jobApplication?.status === 'Aplicada',
+              'bg-red-100 text-red-800 text-sm dark:bg-red-900 dark:text-red-300':
+                jobApplication?.status === 'Descartado',
+              'bg-green-100 text-green-800 text-sm dark:bg-green-900 dark:text-green-300':
+                jobApplication?.status === 'Contratado',
+              'bg-indigo-100 text-indigo-800 text-sm dark:bg-indigo-900 dark:text-indigo-300':
+                jobApplication?.status === 'En_proceso' ||
+                jobApplication?.status === 'Entrevista_final'
+            }"
+          >
+            {{ jobApplication?.status }}
+          </span>
+        </div>
+        <strong>Grado de compatibilidad:</strong>
+        @if (jobApplication?.percentage) {
+          <div class="w-full bg-slate-300 rounded-full dark:bg-slate-700">
+            <div
+              class="grid py-2.5 text-xs rounded-full text-white text-center font-semibold"
+              [style]="{ 'width': jobApplication.percentage * 100 + '%' }"
+              [ngClass]="colorPercentage(jobApplication?.percentage * 100)"
+            >
+              {{ jobApplication?.percentage * 100 }}%
+            </div>
+          </div>
+        }
+      </div>
+
+      <h3 class="text-lg font-semibold">Detalles del Candidato</h3>
+      <hr class="border-[1px] border-slate-800 mb-4" />
+      <div class="grid grid-cols-1 md:grid-cols-2 mb-4 items-center justify-items-center gap-4">
+        <strong>Hoja de vida:</strong>
+        <div class="mt-1">
+          <a
+            [href]="jobApplication?.cv"
+            target="_blank"
+            class="flex border-2 items-center rounded-full bg-white font-normal text-sm border-on-secondary px-3 py-1 gap-1 h-auto justify-center"
+          >
+            <span class="material-symbols-outlined">visibility</span>
+            Ver hoja de vida del candidato
+          </a>
+        </div>
+        <strong>Perfil del candidato:</strong>
+        <div class="mt-1">
+          <a
+            [routerLink]="[
+              '/dashboard/red-talenthub/perfil-usuario/',
+              jobApplication?.candidate?.id
+            ]"
+            target="_blank"
+            class="flex border-2 items-center rounded-full bg-white font-normal text-sm border-on-secondary px-3 py-1 gap-1 h-auto justify-center"
+          >
+            <span class="material-symbols-outlined">visibility</span>
+            Ver perfil del candidato
+          </a>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-semibold">Reuniones programadas</h3>
+      <hr class="border-[1px] border-slate-800 mb-4" />
+      @if (jobApplication?.meeting?.length === 0) {
+        <p>No dispone de reuniones programadas</p>
+      } @else {
+        @for (meet of jobApplication?.meeting; track meet.id) {
+          <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-primary-dark" style="font-size: 60px"
+              >event</span
+            >
+            <div>
+              <p class="text-sm">{{ meet.executionDate | date }}</p>
+            </div>
+          </div>
+          <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
+        }
+      }
+      @if (jobApplication?.recomendation) {
+        <h3 class="text-lg font-semibold mt-4">Recomendación brindada por reclutador</h3>
+        <hr class="border-[1px] border-slate-800 mb-4" />
+        <div class="bg-white shadow-md rounded-md mt-3 p-4">
+          <p class="text-justify">{{ jobApplication?.recomendation }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</p-dialog>

@@ -1,5 +1,5 @@
 import { Company } from './company.interface';
-import { Address } from './person.interface';
+import { Address, Person } from './person.interface';
 
 export interface Category {
   id: string;
@@ -47,4 +47,26 @@ export interface JobPosition {
   languageSkills: LanguageSkill[];
   requirements: Requirement[];
   createdAt: string;
+}
+
+export interface JobApplicationCandidate {
+  id: string;
+  status: string;
+  cv: string;
+  percentage: number;
+  recomendation: string;
+  jobPosition: JobPosition;
+  candidate: {
+    id: string;
+    person: Person;
+  };
+  meeting: Meeting[];
+  createdAt: string;
+}
+
+export interface Meeting {
+  id: string;
+  link: string;
+  executionDate: string;
+  jobApplicationId: string;
 }

@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import network from '../config/network.service';
 import axios from 'axios';
 import { axiosConfiguration } from '../config/network.service';
-import { JobPosition } from '../interfaces/job.interface';
+import { JobApplicationCandidate, JobPosition, Meeting } from '../interfaces/job.interface';
 import { PaginatedResponse, PaginationParams } from '../interfaces/pagination.interface';
 import {
   CreateJobApplicationDto,
   CreateJobPositionDto,
+  CreateMeetingDto,
   JobApplication,
   LanguageSkillDto,
   RequirementDto,
   TechnicalSkillDto,
+  updateJobApplicationDto,
 } from './interfaces/job.dto';
 import { Language } from '../interfaces/language.interface';
 import { filter } from 'rxjs';
@@ -133,8 +135,8 @@ export class JobService {
     jobPositionId: string,
     { page, perPage }: PaginationParams,
     filters: any,
-  ): Promise<PaginatedResponse<any>> {
-    const applications = await network.get<PaginatedResponse<any>>(
+  ): Promise<PaginatedResponse<JobApplicationCandidate>> {
+    const applications = await network.get<PaginatedResponse<JobApplicationCandidate>>(
       `/job-positions/${jobPositionId}/job-applications`,
       {
         params: {
@@ -146,5 +148,34 @@ export class JobService {
     );
 
     return applications.data;
+  }
+
+  async getJobApplication(jobApplicationId: string): Promise<JobApplicationCandidate> {
+    const application = await network.get<JobApplicationCandidate>(
+      `/job-applications/${jobApplicationId}`,
+    );
+
+    return application.data;
+  }
+
+  async createMeeting(jobApplicationId: string, meeting: CreateMeetingDto): Promise<Meeting> {
+    const response = await network.post<Meeting>(
+      `/recruiter/meeting/jobAplication/${jobApplicationId}`,
+      meeting,
+    );
+
+    return response.data;
+  }
+
+  async updateJobApplication(
+    jobApplicationId: string,
+    jobApplication: updateJobApplicationDto,
+  ): Promise<JobApplication> {
+    const response = await network.put<JobApplication>(
+      `/job-applications/${jobApplicationId}`,
+      jobApplication,
+    );
+
+    return response.data;
   }
 }

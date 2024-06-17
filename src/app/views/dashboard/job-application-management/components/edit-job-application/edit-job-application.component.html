@@ -1,0 +1,45 @@
+<p-dialog
+  header="Editar aplicación"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="w-full mt-2">
+          <app-select
+            label="Estado de la aplicación"
+            [selectOptions]="statusOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="status"
+            formControlName="status"
+          ></app-select>
+        </div>
+      </div>
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full mt-2">
+          <app-textarea
+            [parentForm]="form"
+            label="Recomendación"
+            formControlName="recomendation"
+            fieldName="recomendation"
+            [rows]="7"
+            placeholder="Detalles de la recomendación"
+          ></app-textarea>
+        </div>
+      </div>
+      <div class="flex w-full justify-end mt-3">
+        <p-button
+          type="submit"
+          label="Guardar"
+          [loading]="editJobApplicationMutation.isPending()"
+        />
+      </div>
+    </form>
+  </div>
+</p-dialog>

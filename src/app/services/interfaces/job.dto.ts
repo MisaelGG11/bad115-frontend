@@ -20,6 +20,11 @@ export interface CreateJobApplicationDto {
   mimeTypeFile?: string;
 }
 
+export interface updateJobApplicationDto {
+  status: string;
+  recomendation: string;
+}
+
 export interface JobApplication {
   id: string;
   cv: string;
@@ -50,4 +55,9 @@ export interface LanguageSkillDto {
 
 export interface TechnicalSkillDto {
   technicalSkillId: string;
+}
+
+export interface CreateMeetingDto {
+  link: string;
+  execution: string;
 }

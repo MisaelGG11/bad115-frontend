@@ -77,4 +77,19 @@
       </ng-template>
     </app-data-table>
   </div>
+
+  <app-create-meeting
+    [visible]="showAddMeetingModal"
+    [jobApplicationId]="selectedJobApplicationId()"
+  ></app-create-meeting>
+
+  <app-edit-job-application
+    [visible]="showEditModal"
+    [jobApplicationId]="selectedJobApplicationId()"
+  ></app-edit-job-application>
+
+  <app-visualize-job-application
+    [visible]="showVisualizeModal"
+    [jobApplicationId]="selectedJobApplicationId()"
+  ></app-visualize-job-application>
 </div>

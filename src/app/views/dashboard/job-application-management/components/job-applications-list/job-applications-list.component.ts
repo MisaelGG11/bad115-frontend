@@ -15,6 +15,9 @@ import { GlobalFunctionsService } from '../../../../../utils/services/global-fun
 import { JobService } from '../../../../../services/job.service';
 import { ActivatedRoute } from '@angular/router';
 import { Document } from '../../../../../interfaces/person.interface';
+import { CreateMeetingComponent } from '../create-meeting/create-meeting.component';
+import { EditJobApplicationComponent } from '../edit-job-application/edit-job-application.component';
+import { VisualizeJobApplicationComponent } from '../visualize-job-application/visualize-job-application.component';
 
 export interface DataTableApplication {
   id: string;
@@ -36,6 +39,9 @@ export interface DataTableApplication {
     DataTableComponent,
     TooltipModule,
     CommonModule,
+    CreateMeetingComponent,
+    EditJobApplicationComponent,
+    VisualizeJobApplicationComponent,
   ],
   templateUrl: './job-applications-list.component.html',
   styles: ``,
@@ -44,18 +50,10 @@ export class JobApplicationsListComponent {
   private jobService = inject(JobService);
   private global = inject(GlobalFunctionsService);
   private route = inject(ActivatedRoute);
-  showResolutionModal = signal(false);
+  showEditModal = signal(false);
+  showAddMeetingModal = signal(false);
   showVisualizeModal = signal(false);
-  selectedUnlockRequest = signal<DataTableApplication>({
-    id: '',
-    name: '',
-    lastName: '',
-    dui: '',
-    passport: '',
-    percentage: 0,
-    status: '',
-  });
-  selectedStatus = signal('');
+  selectedJobApplicationId = signal('');
   permissionUser: string[] = this.global.getPermissions();
   filters: any = {
     name: '',
@@ -106,10 +104,10 @@ export class JobApplicationsListComponent {
       console.log(data);
       this.dataTable = [];
       data?.forEach((application) => {
-        const dui = application.candidate.person.documents.find(
+        const dui = application.candidate.person.documents?.find(
           (doc: Document) => doc.type === 'DUI',
         );
-        const passport = application.candidate.person.documents.find(
+        const passport = application.candidate.person.documents?.find(
           (doc: Document) => doc.type === 'PASSPORT',
         );
         this.dataTable.push({
@@ -150,25 +148,16 @@ export class JobApplicationsListComponent {
         iconColor: 'text-green-500',
         permission: this.permissionUser.includes(PERMISSIONS.UPDATE_APPLICATION),
         onClick: (value: any) => {
-          this.onClickApprove(value);
+          this.onClickAddMeeting(value);
         },
       },
       {
-        label: 'Actualizar estado',
+        label: 'Actualizar aplicación',
         icon: 'update',
         iconColor: 'text-orange',
         permission: this.permissionUser.includes(PERMISSIONS.UPDATE_APPLICATION),
         onClick: (value: any) => {
-          this.onClickReject(value);
-        },
-      },
-      {
-        label: 'Agregar recomendación',
-        icon: 'rate_review',
-        iconColor: 'text-yellow-300',
-        permission: this.permissionUser.includes(PERMISSIONS.UPDATE_APPLICATION),
-        onClick: (value: any) => {
-          this.onClickReject(value);
+          this.onClickEdit(value);
         },
       },
     ];
@@ -181,22 +170,19 @@ export class JobApplicationsListComponent {
     await this.applicationsRequest.refetch();
   }
 
-  onClickVisualize(value: any) {
-    this.selectedUnlockRequest.set(value);
-    this.selectedStatus.set(value.status);
+  onClickVisualize(value: DataTableApplication) {
+    this.selectedJobApplicationId.set(value.id);
     this.showVisualizeModal.set(true);
   }
 
-  onClickReject(value: any) {
-    this.selectedUnlockRequest.set(value);
-    this.selectedStatus.set('REJECTED');
-    this.showResolutionModal.set(true);
+  onClickEdit(value: DataTableApplication) {
+    this.selectedJobApplicationId.set(value.id);
+    this.showEditModal.set(true);
   }
 
-  onClickApprove(value: any) {
-    this.selectedUnlockRequest.set(value);
-    this.selectedStatus.set('APPROVED');
-    this.showResolutionModal.set(true);
+  onClickAddMeeting(value: DataTableApplication) {
+    this.selectedJobApplicationId.set(value.id);
+    this.showAddMeetingModal.set(true);
   }
 
   async onFilterDUI() {
