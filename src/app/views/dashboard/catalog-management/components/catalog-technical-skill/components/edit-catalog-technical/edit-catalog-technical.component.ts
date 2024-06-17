@@ -61,7 +61,7 @@ export class EditCatalogTechnicalComponent implements OnChanges {
     mutationFn: async (name: string) =>
       this.technicalSkillService.updateCatalog(this.catalogTechnicalSkill.id, name),
     onSuccess: async () => {
-      toast.success('Catalogo actualizado', { duration: 3000 });
+      toast.success('Catálogo actualizado', { duration: 3000 });
       await this.queryClient.invalidateQueries({
         queryKey: ['catalogTechnicalSkills'],
       });

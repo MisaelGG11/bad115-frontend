@@ -34,7 +34,7 @@ export class CreateCatalogTechnicalComponent {
   createCatalogTechnicalMutation = injectMutation(() => ({
     mutationFn: async (name: string) => this.technicalSkillService.createCatalog(name),
     onSuccess: async () => {
-      toast.success('Catalogo creado', { duration: 3000 });
+      toast.success('Catálogo creado', { duration: 3000 });
       await this.queryClient.invalidateQueries({
         queryKey: ['catalogTechnicalSkills'],
       });

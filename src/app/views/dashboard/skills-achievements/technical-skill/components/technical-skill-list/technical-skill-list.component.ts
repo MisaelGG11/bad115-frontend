@@ -28,7 +28,7 @@ export class TechnicalSkillListComponent {
     queryFn: ({ pageParam }) =>
       this.candidateService.getTechnicalSkills(this.person.candidateId, {
         page: pageParam,
-        perPage: 5,
+        perPage: 4,
       }),
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => firstPage.pagination.previousPage ?? undefined,

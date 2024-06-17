@@ -4,7 +4,7 @@
       <app-spinner />
     </div>
   } @else {
-    <div class="flex flex-wrap gap-2 w-full">
+    <div class="flex flex-wrap gap-2 w-full lg:grid lg:grid-cols-2">
       @for (page of technicalSkillsRequest.data()?.pages; track $index) {
         @for (technicalSkills of page.data; track technicalSkills.id) {
           <div class="w-full">

@@ -29,7 +29,7 @@ export class LanguageSkillsListComponent {
     queryFn: ({ pageParam }) =>
       this.candidateService.getLanguageSkills(this.person.candidateId, {
         page: pageParam,
-        perPage: 3,
+        perPage: 4,
       }),
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => firstPage.pagination.previousPage ?? undefined,
