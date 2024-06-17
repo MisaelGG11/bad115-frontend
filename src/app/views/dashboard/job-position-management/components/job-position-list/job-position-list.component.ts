@@ -210,32 +210,32 @@ export class JobPositionListComponent {
     this.showVisualizePage.emit(jobPositionId);
   }
 
-  onFilterModality(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterModality() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterWorkday(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterWorkday() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterName(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterName() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterExperience(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterExperience() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterContract(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterContract() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterCountry(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterCountry() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterCompany(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterCompany() {
+    await this.jobPositionsRequest.refetch();
   }
 
   onClearFilters() {

@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Session } from '../../interfaces/user.interface';
-import { CardMenu, Route } from '../../interfaces/route.interface';
+import { CardMenu } from '../../interfaces/route.interface';
 import { PERMISSIONS, ROLES } from '../constants.utils';
 
 @Injectable({
