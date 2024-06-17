@@ -128,4 +128,23 @@ export class JobService {
 
     return response.data;
   }
+
+  async getApplicationsByJobPosition(
+    jobPositionId: string,
+    { page, perPage }: PaginationParams,
+    filters: any,
+  ): Promise<PaginatedResponse<any>> {
+    const applications = await network.get<PaginatedResponse<any>>(
+      `/job-positions/${jobPositionId}/job-applications`,
+      {
+        params: {
+          page,
+          perPage,
+          ...filters,
+        },
+      },
+    );
+
+    return applications.data;
+  }
 }

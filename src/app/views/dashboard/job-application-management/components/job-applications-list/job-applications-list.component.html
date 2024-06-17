@@ -1,0 +1,80 @@
+<div>
+  <div class="my-3 font-bold text-base md:text-lg text-indigo-500">
+    <h1>Filtros de aplicaciones de empleos:</h1>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+    <div class="w-full">
+      <input
+        id="search"
+        [(ngModel)]="filters.name"
+        type="text"
+        placeholder="Búsqueda por nombre"
+        class="block border-white text-gray-900 placeholder-slate-600 px-3 py-2.5 text-base rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        (input)="onFilterName()"
+      />
+    </div>
+    <div class="w-full">
+      <input
+        id="search"
+        [(ngModel)]="filters.dui"
+        type="text"
+        placeholder="Búsqueda por DUI"
+        class="block border-white text-gray-900 placeholder-slate-600 px-3 py-2.5 text-base rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        (input)="onFilterDUI()"
+      />
+    </div>
+    <div class="w-full">
+      <input
+        id="search"
+        [(ngModel)]="filters.passport"
+        type="text"
+        placeholder="Búsqueda por pasaporte"
+        class="block border-white text-gray-900 placeholder-slate-600 px-3 py-2.5 text-base rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        (input)="onFilterPassport()"
+      />
+    </div>
+    <div class="w-full">
+      <button
+        pButton
+        pRipple
+        class="flex justify-center w-full font-semibold rounded-full p-button-outlined"
+        (click)="onClearFilters()"
+      >
+        Limpiar filtros
+      </button>
+    </div>
+  </div>
+  <div class="w-full mt-7">
+    <app-data-table
+      [columns]="columns"
+      [rows]="dataTable"
+      [haveActions]="true"
+      [headerAlign]="'left'"
+      [showPagination]="true"
+      [pagination]="pagination"
+      (setPagination)="paginatePage($event)"
+    >
+      <ng-template #actions let-rowData>
+        <div class="flex justify-center items-center gap-2.5">
+          @for (action of actionsList; track action.label) {
+            @if (action.permission) {
+              <button
+                type="button"
+                class="bg-transparent rounded-full"
+                [pTooltip]="action.label"
+                tooltipPosition="top"
+                showDelay="300"
+                hideDelay="300"
+                (click)="action.onClick(rowData)"
+              >
+                <span [ngClass]="'material-symbols-outlined ' + action.iconColor">
+                  {{ action.icon }}
+                </span>
+              </button>
+            }
+          }
+        </div>
+      </ng-template>
+    </app-data-table>
+  </div>
+</div>
