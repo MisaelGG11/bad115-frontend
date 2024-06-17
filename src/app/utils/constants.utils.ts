@@ -42,7 +42,7 @@ export const PERMISSIONS = {
   MANAGE_APPLICATION: 'manage:application',
   CREATE_APPLICATION: 'create:application',
   READ_APPLICATION: 'read:application',
-  UPDATB_APPLICATION: 'update:application',
+  UPDATE_APPLICATION: 'update:application',
   DELETE_APPLICATION: 'delete:application',
   // CANDIDATE
   MANAGE_CANDIDATE: 'manage:candidate',
