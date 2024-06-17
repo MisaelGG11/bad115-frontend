@@ -39,6 +39,7 @@ export class CalendarComponent {
   @Input() label: string = '';
   @Input() required: boolean = false;
   @Input() showIcon: boolean = true;
+  @Input() showTime: boolean = false;
   @Input() InputId: string = 'label';
   @Input() loading: boolean = false;
 
