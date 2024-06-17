@@ -24,6 +24,7 @@ import { VisualizeJobPositionComponent } from './views/dashboard/job-position-ma
 import { SkillsAchievementsComponent } from './views/dashboard/skills-achievements/skills-achievements.component';
 import { RedTalentHubComponent } from './views/dashboard/red-talent-hub/red-talent-hub.component';
 import { getCompanyLocalStorage } from './utils/local-storage.utils';
+import { JobApplicationManagementComponent } from './views/dashboard/job-application-management/job-application-management.component';
 
 const routes: Routes = [
   {
@@ -170,6 +171,13 @@ const routes: Routes = [
         component: VisualizeJobPositionComponent,
         canActivate: [verifyPermissionGuard],
         data: { permission: PERMISSIONS.READ_JOB },
+      },
+      {
+        path: 'red-talenthub/empleos/:jobPositionId/aplicaciones',
+        title: 'Aplicaciones de Empleo',
+        component: JobApplicationManagementComponent,
+        canActivate: [verifyPermissionGuard],
+        data: { permission: PERMISSIONS.READ_APPLICATION },
       },
     ],
   },

@@ -1,5 +1,5 @@
 import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { JobService } from '../../../../../services/job.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { DatePipe, CommonModule } from '@angular/common';
@@ -27,6 +27,7 @@ import { CreateJobApplicationComponent } from '../create-job-application/create-
   styles: ``,
 })
 export class VisualizeJobPositionComponent {
+  private router = inject(Router);
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);
   @Input() jobPositionId = this.route.snapshot.params['jobPositionId'];
@@ -104,6 +105,10 @@ export class VisualizeJobPositionComponent {
 
   showEditLanguageSkillsDialog() {
     this.showEditLanguageSkillsModal.set(true);
+  }
+
+  goToApplications() {
+    this.router.navigate([`dashboard/red-talenthub/empleos/${this.jobPositionId}/aplicaciones`]);
   }
 
   getModality(modality: string) {
