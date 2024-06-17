@@ -74,6 +74,13 @@ export class GlobalFunctionsService {
             description: 'Agrega tus habilidades técnicas y lingüísticas',
             color: 'text-red-500',
           },
+          {
+            name: 'Red TalentHub',
+            path: '/dashboard/red-talenthub',
+            icon: sidebar ? 'fa fa-users' : 'group',
+            description: 'Ver la red de usuarios y empleos de TalentHub',
+            color: 'text-blue-500',
+          },
         ];
       }
     }
@@ -161,15 +168,6 @@ export class GlobalFunctionsService {
       });
     }
 
-    if (this.permissions().includes(PERMISSIONS.READ_JOB)) {
-      routes.push({
-        name: 'Red TalentHub',
-        path: '/dashboard/red-talenthub',
-        icon: sidebar ? 'fa fa-users' : 'group',
-        description: 'Ver la red de usuarios y empleos de TalentHub',
-        color: 'text-blue-500',
-      });
-    }
     return routes;
   }
 }

@@ -147,20 +147,33 @@ export class JobPositionListComponent {
 
   jobPositionsRequest = injectInfiniteQuery(() => {
     const queryFn = ({ pageParam }: { pageParam: number }) => {
-      console.log('this.company', this.company, this.route.routeConfig?.path);
-      return this.route.routeConfig?.path === 'red-talenthub' ||
-        Object.keys(this.company).length > 0
-        ? this.jobService.getAllJobPositions(
-            {
-              page: pageParam,
-              perPage: 5,
-            },
-            { ...this.filters },
-          )
-        : this.jobService.getJobPositionsRecruiter(this.person.recruiterId, {
+      const isCompany = Object.keys(this.company).length > 0;
+      const isCandidate = this.route.routeConfig?.path === 'red-talenthub';
+
+      if (isCompany) {
+        return this.jobService.getAllJobPositions(
+          {
             page: pageParam,
             perPage: 5,
-          });
+          },
+          { ...this.filters, available: 'false' },
+        );
+      }
+
+      if (isCandidate) {
+        return this.jobService.getAllJobPositions(
+          {
+            page: pageParam,
+            perPage: 5,
+          },
+          { ...this.filters },
+        );
+      }
+
+      return this.jobService.getJobPositionsRecruiter(this.person.recruiterId, {
+        page: pageParam,
+        perPage: 5,
+      });
     };
 
     return {
