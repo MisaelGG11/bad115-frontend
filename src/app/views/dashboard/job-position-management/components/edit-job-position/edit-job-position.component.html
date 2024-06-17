@@ -1,1 +1,120 @@
-<p>edit-job-position works!</p>
+<p-dialog
+  header="Editar puesto de trabajo"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  @if (jobPositionRequest.isLoading()) {
+    <div class="flex w-full justify-center items-center">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  } @else {
+    <form [formGroup]="form" (submit)="submit()" class="flex flex-wrap w-full">
+      <div class="w-full">
+        <app-custom-input
+          [parentForm]="form"
+          label="Nombre de puesto"
+          fieldName="name"
+          placeholder="Nombre de puesto"
+          formControlName="name"
+          [required]="true"
+        />
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:w-1/2">
+          <app-select
+            label="Compañia"
+            [filter]="true"
+            filterBy="label"
+            [selectOptions]="companiesOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="companyId"
+            formControlName="companyId"
+          ></app-select>
+        </div>
+
+        <div class="w-full lg:w-1/2">
+          <app-custom-input
+            [parentForm]="form"
+            label="Rango salarial"
+            fieldName="salaryRange"
+            placeholder="Rango salarial"
+            formControlName="salaryRange"
+            [required]="true"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:w-1/2">
+          <app-select
+            label="Nivel de experiencia"
+            [selectOptions]="experienceOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="experiencesLevel"
+            formControlName="experiencesLevel"
+          ></app-select>
+        </div>
+
+        <div class="w-full lg:w-1/2">
+          <app-select
+            label="Modalidad de puesto"
+            [selectOptions]="modalityOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="modality"
+            formControlName="modality"
+          ></app-select>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:w-1/2">
+          <app-select
+            label="Tipo de contrato"
+            [selectOptions]="contractOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="contractType"
+            formControlName="contractType"
+          ></app-select>
+        </div>
+
+        <div class="w-full lg:w-1/2">
+          <app-select
+            label="Jornada laboral"
+            [selectOptions]="workDayOptions"
+            [required]="true"
+            [parentForm]="form"
+            fieldName="workday"
+            formControlName="workday"
+          ></app-select>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full lg:w-1/2">
+          <app-calendar
+            fieldName="closeTime"
+            [required]="true"
+            [parentForm]="form"
+            formControlName="closeTime"
+            label="Fecha de cierre de la oferta"
+            [minDate]="tomorrow"
+          ></app-calendar>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end mt-3 gap-3">
+        <p-button (onClick)="visible.set(false)" label="Cancelar" [outlined]="true" />
+        <p-button type="submit" label="Guardar" [loading]="editJobPositionMutation.isPending()" />
+      </div>
+    </form>
+  }
+</p-dialog>

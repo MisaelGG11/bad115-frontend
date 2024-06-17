@@ -5,6 +5,7 @@ import {
   inject,
   Input,
   Output,
+  signal,
   SimpleChanges,
 } from '@angular/core';
 import { Country, Person } from '../../../../../interfaces/person.interface';
@@ -27,6 +28,13 @@ import { RippleModule } from 'primeng/ripple';
 import { ActivatedRoute } from '@angular/router';
 import { AddressService } from '../../../../../services/address.service';
 import { GlobalFunctionsService } from '../../../../../utils/services/global-functions.service';
+import {
+  contractOptionsJobPosition,
+  experienceOptionsJobPosition,
+  modalityOptionsJobPosition,
+  workDayOptionsJobPosition,
+} from '../../../../../utils/job-position.utils';
+import { EditJobPositionComponent } from '../edit-job-position/edit-job-position.component';
 
 export interface JobFilters {
   [key: string]: string | null;
@@ -52,6 +60,7 @@ export interface JobFilters {
     SpinnerComponent,
     ReactiveFormsModule,
     FormsModule,
+    EditJobPositionComponent,
   ],
   templateUrl: './job-position-list.component.html',
   styles: ``,
@@ -64,33 +73,18 @@ export class JobPositionListComponent {
   private person: Person = getPersonLocalStorage();
   private company: Company = getCompanyLocalStorage();
   @Input() candidatesView = false;
+  @Input() selectedJobPositionId = signal('');
   @Output() showDeleteDialog = new EventEmitter<string>();
   @Output() showEditDialog = new EventEmitter<string>();
   @Output() showVisualizePage = new EventEmitter<string>();
-  modalityOptions: Array<{ label: string; value: string | { name: string } }> = [
-    { label: 'Presencial', value: 'ON_SITE' },
-    { label: 'Remoto', value: 'REMOTE' },
-    { label: 'Hibrido', value: 'HYBRID' },
-  ];
-  contractOptions: Array<{ label: string; value: string | { name: string } }> = [
-    { label: 'Practicante', value: 'INTERNSHIP' },
-    { label: 'Temporal', value: 'TEMPORARY' },
-    { label: 'Contratista', value: 'CONTRACTOR' },
-    { label: 'Permanente', value: 'PERMANENT' },
-    { label: 'Voluntario', value: 'VOLUNTEER' },
-    { label: 'Por proyecto', value: 'BY_PROJECT' },
-  ];
-  experienceOptions: Array<{ label: string; value: string | { name: string } }> = [
-    { label: 'Menos de 1 año', value: 'LESS_ONE_YEAR' },
-    { label: '1 a 3 años', value: 'ONE_TO_THREE_YEARS' },
-    { label: '3 a 5 años', value: 'THREE_TO_FIVE_YEARS' },
-    { label: 'Más de 5 años', value: 'MORE_FIVE_YEARS' },
-  ];
-  workDayOptions: Array<{ label: string; value: string | { name: string } }> = [
-    { label: 'Tiempo completo', value: 'FULL_TIME' },
-    { label: 'Medio tiempo', value: 'PART_TIME' },
-    { label: 'Intermitente', value: 'INTERMITTENT' },
-  ];
+  modalityOptions: Array<{ label: string; value: string | { name: string } }> =
+    modalityOptionsJobPosition;
+  contractOptions: Array<{ label: string; value: string | { name: string } }> =
+    contractOptionsJobPosition;
+  experienceOptions: Array<{ label: string; value: string | { name: string } }> =
+    experienceOptionsJobPosition;
+  workDayOptions: Array<{ label: string; value: string | { name: string } }> =
+    workDayOptionsJobPosition;
   countriesOptions: Array<{ label: string; value: string }> = [];
   companiesOptions: Array<{ label: string; value: string }> = [];
   filters: any = {

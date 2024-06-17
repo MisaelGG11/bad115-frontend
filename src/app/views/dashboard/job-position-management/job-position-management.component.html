@@ -17,5 +17,7 @@
       (showEditDialog)="showEditDialog($event)"
       (showVisualizePage)="showVisualizePage($event)"
     />
+
+    <app-edit-job-position [visible]="showEditModal" [jobPositionId]="selectedJobPositionId" />
   </div>
 </div>

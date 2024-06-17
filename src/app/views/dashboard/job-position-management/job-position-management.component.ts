@@ -2,11 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { JobPositionListComponent } from './components/job-position-list/job-position-list.component';
 import { Router } from '@angular/router';
+import { EditJobPositionComponent } from './components/edit-job-position/edit-job-position.component';
 
 @Component({
   selector: 'app-job-position-management',
   standalone: true,
-  imports: [ButtonModule, JobPositionListComponent],
+  imports: [ButtonModule, JobPositionListComponent, EditJobPositionComponent],
   templateUrl: './job-position-management.component.html',
   styles: ``,
 })
@@ -15,7 +16,7 @@ export class JobPositionManagementComponent {
   showAddModal = signal(false);
   showDeleteModal = signal(false);
   showEditModal = signal(false);
-  selectedTest = signal('');
+  selectedJobPositionId = signal('');
 
   showAddPage() {
     this.router.navigate(['/dashboard/puestos-empresa/crear-puesto']);
@@ -25,13 +26,13 @@ export class JobPositionManagementComponent {
     this.router.navigate(['/dashboard/puestos-empresa/', jobPositionId]);
   }
 
-  showEditDialog(certificationId: string) {
-    this.selectedTest.set(certificationId);
+  showEditDialog(jobPositionId: string) {
+    this.selectedJobPositionId.set(jobPositionId);
     this.showEditModal.set(true);
   }
 
   showDeleteDialog(certificationId: string) {
-    this.selectedTest.set(certificationId);
+    this.selectedJobPositionId.set(certificationId);
     this.showDeleteModal.set(true);
   }
 }
