@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Session } from '../../interfaces/user.interface';
-import { CardMenu, Route } from '../../interfaces/route.interface';
+import { CardMenu } from '../../interfaces/route.interface';
 import { PERMISSIONS, ROLES } from '../constants.utils';
 
 @Injectable({
@@ -73,6 +73,13 @@ export class GlobalFunctionsService {
             icon: sidebar ? 'fa fa-handshake' : 'handshake',
             description: 'Agrega tus habilidades técnicas y lingüísticas',
             color: 'text-red-500',
+          },
+          {
+            name: 'Red TalentHub',
+            path: '/dashboard/red-talenthub',
+            icon: sidebar ? 'fa fa-users' : 'group',
+            description: 'Ver la red de usuarios y empleos de TalentHub',
+            color: 'text-blue-500',
           },
         ];
       }
@@ -161,15 +168,6 @@ export class GlobalFunctionsService {
       });
     }
 
-    if (this.permissions().includes(PERMISSIONS.READ_JOB)) {
-      routes.push({
-        name: 'Red TalentHub',
-        path: '/dashboard/red-talenthub',
-        icon: sidebar ? 'fa fa-users' : 'group',
-        description: 'Ver la red de usuarios y empleos de TalentHub',
-        color: 'text-blue-500',
-      });
-    }
     return routes;
   }
 }

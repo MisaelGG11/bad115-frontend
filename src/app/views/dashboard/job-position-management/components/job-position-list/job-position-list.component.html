@@ -16,7 +16,7 @@
             type="text"
             placeholder="Búsqueda por nombre"
             class="block border-white text-gray-900 placeholder-slate-600 px-3 py-2.5 text-base rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (input)="onFilterName($event)"
+            (input)="onFilterName()"
           />
         </div>
         <div class="w-full">
@@ -28,7 +28,7 @@
             placeholder="Búsqueda por modalidad"
             [options]="modalityOptions"
             styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (onChange)="onFilterModality($event)"
+            (onChange)="onFilterModality()"
           />
         </div>
         <div class="w-full">
@@ -40,7 +40,7 @@
             placeholder="Búsqueda por experiencia"
             [options]="experienceOptions"
             styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (onChange)="onFilterExperience($event)"
+            (onChange)="onFilterExperience()"
           />
         </div>
         <div class="w-full">
@@ -52,7 +52,7 @@
             placeholder="Búsqueda por jornada"
             [options]="workDayOptions"
             styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (onChange)="onFilterWorkday($event)"
+            (onChange)="onFilterWorkday()"
           />
         </div>
         <div class="w-full">
@@ -64,7 +64,7 @@
             placeholder="Búsqueda por contrato"
             [options]="contractOptions"
             styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (onChange)="onFilterContract($event)"
+            (onChange)="onFilterContract()"
           />
         </div>
         <div class="w-full">
@@ -78,7 +78,7 @@
             placeholder="Búsqueda por país"
             [options]="countriesOptions"
             styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (onChange)="onFilterCountry($event)"
+            (onChange)="onFilterCountry()"
           />
         </div>
         <div class="w-full">
@@ -90,7 +90,7 @@
             placeholder="Búsqueda por empresa"
             [options]="companiesOptions"
             styleClass="!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (onChange)="onFilterCompany($event)"
+            (onChange)="onFilterCompany()"
           />
         </div>
         <div class="w-full">

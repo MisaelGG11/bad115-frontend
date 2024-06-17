@@ -147,20 +147,33 @@ export class JobPositionListComponent {
 
   jobPositionsRequest = injectInfiniteQuery(() => {
     const queryFn = ({ pageParam }: { pageParam: number }) => {
-      console.log('this.company', this.company, this.route.routeConfig?.path);
-      return this.route.routeConfig?.path === 'red-talenthub' ||
-        Object.keys(this.company).length > 0
-        ? this.jobService.getAllJobPositions(
-            {
-              page: pageParam,
-              perPage: 5,
-            },
-            { ...this.filters },
-          )
-        : this.jobService.getJobPositionsRecruiter(this.person.recruiterId, {
+      const isCompany = Object.keys(this.company).length > 0;
+      const isCandidate = this.route.routeConfig?.path === 'red-talenthub';
+
+      if (isCompany) {
+        return this.jobService.getAllJobPositions(
+          {
             page: pageParam,
             perPage: 5,
-          });
+          },
+          { ...this.filters, available: 'false' },
+        );
+      }
+
+      if (isCandidate) {
+        return this.jobService.getAllJobPositions(
+          {
+            page: pageParam,
+            perPage: 5,
+          },
+          { ...this.filters },
+        );
+      }
+
+      return this.jobService.getJobPositionsRecruiter(this.person.recruiterId, {
+        page: pageParam,
+        perPage: 5,
+      });
     };
 
     return {
@@ -197,32 +210,32 @@ export class JobPositionListComponent {
     this.showVisualizePage.emit(jobPositionId);
   }
 
-  onFilterModality(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterModality() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterWorkday(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterWorkday() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterName(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterName() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterExperience(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterExperience() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterContract(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterContract() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterCountry(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterCountry() {
+    await this.jobPositionsRequest.refetch();
   }
 
-  onFilterCompany(event: any) {
-    this.jobPositionsRequest.refetch();
+  async onFilterCompany() {
+    await this.jobPositionsRequest.refetch();
   }
 
   onClearFilters() {
