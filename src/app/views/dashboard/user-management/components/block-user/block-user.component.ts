@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, OnChanges, signal, WritableSignal } from '@angular/core';
 import {
   injectMutation,
   injectQuery,
@@ -16,20 +16,20 @@ import { toast } from 'ngx-sonner';
   imports: [ButtonModule, DialogModule],
   templateUrl: './block-user.component.html',
 })
-export class BlockUserComponent {
+export class BlockUserComponent implements OnChanges {
   private userService = inject(UserService);
   private queryClient = injectQueryClient();
   @Input() visible = signal(false);
-  @Input() user!: User;
+  @Input() user!: WritableSignal<User | null>;
 
   userRequest = injectQuery(() => ({
-    queryKey: ['users', { id: this.user?.id }],
-    queryFn: async () => await this.userService.findOneUser(this.user.id),
-    enabled: !!this.user,
+    queryKey: ['users', { id: this.user()?.id }],
+    queryFn: async () => await this.userService.findOneUser(this.user()!.id),
+    enabled: !!this.user()?.id,
   }));
 
   blockUserMutation = injectMutation(() => ({
-    mutationFn: async () => this.userService.blockUser(this.user.id),
+    mutationFn: async () => this.userService.blockUser(this.user()!.id),
     onSuccess: async () => {
       toast.success('Usuario bloqueado', { duration: 3000 });
       await this.queryClient.invalidateQueries({
@@ -37,6 +37,19 @@ export class BlockUserComponent {
       });
     },
   }));
+
+  async ngOnChanges() {
+    await this.userRequest.refetch();
+  }
+
+  getUserName() {
+    const userName =
+      Object.keys(this.userRequest.data()?.person || {}).length > 0
+        ? `${this.userRequest.data()?.person.firstName} ${this.userRequest.data()?.person.lastName}`
+        : this.userRequest.data()?.company?.name;
+
+    return userName;
+  }
 
   async block() {
     await this.blockUserMutation.mutateAsync();
