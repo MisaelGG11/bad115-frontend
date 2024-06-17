@@ -36,7 +36,11 @@
         </p>
         <p>
           <span class="font-semibold">Sexo:</span>
-          {{ profile.person.gender ? 'Masculino' : 'Femenino' }}
+          {{ profile.person.gender === 'M' ? 'Masculino' : 'Femenino' }}
+        </p>
+        <p>
+          <span class="font-semibold">Tel:</span>
+          {{ profile.person.phone ? profile.person.phone : 'No disponible' }}
         </p>
       </div>
 
@@ -232,7 +236,7 @@
       <!-- Technical Skills -->
       @if (profile.technicalSkills) {
         <div class="mb-6">
-          <h3 class="text-lg font-semibold mb-1">Technical Skills</h3>
+          <h3 class="text-lg font-semibold mb-1">Habilidades técnicas</h3>
           <hr class="border-2 border-slate-800 mb-4" />
           @if (profile.technicalSkills.length === 0) {
             <p>No dispone de habilidades técnicas registradas</p>
@@ -253,7 +257,7 @@
       <!-- Language Skills -->
       @if (profile.languageSkills) {
         <div class="mb-6">
-          <h3 class="text-lg font-semibold mb-1">Language Skills</h3>
+          <h3 class="text-lg font-semibold mb-1">Habilidades lingüísticas</h3>
           <hr class="border-2 border-slate-800 mb-4" />
           @if (profile.languageSkills.length === 0) {
             <p>No dispone de habilidades de idiomas registradas</p>
