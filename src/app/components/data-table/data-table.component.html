@@ -119,10 +119,22 @@
                 }
               </div>
             } @else {
-              @if (rowData[col.field]) {
-                <p class="text-center text-sm">{{ rowData[col.field] }}</p>
+              @if (col.field === 'percentage') {
+                <div class="w-full bg-slate-300 rounded-full dark:bg-slate-700">
+                  <div
+                    class="p-0.5 text-xs rounded-full text-white text-center font-semibold"
+                    [style]="{ 'width': rowData[col.field] + '%' }"
+                    [ngClass]="colorPercentage(rowData[col.field])"
+                  >
+                    {{ rowData[col.field] }}%
+                  </div>
+                </div>
               } @else {
-                <div [innerHTML]="rowData[col.field]"></div>
+                @if (rowData[col.field]) {
+                  <p class="text-center text-sm">{{ rowData[col.field] }}</p>
+                } @else {
+                  <div [innerHTML]="rowData[col.field]"></div>
+                }
               }
             }
           </td>

@@ -78,14 +78,39 @@ export class DataTableComponent {
     this.setSorting.emit(this.sortBy);
   }
 
+  colorPercentage(percentage: number) {
+    if (percentage >= 90) {
+      return 'bg-green-500';
+    }
+    if (percentage >= 80) {
+      return 'bg-teal-500';
+    }
+    if (percentage >= 70) {
+      return 'bg-blue-500';
+    }
+    if (percentage >= 55) {
+      return 'bg-violet-500';
+    }
+    if (percentage < 30) {
+      return 'bg-red-500';
+    }
+    if (percentage < 45) {
+      return 'bg-orange';
+    }
+    if (percentage < 55) {
+      return 'bg-yellow-300';
+    }
+    return 'bg-slate-500';
+  }
+
   colorTag(estado: any) {
-    if (['Activo', 'Aprobada'].includes(estado)) {
+    if (['Activo', 'Aprobada', 'Contratado'].includes(estado)) {
       return 'success';
     }
-    if (['Inactivo', 'Rechazada'].includes(estado)) {
+    if (['Inactivo', 'Rechazada', 'Descartado'].includes(estado)) {
       return 'danger';
     }
-    if (['Inhabilitado', 'Pendiente'].includes(estado)) {
+    if (['Inhabilitado', 'Pendiente', 'Aplicada'].includes(estado)) {
       return 'warning';
     }
     return 'info';
