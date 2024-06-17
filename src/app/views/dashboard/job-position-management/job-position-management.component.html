@@ -18,6 +18,8 @@
       (showVisualizePage)="showVisualizePage($event)"
     />
 
-    <app-edit-job-position [visible]="showEditModal" [jobPositionId]="selectedJobPositionId" />
+    <app-edit-job-position [visible]="showEditModal" [jobPositionId]="selectedJobPositionId()" />
+
+    <app-delete-job-position [visible]="showDeleteModal" [jobPositionId]="selectedJobPositionId" />
   </div>
 </div>

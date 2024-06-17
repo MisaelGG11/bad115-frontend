@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import {
   FormBuilder,
@@ -44,10 +44,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   templateUrl: './edit-job-position.component.html',
   styles: ``,
 })
-export class EditJobPositionComponent {
+export class EditJobPositionComponent implements OnChanges {
   private jobService = inject(JobService);
   @Input() visible = signal(false);
-  @Input() jobPositionId = signal('');
+  @Input() jobPositionId = '';
   queryClient = injectQueryClient();
   person = getPersonLocalStorage();
   form: FormGroup;
@@ -69,11 +69,15 @@ export class EditJobPositionComponent {
     });
   }
 
+  async ngOnChanges(changes: SimpleChanges) {
+    await this.jobPositionRequest.refetch();
+  }
+
   jobPositionRequest = injectQuery(() => ({
-    queryKey: ['job-position', this.jobPositionId()],
+    queryKey: ['job-position', this.jobPositionId],
     queryFn: async () => {
-      const response = await this.jobService.getJobPosition(this.jobPositionId());
-      console.log(response.closeTime);
+      const response = await this.jobService.getJobPosition(this.jobPositionId);
+
       this.form.patchValue({
         name: response.name,
         salaryRange: response.salaryRange,
@@ -108,9 +112,12 @@ export class EditJobPositionComponent {
 
   editJobPositionMutation = injectMutation(() => ({
     mutationFn: async () =>
-      await this.jobService.updateJobPosition(this.jobPositionId(), this.form.value),
+      await this.jobService.updateJobPosition(this.jobPositionId, this.form.value),
     onSuccess: async () => {
-      await this.queryClient.invalidateQueries({ queryKey: ['job-positions-candidates'] });
+      await Promise.all([
+        this.queryClient.invalidateQueries({ queryKey: ['job-positions-candidates'] }),
+        this.queryClient.invalidateQueries({ queryKey: ['job-position'] }),
+      ]);
       this.visible.set(false);
     },
   }));

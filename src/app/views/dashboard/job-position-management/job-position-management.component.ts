@@ -3,11 +3,17 @@ import { ButtonModule } from 'primeng/button';
 import { JobPositionListComponent } from './components/job-position-list/job-position-list.component';
 import { Router } from '@angular/router';
 import { EditJobPositionComponent } from './components/edit-job-position/edit-job-position.component';
+import { DeleteJobPositionComponent } from './components/delete-job-position/delete-job-position.component';
 
 @Component({
   selector: 'app-job-position-management',
   standalone: true,
-  imports: [ButtonModule, JobPositionListComponent, EditJobPositionComponent],
+  imports: [
+    ButtonModule,
+    JobPositionListComponent,
+    EditJobPositionComponent,
+    DeleteJobPositionComponent,
+  ],
   templateUrl: './job-position-management.component.html',
   styles: ``,
 })
