@@ -36,12 +36,19 @@ export class CreateJobApplicationComponent {
   }
 
   createJobApplicationMutation = injectMutation(() => ({
-    mutationFn: async (mimeTypeFile?: string) =>
-      await this.jobService.createJobApplication({
+    mutationFn: async (mimeTypeFile?: string) => {
+      const response = await this.jobService.createJobApplication({
         jobPositionId: this.jobPositionId,
         mimeTypeFile: mimeTypeFile,
         candidateId: this.person.candidateId,
-      }),
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        return response.data;
+      } else {
+        throw new Error();
+      }
+    },
     onSuccess: () => {
       this.visible.set(false);
       toast.success('Solicitud enviada correctamente');

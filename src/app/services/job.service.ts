@@ -14,9 +14,6 @@ import {
   TechnicalSkillDto,
   updateJobApplicationDto,
 } from './interfaces/job.dto';
-import { Language } from '../interfaces/language.interface';
-import { filter } from 'rxjs';
-import { JobFilters } from '../views/dashboard/job-position-management/components/job-position-list/job-position-list.component';
 
 @Injectable({
   providedIn: 'root',
@@ -115,9 +112,7 @@ export class JobService {
     await network.put(`/job-positions/${jobPositionId}/requirements`, requirements);
   }
 
-  async createJobApplication(
-    createJobApplicationDto: CreateJobApplicationDto,
-  ): Promise<JobApplication> {
+  async createJobApplication(createJobApplicationDto: CreateJobApplicationDto) {
     const { jobPositionId, mimeTypeFile, candidateId } = createJobApplicationDto;
 
     const response = await network.post<JobApplication>(
@@ -128,7 +123,7 @@ export class JobService {
       },
     );
 
-    return response.data;
+    return response;
   }
 
   async getApplicationsByJobPosition(
