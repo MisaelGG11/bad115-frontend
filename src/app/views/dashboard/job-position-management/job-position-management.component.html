@@ -3,13 +3,15 @@
     <div class="mt-1 font-bold text-xl md:text-2xl">
       <h1>Puestos de trabajo</h1>
     </div>
-    <p-button
-      label="Agregar"
-      icon="pi pi-plus"
-      class="p-button-rounded mx-auto mz- md:mx-0 my-1"
-      styleClass="h-10 text-sm md:text-base md:h-auto"
-      (onClick)="showAddPage()"
-    />
+    @if (canCreate()) {
+      <p-button
+        label="Agregar"
+        icon="pi pi-plus"
+        class="p-button-rounded mx-auto mz- md:mx-0 my-1"
+        styleClass="h-10 text-sm md:text-base md:h-auto"
+        (onClick)="showAddPage()"
+      />
+    }
   </div>
   <div>
     <app-job-position-list

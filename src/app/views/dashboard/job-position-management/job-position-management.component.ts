@@ -4,6 +4,8 @@ import { JobPositionListComponent } from './components/job-position-list/job-pos
 import { Router } from '@angular/router';
 import { EditJobPositionComponent } from './components/edit-job-position/edit-job-position.component';
 import { DeleteJobPositionComponent } from './components/delete-job-position/delete-job-position.component';
+import { GlobalFunctionsService } from '../../../utils/services/global-functions.service';
+import { ROLES } from '../../../utils/constants.utils';
 
 @Component({
   selector: 'app-job-position-management',
@@ -18,11 +20,17 @@ import { DeleteJobPositionComponent } from './components/delete-job-position/del
   styles: ``,
 })
 export class JobPositionManagementComponent {
+  private global = inject(GlobalFunctionsService);
   private router = inject(Router);
   showAddModal = signal(false);
   showDeleteModal = signal(false);
   showEditModal = signal(false);
   selectedJobPositionId = signal('');
+  roles = this.global.getRoles();
+
+  canCreate() {
+    return this.roles.includes(ROLES.RECRUITER);
+  }
 
   showAddPage() {
     this.router.navigate(['/dashboard/puestos-empresa/crear-puesto']);

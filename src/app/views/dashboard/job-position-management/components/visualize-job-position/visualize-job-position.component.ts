@@ -10,6 +10,7 @@ import { EditLanguageSkillsComponent } from './components/edit-language-skills/e
 import { Company } from '../../../../../interfaces/company.interface';
 import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
 import { CreateJobApplicationComponent } from '../create-job-application/create-job-application.component';
+import { GlobalFunctionsService } from '../../../../../utils/services/global-functions.service';
 
 @Component({
   selector: 'app-visualize-job-position',
@@ -29,8 +30,10 @@ import { CreateJobApplicationComponent } from '../create-job-application/create-
 export class VisualizeJobPositionComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private global = inject(GlobalFunctionsService);
   private jobService = inject(JobService);
   @Input() jobPositionId = this.route.snapshot.params['jobPositionId'];
+  roles = this.global.getRoles();
   showApplyJobModal = signal(false);
   showEditTechnicalSkillsModal = signal(false);
   showEditLanguageSkillsModal = signal(false);
@@ -109,6 +112,10 @@ export class VisualizeJobPositionComponent {
 
   goToApplications() {
     this.router.navigate([`dashboard/red-talenthub/empleos/${this.jobPositionId}/aplicaciones`]);
+  }
+
+  canApply() {
+    return this.roles.includes('USER');
   }
 
   getModality(modality: string) {
