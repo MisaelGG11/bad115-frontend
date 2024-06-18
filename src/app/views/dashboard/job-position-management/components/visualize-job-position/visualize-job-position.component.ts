@@ -14,6 +14,7 @@ import {
 } from '../../../../../utils/local-storage.utils';
 import { CreateJobApplicationComponent } from '../create-job-application/create-job-application.component';
 import { GlobalFunctionsService } from '../../../../../utils/services/global-functions.service';
+import { ROLES } from '../../../../../utils/constants.utils';
 
 @Component({
   selector: 'app-visualize-job-position',
@@ -120,7 +121,7 @@ export class VisualizeJobPositionComponent {
   }
 
   canApply() {
-    return this.roles.includes('USER');
+    return this.roles.includes(ROLES.USER);
   }
 
   getModality(modality: string) {

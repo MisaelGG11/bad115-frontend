@@ -171,10 +171,10 @@ export class JobService {
     jobApplicationId: string,
     jobApplication: updateJobApplicationDto,
   ): Promise<JobApplication> {
-    const response = await network.put<JobApplication>(
-      `/job-applications/${jobApplicationId}`,
-      jobApplication,
-    );
+    const response = await network.put<JobApplication>(`/job-applications/${jobApplicationId}`, {
+      ...jobApplication,
+      recomendation: jobApplication?.recomendation || undefined,
+    });
 
     return response.data;
   }

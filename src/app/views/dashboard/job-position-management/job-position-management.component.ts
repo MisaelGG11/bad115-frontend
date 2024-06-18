@@ -33,8 +33,6 @@ export class JobPositionManagementComponent {
   canCreate() {
     return this.roles.includes(ROLES.RECRUITER);
   }
-  private company: Company = getCompanyLocalStorage();
-  showAddJobPositionButton = Object.keys(this.company).length === 0;
 
   showAddPage() {
     this.router.navigate(['/dashboard/puestos-empresa/crear-puesto']);

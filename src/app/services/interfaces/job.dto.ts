@@ -22,7 +22,7 @@ export interface CreateJobApplicationDto {
 
 export interface updateJobApplicationDto {
   status: string;
-  recomendation: string;
+  recomendation?: string;
 }
 
 export interface JobApplication {
