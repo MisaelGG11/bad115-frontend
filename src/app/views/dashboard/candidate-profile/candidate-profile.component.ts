@@ -50,7 +50,7 @@ export class CandidateProfileComponent {
       this.hasAlreadyRecommended = false;
       this.profile = await this.candidateService.getCandidate(this.candidateId);
       this.profile.recomendations.forEach((recommendation) => {
-        if (recommendation.users[0].id === this.person.userId) {
+        if (recommendation.users.id === this.person.userId) {
           this.hasAlreadyRecommended = true;
         }
       });

@@ -93,7 +93,7 @@ export interface Recommendation {
   candidateId: string;
   recomendation: string;
   type: string;
-  users: UserWithPerson[];
+  users: UserWithPerson;
 }
 
 export interface CandidateDetails extends Candidate {

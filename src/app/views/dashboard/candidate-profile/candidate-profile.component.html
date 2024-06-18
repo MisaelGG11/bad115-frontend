@@ -432,10 +432,10 @@
                   <div class="flex items-center space-x-4 mb-3">
                     <img
                       [src]="
-                        recomendation.users[0].avatar
-                          ? recomendation.users[0].avatar
+                        recomendation.users.avatar
+                          ? recomendation.users.avatar
                           : '../../../../../../assets/img/avatars/avatar' +
-                            (recomendation.users[0].person.gender === 'M'
+                            (recomendation.users.person.gender === 'M'
                               ? '-men.jpeg'
                               : '-women.jpeg')
                       "
@@ -444,15 +444,15 @@
                     />
                     <div>
                       <h2 class="text-xs font-semibold">
-                        {{ recomendation.users[0].person.firstName }}
-                        {{ recomendation.users[0].person.middleName }}
-                        {{ recomendation.users[0].person.lastName }}
-                        {{ recomendation.users[0].person.secondLastName }}
+                        {{ recomendation.users.person.firstName }}
+                        {{ recomendation.users.person.middleName }}
+                        {{ recomendation.users.person.lastName }}
+                        {{ recomendation.users.person.secondLastName }}
                       </h2>
                       <p class="text-gray-500 text-xs">{{ recomendation.type }}</p>
                     </div>
                   </div>
-                  @if (recomendation.users[0].id === person.user.id) {
+                  @if (recomendation.users.id === person.user.id) {
                     <div class="flex my-2 md:my-0 justify-center gap-2">
                       <button
                         class="flex items-center text-xs justify-center border-2 border-orange px-4 h-6 text-orange rounded-full"
