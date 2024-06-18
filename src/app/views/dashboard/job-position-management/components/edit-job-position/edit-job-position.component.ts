@@ -29,6 +29,7 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AddressService } from '../../../../../services/address.service';
 import { Country, Department, Municipality } from '../../../../../interfaces/person.interface';
+import { TextareaComponent } from '../../../../../components/inputs/textarea/textarea.component';
 
 @Component({
   selector: 'app-edit-job-position',
@@ -42,6 +43,7 @@ import { Country, Department, Municipality } from '../../../../../interfaces/per
     CalendarComponent,
     ButtonModule,
     ProgressSpinnerModule,
+    TextareaComponent,
   ],
   templateUrl: './edit-job-position.component.html',
   styles: ``,

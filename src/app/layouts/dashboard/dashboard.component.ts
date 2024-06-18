@@ -4,7 +4,6 @@ import { DashboardNavbarComponent } from '../../components/navbars/dashboard-nav
 import { FooterDashboardComponent } from '../../components/footers/footer-dashboard/footer-dashboard.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderStatsComponent } from '../../components/headers/header-stats/header-stats.component';
-import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimental';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,7 +16,6 @@ import { CommonModule } from '@angular/common';
     DashboardNavbarComponent,
     FooterDashboardComponent,
     HeaderStatsComponent,
-    AngularQueryDevtools,
     CommonModule,
   ],
   templateUrl: './dashboard.component.html',

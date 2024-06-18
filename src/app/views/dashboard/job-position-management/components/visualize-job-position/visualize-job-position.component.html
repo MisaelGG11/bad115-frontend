@@ -4,7 +4,7 @@
   </div>
 } @else {
   <div class="p-4 sm:p-12">
-    <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-2">
+    <div class="flex flex-col lg:flex-row lg:items-center items-start justify-between gap-3 mb-2">
       <div class="flex items center gap-3">
         <img
           [src]="
@@ -20,10 +20,10 @@
           <p class="text-sm text-gray-500">{{ job?.company?.name }}</p>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row items-center gap-3 mb-3 md:mb-0">
+      <div class="flex flex-col md:flex-row md:items-start items-center gap-3 mb-3 md:mb-0">
         @if (canApply()) {
           <button
-            class="bg-emerald-600 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:text-base"
+            class="bg-emerald-600 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:text-base min-h-[3rem] min-w-[13rem]"
             (click)="showApplyJobDialog()"
           >
             Aplicar a este empleo
@@ -31,7 +31,7 @@
         }
         @if (companyRecruiter) {
           <button
-            class="flex bg-indigo-500 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:etxt-base items-center"
+            class="flex bg-indigo-500 font-semibold text-white px-3 md:px-5 py-2 md:py-3 rounded-md text-sm md:etxt-base items-center min-w-[13rem] min-h-[3rem]"
             (click)="goToApplications()"
           >
             <span class="material-symbols-outlined m-0 p-0 mr-2">visibility</span>
@@ -60,7 +60,7 @@
           </span>
         </div>
         <div class="flex flex-col gap-2 border-red-500 pb-0">
-          <p>{{ job.description }}</p>
+          <p style="white-space: pre-line">{{ job.description }}</p>
           <p><strong>Rango Salarial:</strong> {{ job.salaryRange }}</p>
           <p><strong>Experiencia:</strong> {{ getLevelExperience(job.experiencesLevel) }}</p>
           <p><strong>Ubicación:</strong> {{ jobAddress }}</p>

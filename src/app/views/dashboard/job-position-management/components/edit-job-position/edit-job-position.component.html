@@ -185,6 +185,20 @@
         }
       }
 
+      <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+        <div class="w-full">
+          <app-textarea
+            [parentForm]="form"
+            label="Descripción"
+            formControlName="description"
+            fieldName="description"
+            [rows]="5"
+            placeholder="Detalles del puesto de trabajo"
+            [required]="true"
+          ></app-textarea>
+        </div>
+      </div>
+
       <div class="flex w-full justify-end mt-3 gap-3">
         <p-button (onClick)="visible.set(false)" label="Cancelar" [outlined]="true" />
         <p-button type="submit" label="Guardar" [loading]="editJobPositionMutation.isPending()" />

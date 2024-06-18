@@ -108,7 +108,6 @@
             fieldName="street"
             placeholder="Calle de ubicación"
             formControlName="street"
-            [required]="true"
           />
         </div>
       </div>
@@ -121,7 +120,6 @@
             fieldName="numberHouse"
             placeholder="Número de casa de ubicación"
             formControlName="numberHouse"
-            [required]="true"
           />
         </div>
 
@@ -132,7 +130,6 @@
             [loading]="countriesRequest.isLoading()"
             [filter]="true"
             filterBy="label"
-            [required]="true"
             [parentForm]="form"
             fieldName="country"
             formControlName="country"
@@ -149,7 +146,6 @@
               [loading]="departmentsRequest.isLoading()"
               [filter]="true"
               filterBy="label"
-              [required]="true"
               [parentForm]="form"
               fieldName="departmentId"
               formControlName="departmentId"
@@ -163,7 +159,6 @@
               [loading]="municipalitiesRequest.isLoading()"
               [filter]="true"
               filterBy="label"
-              [required]="true"
               [parentForm]="form"
               fieldName="municipalityId"
               formControlName="municipalityId"
