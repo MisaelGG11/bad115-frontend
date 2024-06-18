@@ -76,15 +76,52 @@
       [required]="true"
     />
 
-    <app-custom-input
-      [parentForm]="form"
-      label="Contraseña"
-      placeholder="•••••••••"
-      fieldName="password"
-      formControlName="password"
-      [type]="'password'"
-      [required]="true"
-    />
+    <div class="w-full">
+      <label
+        for="password"
+        class="block uppercase text-slate-600 text-xs font-bold mb-2 dark:text-white"
+      >
+        Contraseña*
+      </label>
+      <p-password
+        id="password"
+        formControlName="password"
+        [toggleMask]="true"
+        [style]="{ width: '100%' }"
+        [inputStyleClass]="
+          passwordformField.errors !== null && passwordformField.touched
+            ? '!border-red-500  placeholder-slate-300 text-sm rounded shadow focus:ring-red-500 dark:bg-gray-700 focus:border-red-500'
+            : '!w-full !border-white text-gray-900 placeholder-slate-300 text-sm rounded shadow focus:ring-blue-500 focus:border-blue-500 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+        "
+        [inputStyle]="{ width: '100%' }"
+        promptLabel="Escoge una contraseña segura"
+        weakLabel="Contraseña débil"
+        mediumLabel="Contraseña media"
+        strongLabel="Contraseña segura"
+        strongRegex="^(?=.*[A-Z])(?=.*[!@#\$%\^\&*\)\(+=._-])(?=.*[0-9])(?=.{8,})([A-Za-z].*)$"
+      >
+        <ng-template pTemplate="header">
+          <h6 class="font-semibold">Ingresa una contraseña</h6>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <hr class="mt-1" />
+          <p class="mt-2 font-semibold">Sugerencias:</p>
+          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5; list-style-type: disc">
+            <li>Debe tener al menos 8 caracteres</li>
+            <li>Debe tener al menos una letra mayúscula</li>
+            <li>Debe tener al menos una letra minúscula</li>
+            <li>Debe iniciar con una letra</li>
+            <li>Debe tener al menos un número</li>
+            <li>Debe tener al menos un carácter especial</li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <app-input-errors
+        [formField]="passwordformField"
+        fieldName="contraseña"
+        propertyName="password"
+      ></app-input-errors>
+    </div>
 
     <div class="text-center mt-6">
       <button

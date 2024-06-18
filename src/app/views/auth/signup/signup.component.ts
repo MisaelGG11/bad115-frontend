@@ -20,11 +20,25 @@ import { Session, UserData, UserDataCompany } from '../../../interfaces/user.int
 import { Observable } from 'rxjs';
 import { LOCAL_STORAGE } from '../../../utils/constants.utils';
 import { CompanyService } from '../../../services/company.service';
+import { passwordEnforce } from '../../../validators/password-enforce-validators';
+import { PasswordModule } from 'primeng/password';
+import { CalendarComponent } from '../../../components/inputs/calendar/calendar.component';
+import { SelectComponent } from '../../../components/inputs/select/select.component';
+import { InputErrorsComponent } from '../../../components/inputs/input-errors/input-errors.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, CustomInputComponent, CalendarModule, DropdownModule],
+  imports: [
+    ReactiveFormsModule,
+    CustomInputComponent,
+    CalendarComponent,
+    SelectComponent,
+    InputErrorsComponent,
+    CalendarModule,
+    DropdownModule,
+    PasswordModule,
+  ],
   templateUrl: './signup.component.html',
   styles: ``,
 })
@@ -46,16 +60,21 @@ export class SignupComponent {
       { label: 'Femenino', value: 'F' },
     ];
 
-    this.form = this.fb.group({
-      email: new FormControl<string>('', [Validators.required, Validators.email]),
-      password: new FormControl<string>('', Validators.required),
-      firstName: new FormControl<string>('', [Validators.required, Validators.maxLength(50)]),
-      lastName: new FormControl<string>('', Validators.required),
-      middleName: new FormControl<string>(''),
-      secondLastName: new FormControl<string>(''),
-      birthday: new FormControl<Date>(new Date(), Validators.required),
-      gender: new FormControl<string>('', Validators.required),
-    });
+    this.form = this.fb.group(
+      {
+        email: new FormControl<string>('', [Validators.required, Validators.email]),
+        password: new FormControl<string>('', Validators.required),
+        firstName: new FormControl<string>('', [Validators.required, Validators.maxLength(50)]),
+        lastName: new FormControl<string>('', Validators.required),
+        middleName: new FormControl<string>(''),
+        secondLastName: new FormControl<string>(''),
+        birthday: new FormControl<Date>(new Date(), Validators.required),
+        gender: new FormControl<string>('', Validators.required),
+      },
+      {
+        validators: passwordEnforce,
+      },
+    );
 
     this.session$ = this.store.select('session');
     this.session$.subscribe((session) => {
@@ -79,6 +98,7 @@ export class SignupComponent {
   }
 
   async submit() {
+    this.form.markAllAsTouched();
     if (this.form.valid) {
       const response = await this.authService.signup(this.form.value);
 
@@ -94,5 +114,9 @@ export class SignupComponent {
         }, 2500);
       }
     }
+  }
+
+  get passwordformField() {
+    return this.form.get('password') as FormControl;
   }
 }

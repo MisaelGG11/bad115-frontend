@@ -25,6 +25,9 @@ import { phoneRegex } from '../../../utils/regex.utils';
 import { CompanyService } from '../../../services/company.service';
 import { AuthService } from '../../../services/auth.service';
 import { CustomInputMaskComponent } from '../../../components/inputs/custom-input-mask/custom-input-mask.component';
+import { passwordEnforce } from '../../../validators/password-enforce-validators';
+import { PasswordModule } from 'primeng/password';
+import { InputErrorsComponent } from '../../../components/inputs/input-errors/input-errors.component';
 
 @Component({
   selector: 'app-create-company',
@@ -36,6 +39,8 @@ import { CustomInputMaskComponent } from '../../../components/inputs/custom-inpu
     SelectComponent,
     TextareaComponent,
     CustomInputMaskComponent,
+    InputErrorsComponent,
+    PasswordModule,
   ],
   templateUrl: './create-company.component.html',
   styles: ``,
@@ -61,17 +66,22 @@ export class CreateCompanyComponent {
       { label: 'Gran Empresa', value: 'large' },
     ];
 
-    this.form = this.fb.group({
-      name: new FormControl<string>('', [Validators.required, Validators.maxLength(50)]),
-      size: new FormControl<string>('', Validators.required),
-      countryId: new FormControl<string>('', Validators.required),
-      email: new FormControl<string>('', [Validators.required, Validators.email]),
-      password: new FormControl<string>('', Validators.required),
-      description: new FormControl<string>(''),
-      website: new FormControl<string>(''),
-      phone: new FormControl<string>('', Validators.pattern(phoneRegex)),
-      type: new FormControl<string>(''),
-    });
+    this.form = this.fb.group(
+      {
+        name: new FormControl<string>('', [Validators.required, Validators.maxLength(50)]),
+        size: new FormControl<string>('', Validators.required),
+        countryId: new FormControl<string>('', Validators.required),
+        email: new FormControl<string>('', [Validators.required, Validators.email]),
+        password: new FormControl<string>('', Validators.required),
+        description: new FormControl<string>(''),
+        website: new FormControl<string>(''),
+        phone: new FormControl<string>('', Validators.pattern(phoneRegex)),
+        type: new FormControl<string>(''),
+      },
+      {
+        validators: passwordEnforce,
+      },
+    );
 
     this.session$ = this.store.select('session');
     this.session$.subscribe((session) => {
@@ -123,5 +133,9 @@ export class CreateCompanyComponent {
         }, 2500);
       }
     }
+  }
+
+  get passwordformField() {
+    return this.form.get('password') as FormControl;
   }
 }
