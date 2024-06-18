@@ -8,7 +8,10 @@ import { EditRequirementsComponent } from './components/edit-requirements/edit-r
 import { EditTechnicalSkillsComponent } from './components/edit-technical-skills/edit-technical-skills.component';
 import { EditLanguageSkillsComponent } from './components/edit-language-skills/edit-language-skills.component';
 import { Company } from '../../../../../interfaces/company.interface';
-import { getPersonLocalStorage } from '../../../../../utils/local-storage.utils';
+import {
+  getCompanyLocalStorage,
+  getPersonLocalStorage,
+} from '../../../../../utils/local-storage.utils';
 import { CreateJobApplicationComponent } from '../create-job-application/create-job-application.component';
 import { GlobalFunctionsService } from '../../../../../utils/services/global-functions.service';
 
@@ -44,6 +47,8 @@ export class VisualizeJobPositionComponent {
   person = getPersonLocalStorage();
   job!: any;
   jobAddress: string = '';
+  private company: Company = getCompanyLocalStorage();
+  showAddJobPositionButton = Object.keys(this.company).length === 0;
 
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
     if (changes['jobPositionId'] && !changes['jobPositionId'].isFirstChange()) {

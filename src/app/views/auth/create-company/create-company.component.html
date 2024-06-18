@@ -41,11 +41,12 @@
 
     <div class="flex flex-wrap lg:flex-nowrap gap-2 w-full">
       <div class="w-full lg:w-1/2">
-        <app-custom-input
+        <app-custom-input-mask
           [parentForm]="form"
           label="Teléfono de organización"
           formControlName="phone"
           fieldName="phone"
+          mask="9999-9999"
           placeholder="0000-0000"
           [type]="'tel'"
         />

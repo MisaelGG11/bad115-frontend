@@ -24,6 +24,7 @@ import { Observable } from 'rxjs';
 import { phoneRegex } from '../../../utils/regex.utils';
 import { CompanyService } from '../../../services/company.service';
 import { AuthService } from '../../../services/auth.service';
+import { CustomInputMaskComponent } from '../../../components/inputs/custom-input-mask/custom-input-mask.component';
 
 @Component({
   selector: 'app-create-company',
@@ -34,6 +35,7 @@ import { AuthService } from '../../../services/auth.service';
     CalendarComponent,
     SelectComponent,
     TextareaComponent,
+    CustomInputMaskComponent,
   ],
   templateUrl: './create-company.component.html',
   styles: ``,

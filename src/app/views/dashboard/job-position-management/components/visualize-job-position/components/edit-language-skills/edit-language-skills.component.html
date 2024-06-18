@@ -1,8 +1,8 @@
 <p-dialog
-  header="Editar habilidades técnicas del puesto"
+  header="Editar habilidades de lenguaje del puesto"
   [(visible)]="visible"
   [modal]="true"
-  [breakpoints]="{ '1199px': '80vw', '575px': '90vw' }"
+  [breakpoints]="{ '1199px': '80vw', '575px': '95vw' }"
   [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
@@ -11,12 +11,12 @@
     <form [formGroup]="form" (submit)="submit()" class="w-full gap-2">
       <div class="flex flex-wrap flex-col lg:flex-nowrap w-full gap-2 mt-4">
         <div class="flex flex-col lg:flex-row justify-between items-center">
-          <p class="text-lg font-bold mb-4">Habilidades de lenguaje requeridas</p>
+          <p class="text-lg font-bold mb-4">Habilidades de lenguaje asignadas</p>
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full w-64"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-[15px] rounded-full"
             (click)="addlanguageSkill($event)"
           >
-            Agregar habilidad de lenguaje
+            <span class="material-symbols-outlined">add</span>
           </button>
         </div>
         <div
@@ -86,7 +86,7 @@
         </div>
       </div>
 
-      <div class="flex w-full justify-end mt-3">
+      <div class="flex w-full justify-end mt-5">
         <p-button
           type="submit"
           label="Guardar"

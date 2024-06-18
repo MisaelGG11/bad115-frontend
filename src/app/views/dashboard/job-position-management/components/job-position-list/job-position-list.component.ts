@@ -97,6 +97,7 @@ export class JobPositionListComponent {
     companyId: this.company ? this.company.id : null,
   };
   roles = this.global.getRoles();
+  showAddJobPositionButton = Object.keys(this.company).length > 0;
 
   constructor() {}
 
