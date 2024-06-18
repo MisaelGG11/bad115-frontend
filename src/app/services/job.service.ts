@@ -14,6 +14,7 @@ import {
   TechnicalSkillDto,
   updateJobApplicationDto,
 } from './interfaces/job.dto';
+import { CreateAddressDto } from './interfaces/person.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -189,5 +190,13 @@ export class JobService {
     });
 
     return response.data;
+  }
+
+  async updateAddressJobPosition(
+    jobPositionId: string,
+    addressId: string,
+    createAddressDto: CreateAddressDto,
+  ): Promise<void> {
+    await network.put(`/job-positions/${jobPositionId}/addresses/${addressId}`, createAddressDto);
   }
 }

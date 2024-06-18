@@ -109,7 +109,81 @@
             [minDate]="tomorrow"
           ></app-calendar>
         </div>
+
+        @if (jobPositionHasAddress) {
+          <div class="w-full lg:w-1/2">
+            <app-custom-input
+              [parentForm]="form"
+              label="Calle"
+              fieldName="street"
+              placeholder="Calle de ubicación"
+              formControlName="street"
+              [required]="true"
+            />
+          </div>
+        }
       </div>
+
+      @if (jobPositionHasAddress) {
+        <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+          <div class="w-full lg:w-1/2">
+            <app-custom-input
+              [parentForm]="form"
+              label="Número de casa"
+              fieldName="numberHouse"
+              placeholder="Número de casa de ubicación"
+              formControlName="numberHouse"
+              [required]="true"
+            />
+          </div>
+
+          <div class="w-full lg:w-1/2">
+            <app-select
+              label="País de ubicación"
+              [selectOptions]="countriesOptions"
+              [loading]="countriesRequest.isLoading()"
+              [filter]="true"
+              filterBy="label"
+              [required]="true"
+              [parentForm]="form"
+              fieldName="country"
+              formControlName="country"
+            ></app-select>
+          </div>
+        </div>
+
+        @if (form.get('countryName')?.value === 'El Salvador') {
+          <div class="flex flex-wrap lg:flex-nowrap w-full gap-2 mt-4">
+            <div class="w-full lg:w-1/2">
+              <app-select
+                label="Departamento de ubicación"
+                [selectOptions]="departmentsOptions"
+                [loading]="departmentsRequest.isLoading()"
+                [filter]="true"
+                filterBy="label"
+                [required]="true"
+                [parentForm]="form"
+                fieldName="departmentId"
+                formControlName="departmentId"
+              ></app-select>
+            </div>
+
+            <div class="w-full lg:w-1/2">
+              <app-select
+                label="Municipio de ubicación"
+                [selectOptions]="municipalitiesOptions"
+                [loading]="municipalitiesRequest.isLoading()"
+                [filter]="true"
+                filterBy="label"
+                [required]="true"
+                [parentForm]="form"
+                fieldName="municipalityId"
+                formControlName="municipalityId"
+              ></app-select>
+            </div>
+          </div>
+        }
+      }
 
       <div class="flex w-full justify-end mt-3 gap-3">
         <p-button (onClick)="visible.set(false)" label="Cancelar" [outlined]="true" />
