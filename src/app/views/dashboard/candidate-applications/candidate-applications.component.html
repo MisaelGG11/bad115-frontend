@@ -1,0 +1,46 @@
+<div class="w-full p-4">
+  <div class="flex flex-col md:flex-row w-full justify-between gap-2 mb-3">
+    <div class="mt-1 font-bold text-xl md:text-2xl">
+      <h1>Mis aplicaciones de empleo</h1>
+    </div>
+  </div>
+
+  <div class="w-full mt-7">
+    <app-data-table
+      [columns]="columns"
+      [rows]="dataTable"
+      [haveActions]="true"
+      [headerAlign]="'left'"
+      [showPagination]="true"
+      [pagination]="pagination"
+      (setPagination)="paginatePage($event)"
+    >
+      <ng-template #actions let-rowData>
+        <div class="flex justify-center items-center gap-2.5">
+          @for (action of actionsList; track action.label) {
+            @if (action.permission) {
+              <button
+                type="button"
+                class="bg-transparent rounded-full"
+                [pTooltip]="action.label"
+                tooltipPosition="top"
+                showDelay="300"
+                hideDelay="300"
+                (click)="action.onClick(rowData)"
+              >
+                <span [ngClass]="'material-symbols-outlined ' + action.iconColor">
+                  {{ action.icon }}
+                </span>
+              </button>
+            }
+          }
+        </div>
+      </ng-template>
+    </app-data-table>
+  </div>
+  <app-visualize-candidate-application
+    [jobApplication]="selectedJobApplication()"
+    [visible]="showVisualizeModal"
+  >
+  </app-visualize-candidate-application>
+</div>

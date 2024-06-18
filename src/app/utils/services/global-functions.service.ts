@@ -81,6 +81,13 @@ export class GlobalFunctionsService {
             description: 'Ver la red de usuarios y empleos de TalentHub',
             color: 'text-blue-500',
           },
+          {
+            name: 'Vacantes aplicadas',
+            path: '/dashboard/vacantes-aplicadas',
+            icon: sidebar ? 'fa fa-file-alt' : 'description',
+            description: 'Ver las vacantes a las que has aplicado',
+            color: 'text-yellow-500',
+          },
         ];
       }
     }

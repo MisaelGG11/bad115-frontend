@@ -64,6 +64,10 @@ export interface JobApplicationCandidate {
   createdAt: string;
 }
 
+export interface JobApplicationJobPosition extends JobApplicationCandidate {
+  jobPosition: JobPosition;
+}
+
 export interface Meeting {
   id: string;
   link: string;

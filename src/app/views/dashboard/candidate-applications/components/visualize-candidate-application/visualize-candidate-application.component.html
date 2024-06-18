@@ -1,0 +1,133 @@
+<p-dialog
+  header="Detalles de aplicación"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex w-full">
+    <div class="p-4 w-full bg-white shadow-md rounded-md">
+      <h2 class="text-xl font-bold mb-7 text-center">Información de la aplicación de empleo</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 mb-4 items-center justify-items-center gap-4">
+        <strong>Estado:</strong>
+        <div class="grid">
+          <span
+            class="flex justify-center font-medium text-center py-2 px-5 rounded-full shadow"
+            [ngClass]="{
+              'bg-yellow-100 text-yellow-800 text-sm dark:bg-yellow-900 dark:text-yellow-300':
+                jobApplication?.status === 'Aplicada',
+              'bg-red-100 text-red-800 text-sm dark:bg-red-900 dark:text-red-300':
+                jobApplication?.status === 'Descartado',
+              'bg-green-100 text-green-800 text-sm dark:bg-green-900 dark:text-green-300':
+                jobApplication?.status === 'Contratado',
+              'bg-indigo-100 text-indigo-800 text-sm dark:bg-indigo-900 dark:text-indigo-300':
+                jobApplication?.status === 'En_Proceso' ||
+                jobApplication?.status === 'Entrevista_final'
+            }"
+          >
+            {{ jobApplication?.status }}
+          </span>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-semibold">Detalles del empleo</h3>
+      <hr class="border-[1px] border-slate-800 mb-4" />
+
+      <div class="p-4">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-2">
+          <div class="flex items center gap-3">
+            <h3 class="font-bold text-lg">{{ jobApplication?.jobPosition?.name }}</h3>
+          </div>
+        </div>
+        <div class="flex flex-col w-full justify-between">
+          <div>
+            <div class="flex flex-wrap mb-2 gap-2 justify-center">
+              <span
+                class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+              >
+                {{ getModality(jobApplication?.jobPosition?.modality) }}
+              </span>
+              <span
+                class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
+              >
+                {{ getContractType(jobApplication?.jobPosition?.contractType) }}
+              </span>
+              <span
+                class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
+              >
+                {{ getWorkday(jobApplication?.jobPosition?.workday) }}
+              </span>
+            </div>
+            <div class="flex flex-col gap-2 border-red-500 pb-0">
+              <p>{{ jobApplication?.jobPosition?.description }}</p>
+              <p><strong>Rango Salarial:</strong> {{ jobApplication?.jobPosition?.salaryRange }}</p>
+              <p>
+                <strong>Experiencia:</strong>
+                {{ getLevelExperience(jobApplication?.jobPosition?.experiencesLevel) }}
+              </p>
+              <div>
+                <span
+                  class="bg-slate-100 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300"
+                  ><strong>Disponible hasta:</strong>
+                  {{ jobApplication?.jobPosition?.closeTime | date }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 mb-4 items-center justify-items-center gap-4">
+        <strong>Detalle del empleo:</strong>
+        <div class="mt-1">
+          <a
+            [routerLink]="['/dashboard/red-talenthub/empleos/', jobApplication?.jobPosition?.id]"
+            target="_blank"
+            class="flex border-2 items-center rounded-full bg-white font-normal text-sm border-on-secondary px-3 py-1 gap-1 h-auto justify-center"
+          >
+            <span class="material-symbols-outlined">visibility</span>
+            Ver información del empleo
+          </a>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-semibold">Reuniones programadas</h3>
+      <hr class="border-[1px] border-slate-800 mb-4" />
+      @if (jobApplication?.meeting?.length === 0) {
+        <p>No dispone de reuniones programadas</p>
+      } @else {
+        @for (meet of jobApplication?.meeting; track meet.id) {
+          <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-emerald-600" style="font-size: 60px">
+              event
+            </span>
+            <div>
+              <p class="text-sm font-semibold mb-1 text-emerald-600">
+                {{ meet.executionDate | date: 'MMM d, y -  h:mm a' }}
+              </p>
+              <a
+                [href]="meet.link"
+                target="_blank"
+                class="flex border-[1px] items-center rounded-full bg-white font-normal text-xs text-emerald-600 border-emerald-600 px-3 py-1 gap-1 h-auto justify-center"
+              >
+                <span class="material-symbols-outlined" style="font-size: 12px">videocam</span>
+                Ingresar a la reunión
+              </a>
+            </div>
+          </div>
+          <hr class="border-[1px] border-slate-600 my-5 w-32 mx-auto" />
+        }
+      }
+      @if (jobApplication?.recomendation) {
+        <h3 class="text-lg font-semibold mt-4">Recomendación brindada por reclutador</h3>
+        <hr class="border-[1px] border-slate-800 mb-4" />
+        <div class="bg-white shadow-md rounded-md mt-3 p-4">
+          <p class="text-justify">{{ jobApplication?.recomendation }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</p-dialog>

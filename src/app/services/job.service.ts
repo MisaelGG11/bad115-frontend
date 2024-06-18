@@ -145,6 +145,23 @@ export class JobService {
     return applications.data;
   }
 
+  async getApplicationsByCandidate(
+    candidateId: string,
+    { page, perPage }: PaginationParams,
+  ): Promise<PaginatedResponse<JobApplicationCandidate>> {
+    const applications = await network.get<PaginatedResponse<JobApplicationCandidate>>(
+      `/candidates/${candidateId}/job-applications`,
+      {
+        params: {
+          page,
+          perPage,
+        },
+      },
+    );
+
+    return applications.data;
+  }
+
   async getJobApplication(jobApplicationId: string): Promise<JobApplicationCandidate> {
     const application = await network.get<JobApplicationCandidate>(
       `/job-applications/${jobApplicationId}`,
